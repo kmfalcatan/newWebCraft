@@ -7,10 +7,11 @@
 
     <link rel="stylesheet" href="/newWebCraft/css/inventory.css">
     <link rel="stylesheet" href="/newWebCraft/css/index.css">
+    <link rel="stylesheet" href="/newWebCraft/css/userList.css">
 </head>
 <body>
     <div class="container3">
-        <div class="sideBarContainer6">
+        <div class="sideBarContainer6" style="display: none;">
             <div class="userContainer">
                 <div class="subUserContainer">
                     <div class="userPictureContainer">
@@ -169,7 +170,7 @@
             <div class="subContainer1">
                 <div class="filterContainer1">
                     <div class="inventoryNameContainer">
-                        <p>Inventory</p>
+                        <p>USER LIST</p>
                     </div>
 
                     <div class="subFilterContainer1">
@@ -178,188 +179,125 @@
                         </div>
 
                         <div class="trackContainer">
-                            <div class="trackButton">
-                                <button onclick="track()" class="trackButton">Track Unit</button>
-                                <div class="subTrackContainer" style="display: none;">
-                                    <div class="searhUnitContainer">
-                                        <p>Enter Unit ID:</p>
-                                    </div>
-
-                                    <div class="searchUnitContainer">
-                                        <input type="text" class="searchBar1">
-                                    </div>
-
-                                    <div class="buttonContainer2">
-                                        <div onclick="track()" class="button3">
-                                            <p>Cancel</p>
-                                        </div>
-
-                                        <div class="button4" onclick="track1()">
-                                            <p>Track</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <button class="trackButton1">Sort <img src="" alt=""></button>
-                            <button class="trackButton1">New  Property <span class="plusIcon">+</span></button>
-
+                            <button onclick="popUp2()" class="trackButton1">Add user <span class="plusIcon">+</span></button>
                         </div>
                     </div>
                 </div>
 
-                <div class="tableContainer2">
-                    <div class="unitContainer">
-                        <div class="unitList">
-                            <p>Unit list</p>
+                <div class="userListContainer">
+                    <div class="subUserListContainer">
+                        <div class="userContainer4">
+                            <div class="subUserContainer1">
+                                <div class="imageContainer4">
+                                    <div class="subImageContainer4">
+                                        <img class="image4" src="" alt="">
+                                    </div>
+                                </div>
+    
+                                <div class="userNameContainer">
+                                    <p>khriz marr falcatan</p>
+                                </div>
+                            </div>
+
+                            <div class="viewButtonContainer">
+                                <button class="viewButton">View details</button>
+                            </div>
                         </div>
                     </div>
 
-                    <div class="tableContainer">
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>#</th>
-                                    <th>ARTICLE</th>
-                                    <th>PROPERTY NUMBER</th>
-                                    <th>ACCOUNT CODE</th>
-                                    <th>UNITS</th>
-                                    <th>UNIT VALUE</th>
-                                    <th>TOTAL VALUE</th>
-                                    <th>REMARKS</th>
-                                    <th>VIEW</th>
-                                </tr>
-                            </thead>
-        
-                            <tbody id="tblBody">
-                              
-                            </tbody>
-                        </table>
-                   </div>
+                    <div class="addUserContainer" style="display: none;">
+                        <div class="addUserContainer">
+                            <div class="subAddUserContainer">
+                                <div class="trackNameContainer">
+                                    <div class="subTrackNameContainer">
+                                        <p>ADD NEW USER</p>
+                                    </div>
+                                </div>
+
+                                <div class="infoContainer2">
+                                    <div class="userInfoContainer">
+                                        <div class="textContainer">
+                                            <p>Last name:</p>
+                                        </div>
+    
+                                        <div class="inputNameContainer">
+                                            <input type="text" class="inputName">
+                                        </div>
+                                    </div>
+    
+                                    <div class="userInfoContainer">
+                                        <div class="textContainer">
+                                            <p>First name:</p>
+                                        </div>
+    
+                                        <div class="inputNameContainer">
+                                            <input type="text" class="inputName">
+                                        </div>
+                                    </div>
+    
+                                    <div class="userInfoContainer">
+                                        <div class="textContainer">
+                                            <p>Middle name:</p>
+                                        </div>
+    
+                                        <div class="inputNameContainer">
+                                            <input type="text" class="inputName">
+                                        </div>
+                                    </div>
+    
+                                    <div class="userInfoContainer">
+                                        <div class="textContainer">
+                                            <p>Designation:</p>
+                                        </div>
+    
+                                        <div class="inputNameContainer">
+                                            <input type="text" class="inputName">
+                                        </div>
+                                    </div>
+    
+                                    <div class="userInfoContainer">
+                                        <div class="textContainer">
+                                            <p>User name:</p>
+                                        </div>
+    
+                                        <div class="inputNameContainer">
+                                            <input type="text" class="inputName">
+                                        </div>
+                                    </div>
+    
+                                    <div class="userInfoContainer">
+                                        <div class="textContainer">
+                                            <p>Default password:</p>
+                                        </div>
+    
+                                        <div class="inputNameContainer">
+                                            <input type="text" class="inputName">
+                                        </div>
+                                    </div>
+    
+                                    <div class="userInfoContainer">
+                                        <div class="textContainer">
+                                            <p>Confirm password:</p>
+                                        </div>
+    
+                                        <div class="inputNameContainer">
+                                            <input type="text" class="inputName">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="buttonContainer4">
+                                    <button onclick="popUp2()" class="button3">Cancel</button>
+                                    <button class="button4">Save</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>  
-
-            <div class="trackUnitContainer" style="display: none;">
-                <div class="trackUnitContainer">
-                    <div class="subTrackUnitContainer">
-                        <div class="trackNameContainer">
-                            <div class="subTrackNameContainer">
-                                <p>TRACK UNIT</p>
-                            </div>
-                        </div>
-    
-                        <div class="unitInfoContainer">
-                            <div class="subUnitInfoContainer">
-                                <div class="infoContainer1">
-                                    <div class="imageContainer1">
-                                        <div class="subImageContainer1">
-                                            <img class="image12" src="" alt="">
-                                        </div>
-    
-                                        <div class="equipNameContainer">
-                                            <p>Equipment Name</p>
-                                        </div>
-                                    </div>
-    
-                                    <div class="subInfoContainer1">
-                                        <div class="unitIDContainer">
-                                            <div class="unitID">
-                                                <p>Unit ID:</p>
-    
-                                                <div class="unitInputContainer">
-    
-                                                </div>
-                                            </div>
-    
-                                            <div class="unitID">
-                                                <p>Deployment:</p>
-    
-                                                <div class="unitInputContainer">
-    
-                                                </div>
-                                            </div>
-                                        </div>
-    
-                                        <div class="unitIDContainer">
-                                            <div class="unitID">
-                                                <p>Current end user:</p>
-    
-                                                <div class="unitInputContainer">
-    
-                                                </div>
-                                            </div>
-    
-                                            <div class="unitID">
-                                                <p>Designation:</p>
-    
-                                                <div class="unitInputContainer">
-    
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                
-                                <div>
-                                    <div class="oldUserContainer">
-                                        <div class="oldUserTextContainer">
-                                            <p>OLD END USER</p>
-                                        </div>
-    
-                                        <div class="unitIDContainer">
-                                            <div class="unitID">
-                                                <p>Name:</p>
-    
-                                                <div class="unitInputContainer">
-    
-                                                </div>
-                                            </div>
-    
-                                            <div class="unitID">
-                                                <p>Year:</p>
-    
-                                                <div class="unitInputContainer">
-    
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-    
-                                    <div class="oldUserContainer">
-                                        <div class="oldUserTextContainer">
-                                            <p>HISTORY</p>
-                                        </div>
-    
-                                        <div class="unitIDContainer">
-                                            <div class="unitID">
-                                                <p>Issue:</p>
-    
-                                                <div class="unitInputContainer">
-    
-                                                </div>
-                                            </div>
-    
-                                            <div class="unitID">
-                                                <p>Date retrieved:</p>
-    
-                                                <div class="unitInputContainer">
-    
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-    
-                        <div class="buttonContainer3">
-                            <button onclick="track1()" class="button5">Cancel</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
     </div>
 
-    <script src="/newWebCraft/js/inventory.js"></script>
+    <script src="/newWebCraft/js/userList.js"></script>
 </body>
 </html>
