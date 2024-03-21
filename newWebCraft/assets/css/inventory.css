@@ -10,26 +10,47 @@
     flex-direction: row;
 }
 
+.viewButton6{
+    height: 2rem;
+    width: 5rem;
+    background-color:rgb(2, 116, 200);
+    color: snow;
+    border: none;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: all 0.15s;
+}
+
+.viewButton6:hover{
+    border: solid rgb(2, 116, 200) 1px;
+    background-color: transparent;
+    color: rgb(2, 116, 200);
+}
+
+.viewButton6:active{
+    transform: scale(0.9);
+}
+
 .sideBarContainer6{
     outline: red dashed 1px;
     height: 100%;
-    width: 30rem;
+    width: 20rem;
     display: flex;
     flex-direction: column;
     background-color:rgb(2, 116, 200);
-    position: relative;
+    position: fixed;
     animation: closeSideBar 0.5s linear;
 }
 
 .openSideBar{
     outline: red dashed 1px;
     height: 100%;
-    width: 30rem;
-    margin-left: -30rem;
+    width: 20rem;
+    margin-left: -20rem;
     display: flex;
     flex-direction: column;
     background-color:rgb(2, 116, 200);
-    position: relative;
+    position: fixed;
     animation: openSideBar 0.5s linear;
 }
 
@@ -644,7 +665,7 @@ a{
 
 @keyframes closeSideBar {
     from{
-        margin-left: -30rem;
+        margin-left: -20rem;
     } to{
         margin-right: 0;
     }
@@ -655,7 +676,7 @@ a{
     from{
         margin-left: 0rem;
     } to{
-        margin-left: -30rem;
+        margin-left: -20rem;
     }
 
 }

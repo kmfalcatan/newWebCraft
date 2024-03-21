@@ -1,0 +1,98 @@
+.unitContainer1{
+    outline: red dashed 1px;
+    height: 20rem;
+    width: 93%;
+    background-color: rgba(255, 250, 250, 0.582);
+    display: flex;
+    flex-direction: column;
+}
+
+.subUnitContainer1{
+    outline: red dashed 1px;
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    gap: 0.5rem;
+    justify-content: center;
+    align-items: center;
+}
+
+.imageContainer2{
+    outline: red dashed 1px;
+    height: 5rem;
+    width: 5rem;
+    margin-top: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.subImageContainer2{
+    outline: red dashed 1px;
+    height: 100%;
+    width: 100%;
+    border-radius: 5rem;
+    background-color:rgb(2, 116, 200);
+}
+
+.image13{
+    height: 100%;
+    width: 100%;
+    border-radius: 5rem;
+}
+
+.userNameContainer{
+    outline: red dashed 1px;
+    height: 5rem;
+    width: 45%;
+    margin-top: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.subUserNameContainer{
+    outline: red dashed 1px;
+    height: 2.5rem;
+    width: 100%;
+    border-radius: 0.5rem;
+    border: solid gray 1px;
+    background-color: snow;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+}
+
+.designationContainer{
+    outline: red dashed 1px;
+    height: 3rem;
+    width: 100%;
+    border-radius: 0.5rem;
+    border: solid gray 1px;
+    background-color: snow;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+}
+
+label{
+    margin-bottom: 0.5rem;
+    font-size: 1.2rem;
+}
+
+/*laptop*/
+@media only screen and (min-width: 1025px){
+    .unitContainer1{
+        display: flex;
+        flex-direction: row;
+        gap: 1rem;
+        height: 7rem;
+    }
+
+    .userNameContainer{
+        width: 70%;
+    }
+}
