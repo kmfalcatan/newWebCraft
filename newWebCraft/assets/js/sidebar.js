@@ -3,12 +3,10 @@ var hideButton = document.querySelector('.arrowContainer');
 var rotateImg = document.querySelector('.hideIcon');
 
 hideButton.addEventListener('click', function() {
-    // Add the class to the element when the button is clicked
     if (sidebar.classList.contains('sideBarContainer6')) {
         sidebar.classList.remove('sideBarContainer6');
         sidebar.classList.add('openSideBar');
     } else {
-        // If it hasn't, add the class
         sidebar.classList.add('sideBarContainer6');
         sidebar.classList.remove('openSideBar');
     }
@@ -30,32 +28,6 @@ function setting1(){
     if(popUp.style.display === 'none'){
         popUp.style.display = 'block';
     } else {
-        popUp.style.display = 'none';
-    }
-}
-
-function track(){
-    var container = document.querySelector('.trackButton');
-    var popUp = document.querySelector('.subTrackContainer');
-    var close = document.querySelector('.button3');
-
-    if(popUp.style.display === 'none'){
-        popUp.style.display = 'block';
-    } else if(popUp.style.display === 'block'){
-        popUp.style.display = 'none';
-    } else{
-        popUp.style.display = 'none';
-    }
-}
-
-function track1(){
-    var popUp = document.querySelector('.trackUnitContainer');
-
-    if(popUp.style.display === 'none'){
-        popUp.style.display = 'block';
-    } else if(popUp.style.display === 'block'){
-        popUp.style.display = 'none';
-    } else{
         popUp.style.display = 'none';
     }
 }
