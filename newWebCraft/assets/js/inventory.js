@@ -25,3 +25,27 @@ function track1(){
         popUp.style.display = 'none';
     }
 }
+
+function track2(){
+    var popUp1 = document.querySelector('.subUnitsContainer');
+
+    if(popUp1.style.display === 'none'){
+        popUp1.style.display = 'block';
+    } else if(popUp1.style.display === 'block'){
+        popUp1.style.display = 'none';
+    } else{
+        popUp1.style.display = 'none';
+    }
+}
+
+function track3(){
+    var popUp1 = document.querySelector('.viewUnitContainer');
+
+    if(popUp1.style.display === 'none'){
+        popUp1.style.display = 'block';
+    } else if(popUp1.style.display === 'block'){
+        popUp1.style.display = 'none';
+    } else{
+        popUp1.style.display = 'none';
+    }
+}
