@@ -5,13 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 
-    <link rel="stylesheet" href="../../assets/css/inventory.css">
     <link rel="stylesheet" href="../../assets/css/index.css">
-    <link rel="stylesheet" href="../../assets/css/userList.css">
+    <link rel="stylesheet" href="../../assets/css/inventory.css">
+    <link rel="stylesheet" href="../../assets/css/newEquipOtherInfo.css">
+    <link rel="stylesheet" href="../../assets/css/viewEquip.css">
 </head>
 <body>
     <div class="container3">
-        <div class="sideBarContainer6">
+        <div class="sideBarContainer6" style="z-index: 1;">
             <div class="userContainer">
                 <div class="subUserContainer">
                     <div class="userPictureContainer">
@@ -175,138 +176,124 @@
                 </div>
             </div>
 
-            <div class="subContainer1">
-                <div class="filterContainer1">
-                    <div class="inventoryNameContainer">
-                        <p>USER LIST</p>
-                    </div>
-
-                    <div class="subFilterContainer1">
-                        <div class="searchContainer1">
-                            <input class="searchBar1" type="text" name="" id="">
-                        </div>
-
-                        <div class="trackContainer">
-                            <button onclick="popUp2()" class="trackButton1">Add user <span class="plusIcon">+</span></button>
-                        </div>
+            <div class="container1">
+                <div class="header">
+                    <button class="backbtn">
+                        <a href="dashboard.php?id=<?php echo $userID; ?>"><img src="../assets//img/left-arrow.png" style="width: 1.5rem; height: 1.5rem;" ></a>
+                    </button>
+                    <?php
+                        $result_article = $conn->query("SELECT article FROM equipment WHERE equipment_ID = '$equipment_ID'");
+        
+                        if ($result_article->num_rows > 0 && $article = $result_article->fetch_assoc()) {
+                            echo "<h2>{$article['article']} available unit list</h2>";
+                        }
+                    ?>
+                <div class="searchContainer">
+                    <input class="searchBar" type="text" id="searchInput" placeholder="Search..." oninput="liveSearch()">
+                </div>
+                </div>
+                <div class="subContainer">
+                <?php
+                $sql = "SELECT * FROM units WHERE equipment_ID = '$equipment_ID' LIMIT $offset, $recordsPerPage";
+                $result_units = $conn->query($sql);
+        
+                while ($row1 = $result_units->fetch_assoc()) {
+                    $equipment_name = $row1['equipment_name'];
+                    $unit_ID = $row1['unit_ID'];
+                    $user = $row1['user'];
+                    $isNew = isEquipmentNew($equipment_ID, $conn);
+                    
+                    $unitPrefix = 'UNIT';
+                    $defaultUnitID = '0000';
+                    $unitID = $unitPrefix . '-' . str_pad($unit_ID, strlen($defaultUnitID), '0', STR_PAD_LEFT);
+                    
+                    echo "<div class='equipContainer'>";
+                    echo "<div class='subEquipContainer'>";
+                    echo "<div class='imageContainer6'>";
+                    echo "<img class='image3' src='$imageURL' alt=''>";
+                    echo "</div>";
+                    echo "<div class='infoContainer'>";
+                    echo "<div class='subInfoContainer'>";
+                    echo "<div class='statusContainer1" . ($isNew ? " new" : "") . "'>";
+                    echo "<p class='status1'>" . ($isNew ? "NEW" : "OLD") . "</p>";
+                    echo "</div>";
+                    echo "</div>";
+                    echo "<div class='subInfoContainer1'>";
+                    echo "<p class='text'><strong>$equipment_name</strong></p>";
+                    echo "</div>";
+                    echo "<div class='subInfoContainer1'>";
+                    echo "<p  class='text'>$unitID</p>";
+                    echo "</div>";
+                    echo "<div class='subInfoContainer1'>";
+                    echo "<p  class='text'>$user</p>";
+                    echo "</div>";
+        
+                    echo "<div class='subInfoContainer'>";
+                    echo "<div class='statusContainer2'>";
+                    echo "<button onclick='popup1()' class='historyButton' type='button'>History</button>";
+                    echo "</div>";
+                    echo "</div>";
+        
+                    echo "</div>";
+                    echo "</div>";
+                    echo "</div>";
+                }
+                ?>
+                
+                </div>
+                <div class="buttonContainer">
+                    <div class="next-previous">
+                        <?php
+                            $prevPage = $currentPage > 1 ? $currentPage - 1 : 1;
+                            echo "<a href='viewEquip.php?equipment_ID=$equipment_ID&id=$userID&page=$prevPage'><button class='previousbtn'>";
+                            echo "<span><img src='../assets/img/chevron-left (1).png' alt='' style='height: 1rem; width: 1rem;'></span>";
+                            echo "<span>Previous</span>";
+                            echo "</button></a>";
+                        ?>
+        
+                        <div class="pageIndicator"><?php echo $currentPage; ?></div>
+        
+                        <?php
+                            $nextPage = $currentPage + 1;
+                            echo "<a href='viewEquip.php?equipment_ID=$equipment_ID&id=$userID&page=$nextPage'><button class='nextbtn'>";
+                            echo "<span>Next</span>";
+                            echo "<span><img src='../assets/img/chevron-right.png' alt='' style='height: 1rem; width: 1rem;'></span>";
+                            echo "</button></a>";
+                        ?>
                     </div>
                 </div>
-
-                <div class="userListContainer">
-                    <div class="subUserListContainer">
-                        <div class="userContainer4">
-                            <div class="subUserContainer1">
-                                <div class="imageContainer4">
-                                    <div class="subImageContainer4">
-                                        <img class="image4" src="" alt="">
-                                    </div>
+        
+                <!-- history -->
+                <div class="container3" style="display: none;">
+                    <div class="container4">
+                        <div class="subContainer3">
+                            <div class="equipmentNameContainer">
+                                <p>Equipment history</p>
+                            </div>
+            
+                            <div class="issueContainer">
+                                <div class="subIssueContainer">
+                                    <p>Issue: Lost</p>
                                 </div>
-    
-                                <div class="userNameContainer">
-                                    <p>khriz marr falcatan</p>
+            
+                                <div class="subIssueContainer">
+                                    <p>Date: 03/03/2024</p>
                                 </div>
                             </div>
-
-                            <div class="viewButtonContainer">
-                                <button class="viewButton">View details</button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="addUserContainer" style="display: none;">
-                        <div class="addUserContainer">
-                            <div class="subAddUserContainer">
-                                <div class="trackNameContainer">
-                                    <div class="subTrackNameContainer">
-                                        <p>ADD NEW USER</p>
-                                    </div>
-                                </div>
-
-                                <div class="infoContainer2">
-                                    <div class="userInfoContainer">
-                                        <div class="textContainer">
-                                            <p>Last name:</p>
-                                        </div>
-    
-                                        <div class="inputNameContainer">
-                                            <input type="text" class="inputName">
-                                        </div>
-                                    </div>
-    
-                                    <div class="userInfoContainer">
-                                        <div class="textContainer">
-                                            <p>First name:</p>
-                                        </div>
-    
-                                        <div class="inputNameContainer">
-                                            <input type="text" class="inputName">
-                                        </div>
-                                    </div>
-    
-                                    <div class="userInfoContainer">
-                                        <div class="textContainer">
-                                            <p>Middle name:</p>
-                                        </div>
-    
-                                        <div class="inputNameContainer">
-                                            <input type="text" class="inputName">
-                                        </div>
-                                    </div>
-    
-                                    <div class="userInfoContainer">
-                                        <div class="textContainer">
-                                            <p>Designation:</p>
-                                        </div>
-    
-                                        <div class="inputNameContainer">
-                                            <input type="text" class="inputName">
-                                        </div>
-                                    </div>
-    
-                                    <div class="userInfoContainer">
-                                        <div class="textContainer">
-                                            <p>User name:</p>
-                                        </div>
-    
-                                        <div class="inputNameContainer">
-                                            <input type="text" class="inputName">
-                                        </div>
-                                    </div>
-    
-                                    <div class="userInfoContainer">
-                                        <div class="textContainer">
-                                            <p>Default password:</p>
-                                        </div>
-    
-                                        <div class="inputNameContainer">
-                                            <input type="text" class="inputName">
-                                        </div>
-                                    </div>
-    
-                                    <div class="userInfoContainer">
-                                        <div class="textContainer">
-                                            <p>Confirm password:</p>
-                                        </div>
-    
-                                        <div class="inputNameContainer">
-                                            <input type="text" class="inputName">
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="buttonContainer4">
-                                    <button onclick="popUp2()" class="button3">Cancel</button>
-                                    <button class="button4">Save</button>
+            
+                            <div class="cancelContainer">
+                                <div class="subCancelContainer">
+                                    <button onclick="popup1()" class="cancelButton" type="button">Cancel</button>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>  
+            </div>
         </div>
     </div>
 
-    <script src="../../assets/js/userList.js"></script>
+    <script src="../../assets/js/inventory.js"></script>
     <script src="../../assets/js/sidebar.js"></script>
 </body>
 </html>

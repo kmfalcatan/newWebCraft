@@ -7,11 +7,11 @@
 
     <link rel="stylesheet" href="../../assets/css/index.css">
     <link rel="stylesheet" href="../../assets/css/inventory.css">
-    <link rel="stylesheet" href="../../assets/css/endUserUnit.css">
+    <link rel="stylesheet" href="../../assets/css/bin.css">
 </head>
 <body>
     <div class="container3">
-        <div class="sideBarContainer6">
+        <div class="sideBarContainer6" style="z-index: 3;">
             <div class="userContainer">
                 <div class="subUserContainer">
                     <div class="userPictureContainer">
@@ -178,7 +178,7 @@
             <div class="subContainer1">
                 <div class="filterContainer1">
                     <div class="inventoryNameContainer">
-                        <p>END USER UNITS</p>
+                        <p>Units</p>
                     </div>
 
                     <div class="subFilterContainer1">
@@ -187,57 +187,36 @@
                         </div>
 
                         <div class="trackContainer">
+                            <div class="trackButton">
+                                <button onclick="track()" class="trackButton">Track Unit</button>
+                                <div class="subTrackContainer" style="display: none;">
+                                    <div class="searhUnitContainer">
+                                        <p>Enter Unit ID:</p>
+                                    </div>
+
+                                    <div class="searchUnitContainer">
+                                        <input type="text" class="searchBar1">
+                                    </div>
+
+                                    <div class="buttonContainer2">
+                                        <div onclick="track()" class="button3">
+                                            <p>Cancel</p>
+                                        </div>
+
+                                        <div class="button4" onclick="track1()">
+                                            <p>Track</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                             <button class="trackButton1">Sort <img src="" alt=""></button>
-                            <button class="trackButton1">Print <img src="" alt=""></button>
-                            <button class="trackButton1">Go to profile</span></button>
+                            <button class="trackButton1">New  Property <span class="plusIcon">+</span></button>
 
                         </div>
                     </div>
                 </div>
 
                 <div class="tableContainer2">
-                    <div class="unitContainer1">
-                        <div class="subUnitContainer1">
-                            <div class="imageContainer2">
-                                <div class="subImageContainer2">
-                                    <img class="image13" src="" alt="">
-                                </div>
-                            </div>
-
-                            <div class="userNameContainer">
-                                <label for="">End user:</label>
-                                <div class="subUserNameContainer">
-                                    <p>Khriz marr l falcatan</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="subUnitContainer1">
-                            <div class="userNameContainer">
-                                <label for="">Designation:</label>
-                                <div class="subUserNameContainer">
-                                    <p>Khriz marr l falcatan</p>
-                                </div>
-                            </div>
-
-                            <div class="userNameContainer">
-                                <label for="">Contact number:</label>
-                                <div class="subUserNameContainer">
-                                    <p>Khriz marr l falcatan</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="subUnitContainer1">
-                            <div class="userNameContainer">
-                                <label for="">department:</label>
-                                <div class="subUserNameContainer">
-                                    <p>Khriz marr l falcatan</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
                     <div class="tableContainer">
                         <table>
                             <thead>
@@ -264,129 +243,131 @@
                                     <td></td>
                                     <td></td>
                                     <td></td>
-                                    <td> <button class="viewButton6">View</button></td>  
+                                    <td> <button onclick="track4()" class="viewButton6">Remove</button></td>  
                                 </tr>
                             </tbody>
                         </table>
                    </div>
                 </div>
             </div>  
+        </div>
 
-            <div class="trackUnitContainer" style="display: none;">
-                <div class="trackUnitContainer">
-                    <div class="subTrackUnitContainer">
-                        <div class="trackNameContainer">
-                            <div class="subTrackNameContainer">
-                                <p>TRACK UNIT</p>
+        <div class="viewApproveContainer" style="display: none; z-index: 3;">
+            <div class="viewApproveContainer">
+                <div class="subViewApproveContainer">
+                    <div class="viewInfoContainer">
+                        <div class="imageContainer4">
+                            <div class="subImageContainer5">
+                                <img class="subImageContainer5" src="" alt="">
+                            </div>
+
+                            <div class="equipNameContainer">
+                                <p>Laptop</p>
                             </div>
                         </div>
-    
-                        <div class="unitInfoContainer">
-                            <div class="subUnitInfoContainer">
-                                <div class="infoContainer1">
-                                    <div class="imageContainer1">
-                                        <div class="subImageContainer1">
-                                            <img class="image12" src="" alt="">
-                                        </div>
-    
-                                        <div class="equipNameContainer">
-                                            <p>Equipment Name</p>
-                                        </div>
+
+                        <div class="approveInfoContainer">
+                            <div class="subApproveInfoContainer">
+                                <div class="approveContainer">
+                                    <div class="labelContainer1">
+                                        <p>User:</p>
                                     </div>
-    
-                                    <div class="subInfoContainer1">
-                                        <div class="unitIDContainer">
-                                            <div class="unitID">
-                                                <p>Unit ID:</p>
-    
-                                                <div class="unitInputContainer">
-    
-                                                </div>
-                                            </div>
-    
-                                            <div class="unitID">
-                                                <p>Deployment:</p>
-    
-                                                <div class="unitInputContainer">
-    
-                                                </div>
-                                            </div>
-                                        </div>
-    
-                                        <div class="unitIDContainer">
-                                            <div class="unitID">
-                                                <p>Current end user:</p>
-    
-                                                <div class="unitInputContainer">
-    
-                                                </div>
-                                            </div>
-    
-                                            <div class="unitID">
-                                                <p>Designation:</p>
-    
-                                                <div class="unitInputContainer">
-    
-                                                </div>
-                                            </div>
-                                        </div>
+
+                                    <div class="container4">
+                                        <p class="text1">Khriz marr L. Falcatan</p>
                                     </div>
                                 </div>
-                                
-                                <div>
-                                    <div class="oldUserContainer">
-                                        <div class="oldUserTextContainer">
-                                            <p>OLD END USER</p>
-                                        </div>
-    
-                                        <div class="unitIDContainer">
-                                            <div class="unitID">
-                                                <p>Name:</p>
-    
-                                                <div class="unitInputContainer">
-    
-                                                </div>
-                                            </div>
-    
-                                            <div class="unitID">
-                                                <p>Year:</p>
-    
-                                                <div class="unitInputContainer">
-    
-                                                </div>
-                                            </div>
-                                        </div>
+                            </div>
+
+                            <div class="subApproveInfoContainer">
+                                <div class="approveContainer">
+                                    <div class="labelContainer1">
+                                        <p>Deployment:</p>
                                     </div>
-    
-                                    <div class="oldUserContainer">
-                                        <div class="oldUserTextContainer">
-                                            <p>HISTORY</p>
-                                        </div>
-    
-                                        <div class="unitIDContainer">
-                                            <div class="unitID">
-                                                <p>Issue:</p>
-    
-                                                <div class="unitInputContainer">
-    
-                                                </div>
-                                            </div>
-    
-                                            <div class="unitID">
-                                                <p>Date retrieved:</p>
-    
-                                                <div class="unitInputContainer">
-    
-                                                </div>
-                                            </div>
-                                        </div>
+
+                                    <div class="container4">
+                                        <p class="text1">Khriz marr L. Falcatan</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="subApproveInfoContainer1">
+                                <div class="approveContainer">
+                                    <div class="labelContainer1">
+                                        <p>Property number:</p>
+                                    </div>
+
+                                    <div class="container4">
+                                        <p class="text1">Khriz marr L. Falcatan</p>
+                                    </div>
+                                </div>
+
+                                <div class="approveContainer">
+                                    <div class="labelContainer1">
+                                        <p>Account code:</p>
+                                    </div>
+
+                                    <div class="container4">
+                                        <p class="text1">Khriz marr L. Falcatan</p>
                                     </div>
                                 </div>
                             </div>
                         </div>
-    
-                        <div class="buttonContainer3">
-                            <button onclick="track1()" class="button5">Close</button>
+                    </div>
+
+                    <div class="descriptionContainer">
+                        <div class="approveContainer1">
+                            <div class="labelContainer1">
+                                <p>Account code:</p>
+                            </div>
+
+                            <div class="container5">
+                                <p class="text1">Khriz marr L. Falcatan</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="unitContainer6">
+                        <div class="subApproveInfoContainer1">
+                            <div class="approveContainer">
+                                <div class="labelContainer1">
+                                    <p>Unit ID:</p>
+                                </div>
+
+                                <div class="container4">
+                                    <p class="text1">Khriz marr L. Falcatan</p>
+                                </div>
+                            </div>
+
+                            <div class="approveContainer">
+                                <div class="labelContainer1">
+                                    <p>Issue:</p>
+                                </div>
+
+                                <div class="container4">
+                                    <p class="text1">Khriz marr L. Falcatan</p>
+                                </div>
+                            </div>
+
+                            <div class="approveContainer">
+                                <div class="labelContainer1">
+                                    <p>Problem description:</p>
+                                </div>
+
+                                <div class="container4">
+                                    <p class="text1">Khriz marr L. Falcatan</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="buttonContainer2">
+                        <div onclick="track4()" class="button3">
+                            <p>Cancel</p>
+                        </div>
+
+                        <div onclick="track4()" class="button4" onclick="track1()">
+                            <p>Remove</p>
                         </div>
                     </div>
                 </div>
@@ -395,6 +376,7 @@
     </div>
 
     <script src="../../assets/js/inventory.js"></script>
+    <script src="../../assets/js/units.js"></script>
     <script src="../../assets/js/sidebar.js"></script>
 </body>
 </html>

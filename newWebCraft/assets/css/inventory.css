@@ -205,7 +205,29 @@ a{
     background-color: rgb(255,252,252);
     display: flex;
     align-items: center;
-    justify-content: right;
+    justify-content: space-between;
+}
+
+.iconContainer10{
+    outline: red dashed 1px;
+    height: 100%;
+    width: 4rem;
+    margin-left: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.subIconContainer10{
+    height: 3rem;
+    width: 3rem;
+    outline: red dashed 1px;
+}
+
+.subHeaderContainer1{
+    display: flex;
+    flex-direction: row;
+    height: 100%;
 }
 
 .subImageContainer3{
@@ -217,7 +239,7 @@ a{
 }
 
 .image11{
-    height: 3.2rem;
+    height: 3rem;
 }
 
 .logoNameContainer1{

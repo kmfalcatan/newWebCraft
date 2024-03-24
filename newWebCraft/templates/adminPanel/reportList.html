@@ -5,9 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 
-    <link rel="stylesheet" href="../../assets/css/inventory.css">
     <link rel="stylesheet" href="../../assets/css/index.css">
-    <link rel="stylesheet" href="../../assets/css/userList.css">
+    <link rel="stylesheet" href="../../assets/css/inventory.css">
+    <link rel="stylesheet" href="../../assets/css/reportList.css">
 </head>
 <body>
     <div class="container3">
@@ -175,138 +175,57 @@
                 </div>
             </div>
 
-            <div class="subContainer1">
-                <div class="filterContainer1">
-                    <div class="inventoryNameContainer">
-                        <p>USER LIST</p>
-                    </div>
-
-                    <div class="subFilterContainer1">
-                        <div class="searchContainer1">
-                            <input class="searchBar1" type="text" name="" id="">
-                        </div>
-
-                        <div class="trackContainer">
-                            <button onclick="popUp2()" class="trackButton1">Add user <span class="plusIcon">+</span></button>
-                        </div>
-                    </div>
+            <div class="container" id="reportCotainer">
+                <div class="filterContainer" style="height: 4rem;">
+                     <div class="subFilterContainer">
+                         <div class="sortContainer">
+                             <img class="sort" src="../assets/img/th (2).jpg" alt="">
+                         </div>
+     
+                         <div class="filter" onclick="changeColor(this)">
+                             <p class="year">Lost</p>
+                         </div>
+     
+                         <div class="filter" onclick="changeColor(this)">
+                             <p class="year">Return</p>
+                         </div>
+     
+                         <div class="searchCon">
+                             <input class="search" type="text" id="searchInput" placeholder="Search..." oninput="liveSearch()">
+                         </div>
+     
+                     </div>
                 </div>
-
-                <div class="userListContainer">
-                    <div class="subUserListContainer">
-                        <div class="userContainer4">
-                            <div class="subUserContainer1">
-                                <div class="imageContainer4">
-                                    <div class="subImageContainer4">
-                                        <img class="image4" src="" alt="">
-                                    </div>
-                                </div>
-    
-                                <div class="userNameContainer">
-                                    <p>khriz marr falcatan</p>
-                                </div>
-                            </div>
-
-                            <div class="viewButtonContainer">
-                                <button class="viewButton">View details</button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="addUserContainer" style="display: none;">
-                        <div class="addUserContainer">
-                            <div class="subAddUserContainer">
-                                <div class="trackNameContainer">
-                                    <div class="subTrackNameContainer">
-                                        <p>ADD NEW USER</p>
-                                    </div>
-                                </div>
-
-                                <div class="infoContainer2">
-                                    <div class="userInfoContainer">
-                                        <div class="textContainer">
-                                            <p>Last name:</p>
-                                        </div>
-    
-                                        <div class="inputNameContainer">
-                                            <input type="text" class="inputName">
-                                        </div>
-                                    </div>
-    
-                                    <div class="userInfoContainer">
-                                        <div class="textContainer">
-                                            <p>First name:</p>
-                                        </div>
-    
-                                        <div class="inputNameContainer">
-                                            <input type="text" class="inputName">
-                                        </div>
-                                    </div>
-    
-                                    <div class="userInfoContainer">
-                                        <div class="textContainer">
-                                            <p>Middle name:</p>
-                                        </div>
-    
-                                        <div class="inputNameContainer">
-                                            <input type="text" class="inputName">
-                                        </div>
-                                    </div>
-    
-                                    <div class="userInfoContainer">
-                                        <div class="textContainer">
-                                            <p>Designation:</p>
-                                        </div>
-    
-                                        <div class="inputNameContainer">
-                                            <input type="text" class="inputName">
-                                        </div>
-                                    </div>
-    
-                                    <div class="userInfoContainer">
-                                        <div class="textContainer">
-                                            <p>User name:</p>
-                                        </div>
-    
-                                        <div class="inputNameContainer">
-                                            <input type="text" class="inputName">
-                                        </div>
-                                    </div>
-    
-                                    <div class="userInfoContainer">
-                                        <div class="textContainer">
-                                            <p>Default password:</p>
-                                        </div>
-    
-                                        <div class="inputNameContainer">
-                                            <input type="text" class="inputName">
-                                        </div>
-                                    </div>
-    
-                                    <div class="userInfoContainer">
-                                        <div class="textContainer">
-                                            <p>Confirm password:</p>
-                                        </div>
-    
-                                        <div class="inputNameContainer">
-                                            <input type="text" class="inputName">
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="buttonContainer4">
-                                    <button onclick="popUp2()" class="button3">Cancel</button>
-                                    <button class="button4">Save</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+     
+                <div class="tableContainer">
+                     <table>
+                         <tbody>
+                             <tr>
+                                             </a></div></td></tr>
+                                         <tr><td><div class='list'>
+     
+                                         <div class='sender-img'>
+                                                 <img src='../uploads/" . ($image ? $image : 'placeholder.jpg') . "' alt='Profile Image'>
+                                             </div>
+                                             <a href='approveReport.php?report_ID={$report_ID}&user_ID={$currentUserID}&timestamp={$timestamp}&id={$userID}' style='width: 100%;'>
+                                                 <div class='label' style='display: flex;'>
+                                                     <p class='left-text'><span>$fullName</span> sent a report.</p>
+                                                     <div class='right-text'>
+                                                         <p class='time'>$timeAgo</p> 
+                                                         <button class="viewButton6" style="margin-right: 1rem;">View</button>
+                                                     </div>
+                                                 </div>
+                                             </a>
+                                     </a></div></td></tr>
+                             </tr>
+                         </tbody>
+                     </table>
                 </div>
-            </div>  
+             </div>
         </div>
     </div>
 
-    <script src="../../assets/js/userList.js"></script>
+    <script src="../../assets/js/inventory.js"></script>
     <script src="../../assets/js/sidebar.js"></script>
 </body>
 </html>
