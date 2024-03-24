@@ -4,7 +4,6 @@
 }
 
 .container3{
-    outline: red dashed 1px;
     height: 100vh;
     display: flex;
     flex-direction: row;
@@ -32,7 +31,6 @@
 }
 
 .sideBarContainer6{
-    outline: red dashed 1px;
     height: 100%;
     width: 20rem;
     display: flex;
@@ -43,7 +41,6 @@
 }
 
 .openSideBar{
-    outline: red dashed 1px;
     height: 100%;
     width: 20rem;
     margin-left: -20rem;
@@ -55,7 +52,6 @@
 }
 
 .arrowContainer{
-    outline: red dashed 1px;
     height: 100%;
     width: 1.5rem;
     right: -1.4rem;
@@ -66,7 +62,6 @@
 }
 
 .subArrowContainer{
-    outline: red dashed 1px;
     width: 100%;
     height: 5rem;
     border-radius: -10rem;
@@ -92,7 +87,6 @@
 }
 
 .userContainer{
-    outline: red dashed 1px;
     height: 100%;
     display: flex;
     align-items: center;
@@ -101,7 +95,6 @@
 }
 
 .subUserContainer{
-    outline: red dashed 1px;
     height: 6rem;
     width: 100%;
     display: grid;
@@ -110,7 +103,6 @@
 }
 
 .userPictureContainer{
-    outline: red dashed 1px;
     height: 100%;
     display: flex;
     align-items: center;
@@ -118,7 +110,6 @@
 }
 
 .userPictureContainer1{
-    outline: red dashed 1px;
     height: 100%;
     display: flex;
     align-items: center;
@@ -128,7 +119,6 @@
 }
 
 .subUserPictureContainer{
-    outline: red dashed 1px;
     height: 3rem;
     width: 3rem;
     border-radius: 5rem;
@@ -145,12 +135,10 @@
 }
 
 .navContainer{
-    outline: red dashed 1px;
     width: 100%;
 }
 
 .subNavContainer{
-    outline: red dashed 1px;
     height: 36rem;
     width: 100%;
     display: flex;
@@ -163,7 +151,6 @@
     align-items: center;
     justify-content: right;
     flex-direction: row;
-    outline: red dashed 1px;
     height: 100%;
     width: 100%;
     transition: all 0.15s
@@ -175,7 +162,6 @@
 }
 
 .iconContainer9{
-    outline: red dashed 1px;
     height: 100%;
     width: 4rem;
     display: flex;
@@ -188,7 +174,6 @@
 }
 
 .nameOfIconContainer{
-    outline: red dashed 1px;
     height: 100%;
     width: 70%;
     display: flex;
@@ -206,18 +191,15 @@ a{
 }
 
 .settingContainer{
-    outline: red dashed 1px;
     height: 2.7rem;
 }
 
 .sideBarContainer3{
-    outline: red dashed 1px;
     height: 100%;
     width: 100%;
 }
 
 .headerContainer1{
-    outline: red dashed 1px;
     height: 4rem;
     width: 100%;
     background-color: rgb(255,252,252);
@@ -227,7 +209,6 @@ a{
 }
 
 .subImageContainer3{
-    outline: red dashed 1px;
     height: 100%;
     width: 4rem;
     display: flex;
@@ -240,7 +221,6 @@ a{
 }
 
 .logoNameContainer1{
-    outline: red dashed 1px;
     height: 100%;
     display: flex;
     align-items: center;
@@ -255,17 +235,14 @@ a{
 }
 
 .subContainer1{
-    outline: red dashed 1px;
     height: 91vh;
 }
 
 .filterContainer1{
-    outline: red dashed 1px;
     height: 10rem;
 }
 
 .inventoryNameContainer{
-    outline: red dashed 1px;
     height: 2.5rem;
     margin-top: 1rem;
     padding-left: 1rem;
@@ -276,7 +253,6 @@ a{
 }
 
 .subFilterContainer1{
-    outline: red dashed 1px;
     height: 7.5rem;
     display: flex;
     flex-direction: column;
@@ -284,7 +260,6 @@ a{
 }
 
 .searchContainer1{
-    outline: red dashed 1px;
     height: 3rem;
     display: flex;
     align-items: center;
@@ -304,7 +279,6 @@ a{
 }
 
 .trackContainer{
-    outline: red dashed 1px;
     height: 3rem;
     display: flex;
     flex-direction: row;
@@ -359,8 +333,6 @@ a{
 }
 
 .tableContainer2{
-    outline: red dashed 1px;
-    height: 41rem;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -368,7 +340,6 @@ a{
 }
 
 .unitContainer{
-    outline: red dashed 1px;
     height: 3rem;
     width: 93%;
     background-color: rgba(255, 250, 250, 0.582);
@@ -378,7 +349,6 @@ a{
 }
 
 .unitList{
-    outline: red dashed 1px;
     height: 2rem;
     width: 7rem;
     margin-right: 0.5rem;
@@ -392,7 +362,6 @@ a{
 }
 
 .subTrackContainer{
-    outline: red dashed 1px;
     position: absolute;
     width: 15rem;
     left: 0;
@@ -402,7 +371,6 @@ a{
 }
 
 .searhUnitContainer{
-    outline: red dashed 1px;
     height: 3rem;
     display: flex;
     align-items: center;
@@ -411,7 +379,6 @@ a{
 }
 
 .searchUnitContainer{
-    outline: red dashed 1px;
     height: 3rem;
     display: flex;
     align-items: center;
@@ -419,7 +386,6 @@ a{
 }
 
 .buttonContainer2{
-    outline: red dashed 1px;
     height: 3rem;
     display: flex;
     align-items: center;
@@ -429,7 +395,6 @@ a{
 }
 
 .button3{
-    outline: red dashed 1px;
     height: 2rem;
     width: 5rem;
     border-radius: 0.5rem;
@@ -452,7 +417,6 @@ a{
 }
 
 .button4{
-    outline: red dashed 1px;
     background-color: rgb(2, 116, 200);
     height: 2rem;
     width: 5rem;
@@ -478,7 +442,6 @@ a{
 }
 
 .trackUnitContainer{
-    outline: red dashed 1px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -492,7 +455,6 @@ a{
 }
 
 .subTrackUnitContainer{
-    outline: red dashed 1px;
     height: 43rem;
     width: 90%;
     border-radius: 0.5rem;
@@ -500,7 +462,6 @@ a{
 }
 
 .trackNameContainer{
-    outline: red dashed 1px;
     height: 4rem;
     display: flex;
     justify-content: center;
@@ -508,7 +469,6 @@ a{
 }
 
 .subTrackNameContainer{
-    outline: red dashed 1px;
     height: 100%;
     width: 90%;
     display: flex;
@@ -520,14 +480,12 @@ a{
 }
 
 .unitInfoContainer{
-    outline: red dashed 1px;
     height: 35rem;
     width: 100%;
     overflow: auto;
 }
 
 .buttonContainer3{
-    outline: red dashed 1px;
     height: 3rem;
     display: flex;
     align-items: center;
@@ -535,7 +493,6 @@ a{
 }
 
 .button5{
-    outline: red dashed 1px;
     background-color: rgb(2, 116, 200);
     height: 2.5rem;
     width: 7rem;
@@ -562,7 +519,6 @@ a{
 }
 
 .subUnitInfoContainer{
-    outline: red dashed 1px;
     height: 100%;
     display: flex;
     flex-direction: column;
@@ -570,11 +526,9 @@ a{
 }
 
 .infoContainer1{
-    outline: red dashed 1px;
 }
 
 .imageContainer1{
-    outline: red dashed 1px;
     height: 15rem;
     display: flex;
     align-items: center;
@@ -583,7 +537,6 @@ a{
 }
 
 .subImageContainer1{
-    outline: red dashed 1px;
     width: 11rem;
     height: 11rem;
     border-radius: 0.5rem;
@@ -597,7 +550,6 @@ a{
 }
 
 .equipNameContainer{
-    outline: red dashed 1px;
     height: 3rem;
     width: 100%;
     display: flex;
@@ -608,24 +560,20 @@ a{
 }
 
 .subInfoContainer1{
-    outline: red dashed 1px;
 }
 
 .unitIDContainer{
-    outline: red dashed 1px;
     display: flex;
     flex-direction: column;
 }
 
 .unitID{
-    outline: red dashed 1px;
     height: 6rem;
     padding: 0 0.5rem 0 0.5rem;
     font-size: 1.2rem;
 }
 
 .unitInputContainer{
-    outline: red dashed 1px;
     height: 3rem;
     border-radius: 0.5rem;
     border: solid gray 1px;
@@ -634,13 +582,11 @@ a{
 }
 
 .oldUserContainer{
-    outline: red dashed 1px;
     display: flex;
     flex-direction: column;
 }
 
 .oldUserTextContainer{
-    outline: red dashed 1px;
     height: 3rem;
     display: flex;
     align-items: center;
@@ -651,7 +597,6 @@ a{
 }
 
 .unitsContainer{
-    outline: red dashed 1px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -659,7 +604,6 @@ a{
 }
 
 .subUnitsContainer{
-    outline: red dashed 1px;
     height: 85%;
     width: 90%;
     border-radius: 0.5rem;
@@ -673,7 +617,6 @@ a{
 }
 
 .units{
-    outline: red dashed 1px;
     height: 2rem;
     width: 100%;
     display: flex;
@@ -694,7 +637,6 @@ a{
 }
 
 .viewUnitContainer{
-    outline: red dashed 1px;
     width: 100%;
     background-color: rgba(0, 0, 0, 0.11);
     position: absolute;
@@ -705,7 +647,6 @@ a{
 }
 
 .subViewUnitContainer{
-    outline: red dashed 1px;
     width: 90%;
     background-color: snow;
     border-radius: 0.5rem;
@@ -715,7 +656,6 @@ a{
 }
 
 .unitTextContainer{
-    outline: red dashed 1px;
     height: 4rem;
     display: flex;
     align-items: center;
@@ -727,7 +667,6 @@ a{
 }
 
 .equipImageContainer{
-    outline: red dashed 1px;
     height: 15rem;
     display: flex;
     justify-content: center;
@@ -735,7 +674,6 @@ a{
 }
 
 .subEquipImageContainer{
-    outline: red dashed 1px;
     height: 14rem;
     width: 14rem;
     border-radius: 0.5rem;
@@ -743,7 +681,6 @@ a{
 }
 
 .unitInfoContainer{
-    outline: red dashed 1px;
     margin-top: 1rem;
     display: flex;
     flex-direction: column;
@@ -751,14 +688,12 @@ a{
 }
 
 .subUnitInfoContainer{
-    outline: red dashed 1px;
     display: flex;
     flex-direction: column;
     gap: 1rem;
 }
 
 .unitIdContainer{
-    outline: red dashed 1px;
     height: 6rem;
     display: flex;
     flex-direction: column;
@@ -767,7 +702,6 @@ a{
 }
 
 .subUnitIdContainer{
-    outline: red dashed 1px;
     width: 90%;
     height: 2rem;
     display: flex;
@@ -776,7 +710,6 @@ a{
 }
 
 .displayUnitID{
-    outline: red dashed 1px;
     height: 3rem;
     width: 90%;
     border-radius: 0.5rem;
@@ -786,6 +719,119 @@ a{
     align-items: center;
     justify-content: center;
     font-size: 1.2rem;
+}
+
+.viewApproveContainer{
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.11);
+    position: absolute;
+    top: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
+}
+
+.subViewApproveContainer{
+    width: 90%;
+    background-color: snow;
+    border-radius: 0.5rem;
+    padding: 0.5rem;
+    margin: 1rem 0;
+}
+
+.viewInfoCotainer{
+    display: flex;
+    flex-direction: column;
+}
+
+.imageContainer4{
+    height: 15rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.subImageContainer5{
+    height: 11rem;
+    width: 11rem;
+    border: solid rgb(2, 116, 200) 1px;
+    border-radius: 0.5rem;
+}
+
+.approveInfoContainer{
+    height: 25.5rem;
+    gap: 0.5rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.subApproveInfoContainer, .subApproveInfoContainer1, .approveContainer{
+    height: 6rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    align-items: center;
+    width: 100%;
+}
+
+.labelContainer1{
+    font-size: 1.2rem;
+    width: 100%;
+}
+
+.text1{
+    margin-left: 0.5rem;
+}
+
+.container4{
+    height: 3rem;
+    width: 100%;
+    border-radius: 0.5rem;
+    border: solid gray 1px;
+    display: flex;
+    align-items: center;
+    font-size: 1.2rem;
+}
+
+.container5{
+    height: 9rem;
+    width: 100%;
+    border-radius: 0.5rem;
+    border: solid gray 1px;
+    display: flex;
+    align-items: center;
+    font-size: 1.2rem;
+}
+
+.descriptionContainer{
+    height: 12rem;
+}
+
+.approveContainer1{
+    height: 12rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    align-items: center;
+    width: 100%;
+}
+
+.unitContainer6{
+    border-bottom: solid gray 1px;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.subApproveInfoContainer1{
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    align-items: center;
+    width: 100%;
+    height: 100%;
 }
 
 @keyframes rotateRight {
@@ -964,6 +1010,39 @@ a{
 
     .viewUnitContainer{
         height: 100vh;
+    }
+
+    .viewInfoContainer{
+        display: flex;
+        flex-direction: row;
+    }
+
+    .imageContainer4{
+        width: 20rem;
+        height: 20rem;
+    }
+
+    .subImageContainer5{
+        height: 15rem;
+        width: 15rem;
+    }
+
+    .approveInfoContainer{
+        width: 40rem;
+        height: 20rem;
+    }
+
+    .subApproveInfoContainer1{
+        display: flex;
+        flex-direction: row;
+    }
+
+    .viewApproveContainer{
+        height: 100vh;
+    }
+
+    .subViewApproveContainer{
+        width: 60rem;
     }
 
     @keyframes closeSideBar {
