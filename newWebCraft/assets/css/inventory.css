@@ -4,7 +4,6 @@
 }
 
 .container3{
-    outline: red dashed 1px;
     height: 100vh;
     display: flex;
     flex-direction: row;
@@ -32,7 +31,6 @@
 }
 
 .sideBarContainer6{
-    outline: red dashed 1px;
     height: 100%;
     width: 20rem;
     display: flex;
@@ -43,7 +41,6 @@
 }
 
 .openSideBar{
-    outline: red dashed 1px;
     height: 100%;
     width: 20rem;
     margin-left: -20rem;
@@ -55,7 +52,6 @@
 }
 
 .arrowContainer{
-    outline: red dashed 1px;
     height: 100%;
     width: 1.5rem;
     right: -1.4rem;
@@ -66,7 +62,6 @@
 }
 
 .subArrowContainer{
-    outline: red dashed 1px;
     width: 100%;
     height: 5rem;
     border-radius: -10rem;
@@ -92,7 +87,6 @@
 }
 
 .userContainer{
-    outline: red dashed 1px;
     height: 100%;
     display: flex;
     align-items: center;
@@ -101,7 +95,6 @@
 }
 
 .subUserContainer{
-    outline: red dashed 1px;
     height: 6rem;
     width: 100%;
     display: grid;
@@ -110,7 +103,6 @@
 }
 
 .userPictureContainer{
-    outline: red dashed 1px;
     height: 100%;
     display: flex;
     align-items: center;
@@ -118,7 +110,6 @@
 }
 
 .userPictureContainer1{
-    outline: red dashed 1px;
     height: 100%;
     display: flex;
     align-items: center;
@@ -128,7 +119,6 @@
 }
 
 .subUserPictureContainer{
-    outline: red dashed 1px;
     height: 3rem;
     width: 3rem;
     border-radius: 5rem;
@@ -145,12 +135,10 @@
 }
 
 .navContainer{
-    outline: red dashed 1px;
     width: 100%;
 }
 
 .subNavContainer{
-    outline: red dashed 1px;
     height: 36rem;
     width: 100%;
     display: flex;
@@ -163,7 +151,6 @@
     align-items: center;
     justify-content: right;
     flex-direction: row;
-    outline: red dashed 1px;
     height: 100%;
     width: 100%;
     transition: all 0.15s
@@ -175,7 +162,6 @@
 }
 
 .iconContainer9{
-    outline: red dashed 1px;
     height: 100%;
     width: 4rem;
     display: flex;
@@ -188,7 +174,6 @@
 }
 
 .nameOfIconContainer{
-    outline: red dashed 1px;
     height: 100%;
     width: 70%;
     display: flex;
@@ -206,18 +191,15 @@ a{
 }
 
 .settingContainer{
-    outline: red dashed 1px;
     height: 2.7rem;
 }
 
 .sideBarContainer3{
-    outline: red dashed 1px;
     height: 100%;
     width: 100%;
 }
 
 .headerContainer1{
-    outline: red dashed 1px;
     height: 4rem;
     width: 100%;
     background-color: rgb(255,252,252);
@@ -227,7 +209,6 @@ a{
 }
 
 .subImageContainer3{
-    outline: red dashed 1px;
     height: 100%;
     width: 4rem;
     display: flex;
@@ -240,7 +221,6 @@ a{
 }
 
 .logoNameContainer1{
-    outline: red dashed 1px;
     height: 100%;
     display: flex;
     align-items: center;
@@ -255,17 +235,14 @@ a{
 }
 
 .subContainer1{
-    outline: red dashed 1px;
     height: 91vh;
 }
 
 .filterContainer1{
-    outline: red dashed 1px;
     height: 10rem;
 }
 
 .inventoryNameContainer{
-    outline: red dashed 1px;
     height: 2.5rem;
     margin-top: 1rem;
     padding-left: 1rem;
@@ -276,7 +253,6 @@ a{
 }
 
 .subFilterContainer1{
-    outline: red dashed 1px;
     height: 7.5rem;
     display: flex;
     flex-direction: column;
@@ -284,7 +260,6 @@ a{
 }
 
 .searchContainer1{
-    outline: red dashed 1px;
     height: 3rem;
     display: flex;
     align-items: center;
@@ -302,7 +277,6 @@ a{
 }
 
 .trackContainer{
-    outline: red dashed 1px;
     height: 3rem;
     display: flex;
     flex-direction: row;
@@ -357,7 +331,6 @@ a{
 }
 
 .tableContainer2{
-    outline: red dashed 1px;
     height: 41rem;
     display: flex;
     align-items: center;
@@ -366,7 +339,6 @@ a{
 }
 
 .unitContainer{
-    outline: red dashed 1px;
     height: 3rem;
     width: 93%;
     background-color: rgba(255, 250, 250, 0.582);
@@ -376,7 +348,6 @@ a{
 }
 
 .unitList{
-    outline: red dashed 1px;
     height: 2rem;
     width: 7rem;
     margin-right: 0.5rem;
@@ -390,7 +361,6 @@ a{
 }
 
 .subTrackContainer{
-    outline: red dashed 1px;
     position: absolute;
     height: 9rem;
     width: 15rem;
@@ -401,7 +371,6 @@ a{
 }
 
 .searhUnitContainer{
-    outline: red dashed 1px;
     height: 3rem;
     display: flex;
     align-items: center;
@@ -410,7 +379,6 @@ a{
 }
 
 .searchUnitContainer{
-    outline: red dashed 1px;
     height: 3rem;
     display: flex;
     align-items: center;
@@ -418,7 +386,6 @@ a{
 }
 
 .buttonContainer2{
-    outline: red dashed 1px;
     height: 3rem;
     display: flex;
     align-items: center;
@@ -428,7 +395,6 @@ a{
 }
 
 .button3{
-    outline: red dashed 1px;
     height: 2rem;
     width: 5rem;
     border-radius: 0.5rem;
@@ -450,7 +416,6 @@ a{
 }
 
 .button4{
-    outline: red dashed 1px;
     background-color: rgb(2, 116, 200);
     height: 2rem;
     width: 5rem;
@@ -475,7 +440,6 @@ a{
 }
 
 .trackUnitContainer{
-    outline: red dashed 1px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -489,7 +453,6 @@ a{
 }
 
 .subTrackUnitContainer{
-    outline: red dashed 1px;
     height: 43rem;
     width: 90%;
     border-radius: 0.5rem;
@@ -497,7 +460,6 @@ a{
 }
 
 .trackNameContainer{
-    outline: red dashed 1px;
     height: 4rem;
     display: flex;
     justify-content: center;
@@ -505,7 +467,6 @@ a{
 }
 
 .subTrackNameContainer{
-    outline: red dashed 1px;
     height: 100%;
     width: 90%;
     display: flex;
@@ -517,14 +478,12 @@ a{
 }
 
 .unitInfoContainer{
-    outline: red dashed 1px;
     height: 35rem;
     width: 100%;
     overflow: auto;
 }
 
 .buttonContainer3{
-    outline: red dashed 1px;
     height: 3rem;
     display: flex;
     align-items: center;
@@ -532,7 +491,6 @@ a{
 }
 
 .button5{
-    outline: red dashed 1px;
     background-color: rgb(2, 116, 200);
     height: 2.5rem;
     width: 7rem;
@@ -559,7 +517,6 @@ a{
 }
 
 .subUnitInfoContainer{
-    outline: red dashed 1px;
     height: 100%;
     display: flex;
     flex-direction: column;
@@ -567,11 +524,9 @@ a{
 }
 
 .infoContainer1{
-    outline: red dashed 1px;
 }
 
 .imageContainer1{
-    outline: red dashed 1px;
     height: 15rem;
     display: flex;
     align-items: center;
@@ -580,7 +535,6 @@ a{
 }
 
 .subImageContainer1{
-    outline: red dashed 1px;
     width: 11rem;
     height: 11rem;
     border-radius: 0.5rem;
@@ -594,7 +548,6 @@ a{
 }
 
 .equipNameContainer{
-    outline: red dashed 1px;
     height: 3rem;
     width: 100%;
     display: flex;
@@ -605,24 +558,20 @@ a{
 }
 
 .subInfoContainer1{
-    outline: red dashed 1px;
 }
 
 .unitIDContainer{
-    outline: red dashed 1px;
     display: flex;
     flex-direction: column;
 }
 
 .unitID{
-    outline: red dashed 1px;
     height: 6rem;
     padding: 0 0.5rem 0 0.5rem;
     font-size: 1.2rem;
 }
 
 .unitInputContainer{
-    outline: red dashed 1px;
     height: 3rem;
     border-radius: 0.5rem;
     border: solid gray 1px;
@@ -631,13 +580,11 @@ a{
 }
 
 .oldUserContainer{
-    outline: red dashed 1px;
     display: flex;
     flex-direction: column;
 }
 
 .oldUserTextContainer{
-    outline: red dashed 1px;
     height: 3rem;
     display: flex;
     align-items: center;
