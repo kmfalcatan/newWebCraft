@@ -1,0 +1,739 @@
+*{
+    padding: 0;
+    margin: 0;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont;
+}
+
+.container{
+    /* outline: red dashed 1px; */
+    background: rgb(207, 224, 236);
+}
+
+.headerContainer{
+    /* outline: red dashed 1px; */
+    height: 4rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    font-size: 2rem;
+    font-weight: bold;
+    color: rgb(2, 116, 200);
+    background-color: snow;
+}
+
+.backButton{
+    position: absolute;
+    left: 1rem;
+    height: 2rem;
+    width: 5rem;
+    border-radius: 0.5rem;
+    border: solid rgb(2, 116, 200) 1px;
+    background-color: transparent;
+    color: rgb(2, 116, 200);
+    cursor: pointer;
+    transition: all 0.15s;
+    font-size: 1.2rem;
+}
+
+.backButton:hover{
+    background-color: rgb(2, 116, 200);
+    color: snow;
+}
+
+.backButton:active{
+    transform: scale(0.9);
+}
+
+.bodyContainer{
+    /* outline: red dashed 1px; */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 3rem;
+    margin: auto;
+    width: 90%;
+}
+
+.subBodyContainer{
+    width: 95%;
+    display: flex;
+    gap: 1rem;
+    border-bottom: 1px solid gray;
+    padding-bottom: 4rem;
+     animation: slideRight 0.5s linear, fadeIn 1s linear;
+}
+
+.subBodyContainer1{
+    width: 95%;
+    display: flex;
+    gap: 1rem;
+    border-bottom: 1px solid gray;
+    padding-bottom: 4rem;
+    animation: slideLeft 0.5s linear, fadeIn 1s linear;
+}
+
+.aboutContainer{
+    /* outline: red dashed 1px; */
+    height: 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    font-size: 1.5rem;
+}
+
+.aboutContainer p{
+    font-family: fantasy;
+    color: #3333338c;
+    font-weight: lighter;
+}
+
+.textContainer{
+    /* outline: red dashed 1px; */
+    display: flex;
+    justify-content: center;
+    font-size: 1.2rem;
+    flex-direction: column;
+    width: 65%;
+}
+
+.textContainer p{
+    width: 85%;
+    text-align: justify;
+    align-items: center;
+    margin-top: 1.5rem;
+    line-height: 1.5;
+}
+
+.textContainer1{
+    /* outline: red dashed 1px; */
+    display: flex;
+    justify-content: center;
+    font-size: 1.2rem;
+    flex-direction: column;
+    padding-top: 2rem;
+}
+
+.textContainer1 p{
+    text-align: justify;
+    align-items: center;
+    margin-top: 1.5rem;
+    line-height: 1.5;
+}
+
+.subTextContainer{
+    /* outline: red dashed 1px; */
+    height: 20rem;
+    width: 35%;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+}
+
+.system-img{
+    /* outline: red dashed 1px; */
+    height: 17rem;
+    width: 90%;
+}
+
+ img{
+    width: 100%;
+    height: 100%;
+}
+
+.subTextContainer1{
+    /* outline: red dashed 1px; */
+    height: 25rem;
+    width: 35%;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+}
+
+.client-img{
+    /* outline: red dashed 1px; */
+    height: 100%;
+    width: 80%;
+}
+
+.image1{
+    height: 100%;
+    width: 100%;
+}
+
+#textContainer{
+    align-items: flex-end;
+}
+
+#aboutContainer {
+    align-items: flex-end;
+    width: 85%;
+}
+
+.memberContainer{
+    /* outline: red dashed 1px; */
+    width: 95%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.subMemberContainer1,
+.subMemberContainer2,
+.subMemberContainer3,
+.subMemberContainer4,
+.subMemberContainer5{
+    /* outline: red dashed 1px; */
+    height: 15rem;
+    width: 11rem;
+    border-radius: 0.5rem;
+}
+
+
+.memPictureContianer{
+    /* outline: red dashed 1px; */
+    height: 10rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 1rem;
+}
+
+.subMemPictureContainer{
+    /* outline: red dashed 1px; */
+    height: 100%;
+    width: 10rem;
+    border-radius: 10rem;
+    border: solid rgb(2, 116, 200) 1px;
+    background-color: #fff;
+}
+
+.memInfoContainer{
+    /* outline: red dashed 1px; */
+    height: 5rem;
+    border-radius: 0.5rem;
+    border: solid gray 1px;
+    background-color: rgb(2, 116, 200);
+}
+
+.subMemInfoContainer{
+    /* outline: red dashed 1px; */
+    height: 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: snow;
+}
+
+.subMemInfoContainer1{
+    /* outline: red dashed 1px; */
+    height: 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: snow;
+}
+
+.aboutContainer1{
+    /* outline: red dashed 1px; */
+    height: 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+}
+
+.aboutContainer1 p{
+    font-family: fantasy;
+    font-weight: lighter;
+    color: #3333338c;
+}
+
+.systemLogoContainer{
+    height: auto;
+    margin-top: 2rem;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 0.6rem;
+}
+
+
+.subSystemLogoContainer{
+    height: 100%;
+    width: 4rem;
+    border: solid rgb(2, 116, 200) 1px;
+    border-radius: 5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.systemLogoContainer #footer{
+    margin-bottom: 1rem;
+    color: rgb(2, 116, 200);
+}
+
+@keyframes slideRight {
+    from{
+        margin-left: -50rem;
+    } to{
+        margin-bottom: 1rem;
+    }
+}
+
+@keyframes slideLeft {
+    from{
+        margin-right: -50rem;
+    } to{
+        margin-bottom: 1rem;
+    }
+}
+
+@keyframes fadeIn {
+    from{
+        opacity: 0.1;
+    } to{
+        opacity: 1;
+    }
+}
+
+@keyframes popup {
+    from{
+        margin-top: -20rem;
+        transform: scale(2);
+        opacity: 0.5;
+    } to{
+        margin: 0;
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .subBodyContainer{
+        flex-direction: column;
+    }
+    .subBodyContainer1{
+        flex-direction: column;
+    }
+
+}
+
+.subBodyContainer{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    border-bottom: 1px solid gray;
+    padding-bottom: 4rem;
+}
+
+.subBodyContainer1{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    border-bottom: 1px solid gray;
+    padding-bottom: 4rem;
+}
+
+.aboutContainer{
+    /* outline: red dashed 1px; */
+    height: 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    font-weight: bold;
+    width: 100%;
+}
+
+.aboutContainer p{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.textContainer{
+    /* outline: red dashed 1px; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.2rem;
+    flex-direction: column;
+    width: 100%;
+}
+
+.textContainer p{
+    width: 85%;
+    text-align: justify;
+    align-items: center;
+    margin-top: 1.5rem;
+    line-height: 1.5;
+}
+
+.subTextContainer{
+    /* outline: red dashed 1px; */
+    height: auto; 
+    width: 100%;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+}
+
+.system-img,
+.client-img{
+    /* outline: red dashed 1px; */
+    max-width: 100%; 
+    height: auto; 
+}
+
+.subTextContainer1{
+    /* outline: red dashed 1px; */
+    height: auto; 
+    width: 100%;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+}
+
+#textContainer{
+    align-items: center;
+    justify-content: center;
+}
+
+#aboutContainer {
+    width: 100%;
+}
+
+.memberContainer{
+    /* outline: red dashed 1px; */
+    width: 95%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 2rem;
+}
+
+.subMemberContainer1,
+.subMemberContainer2,
+.subMemberContainer3,
+.subMemberContainer4,
+.subMemberContainer5{
+    /* outline: red dashed 1px; */
+    height: 15rem;
+    width: 11rem;
+    border-radius: 0.5rem;
+}
+
+.memPictureContianer{
+    /* outline: red dashed 1px; */
+    height: 10rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 1rem;
+}
+
+.subMemPictureContainer{
+    /* outline: red dashed 1px; */
+    height: 100%;
+    width: 10rem;
+    border-radius: 10rem;
+    border: solid rgb(2, 116, 200) 1px;
+}
+
+.memInfoContainer{
+    /* outline: red dashed 1px; */
+    height: 5rem;
+    border-radius: 0.5rem;
+    border: solid rgb(2, 116, 200) 1px;
+    background-color: rgb(2, 116, 200);
+}
+
+.subMemInfoContainer{
+    /* outline: red dashed 1px; */
+    height: 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: snow;
+}
+
+.aboutContainer1{
+    /* outline: red dashed 1px; */
+    height: 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+}
+
+.subMemberContainer1{
+    animation: popup 1s forwards ease-out;
+    animation-delay: var(--animation-delay);
+    --animation-delay: 400ms;
+    margin-bottom: 1rem;
+    z-index: 1;
+}
+
+.subMemberContainer2{
+    animation: popup 1s forwards ease-out;
+    animation-delay: var(--animation-delay);
+    --animation-delay: 500ms;
+    margin-bottom: 1rem;
+    z-index: 2;
+}
+
+.subMemberContainer3{
+    animation: popup 1s forwards ease-out;
+    animation-delay: var(--animation-delay);
+    --animation-delay: 600ms;
+    margin-bottom: 1rem;
+    z-index: 3;
+}
+
+.subMemberContainer4{
+    animation: popup 1s forwards ease-out;
+    animation-delay: var(--animation-delay);
+    --animation-delay: 700ms;
+    margin-bottom: 1rem;
+    z-index: 4;
+}
+
+.subMemberContainer5{
+    animation: popup 1s forwards ease-out;
+    animation-delay: var(--animation-delay);
+    --animation-delay: 800ms;
+    margin-bottom: 1rem;
+    z-index: 5;
+}
+
+@keyframes slideRight {
+    from{
+        margin-left: -50rem;
+    } to{
+        margin-bottom: 1rem;
+    }
+}
+
+@keyframes slideLeft {
+    from{
+        margin-right: -50rem;
+    } to{
+        margin-bottom: 1rem;
+    }
+}
+
+@keyframes fadeIn {
+    from{
+        opacity: 0.1;
+    } to{
+        opacity: 1;
+    }
+}
+
+@keyframes popup {
+    from{
+        margin-top: -20rem;
+        transform: scale(2);
+        opacity: 0.5;
+    } to{
+        margin: 0;
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+
+
+/*laptop*/
+@media only screen and (min-width: 1025px){
+
+    .subBodyContainer{
+        width: 95%;
+        display: flex;
+        gap: 1rem;
+        border-bottom: 1px solid gray;
+        padding-bottom: 4rem;
+    }
+
+    .subBodyContainer1{
+        width: 95%;
+        display: flex;
+        gap: 1rem;
+        border-bottom: 1px solid gray;
+        padding-bottom: 4rem;
+    }
+    
+    .aboutContainer{
+        /* outline: red dashed 1px; */
+        height: 3rem;
+        display: flex;
+        align-items: center;
+        justify-content: left;
+        font-size: 1.5rem;
+    }
+    
+    .textContainer{
+        /* outline: red dashed 1px; */
+        display: flex;
+        justify-content: center;
+        font-size: 1.2rem;
+        flex-direction: column;
+        width: 65%;
+    }
+    
+    .textContainer p{
+        width: 85%;
+        text-align: justify;
+        align-items: center;
+        margin-top: 1.5rem;
+        line-height: 1.7;
+    }
+
+    #aboutSystem p{
+        margin-right: auto;
+    }
+    
+    .textContainer1{
+        /* outline: red dashed 1px; */
+        display: flex;
+        justify-content: center;
+        font-size: 1.2rem;
+        flex-direction: column;
+        padding-top: 2rem;
+    }
+    
+    .textContainer1 p{
+        text-align: justify;
+        align-items: center;
+        margin-top: 1.5rem;
+        line-height: 1.5;
+    }
+    
+    .subTextContainer{
+        /* outline: red dashed 1px; */
+        height: 20rem;
+        width: 35%;
+        display: flex;
+        align-items: flex-end;
+        justify-content: center;
+    }
+    
+    .system-img{
+        /* outline: red dashed 1px; */
+        height: 17rem;
+        width: 90%;
+    }
+    
+     img{
+        width: 100%;
+        height: 100%;
+    }
+    
+    .subTextContainer1{
+        /* outline: red dashed 1px; */
+        height: 25rem;
+        width: 35%;
+        display: flex;
+        align-items: flex-end;
+        justify-content: center;
+    }
+    
+    .client-img{
+        /* outline: red dashed 1px; */
+        height: 100%;
+        width: 80%;
+    }
+    
+    .image1{
+        height: 100%;
+        width: 100%;
+    }
+    
+    #textContainer{
+        align-items: flex-end;
+    }
+    
+    #aboutContainer {
+        align-items: flex-end;
+        width: 85%;
+    }
+    
+    .memberContainer{
+        /* outline: red dashed 1px; */
+        width: 95%;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 1rem;
+    }
+    
+    .subMemberContainer1,
+    .subMemberContainer2,
+    .subMemberContainer3,
+    .subMemberContainer4,
+    .subMemberContainer5{
+        /* outline: red dashed 1px; */
+        height: 15rem;
+        width: 11rem;
+        border-radius: 0.5rem;
+    }
+    
+    .memPictureContianer{
+        /* outline: red dashed 1px; */
+        height: 10rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding-bottom: 1rem;
+    }
+    
+    .subMemPictureContainer{
+        /* outline: red dashed 1px; */
+        height: 100%;
+        width: 10rem;
+        border-radius: 10rem;
+        border: solid rgb(2, 116, 200) 1px;
+    }
+    
+    .memInfoContainer{
+        /* outline: red dashed 1px; */
+        height: 5rem;
+        border-radius: 0.5rem;
+        border: solid rgb(2, 116, 200) 1px;
+        background-color: rgb(2, 116, 200);
+    }
+    
+    .subMemInfoContainer{
+        /* outline: red dashed 1px; */
+        height: 2.5rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: snow;
+    }
+    
+    .aboutContainer1{
+        /* outline: red dashed 1px; */
+        height: 3rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+    }
+
+    .aboutContainer p{
+        display: flex;
+        align-items: center;
+        justify-content: left;
+    }
+}
+

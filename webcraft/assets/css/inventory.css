@@ -1,0 +1,896 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+.container3{
+    /* outline: red dashed 1px; */
+    height: 100vh;
+    display: flex;
+    flex-direction: row;
+}
+
+
+
+.userContainer{
+    /* outline: red dashed 1px; */
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: column;
+}
+
+.subUserContainer{
+    /* outline: red dashed 1px; */
+    height: 6rem;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 5rem 1fr;
+    border-bottom: solid snow 1px;
+    cursor: pointer;
+}
+
+.userPictureContainer{
+    /* outline: red dashed 1px; */
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.userPictureContainer1{
+    /* outline: red dashed 1px; */
+    height: 100%;
+    display: flex;
+    align-items: center;
+    color: snow;
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.subUserPictureContainer{
+    /* outline: red dashed 1px; */
+    height: 3rem;
+    width: 3rem;
+    border-radius: 5rem;
+    background: rgb(207, 224, 236);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.profilePicture{
+    width: 100%;
+    height: 100%;
+    border-radius: 5rem;
+}
+
+.navContainer{
+    /* outline: red dashed 1px; */
+    width: 100%;
+}
+
+.subNavContainer{
+    /* outline: red dashed 1px; */
+    height: 36rem;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.buttonContainer1{
+    display: flex;
+    align-items: center;
+    justify-content: right;
+    flex-direction: row;
+    /* outline: red dashed 1px; */
+    height: 100%;
+    width: 100%;
+    transition: all 0.15s;
+    cursor: pointer;
+}
+
+.buttonContainer1:hover{
+    background: rgb(207, 224, 236);
+    color: black;
+}
+
+.iconContainer9{
+    /* outline: red dashed 1px; */
+    height: 100%;
+    width: 4rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.icon{
+    height: 2.5rem;
+    filter: invert(90%);
+}
+
+.iconContainer9 #icon{
+    width: 1.9rem;
+    height: 1.9rem;
+}
+
+.nameOfIconContainer{
+    /* outline: red dashed 1px; */
+    height: 100%;
+    width: 70%;
+    display: flex;
+    align-items: center;
+    color: rgba(255, 250, 250, 0.893);
+    font-size: 1.3rem;
+    transition: all 0.15s
+}
+.nameOfIconContainer:hover,
+.icon:hover{
+    filter: invert(0%);
+    color: black;
+    padding: 0.5rem 0;
+}
+
+a{
+    text-decoration: none;
+}
+
+.settingContainer{
+    /* outline: red dashed 1px; */
+    height: 2.7rem;
+}
+
+.sideBarContainer3{
+    /* outline: red dashed 1px; */
+    height: 100%;
+    width: 100%;
+}
+
+.headerContainer1{
+    height: 4rem;
+    width: 100%;
+    background-color: rgb(255,252,252);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.iconContainer10{
+    height: 100%;
+    width: 4rem;
+    margin-left: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.subIconContainer10{
+    height: 2.5rem;
+    width: 2rem;
+}
+
+.subHeaderContainer1{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: auto;
+    margin-right: 1rem;
+}
+
+.subImageContainer3{
+    height: 100%;
+    width: 4rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.image11{
+    height: 2.9rem;
+}
+
+.logoNameContainer1{
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: right;
+    padding-right: 1rem;
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.systemName{
+    display: none;
+}
+
+.subContainer1{
+    /* outline: red dashed 1px; */
+    height: 91vh;
+}
+
+.filterContainer1{
+    /* outline: red dashed 1px; */
+    height: 10rem;
+}
+
+.inventoryNameContainer{
+    /* outline: red dashed 1px; */
+    height: 2.5rem;
+    margin-top: 1rem;
+    display: flex;
+    align-items: center;
+    font-size: 1.7rem;
+    font-family: fantasy;
+    color: #3333338c;
+}
+
+.subFilterContainer1{
+    /* outline: red dashed 1px; */
+    height: 7.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.searchContainer1{
+    /* outline: red dashed 1px; */
+    height: 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    margin-top: 0.5rem;
+}
+
+.searchBar1{
+    height: 2.5rem;
+    border-radius: 0.5rem;
+    border: solid gray 2px;
+    width: 70%;
+    padding-left: 0.5rem;
+    font-size: 1.2rem;
+}
+
+.trackContainer{
+    /* outline: red dashed 1px; */
+    height: 3rem;
+    display: flex;
+    flex-direction: row;
+    gap: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.trackButton1{
+    height: 2.5rem;
+    width: 7.5rem;
+    border-radius: 0.5rem;
+    border: solid gray 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    background-color: rgb(255,252,252);
+    transition: all 0.15s;
+    font-size: 1rem;
+    position: relative;
+}
+
+.trackButton1:hover{
+    background-color:rgb(2, 116, 200);
+    color: white;
+}
+
+.trackButton1 img:hover{
+    filter: invert(100%);
+}
+
+.trackButton1:active{
+    background-color:rgb(1, 85, 145);
+    color: white;
+    transform: scale(0.9);
+}
+
+.trackButton{
+    height: 2.5rem;
+    width: 7.5rem;
+    border-radius: 0.5rem;
+    border: solid gray 0.1px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    background-color: rgb(255,252,252);
+    transition: all 0.15s;
+    position: relative;
+    font-size: 1rem;
+}
+
+.plusIcon{
+    margin-left: 0.5rem;
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.tableContainer2{
+    /* outline: red dashed 1px; */
+    height: 45rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.unitContainer{
+    /* outline: red dashed 1px; */
+    height: 3rem;
+    width: 93%;
+    background-color: rgba(255, 250, 250, 0.582);
+    border: 1px solid gray;
+    display: flex;
+    align-items: center;
+    justify-content: right;
+}
+
+.unitList{
+    /* outline: red dashed 1px; */
+    height: 2rem;
+    width: 10rem;
+    margin-right: 0.5rem;
+    border-radius: 0.3rem;
+    background-color:rgb(2, 116, 200);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    border: 1px solid gray;
+    cursor: pointer;
+}
+
+.unitList:hover{
+    background-color: transparent;
+    border: solid rgb(2, 116, 200) 1px;
+    color: rgb(2, 116, 200);
+}
+
+.unitList:active{
+    transform: scale(0.9);
+}
+
+.subTrackContainer{
+    outline: red dashed 1px;
+    position: absolute;
+    height: 9rem;
+    width: 15rem;
+    left: 0;
+    top: 3rem;
+    border-radius: 0.5rem;
+    background-color: rgb(255,252,252);
+    border: 1px solid gray;
+}
+/* 
+.sortContainer{
+    outline: red dashed 1px;
+    position: absolute;
+    height: 9rem;
+    width: 15rem;
+    right: 2%;
+    top: 8.5rem;
+    border-radius: 0.5rem;
+    background-color: rgb(255,252,252);
+    border: 1px solid gray;
+} */
+
+.searhUnitContainer{
+    /* outline: red dashed 1px; */
+    height: 3rem;
+    display: flex;
+    align-items: center;
+    font-size: 1.2rem;
+    padding-left: 0.5rem;
+}
+
+.searchUnitContainer{
+    /* outline: red dashed 1px; */
+    height: 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.buttonContainer2{
+    /* outline: red dashed 1px; */
+    height: 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: right;
+    flex-direction: row;
+    gap: 0.5rem;
+}
+
+.button3{
+    /* outline: red dashed 1px; */
+    height: 2rem;
+    width: 5rem;
+    border-radius: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: solid rgb(2, 116, 200) 1px;
+    color: rgb(2, 116, 200);
+    transition: all 0.15s;
+    font-size: 1.1rem;
+    cursor: pointer;
+}
+
+.button3:hover{
+    background-color:rgb(2, 116, 200);
+    color: snow;
+}
+
+.button3:active{
+    transform: scale(0.9);
+}
+
+.button4{
+    /* outline: red dashed 1px; */
+    background-color: rgb(2, 116, 200);
+    height: 2rem;
+    width: auto;
+    padding: 0 1rem;
+    border-radius: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: solid rgb(2, 116, 200) 1px;
+    color: snow;
+    margin-right: 0.7rem;
+    transition: all 0.15s;
+    font-size: 1.1rem;
+    cursor: pointer;
+}
+
+
+.button4:hover{
+    background-color: transparent;
+    border: solid rgb(2, 116, 200) 1px;
+    color: rgb(2, 116, 200);
+}
+
+.button4:active{
+    transform: scale(0.9);
+}
+
+.trackUnitContainer{
+    /* outline: red dashed 1px; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.144); 
+    z-index: 999; 
+}
+
+.subTrackUnitContainer{
+    /* outline: red dashed 1px; */
+    height: 43rem;
+    width: 90%;
+    border-radius: 0.5rem;
+    background-color: snow;
+    padding: 1rem 3rem;
+}
+
+.trackNameContainer{
+    /* outline: red dashed 1px; */
+    height: 4rem;
+    display: flex;
+    justify-content: center;
+    border-bottom: solid gray 1px;
+}
+
+.subTrackNameContainer{
+    /* outline: red dashed 1px; */
+    height: 100%;
+    width: 90%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: rgb(2, 116, 200);
+}
+
+.unitInfoContainer{
+    /* outline: red dashed 1px; */
+    height: 35rem;
+    width: 100%;
+    overflow: auto;
+}
+
+.buttonContainer3{
+    /* outline: red dashed 1px; */
+    height: 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: right;
+}
+
+.button5{
+    /* outline: red dashed 1px; */
+    background-color: rgb(2, 116, 200);
+    height: 2.5rem;
+    width: 7rem;
+    font-size: 1.2rem;
+    border-radius: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: solid rgb(2, 116, 200) 1px;
+    color: snow;
+    margin-right: 0.7rem;
+    transition: all 0.15s;
+    cursor: pointer;
+}
+
+.button5:hover{
+    background-color: transparent;
+    border: solid rgb(2, 116, 200) 1px;
+    color: rgb(2, 116, 200);
+}
+
+.button5:active{
+    transform: scale(0.9);
+}
+
+.subUnitInfoContainer{
+    /* outline: red dashed 1px; */
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    overflow: auto;
+}
+
+.infoContainer1{
+    /* outline: red dashed 1px; */
+}
+
+.imageContainer1{
+    /* outline: red dashed 1px; */
+    height: 15rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.subImageContainer1{
+    /* outline: red dashed 1px; */
+    width: 11rem;
+    height: 11rem;
+    border-radius: 0.5rem;
+    background-color: rgb(2, 116, 200);
+}
+
+.image12{
+    height: 100%;
+    width: 100%;
+    border-radius: 0.5rem;
+}
+
+.equipNameContainer{
+    /* outline: red dashed 1px; */
+    height: 3rem;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.3rem;
+    margin-top: 1rem;
+    flex-direction: column;
+    gap: 0.5rem;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.unitIDContainer{
+    /* outline: red dashed 1px; */
+    display: flex;
+    flex-direction: column;
+}
+
+.unitID{
+    /* outline: red dashed 1px; */
+    height: 6rem;
+    padding: 0 0.5rem 0 0.5rem;
+    font-size: 1.2rem;
+}
+
+.unitInputContainer{
+    /* outline: red dashed 1px; */
+    height: 3rem;
+    border-radius: 0.5rem;
+    border: solid gray 1px;
+    margin-top: 0.5rem;
+    background-color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+}
+
+.oldUserContainer{
+    /* outline: red dashed 1px; */
+    display: flex;
+    flex-direction: column;
+}
+
+.oldUserTextContainer{
+    /* outline: red dashed 1px; */
+    height: 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgb(2, 116, 200);
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+@keyframes rotateRight {
+    0%{
+        transform: rotate(0deg);
+    } 100%{
+        transform: rotate(180deg);
+    }
+}
+
+@keyframes rotateLeft {
+    from{
+        transform: rotate(180deg);
+    } to{
+        transform: rotate(0deg);
+    }
+}
+
+@keyframes closeSideBar {
+    from{
+        margin-left: -30rem;
+    } to{
+        margin-right: 0;
+    }
+
+}
+
+@keyframes openSideBar {
+    from{
+        margin-left: 0rem;
+    } to{
+        margin-left: -30rem;
+    }
+
+}
+
+/* logout */
+.popupContainer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.144); 
+    z-index: 999; 
+}
+
+.popupModal {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.popupContent {
+    width: 20%;
+    max-width: 500px; 
+    height: 25vh;
+    background-color: #fff;
+    border: 1px solid gray;
+    border-radius: 0.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 3rem;
+    font-size: 0.8rem;
+    font-weight: 600;
+    padding: 1rem;
+}
+
+.popupContent .confirmsg{
+    margin-top: -2rem;
+}
+
+.logout-title{
+    width: 90%;
+    border-bottom: 1px solid gray;
+    padding-bottom: 1.5rem;
+    color: rgb(2, 116, 200);
+    font-weight: bold;
+}
+
+.popupButtons{
+    width: 90%;
+    height: 5vh;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 0.7rem;
+    cursor: pointer;
+}
+
+.popupButtons .button3,
+.popupButtons .button4{
+    padding: 1rem;
+    border-radius: 0.3rem;
+    font-size: 1rem;
+    cursor: pointer;
+}
+/*tablet*/
+@media only screen and (min-width: 601px) and (max-width: 1024px) {
+    .tableContainer2{
+        height: 43.6rem;
+    }
+
+    .systemName{
+        display: block;
+        height: 2.1rem;
+    }
+
+    .filterContainer1{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        gap: 1rem;
+        height: 4rem;
+        padding: 0 0.5rem 0 0.5rem;
+    }
+
+    .subFilterContainer1{
+        display: flex;
+        flex-direction: row;
+        height: 3rem;
+        margin-top: 1rem;
+    }
+
+    .searchContainer1{
+        margin: 0;
+    }
+
+    .inventoryNameContainer{
+        height: 3rem;
+    }
+
+    .popupContent{
+        font-size: 1rem;
+    }
+}
+
+/*laptop*/
+@media only screen and (min-width: 1025px){
+    .popupContent{
+        font-size: 1.3rem;
+    }
+
+    .tableContainer2{
+        height: 43.6rem;
+        margin-top: 1rem;
+    }
+
+    .systemName{
+        display: block;
+        height: 2.1rem;
+    }
+
+    .filterContainer1{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        gap: 1rem;
+        height: 4rem;
+        padding: 0 2rem 0 2rem;
+    }
+
+    .subFilterContainer1{
+        display: flex;
+        flex-direction: row;
+        height: 3rem;
+        margin-top: 1rem;
+        /* outline: red dashed 1px; */
+    }
+
+    .searchContainer1{
+        margin: 0;
+        width: 30rem;
+    }
+
+    .inventoryNameContainer{
+        height: 3rem;
+    }
+
+    .sideBarContainer6{
+        width: 18rem;
+        animation: closeSideBar 0.5s linear;
+    }
+    
+    .openSideBar{
+        width: 20rem;
+        margin-left: -20rem;
+        animation: openSideBar 0.5s linear;
+    }
+
+    .infoContainer1{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+    }
+
+    .subInfoContainer1{
+        display: flex;
+        flex-direction: column;
+        width: 65%;
+        height: 15rem;
+    }
+
+    .imageContainer1{
+        width: 20rem;
+        height: 20rem;
+    }
+
+    .subImageContainer1{
+        height: 15rem;
+        width: 15rem;
+    }
+
+    .unitIDContainer{
+        height: 100%;
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+    }
+
+    .unitID{
+        width: 100%;
+    }
+
+    .subTrackUnitContainer{
+        width: 60rem;
+    }
+
+    @keyframes closeSideBar {
+        from{
+            margin-left: -20rem;
+        } to{
+            margin-right: 0;
+        }
+    
+    }
+    
+    @keyframes openSideBar {
+        from{
+            margin-left: 0rem;
+        } to{
+            margin-left: -20rem;
+        }
+    
+    }
+}
