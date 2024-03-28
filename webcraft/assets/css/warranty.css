@@ -1,0 +1,93 @@
+.container4 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); 
+    z-index: 999; 
+}
+
+.subContainer{
+    position: relative;
+    margin: 20rem auto;
+    /* outline: red dashed 1px; */
+    height: 10rem;
+    width: 25rem;
+    border-radius: 0.5rem;
+    background-color: rgba(255, 250, 250, 1);
+    text-align: center;
+    padding: 1rem;
+}
+
+.warrantyContainer{
+    width: 25rem;
+    height: 7rem;
+    /* outline: red dashed 1px; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.4rem;
+}
+
+span{
+    font-weight: bold;
+}
+
+.buttonContainer{
+    height: 3rem;
+    /* outline: red dashed 1px; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+button{
+    height: 2.5rem;
+    width: 6rem;
+    border-radius: 0.5rem;
+    border: none;
+    font-size: 0.9rem;
+    background: rgb(2, 116, 200);
+    transition: all 0.15s;
+    cursor: pointer;
+    font-weight: bold;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+button:hover{
+    background-color: rgba(2, 117, 200, 0.297);
+}
+
+button:active{
+    background-color: rgba(2, 117, 200, 0.76);;
+}
+
+#btn1,
+#btn2,
+#btn3{
+    padding: 1rem 5rem;
+}
+
+#btn1 a,
+#btn3 a{
+    color: #fff;
+}
+
+#btn1:hover,
+#btn2:hover,
+#btn3:hover{
+    background-color: rgba(2, 117, 200, 0.297);
+}
+
+#btn1:active,
+#btn2:active,
+#btn3:active{
+    background-color: rgba(2, 117, 200, 0.76);
+}

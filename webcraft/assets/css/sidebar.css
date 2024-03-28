@@ -1,0 +1,217 @@
+body {
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+  }
+  
+  .sidebar-container {
+    outline: 1px red solid;
+    width: 20rem; 
+    height: 100vh;
+  }
+
+  /* khriz */
+
+  .userContainer{
+    /* outline: red dashed 1px; */
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: column;
+}
+
+.subUserContainer{
+    /* outline: red dashed 1px; */
+    height: 6rem;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 5rem 1fr;
+    border-bottom: solid snow 1px;
+    cursor: pointer;
+}
+
+.userPictureContainer{
+    /* outline: red dashed 1px; */
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.userPictureContainer1{
+    /* outline: red dashed 1px; */
+    height: 100%;
+    display: flex;
+    align-items: center;
+    color: snow;
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.subUserPictureContainer{
+    /* outline: red dashed 1px; */
+    height: 3rem;
+    width: 3rem;
+    border-radius: 5rem;
+    background: rgb(207, 224, 236);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.profilePicture{
+    width: 100%;
+    height: 100%;
+    border-radius: 5rem;
+}
+
+.navContainer{
+    /* outline: red dashed 1px; */
+    width: 100%;
+}
+
+.subNavContainer{
+    /* outline: red dashed 1px; */
+    height: 36rem;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.buttonContainer1{
+    display: flex;
+    align-items: center;
+    justify-content: right;
+    flex-direction: row;
+    /* outline: red dashed 1px; */
+    height: 100%;
+    width: 100%;
+    transition: all 0.15s;
+    cursor: pointer;
+}
+
+.buttonContainer1:hover{
+    background: rgb(207, 224, 236);
+    color: black;
+}
+
+.iconContainer9{
+    /* outline: red dashed 1px; */
+    height: 100%;
+    width: 4rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.icon{
+    height: 2.5rem;
+    filter: invert(90%);
+}
+
+.iconContainer9 #icon{
+    width: 1.9rem;
+    height: 1.9rem;
+}
+
+.nameOfIconContainer{
+    /* outline: red dashed 1px; */
+    height: 100%;
+    width: 70%;
+    display: flex;
+    align-items: center;
+    color: rgba(255, 250, 250, 0.893);
+    font-size: 1.3rem;
+    transition: all 0.15s
+}
+.nameOfIconContainer:hover,
+.icon:hover{
+    filter: invert(0%);
+    color: black;
+    padding: 0.5rem 0;
+}
+
+a{
+    text-decoration: none;
+}
+
+.settingContainer{
+    /* outline: red dashed 1px; */
+    height: 2.7rem;
+}
+
+.sideBarContainer3{
+    /* outline: red dashed 1px; */
+    height: 100%;
+    width: 100%;
+}
+
+/*  */
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 16rem; 
+    height: 100vh;
+    background-color: rgb(2, 116, 200);
+    transition: transform 0.3s ease-in-out;
+  }
+  
+  .mainContainer {
+    margin-left: 15.5rem; 
+    text-align: center;
+    transition: margin-left 0.3s ease-in-out;
+  }
+  
+  .mainContainer.centered {
+    margin-left: auto;
+  }
+  
+  body.sidebar-hidden .sidebar {
+    transform: translateX(-16.2rem); 
+  }
+  
+  .arrowContainer {
+    height: 100%;
+    width: 1.5rem;
+    right: -1.4rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+  }
+  
+  .subArrowContainer {
+    /* outline: red dashed 1px; */
+    width: 100%;
+    height: 5rem;
+    border-radius: -10rem;
+    background-color: rgb(2, 116, 200);
+    border-radius: 0 0.5rem 0.5rem 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+  }
+  
+  .hideIcon {
+    height: 1.5rem;
+    filter: invert(100%);
+    animation: rotateLeft 0.5s linear;
+  }
+  
+  .rotate {
+    height: 1.5rem;
+    filter: invert(100%);
+    transform: rotate(180deg);
+    animation: rotateRight 0.5s linear;
+  }
+  
+  @media (max-width: 767px) {
+    .mainContainer {
+      margin-left: 0;
+    }
+
+  }

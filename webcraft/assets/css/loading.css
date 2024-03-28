@@ -1,0 +1,373 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+body{
+    overflow-y: hidden;
+    overflow-x: hidden ;
+}
+
+.container{
+    height: 56rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background-color: rgb(2, 116, 200);
+}
+
+.subContainer{
+    height: 20rem;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.image6{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 20rem;
+    background-color: white;
+    border-radius: 20rem;
+}
+
+.image7{
+    height: 20rem;
+    animation: fadeIn 0.4s linear;
+}
+
+.image8{
+    position: absolute;
+    height: 6.5rem;
+    top: 22rem;
+    animation: bounce 0.7s linear;
+}
+
+.image9{
+    position: absolute;
+    height: 8.5rem;
+    top: 22rem;
+    animation: bounce 0.9s linear;
+}
+
+.image10{
+    position: absolute;
+    height: 7rem;
+    top: 28rem;
+    animation: bounce 1.1s linear;
+}
+
+.hidden{
+    display: none;
+}
+
+.imageContainer1, .imageContainer2, .imageContainer3{
+    height: 100%;
+    width: 20rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.imageContainer2, .imageContainer3{
+    display: none;
+}
+
+@keyframes floatAnimation {
+    0%, 100% {
+        transform: translate(-10%, -10%) ;
+    }
+    50% {
+        transform: translate(-10%, -50%);
+    }
+}
+
+@keyframes fadeIn {
+    0%{
+        height: 200rem;
+    }50%{
+        height: 50rem;
+    }100%{
+        height: 20rem;
+    }
+}
+
+@keyframes bounce {
+    0%{
+        height: 10rem;
+    }20%{
+        height: 5rem;
+    }40%{
+        height: 8rem;
+    }60%{
+        height: 10rem;
+    }80%{
+        height: 20rem;
+    }100%{
+        height: 10rem;
+    }
+}
+
+
+/*tablet*/
+@media only screen and (min-width: 601px) and (max-width: 1024px) {
+    .subContainer1{
+        height: 20rem;
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        flex-direction: row;
+    }
+
+    .container{
+        height: 48rem;
+    }
+
+    .image8{
+        position: absolute;
+        height: 6.5rem;
+        top: 18rem;
+        animation: bounce 0.7s linear;
+    }
+    
+    .image9{
+        position: absolute;
+        height: 8.5rem;
+        top: 18rem;
+        animation: bounce 0.9s linear;
+    }
+    
+    .image10{
+        position: absolute;
+        height: 7rem;
+        top: 24rem;
+        animation: bounce 1.1s linear;
+    }
+
+    .imageContainer4{
+        height: 14rem;
+        width: 14rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .image11{
+        height: 10rem;
+        animation: floatAnimation 4.5s infinite, bounce 1s linear;
+    }
+
+    .image12{
+        height: 10rem;
+        animation: floatAnimation 5.5s infinite, bounce 2s linear;
+    }
+
+    .image13{
+        height: 10rem;
+        animation: floatAnimation 6.5s infinite, bounce 2.5s linear;
+    }
+
+    .image14{
+        height: 10rem;
+        animation: floatAnimation 6.5s infinite, bounce 3s linear;
+    }
+
+    .image15{
+        height: 10rem;
+        animation: floatAnimation 6.5s infinite, bounce 3s linear;
+    }
+
+    .image16{
+        height: 10rem;
+        animation: floatAnimation 6.5s infinite, bounce 2.5s linear;
+    }
+}
+
+
+/*laptop*/
+@media only screen and (min-width: 1025px) and (max-width: 1440px) {
+    .subContainer1{
+        height: 20rem;
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        flex-direction: row;
+    }
+
+    .container{
+        height: 48rem;
+    }
+
+    .image8{
+        position: absolute;
+        height: 6.5rem;
+        top: 18rem;
+        animation: bounce 0.7s linear;
+    }
+    
+    .image9{
+        position: absolute;
+        height: 8.5rem;
+        top: 18rem;
+        animation: bounce 0.9s linear;
+    }
+    
+    .image10{
+        position: absolute;
+        height: 7rem;
+        top: 24rem;
+        animation: bounce 1.1s linear;
+    }
+
+    .imageContainer4{
+        height: 14rem;
+        width: 14rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .image11{
+        height: 10rem;
+        animation: floatAnimation 4.5s infinite, bounce 1s linear;
+    }
+
+    .image12{
+        height: 10rem;
+        animation: floatAnimation 5.5s infinite, bounce 2s linear;
+    }
+
+    .image13{
+        height: 10rem;
+        animation: floatAnimation 6.5s infinite, bounce 2.5s linear;
+    }
+
+    .image14{
+        height: 10rem;
+        animation: floatAnimation 6.5s infinite, bounce 3s linear;
+    }
+
+    .image15{
+        height: 10rem;
+        animation: floatAnimation 6.5s infinite, bounce 3s linear;
+    }
+
+    .image16{
+        height: 10rem;
+        animation: floatAnimation 6.5s infinite, bounce 2.5s linear;
+    }
+    .hidden{
+        display: none;
+    }
+
+    .imageContainer2, .imageContainer3{
+        display: block;
+        width: 20rem;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .subContainer{
+        display: flex;
+        column-gap: 2rem;
+    }
+    
+}
+
+
+/*pc*/
+@media only screen and (min-width: 1441px) {
+    .subContainer1{
+        height: 20rem;
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        flex-direction: row;
+    }
+
+    .container{
+        height: 54rem;
+    }
+
+    .image8{
+        position: absolute;
+        height: 6.5rem;
+        top: 20.5rem;
+        animation: bounce 0.7s linear;
+    }
+    
+    .image9{
+        position: absolute;
+        height: 8.5rem;
+        top: 20.5rem;
+        animation: bounce 0.9s linear;
+    }
+    
+    .image10{
+        position: absolute;
+        height: 7rem;
+        top: 26.5rem;
+        animation: bounce 1.1s linear;
+    }
+
+    .imageContainer4{
+        height: 14rem;
+        width: 14rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .image11{
+        height: 10rem;
+        animation: floatAnimation 4.5s infinite, bounce 1s linear;
+    }
+
+    .image12{
+        height: 10rem;
+        animation: floatAnimation 5.5s infinite, bounce 2s linear;
+    }
+
+    .image13{
+        height: 10rem;
+        animation: floatAnimation 6.5s infinite, bounce 2.5s linear;
+    }
+
+    .image14{
+        height: 10rem;
+        animation: floatAnimation 6.5s infinite, bounce 3s linear;
+    }
+
+    .image15{
+        height: 10rem;
+        animation: floatAnimation 6.5s infinite, bounce 3s linear;
+    }
+
+    .image16{
+        height: 10rem;
+        animation: floatAnimation 6.5s infinite, bounce 2.5s linear;
+    }
+    .hidden{
+        display: none;
+    }
+
+    .imageContainer2, .imageContainer3{
+        display: block;
+        width: 20rem;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .subContainer{
+        display: flex;
+        column-gap: 2rem;
+    }
+}
