@@ -158,12 +158,12 @@
                                 <?php
                                     $count = 1; 
                                     foreach ($units as $unit) {
-                                        $unitID = sprintf("UNIT-%04d", $count); 
+                                        $unitID =  $unit['unit_ID']; 
                                         $equipmentName = $unit['equipment_name'];
-                                        
+                                        $formattedUnitID = 'UNIT-' . str_pad($unitID, 4, '0', STR_PAD_LEFT);
                                         echo "<tr>";
                                         echo "<td>{$count}</td>";
-                                        echo "<td>$unitID</td>";
+                                        echo "<td>$formattedUnitID</td>";
                                         echo "<td>$equipmentName</td>";
 
                                         $query = "SELECT property_number, account_code, remarks FROM equipment WHERE article = ?";

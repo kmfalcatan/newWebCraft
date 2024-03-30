@@ -52,6 +52,7 @@
             </div>
 
             <div class="subContainer1" id="containerToReplace">
+            <div class="equipContainer">
                 <div class="filterContainer1">
                     <div class="inventoryNameContainer">
                         <p>EQUIPMENT DETAILS</p>
@@ -60,35 +61,16 @@
                     <div class="subFilterContainer1">
                         <div class="trackContainer">
                             <button class="trackButton1" type="button"  onclick="showWarrantyContainer()">Check warranty</button>
-
-                                <button class="trackButton1"  id="btn2" >Edit <img src="../../assets/img/edit.png" alt=""></button>
-
-                            <div class="reportContainer"  id="reportContainer">
-                                <button class="trackButton1" onclick="toggleDropdown()">Report</button>
-                                <div class="dropdown-content" id="dropdownContent">
-                                    <h4>UNIT REPORTING AND REMOVAL AGREEMENT</h4>
-                                    <br> 
-                                    <p class="agreement">By continuing to report a unit, you acknowledge that the unit will be subject to review and approval by the 
-                                        administrator of the system. The decision to remove the unit from the available list will be based on the 
-                                        administrator's review of the reported reason. Once approved by the administrator, the unit will be permanently 
-                                        removed from the available list. However, if the unit is repaired or found, the administrator may restore it 
-                                        to the available list. You agree to keep all information related to the reported unit confidential and not disclose 
-                                        it to any third party without the prior written consent of the administrator.
-                                    </p>
-                                <br>
-                                    <input type="checkbox" name="agreementCheckbox" id="agreementCheckbox" value="">
-                                    <label for="agreementCheckbox">I understand and agree to the terms and conditions.</label>
-                                    <a href="report.php?equipment_ID=<?php echo $equipment_ID; ?>&id=<?php echo $userID; ?>">
-                                        <button class="proceed" disabled>Proceed</button>
-                                    </a>
-                                </div>
-                            </div>   
+                            <button class="trackButton1"  id="btn2" >Edit <img src="../../assets/img/edit.png" alt=""></button>
+                            <a href="view_unit.php?id=<?php echo $userID; ?>&equipment_ID=<?php echo $equipmentID; ?>">
+                                <button class="trackButton1" type="button">See unit</button>
+                            </a>
                         </div>
                     </div>
                 </div>
                 
-                <div class="equipContainer">
-                    <div class="subViewApproveContainer">
+               
+                    <div class="subViewApproveContainer" >
                         <div class="viewInfoContainer">
                             <div class="imageContainer4">
                                 <div class="subImageContainer5">
@@ -300,6 +282,7 @@
             originalContent = document.querySelector('.subContainer1').innerHTML;
 
             document.querySelector('.subContainer1').innerHTML = `
+                <div class="equipContainer">
                 <div class="filterContainer1">
                     <div class="inventoryNameContainer">
                         <p>EDIT DETAILS</p>
@@ -310,7 +293,6 @@
                         </div>
                     </div>
                 </div>
-                <div class="equipContainer">
                     <?php include('edit_equipment.php'); ?>
                 </div>`;
         }

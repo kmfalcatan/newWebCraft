@@ -1,11 +1,10 @@
 <?php
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // If remember me is checked, set cookies
+    
     if(isset($_POST['remember']) && $_POST['remember'] == 'on') {
-        setcookie('remember_email', $_POST['email'], time() + (86400 * 30), "/"); // 86400 = 1 day
-        setcookie('remember_password', $_POST['password'], time() + (86400 * 30), "/"); // 86400 = 1 day
+        setcookie('remember_email', $_POST['username'], time() + (86400 * 30), "/"); 
+        setcookie('remember_password', $_POST['password'], time() + (86400 * 30), "/"); 
     } else {
-        // If remember me is not checked, delete cookies if they exist
         if(isset($_COOKIE['remember_email'])) {
             setcookie('remember_email', '', time() - 3600, '/');
         }

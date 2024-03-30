@@ -1,6 +1,9 @@
 .filterContainer1{
-    /* outline: red dashed 1px; */
+    outline: red dashed 1px;
     height: 5rem;
+    width: 100%;
+    padding: 0;
+    
 }
 
 .trackButton1{
@@ -14,18 +17,23 @@
 }
 
 .equipContainer{
-    margin: 0;
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-direction: column;
+    width: 90%;
+    margin: auto;
+    outline: 1px solid red;
+    padding-bottom: 1rem;
 }
 
 .subViewApproveContainer{
-    width: 90%;
+    width: 100%;
     background-color: snow;
     border-radius: 0.5rem;
-    padding: 1rem 1.5rem;
+    /* padding: 1rem 1.5rem; */
     padding-bottom: 2rem;
+    /* outline: 1px solid red; */
 }
 
 .viewInfoCotainer{
@@ -40,14 +48,38 @@
     align-items: center;
     flex-direction: column;
     margin-right: 2rem;
-    
+    padding-top: 1.5rem;
 }
 
-.subImageContainer5{
+#imageContainer4{
+    margin: auto;
+    width: auto;
+    height: 15rem;
+    color: rgb(2, 116, 200); 
+    /* outline: 1px solid red; */
+    gap: 1rem;
+}
+
+#imageContainer4 h2{
+    /* outline: 1px solid red; */
+}
+
+.subImageContainer5,
+.equipImage{
     height: 11rem;
     width: 11rem;
     border: solid rgb(2, 116, 200) 1px;
     border-radius: 0.5rem;
+}
+
+.equipImage{
+    border-bottom: 1px solid gray;
+
+}
+
+.equipImage2{
+    height: 100%;
+    width: 100%;
 }
 
 input{
@@ -140,10 +172,12 @@ input{
 }
 
 .approveInfoContainer{
-    height: 25.5rem;
+    height: 28rem;
     gap: 1.5rem;
     display: flex;
     flex-direction: column;
+    /* outline: 1px solid red; */
+    padding: 0 1.5rem;
 }
 
 .subApproveInfoContainer, .subApproveInfoContainer1, .approveContainer{
@@ -169,9 +203,12 @@ input{
     flex-direction: column;
     gap: 1rem;
     align-items: center;
-    width: 100%;
+    justify-content: center;
+    width: 85%;
+    padding-right: 0.5rem;
     height: 100%;
-    margin-top: 3rem;
+    margin: 3rem auto;
+    /* outline: 1px solid red; */
 }
 
 .labelContainer1{
@@ -214,11 +251,15 @@ input{
 .descriptionContainer{
     height: 12rem;
     margin-top: 3rem;
+    /* outline: 1px solid red; */
+    width: 85%;
+    margin: auto;
 }
 
 .descriptionContainer1{
     height: 12rem;
-    margin-top: 0;
+    width: 85%;
+    margin: auto;
 }
 
 /* agreement modal */
@@ -313,25 +354,78 @@ input{
     color: #721c24;
 }
 
+#buttonContainer2{
+    width: 85%;
+    margin: auto;
+}
+
+#viewInfoContainer{
+    border-bottom: 1px solid gray;
+    padding-bottom: 1rem;
+}
+
+.unitSelected{
+    font-size: 1.3rem;
+    font-weight: bold;
+    padding-top: 1rem;
+    color: rgb(2, 116, 200);
+}
+
+.selectedContainer{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 1rem;
+    height: auto;
+}
+.selectedunitInfo{
+    display: flex;
+    gap: 1rem;
+}
+
+.descContainer{
+    height: 10rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    align-items: center;
+    width: 100%;
+}
+
+.descContainer input{
+    height: 100%;
+    width: 100%;
+}
+
+.descContainer span{
+    color: red;
+    font-size: 1.3rem;
+}
+
 /*laptop*/
 @media only screen and (min-width: 1025px){
+    .equipContainer{
+        width: 70%;
+    }
     .filterContainer1{
         display: flex;
         flex-direction: row;
         justify-content: space-between;
         gap: 1rem;
         height: 5rem;
-        padding: 0 16rem 0 16rem;
+        width: 100%;
     }
 
     .subViewApproveContainer{
-        width: 60rem;
+        width: 100%;
     }
 
     .viewInfoContainer{
         display: flex;
         flex-direction: row;
         padding: 1.5rem;
+        width: 93%;
     }
 
     .imageContainer4{
@@ -339,14 +433,32 @@ input{
         height: 20rem;
     }
 
+    #imageContainer4{
+        gap: 1rem;
+        margin-right: auto;
+        margin-left: 0.3rem;
+    }
+
     .subImageContainer5{
         height: 15rem;
         width: 15rem;
     }
 
+    .equipImage{
+        height: 11rem;
+        width: 11rem;
+        margin-bottom: auto;
+    }
+
+    #article{
+        padding: 0;
+        margin-top: -3rem;
+        margin-bottom: auto;
+    }
+
     .approveInfoContainer{
         width: 40rem;
-        height: 20rem;
+        height: auto;
     }
 
     .subApproveInfoContainer1{
@@ -356,6 +468,8 @@ input{
 
     .subApproveInfoContainer2{
         display: flex;
+        justify-content: center;
+        align-items: center;
         flex-direction: row;
         margin-top: 2rem;
     }
@@ -365,7 +479,7 @@ input{
     }
 
     .subViewApproveContainer{
-        width: 60rem;
+        width: 100%;
     }
 
     .container5{

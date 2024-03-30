@@ -9,7 +9,7 @@
 
 .subUserListContainer{
     height: 90%;
-    width: 90%;
+    width: 100%;
     /* outline: red dashed 1px; */
     border-radius: 0.5rem;
     overflow: auto;
@@ -19,7 +19,7 @@
     background-color: snow;
     border: 1px solid gray;
     align-items: center;
-    padding: 1rem 0;
+    padding-top: 1rem;
 }
 
 .userContainer4{
@@ -242,6 +242,6 @@ button{
 /*laptop*/
 @media only screen and (min-width: 1025px){
     .filterContainer1{
-        padding: 0 3.5rem;
+        /* padding: 0 3.5rem; */
     }
 }

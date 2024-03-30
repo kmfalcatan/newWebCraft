@@ -48,8 +48,9 @@
                     </div>
                 </div>
             </div>
-
+            
             <div class="subContainer1">
+                <div class="userInfoContainer">     
                 <div class="filterContainer1">
                     <div class="inventoryNameContainer">
                         <p>MY PROFILE</p>
@@ -57,13 +58,15 @@
 
                     <div class="subFilterContainer1">
                         <div class="trackContainer">
+                            <a href="my_units.php?id=<?php echo $userID; ?>">
+                                <button class="trackButton1">My units</button>
+                            </a>
                             <button class="trackButton1" onclick="popupForm1()">Change password <img src="../../assets/img/change-password.png" style="height: 1.6rem; width: 1.5rem; margin-left: 0.8rem;"></button>
-                            <button onclick="popupForm()" class="trackButton1">Edit Profile <img src="../../assets/img/edit.png" alt=""></button>
+                            <button class="trackButton1" id="btn2">Edit Profile <img src="../../assets/img/edit.png" alt=""></button>
                         </div>
                     </div>
                 </div>
 
-                <div class="userInfoContainer">
                     <div class="subUserInfoContainer">
                         <div class="imageContainer3">
                             <div class="subImageContainer4">
@@ -179,121 +182,6 @@
             </div>  
         </div>
 
-        <div class="editProfileContainer" style="display: none;">
-            <div class="editProfileContainer">
-                <div class="userInfoContainer">
-                    <form class="subUserInfoContainer1" action="../../functions/edit_profile.php" id="myForm" method="POST" enctype="multipart/form-data" style="overflow: auto;">
-                        <div class="trackNameContainer">
-                            <div class="subTrackNameContainer">
-                                <p>EDIT PROFILE</p>
-                            </div>
-                        </div>
-                        <div class="imageContainer3">
-                            <div class="subImageContainer4">
-                                <div class="image10">
-                                    <img class="image10" id="previewImage" name="profile_img" src="../../assets/img/img_placeholder.jpg" alt="">
-                                </div>
-                            </div>
-
-                            <div class="nameContainer1" style="margin-top: 0.5rem;">
-                                <input type="file" id="fileInput" name="profile_img" style="display: none;">
-                                <button class="fileButton" id="fileButton" type="button" name="profile_img"><img src="../../assets/img/upload.png" alt="">Upload</button>
-                            </div>
-
-                            <div class="nameContainer1" style="margin: 1rem;">
-                                <p><?php echo $userInfo['username'] ?? ''; ?></p>
-                            </div>
-
-                            <div class="nameContainer1">
-                                <p><?php echo date('Y') . '-' . sprintf('%04d', $userInfo['user_ID'] ?? ''); ?></p>
-                            </div>
-                        </div>
-
-                        <div class="inputContainer">
-                            <div class="subInputContainer">
-                                <div class="firstNameContainer">
-                                    <div class="labelContainer">
-                                        <p>First name <span>*</span></s></p>
-                                    </div>
-
-                                    <input type="text" class="subFirstNameContainer" name="first_name" value="<?php echo $userInfo['first_name'] ?? ''; ?>" required>
-                                </div>
-
-                                <div class="firstNameContainer">
-                                    <div class="labelContainer">
-                                        <p>Last name <span>*</span></p>
-                                    </div>
-
-                                    <input type="text" class="subFirstNameContainer" name="last_name" value="<?php echo $userInfo['last_name'] ?? ''; ?>" required>
-                                </div>
-
-                                <div class="firstNameContainer">
-                                    <div class="labelContainer">
-                                        <p>Middle Initial </p>
-                                    </div>
-
-                                    <input type="text" class="subFirstNameContainer" name="middle_initial" value="<?php echo $userInfo['middle_initial'] ?? ''; ?>">
-                                </div>
-                            </div>
-
-                            <div class="subInputContainer">
-                                <div class="firstNameContainer">
-                                    <div class="labelContainer">
-                                        <p>Designation <span>*</span></p>
-                                    </div>
-
-                                    <input type="text" class="subFirstNameContainer" name="designation" value="<?php echo $userInfo['designation'] ?? ''; ?>" required>
-                                </div>
-
-                                <div class="firstNameContainer">
-                                    <div class="labelContainer">
-                                        <p>Department <span>*</span></p>
-                                    </div>
-
-                                    <input type="text" class="subFirstNameContainer" name="department" value="<?php echo $userInfo['department'] ?? ''; ?>" required>
-                                </div>
-
-                                <div class="firstNameContainer">
-                                    <div class="labelContainer">
-                                        <p>Gender <span>*</span></p>
-                                    </div>
-
-                                    <select class="subFirstNameContainer" name="gender" id="" value="<?php echo $userInfo['gender'] ?? ''; ?>">
-                                        <option value="" selected disabled>Select a gender</option>
-                                        <option value="Male">Male</option>
-                                        <option value="Female">Female</option>
-                                        <option value="Other">Other</option>
-                                    </select>
-                                </div>
-                            </div>
-
-                            <div class="subInputContainer1">
-                                <div class="firstNameContainer">
-                                    <div class="labelContainer">
-                                        <p>E-mail <span>*</span></p>
-                                    </div>
-
-                                    <input type="email" class="subFirstNameContainer" name="email" value="<?php echo $userInfo['email'] ?? ''; ?>" required>
-                                </div>
-
-                                <div class="firstNameContainer">
-                                    <div class="labelContainer">
-                                        <p>Permanent address <span>*</span></p>
-                                    </div>
-
-                                    <input type="text" class="subFirstNameContainer" name="address" value="<?php echo $userInfo['address'] ?? ''; ?>" required>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="buttonContainer3">
-                            <button class="button2" id="saveButton" onclick="changeToConfirmSubmit()">Save Changes</button>
-                            <input type="hidden" name="confirmSave" value="1">
-                            <button onclick="popupForm()" class="button1" type="button">Cancel</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
     </div>
 
     <div class="changepassContainer" style="display: none;">
@@ -382,6 +270,140 @@
             }
         };
 </script>
+
+<script>
+    let originalContent;
+
+    function loadEditContent() {
+        originalContent = document.querySelector('.subContainer1').innerHTML;
+
+        document.querySelector('.subContainer1').innerHTML = `
+            <div class="userInfoContainer">
+                <div class="filterContainer1">
+                    <div class="inventoryNameContainer">
+                        <p>EDIT PROFILE</p>
+                        </div>
+                        
+                        <div class="subFilterContainer1">
+                        <div class="trackContainer">
+                            <button class="trackButton1" onclick="popupForm1()">Change password <img src="../../assets/img/change-password.png" style="height: 1.6rem; width: 1.5rem; margin-left: 0.8rem;"></button>
+                            <button onclick="popupForm()" class="trackButton1">Edit Profile <img src="../../assets/img/edit.png" alt=""></button>
+                        </div>
+                    </div>
+                </div>
+                <form class="subUserInfoContainer" action="../../functions/edit_profile.php" id="myForm" method="POST" enctype="multipart/form-data" style="overflow: auto;">
+                    <div class="imageContainer3">
+                        <div class="subImageContainer4">
+                            <div class="image10">
+                                <img class="image10" id="previewImage" name="profile_img" src="../../assets/img/img_placeholder.jpg" alt="">
+                            </div>
+                        </div>
+
+                        <div class="nameContainer1" style="margin-top: 0.5rem;">
+                            <input type="file" id="fileInput" name="profile_img" style="display: none;">
+                            <button class="fileButton" id="fileButton" type="button" name="profile_img"><img src="../../assets/img/upload.png" alt="">Upload</button>
+                        </div>
+
+                        <div class="nameContainer1" style="margin: 1rem;">
+                            <p><?php echo $userInfo['username'] ?? ''; ?></p>
+                        </div>
+
+                        <div class="nameContainer1">
+                            <p><?php echo date('Y') . '-' . sprintf('%04d', $userInfo['user_ID'] ?? ''); ?></p>
+                        </div>
+                    </div>
+
+                    <div class="inputContainer">
+                        <div class="subInputContainer">
+                            <div class="firstNameContainer">
+                                <div class="labelContainer">
+                                    <p>First name <span>*</span></s></p>
+                                </div>
+
+                                <input type="text" class="subFirstNameContainer" name="first_name" value="<?php echo $userInfo['first_name'] ?? ''; ?>" required>
+                            </div>
+
+                            <div class="firstNameContainer">
+                                <div class="labelContainer">
+                                    <p>Last name <span>*</span></p>
+                                </div>
+
+                                <input type="text" class="subFirstNameContainer" name="last_name" value="<?php echo $userInfo['last_name'] ?? ''; ?>" required>
+                            </div>
+
+                            <div class="firstNameContainer">
+                                <div class="labelContainer">
+                                    <p>Middle Initial </p>
+                                </div>
+
+                                <input type="text" class="subFirstNameContainer" name="middle_initial" value="<?php echo $userInfo['middle_initial'] ?? ''; ?>">
+                            </div>
+                        </div>
+
+                        <div class="subInputContainer">
+                            <div class="firstNameContainer">
+                                <div class="labelContainer">
+                                    <p>Designation <span>*</span></p>
+                                </div>
+
+                                <input type="text" class="subFirstNameContainer" name="designation" value="<?php echo $userInfo['designation'] ?? ''; ?>" required>
+                            </div>
+
+                            <div class="firstNameContainer">
+                                <div class="labelContainer">
+                                    <p>Department <span>*</span></p>
+                                </div>
+
+                                <input type="text" class="subFirstNameContainer" name="department" value="<?php echo $userInfo['department'] ?? ''; ?>" required>
+                            </div>
+
+                            <div class="firstNameContainer">
+                                <div class="labelContainer">
+                                    <p>Gender <span>*</span></p>
+                                </div>
+
+                                <select class="subFirstNameContainer" name="gender" id="" value="<?php echo $userInfo['gender'] ?? ''; ?>">
+                                    <option value="" selected disabled>Select a gender</option>
+                                    <option value="Male">Male</option>
+                                    <option value="Female">Female</option>
+                                    <option value="Other">Other</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="subInputContainer1">
+                            <div class="firstNameContainer">
+                                <div class="labelContainer">
+                                    <p>E-mail <span>*</span></p>
+                                </div>
+
+                                <input type="email" class="subFirstNameContainer" name="email" value="<?php echo $userInfo['email'] ?? ''; ?>" required>
+                            </div>
+
+                            <div class="firstNameContainer">
+                                <div class="labelContainer">
+                                    <p>Permanent address <span>*</span></p>
+                                </div>
+
+                                <input type="text" class="subFirstNameContainer" name="address" value="<?php echo $userInfo['address'] ?? ''; ?>" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="buttonContainer3">
+                        <button class="button2" id="saveButton" onclick="changeToConfirmSubmit()">Save Changes</button>
+                        <input type="hidden" name="confirmSave" value="1">
+                        <button class="button1" type="button" onclick="closeEditContent()">Cancel</button>
+                    </div>
+                </form>
+            </div>`;
+        }
+
+        function closeEditContent() {
+        document.querySelector('.subContainer1').innerHTML = originalContent;
+        }
+
+        document.getElementById('btn2').addEventListener('click', loadEditContent);
+        </script>
 
 </body>
 </html>

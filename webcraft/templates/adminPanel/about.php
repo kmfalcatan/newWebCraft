@@ -1,5 +1,6 @@
 <?php
- include_once "../../functions/header.php"
+ include_once "../../authentication/auth.php";
+ include_once "../../functions/header.php";
 ?>
 
 <!DOCTYPE html>
@@ -16,12 +17,12 @@
         <div class="headerContainer">
             <p>ABOUT</p>
 
-            <button class="backButton" onclick="goBack()">Back</button>
+            <button class="backButton" type="button" onclick="goBack()">Back</button>
         </div>
 
         <div class="bodyContainer">
             <div class="subBodyContainer">
-                <div class="textContainer" id="aboutSystem">
+                <div class="textContainer">
                     <div class="aboutContainer">
                         <p>ABOUT THE SYSTEM</p>
                     </div>
@@ -39,22 +40,17 @@
                 </div>
 
                 <div class="subTextContainer">
-                    <div class="system-img">
-                        <img class="image" src="../../assets/img/system.png" alt="">        
-                    </div>
+                    <img class="image" src="../../assets/img/system.png" alt="">
                 </div>
-
             </div>
 
             <div class="subBodyContainer1">
-                <div class="subTextContainer1">
-                    <div class="client-img">
-                        <img class="image1" src="../../assets/img/kyle kuzma.jpg" alt="">
-                    </div>
+                <div class="subTextContainer">
+                    <img class="image1" src="../../assets/img/kyle kuzma.jpg" alt="">
                 </div>
                 
-                <div class="textContainer" id="textContainer">
-                    <div class="aboutContainer" id="aboutContainer">
+                <div class="systemContainer">
+                    <div class="aboutContainer">
                         <p>ABOUT THE CLIENT</p>
                     </div>
 
@@ -67,11 +63,33 @@
                         seamless process of receiving and organizing the resources essential for the department's 
                         scientific endeavors. Experience the power of MedEquip Tracker, tailored to meet the unique needs 
                         of laboratory technicians like Ryan Jonathan Torres in the College of Science and Mathematics.
+                        <br>
+                        <div class="clientContact">
+                            <button class="button">Contact Information</button>
+                        </div>
                     </p>
                 </div>
             </div>
 
             <div class="memberContainer">
+                <div class="subMemberContainer">
+                    <div class="memPictureContianer">
+                         <div class="subMemPictureContainer">
+                            <img class="subMemPictureContainer" src="../../assets/img/khriz.jpg" alt="">
+                         </div>
+                    </div>
+
+                    <div class="memInfoContainer">
+                        <div class="subMemInfoContainer">
+                            <p>Khriz Marr L. Falcatan</p>
+                        </div>
+
+                        <div class="subMemInfoContainer1">
+                            <p style="font-weight: bold;">SYSTEM ANALYST</p>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="subMemberContainer1">
                     <div class="memPictureContianer">
                          <div class="subMemPictureContainer">
@@ -80,11 +98,11 @@
                     </div>
 
                     <div class="memInfoContainer">
-                        <div class="subMemInfoContainer1">
+                        <div class="subMemInfoContainer">
                             <p>Rogie E. Gabotero</p>
                         </div>
 
-                        <div class="subMemInfoContainer">
+                        <div class="subMemInfoContainer1">
                             <p style="font-weight: bold;">LEAD PROGRAMMER</p>
                         </div>
                     </div>
@@ -93,17 +111,17 @@
                 <div class="subMemberContainer2">
                     <div class="memPictureContianer">
                          <div class="subMemPictureContainer">
-                            <img class="subMemPictureContainer" src="../../assets/img/khriz.jpg" alt="">
+                            <img class="subMemPictureContainer" src="../../assets/img/padwa.png" alt="">
                          </div>
                     </div>
 
                     <div class="memInfoContainer">
-                        <div class="subMemInfoContainer1">
-                            <p>Khriz Marr L. Falcatan</p>
+                        <div class="subMemInfoContainer">
+                            <p>Padwa S. Tingkasan</p>
                         </div>
 
-                        <div class="subMemInfoContainer">
-                            <p style="font-weight: bold;">SYSTEM ANALYST</p>
+                        <div class="subMemInfoContainer1">
+                            <p style="font-weight: bold;">PROJECT MANAGER</p>
                         </div>
                     </div>
                 </div>
@@ -111,17 +129,17 @@
                 <div class="subMemberContainer3">
                     <div class="memPictureContianer">
                          <div class="subMemPictureContainer">
-                            <img class="subMemPictureContainer" src="../../assets/img/padwa.png" alt="">
+                            <img class="subMemPictureContainer" src="../../assets/img/arp.png" alt="">
                          </div>
                     </div>
 
                     <div class="memInfoContainer">
-                        <div class="subMemInfoContainer1">
-                            <p>Padwa S. Tingkasan</p>
+                        <div class="subMemInfoContainer">
+                            <p>Arp-j P. Villares</p>
                         </div>
 
-                        <div class="subMemInfoContainer">
-                            <p style="font-weight: bold;">PROJECT MANAGER</p>
+                        <div class="subMemInfoContainer1">
+                            <p style="font-weight: bold;">ARCHIVIST</p>
                         </div>
                     </div>
                 </div>
@@ -129,77 +147,56 @@
                 <div class="subMemberContainer4">
                     <div class="memPictureContianer">
                          <div class="subMemPictureContainer">
-                            <img class="subMemPictureContainer" src="../../assets/img/arp.png" alt="">
-                         </div>
-                    </div>
-
-                    <div class="memInfoContainer">
-                        <div class="subMemInfoContainer1">
-                            <p>Arp-j P. Villares</p>
-                        </div>
-
-                        <div class="subMemInfoContainer">
-                            <p style="font-weight: bold;">ARCHIVIST</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="subMemberContainer5">
-                    <div class="memPictureContianer">
-                         <div class="subMemPictureContainer">
                             <img class="subMemPictureContainer" src="../../assets/img/tabs.png" alt="">
                          </div>
                     </div>
 
                     <div class="memInfoContainer">
-                        <div class="subMemInfoContainer1">
+                        <div class="subMemInfoContainer">
                             <p>John Mark R. Taborada</p>
                         </div>
 
-                        <div class="subMemInfoContainer">
+                        <div class="subMemInfoContainer1">
                             <p style="font-weight: bold;">QA ENGINEER</p>
                         </div>
                     </div>
                 </div>
-
-                <div class="subBodyContainer">
-                    <div class="textContainer1">
-                        <div class="aboutContainer1">
-                            <p>ABOUT THE DEVELOPER</p>
-                        </div>
-    
-                        <p>
-                            A cutting-edge inventory system developed by WebCraft team, a talented student 
-                            from the College of Computing Studies pursuing a Bachelor of Science in 
-                            Information Technology. As part of their Software Engineering subject requirements, 
-                            this dedicated developer has created a comprehensive system specifically designed for 
-                            the College of Medicine. MedEquip Tracker simplifies equipment tracking, user management, 
-                            and unit transfers, providing a customized solution to meet the unique inventory management 
-                            needs of the College of Medicine. Experience the capabilities and dedication of this 
-                            student-developed system crafted to optimize inventory management within the College of Medicine.
-                        </p>
+            </div>
+            
+            <div class="subBodyContainer" style="margin-top: 1rem;">
+                <div class="textContainer2">
+                    <div class="aboutContainer1">
+                        <p class="aboutDev">ABOUT THE DEVELOPER</p>
                     </div>
+
+                    <p>
+                        A cutting-edge inventory system developed by WebCraft team, a talented student 
+                        from the College of Computing Studies pursuing a Bachelor of Science in 
+                        Information Technology. As part of their Software Engineering subject requirements, 
+                        this dedicated developer has created a comprehensive system specifically designed for 
+                        the College of Medicine. MedEquip Tracker simplifies equipment tracking, user management, 
+                        and unit transfers, providing a customized solution to meet the unique inventory management 
+                        needs of the College of Medicine. Experience the capabilities and dedication of this 
+                        student-developed system crafted to optimize inventory management within the College of Medicine.
+                    </p>
                 </div>
             </div>
-
             <div class="systemLogoContainer">
                 <div class="subSystemLogoContainer">
                     <img class="subSystemLogoContainer" src="../../assets/img/medLogo.png" alt="">
                 </div>
+            </div>
 
-                <div class="textContainer1" id="footer">
-                    <p>Software Engineering Project   |    Copyright  ©  2024  WebCraft</p>
-                </div>
+            <div class="textContainer1">
+                <p>Software Engineering Project   |    Copyright  ©  2024  WebCraft</p>
             </div>
         </div>  
     </div>
 
-
     <script>
-     function goBack() {
-        window.history.back();
-    }
+        function goBack() {
+            window.history.back();
+        }
     </script>
-
 </body>
 </html>

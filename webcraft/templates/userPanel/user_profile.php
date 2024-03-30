@@ -63,6 +63,7 @@
             </div>
 
             <div class="subContainer1">
+                <div class="userInfoContainer">
                 <div class="filterContainer1">
                     <div class="inventoryNameContainer">
                         <p>USER PROFILE</p>
@@ -77,7 +78,6 @@
                     </div>
                 </div>
 
-                <div class="userInfoContainer">
                     <div class="subUserInfoContainer">
                         <div class="imageContainer3">
                             <div class="subImageContainer4">

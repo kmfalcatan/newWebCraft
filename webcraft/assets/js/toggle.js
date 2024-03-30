@@ -117,3 +117,4 @@ function toggleDropdown(element) {
       dropdownContainer.style.display = 'none';
     }
   }
+  

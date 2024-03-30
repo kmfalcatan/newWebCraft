@@ -1,0 +1,94 @@
+@media only screen and (max-width: 600px) {
+    .tableContainer{
+        height: 21.8rem;
+    }
+}
+
+ .searchCon {
+    margin-left: auto;
+    margin-right: 2rem;
+    margin-top: 1rem;
+    align-items: center;
+    justify-items: center;
+}
+
+.searchCon #searchInput{
+    height: 2rem;
+    width: 15rem;
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    border: none;
+    border: 1px solid #a6a6a6;
+    padding-left: 1rem;
+}
+
+.sortContainer{
+    margin-left: 1rem;
+}
+
+#reportCotainer{
+    margin: 1.5rem auto;
+    width: 90%;
+}
+
+/* container list */
+.list{
+    background-color: #f7f7f7; 
+    height: 5rem; 
+    border: 1px solid #a6a6a6;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+   
+}
+
+.list .sender-img{
+    width: 5rem;
+    height: 5rem;
+    margin-left: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 2rem;
+}
+
+.sender-img img{
+    width: 4rem;
+    height: 4rem;
+    border-radius: 5rem;
+}
+
+.label{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.label span{
+    font-size: 1.3rem;
+    font-weight: bold;
+    margin-right: 0.5rem;
+}
+
+
+.right-text{
+    display: flex;
+}
+
+.label p{
+    font-size: 1.2rem;
+}
+
+.time {
+    align-self: flex-end;
+    text-align: end;
+    margin-right: 3rem;
+    font: 1.5rem;
+}
+
+i{
+    margin-right: 2.5rem;
+    font-size: 1rem;
+    cursor: pointer;
+}
