@@ -100,7 +100,7 @@
 
                             <div class="viewButtonContainer">
                                 <a href="../userPanel/user_profile.php?id=<?php echo $userID; ?>&user_id=<?php echo $user['user_ID']; ?>">
-                                <button class="viewButton">View details</button>
+                                <button class="viewButton">View profile</button>
                                 </a>
                             </div>
                         </div>

@@ -155,7 +155,7 @@
                                     if ($result->num_rows > 0) {
                                         $count = 1; 
                                         while ($row = $result->fetch_assoc()) {
-                                            echo "<tr data-year='{$row['year_received']}' onclick=\"location.href='../admin panel/viewEquip.php?equipment_ID={$row['equipment_ID']}&id={$userID}'\">";
+                                            echo "<tr data-year='{$row['year_received']}'>";
                                             echo "<td>{$count}</td>";
                                             echo "<td>{$row['article']}</td>";
                                             echo "<td>{$row['property_number']}</td>";

@@ -11,7 +11,7 @@
 
 .unitContainer1{
     height: 20rem;
-    width: 93%;
+    width: 100%;
     background-color: rgba(255, 250, 250, 0.582);
     border: 1px solid gray;
     display: flex;
@@ -106,6 +106,122 @@ label{
     font-size: 1.2rem;
     margin-right: auto;
 }
+
+/* action button */
+    .modal {
+        display: none;
+        position: fixed;
+        z-index: 1;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(0,0,0,0.4);
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+
+    .modal-content {
+        background-color: #fefefe;
+        margin: 3% auto;
+        padding: 0.5rem 1rem;
+        border: 1px solid #888;
+        width: 20%;
+        border-radius: 5px;
+        box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    }
+
+    h3{
+       
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 0.5rem;
+        border-bottom: 1px solid gray;
+        color: rgb(2, 116, 200);
+        font-weight: 600;
+        font-size: 1.5rem;
+    }
+
+    .unitIssue{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 0.5rem;
+        padding-top: 1rem;
+    }
+
+    select{
+        width: 50%;
+        height: 2.3rem;
+        border: 1px solid gray;
+        font-size: 1rem;
+        
+    }
+
+    label, 
+    select{
+        margin: 0.7rem auto;
+    }
+    
+
+/* agreement modal */
+
+.reportContainer{
+    height: 100%;
+    width: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 1.2rem;
+    position: relative;
+}
+
+.dropdown-content {
+    position: absolute;
+    top: 130%; 
+    right: -20%;
+    background-color: snow;
+    min-width: 15rem;
+    padding: 2rem;
+    box-shadow: 0 2px 4px 0 rgba(0,0,0,0.7);
+    z-index: 1;
+    flex-direction: column;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0.5rem;
+}
+
+.dropdown-content h4{
+    text-align: center;
+}
+
+.dropdown-content p{
+    text-align: justify;
+}
+
+.dropdown-content button{
+   margin-top: 1.5rem;
+   width: 100%;
+}
+
+#agreementCheckbox{
+    cursor: pointer;
+}
+
+.proceed{
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    background-color: rgb(2, 116, 200);
+    border: none;
+    color: #fff;
+    font-size: 0.9rem;
+    font-weight: bolder;
+    cursor: pointer;
+}
+
 
 /*laptop*/
 @media only screen and (min-width: 1025px){

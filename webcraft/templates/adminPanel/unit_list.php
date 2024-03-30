@@ -56,7 +56,8 @@ if (isset($_POST['unitID'])) {
 
     <link rel="stylesheet" href="../../assets/css/index.css">
     <link rel="stylesheet" href="../../assets/css/inventory.css">
-    <link rel="stylesheet" href="../../assets/css/sidebar.css">
+    <link rel="stylesheet" href="../../assets/css/sidebar.css">  
+    <link rel="stylesheet" href="../../assets/css/filter.css">  
 </head>
 <body>
     <div class="sidebar">
@@ -76,7 +77,7 @@ if (isset($_POST['unitID'])) {
             <div class="headerContainer1">
                 <div class="iconContainer10">
                     <div class="subIconContainer10">
-                        <img class="subIconContainer10" src="" alt="">
+                        <img class="subIconContainer10" src="../../assets/img/notif.png" alt="">
                     </div>
                 </div>
 
@@ -125,8 +126,80 @@ if (isset($_POST['unitID'])) {
                                 </form>
                             </div>
                             <button class="trackButton1">Transfer unit</button>
-                            <button class="trackButton1">Sort <img src="../../assets/img/sort.png" alt="" style="margin-left: 0.5rem; width: 1.4rem; height: 1.2rem;"></button>
+                            <button class="trackButton1" onclick="showFilterPopup()">Sort <img src="../../assets/img/sort.png" alt="" style="margin-left: 0.5rem; width: 1.4rem; height: 1.2rem;"></button>
                            
+                            <div class="filterPopupContainer" id="filterPopupContainer" style="display: none;">
+                            <div class="filterPopupContent">
+                                <h2>UNIT FILTERS</h2>
+                                <div class="desc">
+                                    <p>User filters to find units.</p>
+                                </div>
+
+                                <div class="filters">
+                                    <div class="yearContainer">
+                                        <label for="year">Year:</label>
+                                        <select class="year" name="unit_issue">
+                                            <option value="" disabled selected>Select year</option>
+                                            <?php
+                                                $yearQuery = "SELECT DISTINCT year_received FROM equipment";
+                                            
+                                                $userResult = $conn->query($yearQuery);
+                                                
+                                                if ($userResult->num_rows > 0) {
+                                                    while($yearRow = $userResult->fetch_assoc()) {
+                                                        echo '<option value="' . $yearRow["year_received"] . '">' . $yearRow["year_received"] . '</option>';
+                                                    }
+                                                }
+                                            ?>
+                                        </select>
+                                    </div>
+
+                                    <div class="articleContainer">
+                                        <label for="article">Article:</label>
+                                        <select class="article" name="unit_issue">
+                                            <option value="" disabled selected>Select article</option>
+                                            <?php
+                                                $articleQuery = "SELECT DISTINCT article FROM equipment";
+                                            
+                                                $articleResult = $conn->query($articleQuery);
+                                                if ($articleResult->num_rows > 0) {
+                                                    while($articleRow = $articleResult->fetch_assoc()) {
+                                                        if (!empty($articleRow["article"])) {
+                                                            echo '<option value="' . $articleRow["article"] . '">' . $articleRow["article"] . '</option>';
+                                                        }
+                                                    }
+                                                }
+                                            ?>
+                                        </select>
+                                    </div>
+
+                                    <div class="custodianContainer">
+                                        <label for="custodian">Custodian:</label>
+                                        <select class="custodian" name="unit_issue">
+                                            <option value="" disabled selected>Select custodian</option>
+                                            <?php
+                                                $userQuery = "SELECT DISTINCT user FROM units";
+                                                $userResult = $conn->query($userQuery);
+                                                
+                                                if ($userResult->num_rows > 0) {
+                                                    while($userRow = $userResult->fetch_assoc()) {
+                                                        if (!empty($userRow["user"])) {
+                                                            echo '<option value="' . $userRow["user"] . '">' . $userRow["user"] . '</option>';
+                                                        }
+                                                    }
+                                                }
+                                            ?>
+                                        </select>
+
+                                    </div>
+                                </div>
+
+                                <div class="buttonContainer2">
+                                    <button  class="button4" id="filterButton" onclick="hideFilterPopup()">Filter</button>
+                                    <button class="button3" onclick="hideFilterPopup()">Close</button>
+                                </div> 
+                            </div>
+                        </div>
                         </div>
                     </div>
                 </div>
@@ -325,5 +398,7 @@ if (isset($_POST['unitID'])) {
 
     <script src="../../assets/js/inventory.js"></script>
     <script src="../../assets/js/sidebar.js"></script>
+    <script src="../../assets/js/filter.js"></script>
+    <script src="../../assets/js/toggle.js"></script>
 </body>
 </html>

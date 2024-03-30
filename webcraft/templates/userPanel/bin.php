@@ -52,7 +52,7 @@
             <div class="subContainer1">
                 <div class="filterContainer1">
                     <div class="inventoryNameContainer">
-                        <p>UNAVAILABLE UNIT LIST</p>
+                        <p>REMOVED UNIT LIST</p>
                     </div>
 
                     <div class="subFilterContainer1">

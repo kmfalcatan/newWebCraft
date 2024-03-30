@@ -1,0 +1,436 @@
+.container5{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.headerContainer4{
+    display: flex;
+}
+
+.iconContainer6{
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    margin-right: 1rem;
+}
+
+.subIconContainer6{
+    height: 100%;
+    width: 5rem;
+    border-radius: 0.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.subIconContainer6 img{
+    filter: invert(100%);
+}
+
+.textContainer10{
+    font-size: 1.5rem;
+    color: snow;
+    display: flex;
+    align-items: center;
+    font-weight: bold;
+    margin-right: 1rem;
+}
+
+.subContainer6{
+    height: 90%;
+    width: 90%;
+    border-radius: 0.5rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.7);
+    background-color: #fff;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1rem;
+    padding-bottom: 1.5rem;
+}
+
+.buttonContainer{
+    width: 90%;
+    margin-bottom: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.popupButtons button {
+    margin-right: 1rem;
+    max-width: 20%;
+    display: flex;
+}
+
+.button{
+    height: 4rem;
+    width: 25rem;
+    border-radius: 0.5rem;
+    border: none;
+    background-color: rgb(2, 116, 200);
+    color: white;
+    font-size: 1.1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.15s;
+}
+
+.button:hover{
+    background-color: rgb(2, 84, 143);
+}
+
+.button:active{
+    background-color: rgb(2, 116, 200);
+    transform: scale(0.9);
+}
+
+.unitContainer {
+    min-width: 35rem;
+    margin-top: 1rem;
+    background-color: #fff;
+    border-radius: 0.5rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.7);
+    height: auto; 
+    overflow: auto;
+}
+
+.subUnitContainer {
+    height: auto; 
+    display: flex;
+    flex-direction: column;
+}
+
+.unitAndCheckboxContainer {
+    display: flex;
+    align-items: center; 
+    justify-content: center;
+    min-width: auto;
+}
+
+.checkBoxContainer{
+    height: 100%;
+    width: 4rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 2rem;
+}
+
+.checkbox{
+    height: 1.5rem;
+    width: 1.5rem;
+}
+
+.unitNameContainer{
+    height: 2rem;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    padding: 0.5rem;
+}
+
+.unitNameContainer1{
+    height: 2rem;
+    width: 100%;
+    max-width: 20rem;
+    margin-left: 3rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    padding: 0.5rem;
+}
+
+.unitNameContainer h3{
+    color: #000;
+    text-transform: uppercase;
+    flex-direction: column;
+    width: 8rem;
+    text-align: center;
+}
+
+h3{
+    color: #000;
+}
+
+.equipContainer{
+    height: 4rem;
+    width: 19.5rem;
+    margin-top: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.issue{
+    width: 15rem;
+    height: 2.5rem;
+    border-radius: 0.2rem;
+    font-size: 1.2rem;
+    padding: 0.5rem 0.5rem;
+}
+
+.headerContainer4{
+    height: 4rem;
+    border-radius: 0.5rem 0.5rem 0 0;
+    background-color: rgb(2, 116, 200);
+}
+
+.backContainer5, .backContainer6{
+    height: 100%;
+    width: 2.5rem;
+    border-radius: 0.5rem 0.5rem 0.5rem 0;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.backContainer5:hover{
+    background-color: rgb(2, 98, 167);
+}
+
+.backContainer6{
+    filter: invert(100%);
+    height: 1.5rem;
+    width: auto;
+    border-radius: 0;
+}
+
+.infoContainer9{
+}
+
+.subInfoContainer9{
+    height: 15rem;
+}
+
+.imageContainer10{
+    height: 12rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.subImageContainer10{
+    height: 11rem;
+    width: 11rem;
+    border-radius: 0.5rem;
+    background-color: #fff;
+    border: 1px solid rgb(2, 116, 200);
+}
+
+.equipNameContainer67{
+    height: 3rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.6rem;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.infoContainer17{
+    margin: 1rem 0;
+}
+
+.subInfoContainer17{
+    height: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.2rem;
+    margin-top: 1.3rem;
+    margin-bottom: 1rem;
+}
+
+.textContainer56{
+    height: 3rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 1rem;
+}
+
+.subTextContainer56{
+    height: 100%;
+    width: 100%;
+    border-radius: 0.5rem;
+    border: solid gray 1px;
+    display: flex;
+    align-items: center;
+    overflow-x: auto;
+    justify-content: center;
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+.userHandler56{
+    display: flex;
+    margin-right: 1rem; 
+    padding: 0.2rem 0.5rem;
+    background-color: rgb(207, 224, 236);
+    border-radius: 0.2rem;
+}
+
+.textContainer156{
+    height: 10rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 1rem;
+}
+
+input .subTextContainer145{
+    font-weight: 100;
+}
+
+.subTextContainer145{
+    display: flex;
+    height: 100%;
+    width: 100%;
+    border-radius: 0.5rem;
+    border: solid gray 1px;
+    padding-left: 1rem;
+    padding-top: 1rem;
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-top: 1rem;
+    overflow: auto;
+}
+
+.buttonContainer10{
+    height: 3rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+}
+
+.button1{
+    height: 2.5rem;
+    width: 6rem;
+    border-radius: 0.5rem;
+    background-color: rgb(2, 116, 200);
+    border: solid white 1px;
+    color: white;
+    font-size: 1.1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.15s;
+}
+
+.button1:hover{
+    background-color: rgb(2, 84, 143);
+}
+
+.button1:active{
+    background-color: rgb(2, 116, 200);
+    transform: scale(0.9);
+}
+
+.button2{
+    height: 2.5rem;
+    width: 6rem;
+    border-radius: 0.5rem;
+    background-color: rgb(2, 116, 200);
+    border: solid white 1px;
+    color: white;
+    font-size: 1.1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.15s;
+}
+
+.button2:hover{
+    background-color: rgb(2, 84, 143);
+}
+
+.button2:active{
+    background-color: rgb(2, 116, 200);
+    transform: scale(0.9);
+}
+
+
+.unitContainer1{
+    width: 28rem;
+    background-color: white;
+    border-radius: 0.5rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.7);
+}
+
+.headerContainer2{
+    height: 4rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(2, 116, 200);
+    border-radius: 0.5rem 0.5rem 0 0;
+    font-size: 1.5rem;
+    color: white;
+}
+
+.unitInfoContainer {
+    margin-bottom: 1rem; 
+    min-height: fit-content;
+}
+
+.submitContainer{
+    height: 4rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row;
+    margin: 15rem 1rem 0 1rem;
+}
+
+.submitContainer #add-more,
+#cancel-submit {
+    background-color: transparent;
+    position: relative;
+    color: rgb(2, 116, 200);
+    display: inline-block; 
+}
+
+.submitContainer #add-more::before,
+#cancel-submit::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0; 
+    height: 2px;
+    background-color: rgb(2, 116, 200); 
+    transition: width 0.3s ease; 
+}
+
+.submitContainer #add-more:hover::before,
+#cancel-submit:hover::before {
+    width: 100%;
+}
+
+
+/*laptop*/
+@media only screen and (min-width: 1025px){
+    .container5{
+        display: flex;
+        flex-direction: row;
+        padding: 0 10%;
+        justify-content: center;
+        align-items: self-start;
+    }
+
+    .subContainer6{
+        width: 50rem;
+    }
+}

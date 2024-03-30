@@ -1,0 +1,370 @@
+.container2{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.iconContainer{
+    outline: red dashed 1px;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    margin-right: 1rem;
+}
+
+.subIconContainer{
+    outline: red dashed 1px;
+    height: 100%;
+    width: 5rem;
+    border-radius: 0.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.textContainer10{
+    outline: red dashed 1px;
+    height: 100%;
+    font-size: 1.5rem;
+    color: snow;
+    display: flex;
+    align-items: center;
+    font-weight: bold;
+    margin-right: 1rem;
+}
+
+.subContainer2{
+    height: 90%;
+    width: 90%;
+    border-radius: 0.5rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.7);
+    background-color: #fff;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1rem;
+}
+
+.headerContainer2{
+    height: 4rem;
+    border-radius: 0.5rem 0.5rem 0 0;
+    background-color: rgb(2, 116, 200);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.backContainer{
+    height: 100%;
+    width: 4rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+.backContainer .image3{
+    height: 2rem;
+    filter: invert(100%);
+}
+
+.backContainer:hover{
+    background-color: rgb(5, 143, 241);
+    border-radius: 0.5rem 0.5rem 0.5rem 0;
+}
+
+.infoContainer{
+    height: 100%;
+    padding: 2rem;
+}
+
+.subInfoContainer{
+}
+
+.imageContainer2{
+    height: 15rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.subImageContainer2{
+    height: 11rem;
+    width: 11rem;
+    border-radius: 0.5rem;
+    background-color: rgb(2, 116, 200);
+}
+
+.equipNameContainer input{
+    height: 2rem;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    font-weight: bold;
+    border: none;
+    text-align: center;
+}
+
+.article{
+    text-transform: uppercase;
+    font-size: 1.4rem;
+}
+
+.image8{
+    height: 100%;
+    width: 100%;
+    border-radius: 0.5rem;
+}
+
+.equipInfoContainer{
+    height: 20rem;
+}
+
+.subEquipInfoContainer{
+    height: 5rem;
+}
+
+.userContainer{
+    height: 2rem;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+}
+
+.user{
+    margin-left: 1rem;
+    font-size: 1.2rem;
+}
+
+.subUserContainer{
+    height: 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 1rem;
+}
+
+.userName2{
+    height: 100%;
+    width: 100%;
+    border-radius: 0.5rem;
+    border: solid gray 1px;
+    display: flex;
+    align-items: center;
+    padding-left: 1rem;
+    font-weight: 600;
+    font-size: 1rem;
+}
+
+input{
+    font-weight: 600;
+}
+
+.subEquipInfoContainer1{
+    height: 10rem;
+}
+
+.descriptionContainer{
+    height: 12rem;
+    margin-top: 1rem;
+    border-bottom: #ccc 1px solid;
+    padding-bottom: 2rem;
+}
+
+.description{
+    height: 2rem;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+}
+
+.subDescriptionContainer{
+    height: 10rem;
+    padding: 0 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.unitContainer{
+    margin-top: 1rem;
+}
+
+.textContainer{
+    height: 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: rgb(2, 116, 200);
+}
+
+.subUnitContainer{
+    height: 15rem;
+}
+
+.unitNumberContainer{
+    height: 5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.2rem;
+}
+
+.unitNumberContainer1{
+    height: 5rem;
+}
+
+.unitID{
+    font-weight: bold;
+    font-size: 1.25rem;
+    border: none;
+}
+
+.issueContainer{
+    height: 2rem;
+    display: flex;
+    align-items: center;
+    font-size: 1.2rem;
+    display: flex;
+    align-items: center;
+}
+
+.buttonContainer{
+    height: 3rem;
+    margin: 1rem 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    gap: 1rem;
+}
+
+.button{
+    height: 2rem;
+    width: 8rem;
+    border-radius: 0.5rem;
+    border: none;
+    background-color: rgb(2, 116, 200);
+    color: white;
+    font-size: 1.1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.15s;
+}
+
+.button:hover{
+    background-color: rgb(2, 84, 143);
+}
+
+.button:active{
+    background-color: rgb(2, 116, 200);
+    transform: scale(0.9);
+}
+
+/*laptop*/
+@media only screen and (min-width: 1025px) and (max-width: 1440px){
+    .subInfoContainer{
+        display: flex;
+        flex-direction: row;
+    }
+
+    .imageContainer2{
+        height: 20rem;
+        width: 20rem;
+    }
+
+    .subImageContainer2{
+        height: 15rem;
+        width: 15rem;
+    }
+    
+    .equipInfoContainer{
+        width: 37.6rem;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+    }
+
+    .subEquipInfoContainer1{
+        display: flex;
+        flex-direction: row;
+        width: 37.6rem;
+        height: 5rem;
+    }
+
+    .subEquipInfoContainer{
+        width: 100%;
+        margin-bottom: 1.25rem;
+    }
+
+    .subUnitContainer{
+        display: flex;
+        flex-direction: row;
+        height: 5rem;
+    }
+
+    .unitNumberContainer, .unitNumberContainer1{
+        width: 100%;
+    }
+
+    .subContainer2{
+        width: 60rem;
+    }
+}
+
+/*pc*/
+@media only screen and (min-width: 1441px){
+    .subInfoContainer{
+        display: flex;
+        flex-direction: row;
+    }
+
+    .imageContainer2{
+        height: 20rem;
+        width: 20rem;
+    }
+
+    .subImageContainer2{
+        height: 16rem;
+        width: 16rem;
+    }
+    
+    .equipInfoContainer{
+        width: 50rem;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+    }
+
+    .subEquipInfoContainer1{
+        display: flex;
+        flex-direction: row;
+        width: 50rem;
+        height: 5rem;
+    }
+
+    .subEquipInfoContainer{
+        width: 100%;
+        margin-bottom: 1.25rem;
+    }
+
+    .subUnitContainer{
+        display: flex;
+        flex-direction: row;
+        height: 5rem;
+    }
+
+    .unitNumberContainer, .unitNumberContainer1{
+        width: 100%;
+    }
+
+    .subContainer2{
+        width: 70rem;
+    }
+}

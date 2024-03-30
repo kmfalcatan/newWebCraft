@@ -1,0 +1,77 @@
+/* filter */
+.filterPopupContainer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 9999;
+  }
+  
+  .filterPopupContent {
+    background-color: #fff;
+    width: 40%;
+    height: 50%;
+    padding: 2rem;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    display: flex;
+    align-items: center;
+    justify-items: flex-start;
+    flex-direction: column;
+    column-gap: 0.1rem;
+  }
+
+  .filterPopupContent h2{
+    margin-bottom: auto;
+    color: rgb(2, 116, 200);
+  }
+
+  .desc{
+    width: 90%;
+    margin-bottom: auto;
+    font-size: 1.4rem;
+    font-weight: 600;
+    border-top: 1px solid #a6a4a4;
+    padding-top: 1rem;
+  }
+
+  .filters{
+    flex-direction: column;
+    column-gap: 2.5rem;
+    margin-bottom: auto;
+    width: 90%;
+    height: auto;
+  }
+
+  .filters label{
+    font-size: 1.3rem;
+    font-weight: 600;
+  }
+
+  .filters select{
+    width: 40%;
+    height: 2.5rem;
+    margin-left: 3rem;
+    margin-bottom: 1rem;
+    cursor: pointer;
+    font-size: 1.2rem;
+    font-weight: 500;
+  }
+
+  .filters .year{
+    margin-left: 6.5rem;
+  }
+
+  .filters .article{
+    margin-left: 5rem;
+  }
+
+  .buttonContainer2{
+    /* outline: 1px solid red; */
+    width: 100%;
+  }

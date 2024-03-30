@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <link rel="stylesheet" href="../../assets/css/index.css">
+    <link rel="stylesheet" href="../../assets/css/inventory.css">
+</head>
+<body>
+    <div class="container3">
+        <div class="sideBarContainer6" style="z-index: 3;">
+            <div class="userContainer">
+                <div class="subUserContainer">
+                    <div class="userPictureContainer">
+                        <div class="subUserPictureContainer">
+                            <img class="profilePicture" src="" alt="">
+                        </div>
+                    </div>
+
+                    <div class="userPictureContainer1">
+                        <p>@UserName</p>
+                    </div>
+                </div>
+
+                <div class="navContainer">
+                    <div class="subNavContainer">
+                        <a href="">
+                            <div class="buttonContainer1">
+                                <div class="iconContainer9">
+                                    <img class="icon" src="../../assets/img/barGraph.png" alt="">
+                                </div>
+
+                                <div class="nameOfIconContainer">
+                                    <p>Dashboard</p>
+                                </div>
+                            </div>
+                        </a>
+
+                        <a href="">
+                            <div class="buttonContainer1">
+                                <div class="iconContainer9">
+                                    <img class="icon" src="../../assets/img/barGraph.png" alt="">
+                                </div>
+
+                                <div class="nameOfIconContainer">
+                                    <p>Inventory</p>
+                                </div>
+                            </div>
+                        </a>
+
+                        <a href="">
+                            <div class="buttonContainer1">
+                                <div class="iconContainer9">
+                                    <img class="icon" src="../../assets/img/barGraph.png" alt="">
+                                </div>
+
+                                <div class="nameOfIconContainer">
+                                    <p>Report</p>
+                                </div>
+                            </div>
+                        </a>
+
+                        <a href="">
+                            <div class="buttonContainer1">
+                                <div class="iconContainer9">
+                                    <img class="icon" src="../../assets/img/barGraph.png" alt="">
+                                </div>
+
+                                <div class="nameOfIconContainer">
+                                    <p>User list</p>
+                                </div>
+                            </div>
+                        </a>
+
+                        <a href="">
+                            <div class="buttonContainer1">
+                                <div class="iconContainer9">
+                                    <img class="icon" src="../../assets/img/barGraph.png" alt="">
+                                </div>
+
+                                <div class="nameOfIconContainer">
+                                    <p>Help</p>
+                                </div>
+                            </div>
+                        </a>
+
+                        <a href="">
+                            <div class="buttonContainer1">
+                                <div class="iconContainer9">
+                                    <img class="icon" src="../../assets/img/barGraph.png" alt="">
+                                </div>
+
+                                <div class="nameOfIconContainer">
+                                    <p>About</p>
+                                </div>
+                            </div>
+                        </a>
+
+                            <div onclick="setting1()" class="buttonContainer1" style="height: 3rem; cursor: pointer;">
+                                <div class="iconContainer9">
+                                    <img class="icon" src="../../assets/img/barGraph.png" alt="">
+                                </div>
+
+                                <div class="nameOfIconContainer">
+                                    <p>setting</p>
+                                </div>
+                            </div>
+
+                        <div class="settingContainer" style="display: none;">
+                            <a href="">
+                                <div class="buttonContainer1">
+                                    <div class="nameOfIconContainer">
+                                        <p>My profile</p>
+                                    </div>
+                                </div>
+                            </a>
+
+                            <a href="">
+                                <div class="buttonContainer1">
+                                    <div class="nameOfIconContainer">
+                                        <p>Change Password</p>
+                                    </div>
+                                </div>
+                            </a>
+
+                            <a href="">
+                                <div class="buttonContainer1">
+                                    <div class="nameOfIconContainer">
+                                        <p>Bin</p>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="subUserContainer">
+                    <div class="userPictureContainer">
+                        <div class="subUserPictureContainer">
+                            <img class="profilePicture" src="" alt="">
+                        </div>
+                    </div>
+
+                    <div class="userPictureContainer1">
+                        <p>Logout</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="arrowContainer">
+                <div class="subArrowContainer">
+                    <img class="hideIcon" src="../../assets/img/chevron-left (1).png" alt="">
+                </div>
+            </div>
+        </div>
+
+        <div class="sideBarContainer3">
+            <div class="headerContainer1">
+                <div class="iconContainer10">
+                    <div class="subIconContainer10">
+                        <img class="subIconContainer10" src="" alt="">
+                    </div>
+                </div>
+
+                <div class="subHeaderContainer1">
+                    <div class="logoNameContainer1">
+                        <img class="systemName" src="../../assets/img/system-name.png" alt="">
+                    </div>
+                    <div class="subImageContainer3">
+                        <img class="image11" src="../../assets/img/medLogo.png" alt="">
+                    </div>
+                </div>
+            </div>
+
+            <div class="subContainer1">
+                <div class="filterContainer1">
+                    <div class="inventoryNameContainer">
+                        <p>Inventory</p>
+                    </div>
+
+                    <div class="subFilterContainer1">
+                        <div class="searchContainer1">
+                            <input class="searchBar1" type="text" name="" id="">
+                        </div>
+
+                        <div class="trackContainer">
+                            <div class="trackButton">
+                                <button onclick="track()" class="trackButton">Track Unit</button>
+                                <div class="subTrackContainer" style="display: none;">
+                                    <div class="searhUnitContainer">
+                                        <p>Enter Unit ID:</p>
+                                    </div>
+
+                                    <div class="searchUnitContainer">
+                                        <input type="text" class="searchBar1">
+                                    </div>
+
+                                    <div class="buttonContainer2">
+                                        <div onclick="track()" class="button3">
+                                            <p>Cancel</p>
+                                        </div>
+
+                                        <div class="button4" onclick="track1()">
+                                            <p>Track</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <button class="trackButton1">Sort <img src="" alt=""></button>
+                            <button class="trackButton1">New  Property <span class="plusIcon">+</span></button>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tableContainer2">
+                    <div class="unitContainer">
+                        <div class="unitList">
+                            <p>Unit list</p>
+                        </div>
+                    </div>
+
+                    <div class="tableContainer">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>ARTICLE</th>
+                                    <th>PROPERTY NUMBER</th>
+                                    <th>ACCOUNT CODE</th>
+                                    <th>UNITS</th>
+                                    <th>UNIT VALUE</th>
+                                    <th>TOTAL VALUE</th>
+                                    <th>REMARKS</th>
+                                    <th>VIEW</th>
+                                </tr>
+                            </thead>
+        
+                            <tbody id="tblBody">
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td> <button class="viewButton6">View</button></td>  
+                                </tr>
+                            </tbody>
+                        </table>
+                   </div>
+                </div>
+            </div>  
+
+            <div class="trackUnitContainer" style="display: none;">
+                <div class="trackUnitContainer">
+                    <div class="subTrackUnitContainer">
+                        <div class="trackNameContainer">
+                            <div class="subTrackNameContainer">
+                                <p>TRACK UNIT</p>
+                            </div>
+                        </div>
+    
+                        <div class="unitInfoContainer">
+                            <div class="subUnitInfoContainer">
+                                <div class="infoContainer1">
+                                    <div class="imageContainer1">
+                                        <div class="subImageContainer1">
+                                            <img class="image12" src="" alt="">
+                                        </div>
+    
+                                        <div class="equipNameContainer">
+                                            <p>Equipment Name</p>
+                                        </div>
+                                    </div>
+    
+                                    <div class="subInfoContainer1">
+                                        <div class="unitIDContainer">
+                                            <div class="unitID">
+                                                <p>Unit ID:</p>
+    
+                                                <div class="unitInputContainer">
+    
+                                                </div>
+                                            </div>
+    
+                                            <div class="unitID">
+                                                <p>Deployment:</p>
+    
+                                                <div class="unitInputContainer">
+    
+                                                </div>
+                                            </div>
+                                        </div>
+    
+                                        <div class="unitIDContainer">
+                                            <div class="unitID">
+                                                <p>Current end user:</p>
+    
+                                                <div class="unitInputContainer">
+    
+                                                </div>
+                                            </div>
+    
+                                            <div class="unitID">
+                                                <p>Designation:</p>
+    
+                                                <div class="unitInputContainer">
+    
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div>
+                                    <div class="oldUserContainer">
+                                        <div class="oldUserTextContainer">
+                                            <p>OLD END USER</p>
+                                        </div>
+    
+                                        <div class="unitIDContainer">
+                                            <div class="unitID">
+                                                <p>Name:</p>
+    
+                                                <div class="unitInputContainer">
+    
+                                                </div>
+                                            </div>
+    
+                                            <div class="unitID">
+                                                <p>Year:</p>
+    
+                                                <div class="unitInputContainer">
+    
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+    
+                                    <div class="oldUserContainer">
+                                        <div class="oldUserTextContainer">
+                                            <p>HISTORY</p>
+                                        </div>
+    
+                                        <div class="unitIDContainer">
+                                            <div class="unitID">
+                                                <p>Issue:</p>
+    
+                                                <div class="unitInputContainer">
+    
+                                                </div>
+                                            </div>
+    
+                                            <div class="unitID">
+                                                <p>Date retrieved:</p>
+    
+                                                <div class="unitInputContainer">
+    
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+    
+                        <div class="buttonContainer3">
+                            <button onclick="track1()" class="button5">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../../assets/js/inventory.js"></script>
+    <script src="../../assets/js/sidebar.js"></script>
+</body>
+</html>

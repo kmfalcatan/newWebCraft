@@ -52,17 +52,17 @@
             <div class="subContainer1">
                 <div class="filterContainer1">
                     <div class="inventoryNameContainer">
-                        <p>UNAVAILABLE UNIT LIST</p>
+                        <p>REMOVED UNIT LIST</p>
                     </div>
 
-                    <div class="subFilterContainer1">
+                    <div class="subFilterContainer1" >
                         <div class="searchContainer1">
                             <input class="searchBar1" type="text" name="" id="" placeholder="Search...">
                         </div>
 
                         <div class="trackContainer">
                             <div class="trackButton">
-                                <button onclick="track()" class="trackButton" style="padding: 0 1.5rem;">Unit Replacement Form</button>
+                                <button onclick="track()" class="trackButton" style="padding: 0 1.5rem;">Unit <span>Replacement</span> <span>Form</span></button>
                                 <div class="subTrackContainer" style="display: none;">
                                     <div class="searhUnitContainer">
                                         <p>Enter Unit ID:</p>

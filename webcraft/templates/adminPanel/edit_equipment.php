@@ -8,7 +8,7 @@
     <title>Document</title>
 </head>
 <body>
-<form class="subViewApproveContainer"  action="" enctype="multipart/form-data"  method="post">
+<form class="subViewApproveContainer"  action="" enctype="multipart/form-data" id="myForm" method="post">
 <input type="hidden" name="equipment_ID" value="<?php echo $equipment_ID; ?>">
     <div class="viewInfoContainer" action="" method="">
         <div class="imageContainer4">
@@ -136,9 +136,9 @@
                 </div>
             </div>
         </div>
-        <div class="buttonContainer2" style="margin-top: 1.5rem;">
-            <button  class="button4" id="saveButton"onclick="changeToConfirmSubmit()">Submit</button>
+        <div class="buttonContainer2" id="buttonContainer2" style="margin-top: 1.5rem;">
             <input type="hidden" name="confirmSave" value="1">
+            <button  class="button4" id="saveButton"onclick="changeToConfirmSubmit()">Submit</button>
             <button  class="button3" type="button" onclick="closeEditContent()">Cancel</button>
         </div>
     </div>

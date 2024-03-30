@@ -1,12 +1,17 @@
 <?php
- include_once "../../functions/header.php";
- 
- if (isset($_POST['unitID'])) {
+include_once "../../dbConfig/dbconnect.php";
+include_once "../../functions/header.php";
+
+if (isset($_POST['unitID'])) {
     $unitIDInput = $_POST['unitID'];
 
     $unitID = intval(substr($unitIDInput, 5));
-    $sql = "SELECT * FROM units WHERE unit_ID = '$unitID'";
-    $result = $conn->query($sql);
+
+    $sql = "SELECT * FROM units WHERE unit_ID = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("i", $unitID);
+    $stmt->execute();
+    $result = $stmt->get_result();
 
     if ($result->num_rows > 0) {
         $row = $result->fetch_assoc();
@@ -17,8 +22,12 @@
         );
 
         $equipmentName = $row['equipment_name'];
-        $deploymentSql = "SELECT deployment, account_code, property_number, image FROM equipment WHERE article = '$equipmentName'";
-        $deploymentResult = $conn->query($deploymentSql);
+
+        $deploymentSql = "SELECT deployment, account_code, property_number, image FROM equipment WHERE article = ?";
+        $deploymentStmt = $conn->prepare($deploymentSql);
+        $deploymentStmt->bind_param("s", $equipmentName);
+        $deploymentStmt->execute();
+        $deploymentResult = $deploymentStmt->get_result();
 
         if ($deploymentResult->num_rows > 0) {
             $deploymentRow = $deploymentResult->fetch_assoc();
@@ -28,10 +37,10 @@
             $unitDetails['image'] = "../../uploads/" . $deploymentRow['image'];
         }
 
-        echo json_encode($unitDetails); 
+        echo json_encode($unitDetails);
         exit;
     } else {
-        echo "not_exists"; 
+        echo "not_exists";
         exit;
     }
 }
@@ -146,27 +155,28 @@
                             <?php
                                 $sql = "SELECT unit_ID, equipment_name, user FROM units";
                                 $result = mysqli_query($conn, $sql);
-
+                                
                                 if ($result) {
-                                    $count = 1; 
+                                    $count = 1;
                                     while ($row = mysqli_fetch_assoc($result)) {
                                         $equipmentName = $row['equipment_name'];
-
-                                        $sqlEquipment = "SELECT property_number, account_code, year_received FROM equipment WHERE article = '$equipmentName'";
-                                        $resultEquipment = mysqli_query($conn, $sqlEquipment);
-
+                                
+                                        $sqlEquipment = "SELECT property_number, account_code, year_received FROM equipment WHERE article = ?";
+                                        $stmtEquipment = $conn->prepare($sqlEquipment);
+                                        $stmtEquipment->bind_param("s", $equipmentName);
+                                        $stmtEquipment->execute();
+                                        $resultEquipment = $stmtEquipment->get_result();
+                                
                                         $formattedUnitID = '';
-
-                                        if ($resultEquipment) {
-                                            $equipmentRow = mysqli_fetch_assoc($resultEquipment);
-
+                                
+                                        if ($resultEquipment && $equipmentRow = $resultEquipment->fetch_assoc()) {
                                             $unitPrefix = 'UNIT';
                                             $defaultUnitID = '0000';
                                             $unitID = $row['unit_ID'];
                                             $formattedUnitID = $unitPrefix . '-' . str_pad($unitID, strlen($defaultUnitID), '0', STR_PAD_LEFT);
-
+                                
                                             echo "<tr>";
-                                            echo "<td>{$count}</td>"; 
+                                            echo "<td>{$count}</td>";
                                             echo "<td style='font-weight: bold;'>" . $formattedUnitID . "</td>";
                                             echo "<td>" . $row['equipment_name'] . "</td>";
                                             echo "<td>" . $equipmentRow['property_number'] . "</td>";
@@ -174,7 +184,7 @@
                                             echo "<td>" . $row['user'] . "</td>";
                                             echo "<td>" . $equipmentRow['year_received'] . "</td>";
                                             echo "</tr>";
-                                            $count++; 
+                                            $count++;
                                         }
                                     }
                                 }

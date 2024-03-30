@@ -1,20 +1,61 @@
-<?php 
- include_once "../../dbConfig/dbconnect.php";
+<?php
+include_once "../../dbConfig/dbconnect.php";
+include_once "../../functions/header.php";
+include_once "../../authentication/auth.php";
+
+function isEquipmentNew($equipment_ID, $conn) {
+    $currentYear = date("Y");
+    $sql = "SELECT year_received FROM equipment WHERE equipment_ID = '$equipment_ID'";
+    $result = $conn->query($sql);
+
+    if ($result->num_rows > 0) {
+        $row = $result->fetch_assoc();
+        $yearReceived = $row['year_received'];
+        return $yearReceived == $currentYear;
+    }
+    return false;
+}
+
+$equipment_ID = isset($_GET['equipment_ID']) ? $_GET['equipment_ID'] : null;
+$userID = isset($_GET['id']) ? $_GET['id'] : null;
+$sql2 = "SELECT image FROM equipment WHERE equipment_ID = '$equipment_ID'";
+$sql = "SELECT * FROM units WHERE equipment_ID = '$equipment_ID'";
+$result_units = $conn->query($sql);
+$result_equipment = $conn->query($sql2);
+
+if ($result_equipment->num_rows > 0) {
+    $row = $result_equipment->fetch_assoc();
+    $imageFilename = $row['image'];
+    $imageURL = "../../uploads/" . $imageFilename;
+}
+
+$recordsPerPage = 9;
+
+$currentPage = isset($_GET['page']) ? $_GET['page'] : 1;
+$offset = ($currentPage - 1) * $recordsPerPage;
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <link rel="icon" type="image/png" href="../../assets/img/webcraftLogo.png">
+    <title>MedEquip Tracker</title>
 
-    <link rel="stylesheet" href="../../assets/css/sidebar.css">
     <link rel="stylesheet" href="../../assets/css/index.css">
+    <link rel="stylesheet" href="../../assets/css/sidebar.css">
     <link rel="stylesheet" href="../../assets/css/inventory.css">
-    <link rel="stylesheet" href="../../assets/css/equip_other_info.css">
     <link rel="stylesheet" href="../../assets/css/view_unit.css">
+
+    <style>
+        .statusContainer1.new {
+            background-color: green;
+        }
+    </style>
 </head>
 <body>
+    
     <div class="sidebar">
         <div  class="sidebarContent">
             <div class="arrowContainer" style="margin-left: 80rem;" id="toggleButton">
@@ -47,124 +88,114 @@
                 </div>
             </div>
 
-            <div class="container1">
-                <div class="header">
-                    <button class="backbtn">
-                        <a href="dashboard.php?id=<?php echo $userID; ?>"><img src="../assets//img/left-arrow.png" style="width: 1.5rem; height: 1.5rem;" ></a>
-                    </button>
-                    <?php
-                        $result_article = $conn->query("SELECT article FROM equipment WHERE equipment_ID = '$equipment_ID'");
-        
-                        if ($result_article->num_rows > 0 && $article = $result_article->fetch_assoc()) {
-                            echo "<h2>{$article['article']} available unit list</h2>";
-                        }
-                    ?>
-                <div class="searchContainer">
-                    <input class="searchBar" type="text" id="searchInput" placeholder="Search..." oninput="liveSearch()">
-                </div>
-                </div>
-                <div class="subContainer">
-                <?php
-                $sql = "SELECT * FROM units WHERE equipment_ID = '$equipment_ID' LIMIT $offset, $recordsPerPage";
-                $result_units = $conn->query($sql);
-        
-                while ($row1 = $result_units->fetch_assoc()) {
-                    $equipment_name = $row1['equipment_name'];
-                    $unit_ID = $row1['unit_ID'];
-                    $user = $row1['user'];
-                    $isNew = isEquipmentNew($equipment_ID, $conn);
-                    
-                    $unitPrefix = 'UNIT';
-                    $defaultUnitID = '0000';
-                    $unitID = $unitPrefix . '-' . str_pad($unit_ID, strlen($defaultUnitID), '0', STR_PAD_LEFT);
-                    
-                    echo "<div class='equipContainer'>";
-                    echo "<div class='subEquipContainer'>";
-                    echo "<div class='imageContainer6'>";
-                    echo "<img class='image3' src='$imageURL' alt=''>";
-                    echo "</div>";
-                    echo "<div class='infoContainer'>";
-                    echo "<div class='subInfoContainer'>";
-                    echo "<div class='statusContainer1" . ($isNew ? " new" : "") . "'>";
-                    echo "<p class='status1'>" . ($isNew ? "NEW" : "OLD") . "</p>";
-                    echo "</div>";
-                    echo "</div>";
-                    echo "<div class='subInfoContainer1'>";
-                    echo "<p class='text'><strong>$equipment_name</strong></p>";
-                    echo "</div>";
-                    echo "<div class='subInfoContainer1'>";
-                    echo "<p  class='text'>$unitID</p>";
-                    echo "</div>";
-                    echo "<div class='subInfoContainer1'>";
-                    echo "<p  class='text'>$user</p>";
-                    echo "</div>";
-        
-                    echo "<div class='subInfoContainer'>";
-                    echo "<div class='statusContainer2'>";
-                    echo "<button onclick='popup1()' class='historyButton' type='button'>History</button>";
-                    echo "</div>";
-                    echo "</div>";
-        
-                    echo "</div>";
-                    echo "</div>";
-                    echo "</div>";
-                }
-                ?>
-                
-                </div>
-                <div class="buttonContainer">
-                    <div class="next-previous">
-                        <?php
-                            $prevPage = $currentPage > 1 ? $currentPage - 1 : 1;
-                            echo "<a href='viewEquip.php?equipment_ID=$equipment_ID&id=$userID&page=$prevPage'><button class='previousbtn'>";
-                            echo "<span><img src='../assets/img/chevron-left (1).png' alt='' style='height: 1rem; width: 1rem;'></span>";
-                            echo "<span>Previous</span>";
-                            echo "</button></a>";
-                        ?>
-        
-                        <div class="pageIndicator"><?php echo $currentPage; ?></div>
-        
-                        <?php
-                            $nextPage = $currentPage + 1;
-                            echo "<a href='viewEquip.php?equipment_ID=$equipment_ID&id=$userID&page=$nextPage'><button class='nextbtn'>";
-                            echo "<span>Next</span>";
-                            echo "<span><img src='../assets/img/chevron-right.png' alt='' style='height: 1rem; width: 1rem;'></span>";
-                            echo "</button></a>";
-                        ?>
+            <div class="subContainer1">
+                <div class="filterContainer1">
+                    <div class="inventoryNameContainer">
+                        <p>EQUIPMENT UNIT</p>
+                    </div>
+
+                    <div class="subFilterContainer1">
+                        <div class="searchContainer1">
+                            <input class="searchBar1" type="text" name="" id="" placeholder="Search...">
+                        </div>
+
+                        <div class="trackContainer">
+                        <button class="trackButton1">Next</button>
+                          
+                        </div>
                     </div>
                 </div>
-        
-                <!-- history -->
-                <div class="container3" style="display: none;">
-                    <div class="container4">
-                        <div class="subContainer3">
-                            <div class="equipmentNameContainer">
-                                <p>Equipment history</p>
-                            </div>
-            
-                            <div class="issueContainer">
-                                <div class="subIssueContainer">
-                                    <p>Issue: Lost</p>
-                                </div>
-            
-                                <div class="subIssueContainer">
-                                    <p>Date: 03/03/2024</p>
-                                </div>
-                            </div>
-            
-                            <div class="cancelContainer">
-                                <div class="subCancelContainer">
-                                    <button onclick="popup1()" class="cancelButton" type="button">Cancel</button>
-                                </div>
-                            </div>
+
+                <div class="subContainer">
+                <?php
+                    $sql = "SELECT * FROM units WHERE equipment_ID = '$equipment_ID' LIMIT $offset, $recordsPerPage";
+                    $result_units = $conn->query($sql);
+
+                    while ($row1 = $result_units->fetch_assoc()) {
+                        $equipment_name = $row1['equipment_name'];
+                        $unit_ID = $row1['unit_ID'];
+                        $user = $row1['user'];
+                        $isNew = isEquipmentNew($equipment_ID, $conn);
+                        
+                        $unitPrefix = 'UNIT';
+                        $defaultUnitID = '0000';
+                        $unitID = $unitPrefix . '-' . str_pad($unit_ID, strlen($defaultUnitID), '0', STR_PAD_LEFT);
+                        
+                        echo "<div class='equipContainer' >";
+                        echo "<div class='subEquipContainer' >";
+                        echo "<div class='unitImgContainer' >";
+                        echo "<img class='image1' src='$imageURL' alt=''>";
+                        echo "</div>";
+                        echo "<div class='unit-container'>";
+                        echo "<div class='subUnitContainer'>";
+                        echo "<div class='statusContainer1" . ($isNew ? " new" : "") . "'>";
+                        echo "<p class='status1'>" . ($isNew ? "NEW" : "OLD") . "</p>";
+                        echo "</div>";
+                        echo "</div>";
+                        echo "<div class='subUnitContainer1'>";
+                        echo "<p class='text1'><strong>$equipment_name</strong></p>";
+                        echo "</div>";
+                        echo "<div class='subUnitContainer1'>";
+                        echo "<p  class='text'>$unitID</p>";
+                        echo "</div>";
+                        echo "<div class='subUnitContainer1'>";
+                        echo "<p  class='text'>$user</p>";
+                        echo "</div>";
+
+                        echo "<div class='subUnitContainer'>";
+                        echo "<div class='statusContainer2'>";
+                        echo "<button class='historyButton' type='button' onclick='openModal()'>History</button>";
+                        echo "</div>";
+                        echo "</div>";
+
+                        echo "</div>";
+                        echo "</div>";
+                        echo "</div>";
+                    }
+                ?>
+                </div>
+            </div>
+
+            <div id="reportModal" class="modal" >
+                <div class="modal-content">
+                    <h3>UNIT HISTORY</h3>
+                    <div class="reportform" >
+                        <div class="unitIssue">
+                            <label for="report_reason">Unit issue</label>
+                            <p>asdsad</p>
+                        </div>
+                        <div class="unitIssue">
+                            <label for="report_reason">Date restored</label>
+                            <p>asdas</p>
+                        </div>
+                        <br>
+                        <div class="buttonContainer2">
+                            <button class="button3" type="button" onclick="closeModal()">Close</button>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
 
-    <script src="../../assets/js/inventory.js"></script>
+    <script src="../../assets/js/nextPrev.js"></script>
     <script src="../../assets/js/sidebar.js"></script>
+    
+<script> 
+    function openModal() {
+        var modal = document.getElementById("reportModal");
+        modal.style.display = "block";
+        setTimeout(function() {
+            modal.style.opacity = 1;
+        }, 10);
+    }
+
+    function closeModal() {
+        var modal = document.getElementById("reportModal");
+        modal.style.opacity = 0;
+        setTimeout(function() {
+            modal.style.display = "none";
+        }, 300);
+    }
+</script>
+
 </body>
 </html>
