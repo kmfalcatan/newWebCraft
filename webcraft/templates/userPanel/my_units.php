@@ -6,7 +6,7 @@
 if(isset($_GET['id'])) {
     $userID = $_GET['id'];
 
-    $query = "SELECT first_name, last_name, designation, email, department FROM users WHERE user_ID = ?";
+    $query = "SELECT first_name, last_name, designation, email, department, profile_img FROM users WHERE user_ID = ?";
 
     $stmt = $conn->prepare($query);
     $stmt->bind_param("i", $userID);
@@ -17,9 +17,9 @@ if(isset($_GET['id'])) {
         $user = $result->fetch_assoc();
     }
 
-    $query = "SELECT unit_ID, equipment_name FROM units WHERE user = CONCAT(?, ' ', ?)";
+    $query = "SELECT unit_ID, equipment_name FROM units WHERE user_ID = ?";
     $stmt = $conn->prepare($query);
-    $stmt->bind_param('ss', $user['first_name'], $user['last_name']);
+    $stmt->bind_param('i', $userID);
     $stmt->execute();
     $result = $stmt->get_result();
     $units = $result->fetch_all(MYSQLI_ASSOC);
@@ -55,7 +55,7 @@ if(isset($_GET['id'])) {
         <div class="sideBarContainer3">
             <div class="headerContainer1">
                 <div class="iconContainer10">
-                    <a href="">
+                    <a href="notification.php?id=<?php echo $userID; ?>">
                     <div class="subIconContainer10">
                         <img class="subIconContainer10" src="../../assets/img/notif.png" alt="">
                     </div>
@@ -94,23 +94,28 @@ if(isset($_GET['id'])) {
 
                 <div class="tableContainer2">
                     <div class="unitContainer1">
-                        <div class="subUnitContainer1" id="subUnitContainer1">
+                        <div class="subUnitContainer1">
                             <div class="imageContainer2">
                                 <div class="subImageContainer2">
                                     <?php
+                                        if (!empty($user['profile_img'])) {
+                                            echo '<img class="image13" src="../../uploads/' . $user['profile_img'] . '" alt="Profile Image">';
+                                        } else {
+                                            echo '<img class="image13" src="../../assets/img/pp_placeholder.png" alt="Mountain Placeholder">';
+                                        }
                                     ?>
+                                </div>
+                            </div>
+
+                            <div class="userNameContainer">
+                                <label for="">End user:</label>
+                                <div class="subUserNameContainer">
+                                    <p><?php echo $user['first_name']; ?> <?php echo $user['last_name']; ?></p>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="subUnitContainer1" >
-                            <div class="userNameContainer">
-                                <label for="">End user:</label>
-                                <div class="subUserNameContainer">
-                                    <p> <?php echo $user['first_name']; ?> <?php echo $user['last_name']; ?></p>
-                                </div>
-                            </div>
-
+                        <div class="subUnitContainer1">
                             <div class="userNameContainer">
                                 <label for="">Designation:</label>
                                 <div class="subUserNameContainer">
@@ -124,9 +129,11 @@ if(isset($_GET['id'])) {
                                     <p><?php echo $user['email']; ?></p>
                                 </div>
                             </div>
+                        </div>
 
+                        <div class="subUnitContainer1"  id="departmentContainer">
                             <div class="userNameContainer">
-                                <label for="">department:</label>
+                                <label for="">Department:</label>
                                 <div class="subUserNameContainer">
                                     <p><?php echo $user['department']; ?></p>
                                 </div>
@@ -173,11 +180,14 @@ if(isset($_GET['id'])) {
                                     echo "<td>$propertyNumber</td>";
                                     echo "<td>$accountCode</td>";
                                     echo "<td class='actionContainer' style='display: flex;'>";
-                                    echo "   <button class='button4' onclick='openModal($unitID)'>Report</button>";
+                                    echo "   <button class='button4' id='red-btn' onclick='openModal($unitID)'>Report</button>";
                                     echo "</td>";
                                     echo "</tr>";
                                     $count++; 
                                 }
+                                    if ($count == 1) {
+                                        echo "<tr><td colspan='6' style='text-align: center;'>No records found</td></tr>";
+                                    }
                             ?>
 
                             </tbody>
@@ -203,7 +213,7 @@ if(isset($_GET['id'])) {
                 <br>
                 <input type="hidden" id="unitID">
                 <div class="buttonContainer2">
-                    <button class="button4" onclick="reportUnit(document.getElementById('unitID').value)">Report</button>
+                    <button class="button4" id="red-btn" onclick="reportUnit(document.getElementById('unitID').value)">Report</button>
                     <button class="button3" type="button" onclick="closeModal()">Close</button>
                 </div>
             </div>
@@ -236,8 +246,16 @@ if(isset($_GET['id'])) {
     function reportUnit(unitID) {
         var reportReason = document.getElementById('report_reason').value;
         
-        var url = 'a.php?id=<?php echo $userID; ?>&unitID=' + unitID + '&reportReason=' + reportReason;
-        
+        var url;
+        if (reportReason === "Lost") {
+            url = 'report_lost.php?id=<?php echo $userID; ?>&unitID=' + unitID + '&reportReason=' + reportReason;
+        } else if (reportReason === "For return") {
+            url = 'report_for_return.php?id=<?php echo $userID; ?>&unitID=' + unitID + '&reportReason=' + reportReason;
+        } else {
+            alert("Please select a valid report reason.");
+            return; 
+        }
+
         window.location.href = url;
     }
 

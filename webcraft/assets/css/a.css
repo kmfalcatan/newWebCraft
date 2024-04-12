@@ -1,0 +1,24 @@
+.trackUnitContainer{
+    background: rgb(207, 224, 236);
+}
+
+#unitDetails{
+    height: auto;
+    margin-top: 1rem;
+    background-color: #fff;
+    border-radius: 0.3rem;
+}
+
+.unitID{
+    outline: 1px solid red;
+}
+
+/*laptop*/
+@media only screen and (min-width: 1025px){
+    #unitDetails{
+        height: 95%;
+        width: 70%;
+        padding: 0rem;
+    }
+    
+}

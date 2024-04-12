@@ -1,42 +1,118 @@
 <?php
- include_once "../../functions/header.php";
- include_once "../../authentication/auth.php";
- 
- if (isset($_POST['unitID'])) {
+include_once "../../functions/header.php";
+include_once "../../authentication/auth.php";
+
+if (isset($_POST['unitID'])) {
     $unitIDInput = $_POST['unitID'];
 
     $unitID = intval(substr($unitIDInput, 5));
-    $sql = "SELECT * FROM units WHERE unit_ID = '$unitID'";
-    $result = $conn->query($sql);
+    $sql = "SELECT * FROM units WHERE unit_ID = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("i", $unitID);
+    $stmt->execute();
+    $result = $stmt->get_result();
 
     if ($result->num_rows > 0) {
         $row = $result->fetch_assoc();
         $unitDetails = array(
             'unitID' => $unitIDInput,
-            'user' => $row['user'],
+            'user_ID' => $row['user_ID'],
             'equipmentName' => $row['equipment_name']
         );
 
-        $equipmentName = $row['equipment_name'];
-        $deploymentSql = "SELECT deployment, account_code, property_number, image FROM equipment WHERE article = '$equipmentName'";
-        $deploymentResult = $conn->query($deploymentSql);
+        $unitID = intval(substr($unitIDInput, 5));
+        $unitSql = "SELECT year_received FROM units WHERE unit_ID = ?";
+        $unitStmt = $conn->prepare($unitSql);
+        $unitStmt->bind_param("i", $unitID);
+        $unitStmt->execute();
+        $unitResult = $unitStmt->get_result();
 
-        if ($deploymentResult->num_rows > 0) {
-            $deploymentRow = $deploymentResult->fetch_assoc();
-            $unitDetails['deployment'] = $deploymentRow['deployment'];
-            $unitDetails['accountCode'] = $deploymentRow['account_code'];
-            $unitDetails['propertyNumber'] = $deploymentRow['property_number'];
-            $unitDetails['image'] = "../../uploads/" . $deploymentRow['image'];
+        if ($unitResult->num_rows > 0) {
+            $unitRow = $unitResult->fetch_assoc();
+            $unitDetails['unitYearReceived'] = $unitRow['year_received'];
         }
 
-        echo json_encode($unitDetails); 
+        $user_ID = $row['user_ID'];
+        $userSql = "SELECT first_name, last_name, username, designation, department, email FROM users WHERE user_ID = ?";
+        $userStmt = $conn->prepare($userSql);
+        $userStmt->bind_param("i", $user_ID);
+        $userStmt->execute();
+        $userResult = $userStmt->get_result();
+
+        if ($userResult->num_rows > 0) {
+            $userRow = $userResult->fetch_assoc();
+            $unitDetails['firstName'] = $userRow['first_name'];
+            $unitDetails['lastName'] = $userRow['last_name'];
+            $unitDetails['userName'] = $userRow['username'];
+            $unitDetails['designation'] = $userRow['designation'];
+            $unitDetails['department'] = $userRow['department'];
+            $unitDetails['email'] = $userRow['email'];
+        }
+
+        $equipmentName = $row['equipment_name'];
+        $equipmentSql = "SELECT description, deployment, account_code, property_number, unit_value, year_received, remarks, warranty_end, image FROM equipment WHERE article = ?";
+        $equipmentStmt = $conn->prepare($equipmentSql);
+        $equipmentStmt->bind_param("s", $equipmentName);
+        $equipmentStmt->execute();
+        $equipmentResult = $equipmentStmt->get_result();
+
+        if ($equipmentResult->num_rows > 0) {
+            $equipmentRow = $equipmentResult->fetch_assoc();
+            $unitDetails['description'] = $equipmentRow['description'];
+            $unitDetails['deployment'] = $equipmentRow['deployment'];
+            $unitDetails['accountCode'] = $equipmentRow['account_code'];
+            $unitDetails['propertyNumber'] = $equipmentRow['property_number'];
+            $unitDetails['unitValue'] = $equipmentRow['unit_value'];
+            $unitDetails['remarks'] = $equipmentRow['remarks'];
+            $unitDetails['yearReceived'] = $equipmentRow['year_received'];
+            $unitDetails['warrantyEnd'] = $equipmentRow['warranty_end'];
+            $unitDetails['image'] = "../../uploads/" . $equipmentRow['image'];
+        }
+
+        $unitTransferSql = "SELECT old_end_user_first_name, old_end_user_last_name FROM unit_transfer WHERE unit_ID = ?";
+        $unitTransferStmt = $conn->prepare($unitTransferSql);
+        $unitTransferStmt->bind_param("s", $unitIDInput);
+        $unitTransferStmt->execute();
+        $unitTransferResult = $unitTransferStmt->get_result();
+        
+        if ($unitTransferResult->num_rows > 0) {
+            $unitDetails['oldEndUserNames'] = array();
+        
+            while ($unitTransferRow = $unitTransferResult->fetch_assoc()) {
+                $oldEndUser = array(
+                    'firstName' => $unitTransferRow['old_end_user_first_name'],
+                    'lastName' => $unitTransferRow['old_end_user_last_name']
+                );
+                $unitDetails['oldEndUserNames'][] = $oldEndUser;
+            }
+        }
+
+        $issueSql = "SELECT report_issue, timestamp FROM approved_report WHERE unit_ID = ?";
+        $issueStmt = $conn->prepare($issueSql);
+        $issueStmt->bind_param("s", $unitIDInput);
+        $issueStmt->execute();
+        $issueResult = $issueStmt->get_result();
+        
+        if ($issueResult->num_rows > 0) {
+            $unitDetails['unitIssues'] = array();
+        
+            while ($issueRow = $issueResult->fetch_assoc()) {
+                $unitIssue = array(
+                    'reportIssue' => $issueRow['report_issue'],
+                    'timestamp' => $issueRow['timestamp']
+                );
+                $unitDetails['unitIssues'][] = $unitIssue;
+            }
+        }
+        
+
+        echo json_encode($unitDetails);
         exit;
     } else {
-        echo "not_exists"; 
+        echo "not_exists";
         exit;
     }
 }
-    
 ?>
 
 <!DOCTYPE html>
@@ -67,7 +143,7 @@
         <div class="sideBarContainer3">
             <div class="headerContainer1">
                 <div class="iconContainer10">
-                    <a href="">
+                    <a href="notification.php?id=<?php echo $userID; ?>">
                     <div class="subIconContainer10">
                         <img class="subIconContainer10" src="../../assets/img/notif.png" alt="">
                     </div>
@@ -97,7 +173,7 @@
 
                         <div class="trackContainer">
                             <div class="trackButton">
-                                <button class="trackButton" onclick="track()">Track Unit</button>
+                                <button class="trackButton" type="button" onclick="track()">Track Unit</button>
                                 <form class="subTrackContainer" style="display: none;"  id="trackForm" method="post">
                                     <div class="searhUnitContainer">
                                         <p>Enter Unit ID:</p>
@@ -184,125 +260,8 @@
                 </div>
             </div>  
 
-            <div class="trackUnitContainer" style="display: none;" id="popupContainer">
-                <div class="trackUnitContainer">
-                    <div class="subTrackUnitContainer">
-                        <div class="trackNameContainer">
-                            <div class="subTrackNameContainer">
-                                <p>TRACK UNIT</p>
-                            </div>
-                        </div>
-    
-                        <div class="unitInfoContainer">
-                            <div class="subUnitInfoContainer">
-                                <div class="infoContainer1">
-                                    <div class="imageContainer1">
-                                        <div class="subImageContainer1">
-                                            <img class="image12"  id="imageDisplay" src="" alt="Equipment Image">
-                                        </div>
-    
-                                        <div class="equipNameContainer">
-                                            <p id="equipmentNameDisplay"></p>
-                                            <p id="unitIDDisplay"></p>
-                                        </div>
-                                    </div>
-    
-                                    <div class="subInfoContainer1">
-                                        <div class="unitIDContainer">
-                                            <div class="unitID">
-                                                <p>Current end user:</p>
-    
-                                                <div class="unitInputContainer" >
-                                                    <p id="userDisplay"></p>
-                                                </div>
-                                            </div>
-    
-                                            <div class="unitID">
-                                                <p>Deployment:</p>
-    
-                                                <div class="unitInputContainer">
-                                                    <p id="deploymentDisplay"></p>
-                                                </div>
-                                            </div>
-                                        </div>
-    
-                                        <div class="unitIDContainer">
-                                            <div class="unitID">
-                                                <p>Property number</p>
-    
-                                                <div class="unitInputContainer">
-                                                    <p id="propertyNumberDisplay"></p>
-                                                </div>
-                                            </div>
-    
-                                            <div class="unitID">
-                                                <p>Account code:</p>
-    
-                                                <div class="unitInputContainer">
-                                                    <p id="accountCodeDisplay"></p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                
-                                <div>
-                                    <div class="oldUserContainer">
-                                        <div class="oldUserTextContainer">
-                                            <p>OLD END USER</p>
-                                        </div>
-    
-                                        <div class="unitIDContainer">
-                                            <div class="unitID">
-                                                <p>Name:</p>
-    
-                                                <div class="unitInputContainer">
-    
-                                                </div>
-                                            </div>
-    
-                                            <div class="unitID">
-                                                <p>Year:</p>
-    
-                                                <div class="unitInputContainer">
-    
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-    
-                                    <div class="oldUserContainer">
-                                        <div class="oldUserTextContainer">
-                                            <p>HISTORY</p>
-                                        </div>
-    
-                                        <div class="unitIDContainer">
-                                            <div class="unitID">
-                                                <p>Issue:</p>
-    
-                                                <div class="unitInputContainer">
-    
-                                                </div>
-                                            </div>
-    
-                                            <div class="unitID">
-                                                <p>Date retrieved:</p>
-    
-                                                <div class="unitInputContainer">
-    
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-    
-                        <div class="buttonContainer3">
-                            <button  onclick="closePopup()" class="button5">Close</button>
-                        </div>
-                    </div>
-                </div>
+            <div class="trackUnitContainer" id="popupContainer" style="display: none;">
+                <?php include('tracker.php'); ?>
             </div>
         </div>
     </div>

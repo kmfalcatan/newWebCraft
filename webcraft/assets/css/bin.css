@@ -221,51 +221,56 @@ a{
     height: 91vh;
 }
 
+#containerToReplace{
+    outline: 1px solid red;
+    height: auto;
+    padding-bottom: 1rem;
+    width: 80%;
+}
+
 .filterContainer1{
-    /* outline: red dashed 1px; */
     height: 10rem;
+    padding-bottom: 1rem;
 }
 
 .inventoryNameContainer{
-    /* outline: red dashed 1px; */
     height: 2.5rem;
     margin-top: 1rem;
     display: flex;
     align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    font-weight: lighter;
     font-size: 1.7rem;
     font-family: fantasy;
     color: #3333338c;
 }
 
 .subFilterContainer1{
-    /* outline: red dashed 1px; */
     height: 7.5rem;
     display: flex;
     flex-direction: column;
     gap: 1rem;
-    /* padding-right: 1.5rem; */
 }
 
 .searchContainer1{
-    /* outline: red dashed 1px; */
     height: 3rem;
     display: flex;
     align-items: center;
-    justify-content: flex-end;
+    justify-content: center;
     margin-top: 0.5rem;
 }
 
 .searchBar1{
     height: 2.5rem;
     border-radius: 0.5rem;
-    border: solid gray 2px;
-    width: 70%;
+    border: solid gray 1px;
+    width: 90%;
     padding-left: 0.5rem;
     font-size: 1.2rem;
 }
 
 .trackContainer{
-    /* outline: red dashed 1px; */
     height: 3rem;
     display: flex;
     flex-direction: row;
@@ -279,24 +284,18 @@ a{
     height: 2.5rem;
     width: 7.5rem;
     border-radius: 0.5rem;
-    border: solid gray 2px;
+    border: solid gray 1px;
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
     background-color: rgb(255,252,252);
     transition: all 0.15s;
-    font-size: 1rem;
-    position: relative;
 }
 
 .trackButton1:hover{
     background-color:rgb(2, 116, 200);
     color: white;
-}
-
-.trackButton1 img:hover{
-    filter: invert(100%);
 }
 
 .trackButton1:active{
@@ -309,7 +308,7 @@ a{
     height: 2.5rem;
     width: auto;
     border-radius: 0.5rem;
-    border: solid gray 0.1px;
+    border: solid gray 1px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -317,8 +316,7 @@ a{
     background-color: rgb(255,252,252);
     transition: all 0.15s;
     position: relative;
-    font-size: 1rem;
-    
+    z-index: -1;
 }
 
 .trackButton span{
@@ -340,6 +338,7 @@ a{
     align-items: center;
     justify-content: right;
 }
+
 
 .unitList{
     height: 2rem;
@@ -379,14 +378,49 @@ a{
     justify-content: center;
 }
 
+.dateReplacement{
+    display: flex;
+    margin-right: auto;
+    width: auto;
+    height: auto;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.dateReplacement p{
+    width: 4rem;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding-left: 1rem;
+    
+}
+
+.dateReplacement span{
+    color: red;
+    margin-left: 0.5rem;
+    font-size: 1.3rem
+}
+
+.dateReplacement input{
+    width: 7rem;
+    height: 2rem;
+    border: 1px solid gray;
+    border-radius: 0.3rem;
+    cursor: pointer;
+    padding: 0rem 1rem;
+}
+
 .buttonContainer2{
     height: 3rem;
+    width: 85%;
     display: flex;
     align-items: center;
-    justify-content: right;
+    justify-content: center;
     flex-direction: row;
     gap: 0.5rem;
     margin-top: 1rem;
+    padding-top: 3px;
 }
 
 .button3{
@@ -478,13 +512,38 @@ a{
 
 .unitInfoContainer{
     height: 35rem;
-    width: 100%;
+    width: 85%;
     overflow: auto;
 }
 
 #subUnitInfoContainer1{
-    border-bottom: 1px solid gray;
-    padding-bottom: 1.5rem;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+    border-top: 1px solid gray;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.instruction{
+    width: 95%;
+    display: flex;
+    justify-content: flex-start;
+    padding-bottom: 2rem;
+    font-size: 0.7rem;
+    font-style: italic;
+    letter-spacing: 1px;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.unitContainer1{
+    width: 80%;
+    padding-bottom: 2rem;
+}
+
+.unitContainer1 h3{
+    color: rgb(2, 116, 200);
 }
 
 .buttonContainer3{
@@ -692,13 +751,14 @@ a{
     display: flex;
     justify-content: center;
     align-items: center;
+    margin: 1rem auto;
 }
 
 .subEquipImageContainer{
     height: 14rem;
     width: 14rem;
     border-radius: 0.5rem;
-    background-color: rgb(2, 116, 200);
+    border: 1px solid rgb(2, 116, 200);
 }
 
 .unitInfoContainer{
@@ -724,12 +784,16 @@ a{
 
 #subUnitInfoContainer,
 #unitIdContainer{
-    flex-direction: column; 
-    gap: 0.5rem;
     height: auto; 
     overflow: hidden;
+}
+
+#unitIdContainer span{
+    font-weight: 600;
+    font-size: 1.1rem;
+    color: #000;
     text-transform: uppercase;
-    font-size: 1.4rem;
+    margin-left: 1rem;
 }
 
 #unitIdContainer{
@@ -770,11 +834,15 @@ a{
 }
 
 .subViewApproveContainer{
-    width: 90%;
+    width: 100%;
     background-color: snow;
     border-radius: 0.5rem;
-    padding: 1rem 1.5rem;
-    margin: 1rem 0;
+    border: 1px solid #ccc;
+    padding-bottom: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
 }
 
 .viewInfoCotainer{
@@ -956,8 +1024,17 @@ a{
 
 /*laptop*/
 @media only screen and (min-width: 1025px){
+    #containerToReplace{
+        outline: 1px solid red;
+        height: auto;
+        padding-bottom: 1rem;
+        width: 63%;
+    }
+    
+
     .tableContainer2{
-        height: 43.6rem;
+        height: 43.5rem;
+        margin-top: -0.01rem;
     }
 
     .systemName{
@@ -1092,9 +1169,20 @@ a{
         height: 100vh;
     }
 
-    .subViewApproveContainer{
-        width: 60rem;
+    .buttonContainer2{
+        display: flex;
+        align-items: center;
+        justify-content: right;
+        flex-direction: row;
     }
+
+    .instruction{
+        font-size: 1rem;
+    }
+
+    /* .subViewApproveContainer{
+        width: 60rem;
+    } */
 
     @keyframes closeSideBar {
         from{

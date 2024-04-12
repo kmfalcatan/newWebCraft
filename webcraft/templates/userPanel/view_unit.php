@@ -5,8 +5,11 @@ include_once "../../authentication/auth.php";
 
 function isEquipmentNew($equipment_ID, $conn) {
     $currentYear = date("Y");
-    $sql = "SELECT year_received FROM equipment WHERE equipment_ID = '$equipment_ID'";
-    $result = $conn->query($sql);
+    $sql = "SELECT year_received FROM equipment WHERE equipment_ID = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("s", $equipment_ID);
+    $stmt->execute();
+    $result = $stmt->get_result();
 
     if ($result->num_rows > 0) {
         $row = $result->fetch_assoc();
@@ -18,10 +21,17 @@ function isEquipmentNew($equipment_ID, $conn) {
 
 $equipment_ID = isset($_GET['equipment_ID']) ? $_GET['equipment_ID'] : null;
 $userID = isset($_GET['id']) ? $_GET['id'] : null;
-$sql2 = "SELECT image FROM equipment WHERE equipment_ID = '$equipment_ID'";
-$sql = "SELECT * FROM units WHERE equipment_ID = '$equipment_ID'";
-$result_units = $conn->query($sql);
-$result_equipment = $conn->query($sql2);
+$sql2 = "SELECT image FROM equipment WHERE equipment_ID = ?";
+$sql = "SELECT * FROM units WHERE equipment_ID = ?";
+$stmt_units = $conn->prepare($sql);
+$stmt_units->bind_param("s", $equipment_ID);
+$stmt_units->execute();
+$result_units = $stmt_units->get_result();
+
+$stmt_equipment = $conn->prepare($sql2);
+$stmt_equipment->bind_param("s", $equipment_ID);
+$stmt_equipment->execute();
+$result_equipment = $stmt_equipment->get_result();
 
 if ($result_equipment->num_rows > 0) {
     $row = $result_equipment->fetch_assoc();
@@ -71,7 +81,7 @@ $offset = ($currentPage - 1) * $recordsPerPage;
         <div class="sideBarContainer3">
             <div class="headerContainer1">
                 <div class="iconContainer10">
-                    <a href="">
+                    <a href="notification.php?id=<?php echo $userID; ?>">
                     <div class="subIconContainer10">
                         <img class="subIconContainer10" src="../../assets/img/notif.png" alt="">
                     </div>
@@ -91,7 +101,7 @@ $offset = ($currentPage - 1) * $recordsPerPage;
             <div class="subContainer1">
                 <div class="filterContainer1">
                     <div class="inventoryNameContainer">
-                        <p>USER LIST</p>
+                        <p>EQUIPMENT UNIT</p>
                     </div>
 
                     <div class="subFilterContainer1">
@@ -100,7 +110,7 @@ $offset = ($currentPage - 1) * $recordsPerPage;
                         </div>
 
                         <div class="trackContainer">
-                        <button class="trackButton1">Sort <img src="../../assets/img/sort.png" alt="" style="margin-left: 0.5rem; width: 1.4rem; height: 1.2rem;"></button>
+                        <button class="trackButton1">Next</button>
                           
                         </div>
                     </div>
@@ -108,15 +118,18 @@ $offset = ($currentPage - 1) * $recordsPerPage;
 
                 <div class="subContainer">
                 <?php
-                    $sql = "SELECT * FROM units WHERE equipment_ID = '$equipment_ID' LIMIT $offset, $recordsPerPage";
-                    $result_units = $conn->query($sql);
-
+                    $sql = "SELECT * FROM units WHERE equipment_ID = ? LIMIT ?, ?";
+                    $stmt_units = $conn->prepare($sql);
+                    $stmt_units->bind_param("sii", $equipment_ID, $offset, $recordsPerPage);
+                    $stmt_units->execute();
+                    $result_units = $stmt_units->get_result();
+                    
                     while ($row1 = $result_units->fetch_assoc()) {
                         $equipment_name = $row1['equipment_name'];
                         $unit_ID = $row1['unit_ID'];
                         $user = $row1['user'];
                         $isNew = isEquipmentNew($equipment_ID, $conn);
-                        
+                    
                         $unitPrefix = 'UNIT';
                         $defaultUnitID = '0000';
                         $unitID = $unitPrefix . '-' . str_pad($unit_ID, strlen($defaultUnitID), '0', STR_PAD_LEFT);
@@ -126,7 +139,7 @@ $offset = ($currentPage - 1) * $recordsPerPage;
                         echo "<div class='unitImgContainer' >";
                         echo "<img class='image1' src='$imageURL' alt=''>";
                         echo "</div>";
-                        echo "<div class='unit-container'style='outline: 1px solid red;'>";
+                        echo "<div class='unit-container'>";
                         echo "<div class='subUnitContainer'>";
                         echo "<div class='statusContainer1" . ($isNew ? " new" : "") . "'>";
                         echo "<p class='status1'>" . ($isNew ? "NEW" : "OLD") . "</p>";
@@ -144,7 +157,7 @@ $offset = ($currentPage - 1) * $recordsPerPage;
 
                         echo "<div class='subUnitContainer'>";
                         echo "<div class='statusContainer2'>";
-                        echo "<button onclick='popup1()' class='historyButton' type='button'>History</button>";
+                        echo "<button class='historyButton' type='button' onclick='openModal(\"$unitID\")'>History</button>";
                         echo "</div>";
                         echo "</div>";
 
@@ -154,31 +167,88 @@ $offset = ($currentPage - 1) * $recordsPerPage;
                     }
                 ?>
                 </div>
+            </div>
 
-            <div class="buttonContainer">
-                <div class="next-previous">
-                    <?php
-                        $prevPage = $currentPage > 1 ? $currentPage - 1 : 1;
-                        echo "<a href='view_unit.php?equipment_ID=$equipment_ID&id=$userID&page=$prevPage'><button class='previousbtn'>";
-                        echo "<span><img src='../assets/img/chevron-left (1).png' alt='' style='height: 1rem; width: 1rem;'></span>";
-                        echo "<span>Previous</span>";
-                        echo "</button></a>";
-                    ?>
-
-                    <div class="pageIndicator"><?php echo $currentPage; ?></div>
-
-                    <?php
-                        $nextPage = $currentPage + 1;
-                        echo "<a href='view_unit.php?equipment_ID=$equipment_ID&id=$userID&page=$nextPage'><button class='nextbtn'>";
-                        echo "<span>Next</span>";
-                        echo "<span><img src='../assets/img/chevron-right.png' alt='' style='height: 1rem; width: 1rem;'></span>";
-                        echo "</button></a>";
-                    ?>
+            <div id="reportModal" class="modal" >
+                <div class="modal-content">
+                    <h3>UNIT HISTORY</h3>
+                    <div class="reportform" >
+                        <div class="unitIssue">
+                            <label for="report_reason">Unit issue</label>
+                            <p id="report_reason"></p>
+                        </div>
+                        <div class="unitIssue">
+                            <label for="report_reason">Date</label>
+                            <p id="date_restored"></p>
+                        </div>
+                        <br>
+                        <div class="buttonContainer2">
+                            <button class="button3" type="button" onclick="closeModal()">Close</button>
+                        </div>
+                    </div>
                 </div>
             </div>
 
     <script src="../../assets/js/nextPrev.js"></script>
     <script src="../../assets/js/sidebar.js"></script>
     
+    <script>
+    function formatDate(date) {
+        const monthNames = ["January", "February", "March", "April", "May", "June",
+                            "July", "August", "September", "October", "November", "December"];
+        const day = ("0" + date.getDate()).slice(-2);
+        const monthIndex = date.getMonth();
+        const year = date.getFullYear();
+
+        return `${monthNames[monthIndex]} ${day}, ${year}`;
+    }
+
+        function openModal(unitID) {
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+                if (this.readyState === 4 && this.status === 200) {
+                    var response = JSON.parse(this.responseText);
+
+                    var buttonContainer = document.getElementById("buttonContainer");
+                    
+                    if (response && response.report_issue && response.timestamp) {
+                        var report_issue = response.report_issue;
+                        var timestamp = new Date(response.timestamp);
+                        
+                        document.getElementById("report_reason").innerHTML = report_issue;
+                        document.getElementById("date_restored").innerHTML = formatDate(timestamp);
+
+                        if (buttonContainer) buttonContainer.style.display = 'block';
+                    } else {
+
+                        document.getElementById("report_reason").innerHTML = "No result found";
+                        document.getElementById("date_restored").innerHTML = "";
+
+                        if (buttonContainer) buttonContainer.style.display = 'none';
+                    }
+                }
+            };
+            xhttp.open("GET", "../../functions/get_report.php?unitID=" + unitID, true);
+            xhttp.send();
+
+            var modal = document.getElementById("reportModal");
+            modal.style.display = "block";
+            setTimeout(function () {
+                modal.style.opacity = 1;
+            }, 10);
+        }
+
+
+    function closeModal() {
+        var modal = document.getElementById("reportModal");
+        modal.style.opacity = 0;
+        setTimeout(function () {
+            modal.style.display = "none";
+        }, 300);
+    }
+    </script>
+
+<script src="../../assets/js/nextPrev.js"></script>
+<script src="../../assets/js/sidebar.js"></script>
 </body>
 </html>

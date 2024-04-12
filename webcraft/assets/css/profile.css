@@ -1,0 +1,458 @@
+.subContainer1{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 90%;
+    height: auto;
+}
+
+.userInfoContainer{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    width: 100%;
+    height: 90%;
+    margin: auto;
+    background-color: snow;
+    border: 1px solid #ccc;
+    border-radius: 0.5rem;
+    margin-bottom: 1rem;
+    padding-bottom: 1.5rem;
+}
+
+.filterContainer1{
+    /* outline: red dashed 1px; */
+    height: 5rem;
+    width: 98%;
+}
+
+.trackButton1{
+    width: auto;
+    padding: 0 0.7rem;
+}
+
+.trackButton1 img{
+    width: 2.2rem;
+    height: 1.5rem;
+}
+
+.profileContainer{
+    height: 50%;
+    width: 60%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex-direction: column;
+
+}
+
+.profileContainer1{
+    width: 65%;
+    height: 45%;
+    margin: 0rem auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    margin: 1.5rem auto;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    padding: 1rem;
+}
+
+.profileImage{
+    width: 8rem;
+    height: 8rem;
+    display: flex;
+    align-items: center;
+    margin-bottom: auto;
+    margin-top: 1rem;
+    border: 1px solid rgb(2, 116, 200);
+    border-radius: 0.5rem;
+}
+.profileImage img{
+    width: 100%;
+    height: 100%;
+    border-radius: 0.5rem;
+}
+
+.profileInfo{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-bottom: 0rem;
+    padding: 1.5rem 1rem;
+}
+
+.profileInfo .name{
+    text-transform: uppercase;
+    font-size: 1.2rem;
+    color: #333;
+    font-weight: 600;
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+.profileInfo p{
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #3333338c;
+}
+
+.profileContainer2{
+    width: 65%;
+    height: 55%;
+    margin: 0rem auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    margin: 2rem auto;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    padding: 1rem;
+}
+
+.profileContainer2 .title{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: auto;
+    padding: 0.5rem 0rem;
+    border-bottom: 1px solid #ccc;
+    background-color: #fefdfd;
+}
+
+.title p{
+    font-size: 0.9rem;
+    font-weight: bold;
+    color: #333333b6;
+    margin-left: 0.5rem;
+}
+
+.personalInfo{
+    width: 90%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.personalInfo1{
+    width: 100%;
+    height: 90%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 0.8rem;
+    margin: 1rem auto;
+}
+
+.personalInfo1 p{
+    font-size: 1.2rem;
+}
+
+/* edit form */
+
+.editContainer{
+    height: 80%;
+    width: 80%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.subUserInfoContainer{
+    /* 
+     */
+    height: 90%;
+    width: 90%;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    padding-bottom: 1rem
+}
+
+.title1{
+    width: 100%;
+    height: 5%;
+    padding: 0.5rem 0rem;
+    background-color: #fefdfd;
+    border-bottom: 1px solid #ccc;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    color: #333333b6;
+}
+
+.title1 p{
+    font-size: 1.3rem;
+    font-weight: bold;
+    margin-left: 1rem;
+}
+
+.imageContainer3{
+    height: 15rem;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    margin: 1.5rem;
+}
+
+.subImageContainer4{
+    height: 10rem;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.image10{
+    height: 100%;
+    width: 10rem;
+    border-radius: 0.5rem;
+    background-color:#fff;
+    border: 1px solid rgb(2, 116, 200);
+}
+
+.nameContainer1{
+    height: 2rem;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: rgb(2, 116, 200);
+}
+
+.fileButton img{
+    height: 1rem;
+    margin-right: 0.5rem;
+    filter: invert(100%);
+}
+
+.fileButton{
+    height: 1.5rem;
+    width: 6rem;
+    padding: 1rem;
+    background-color: rgb(2, 116, 200);
+    border-radius: 0.5rem;
+    color: snow;
+    cursor: pointer;
+    transition: all 0.15s;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    margin: 0.5rem;
+}
+
+.fileButton:hover{
+    background-color: transparent;
+    color: rgb(2, 116, 200);
+    border: solid rgb(2, 116, 200) 1px;
+}
+
+.fileButton:active{
+    transform: scale(0.9);
+}
+
+.inputContainer{
+    display: flex;
+    flex-direction: column;
+}
+
+.inputContainer1{
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    gap: 0.5rem;
+}
+
+form .subInputContainer{
+    height: 7rem;
+}
+
+.inputContainer .subInputContainer{
+    height: 18rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.firstNameContainer{
+    height: 6rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+    margin-right: 0.5rem;
+    margin-left: 1rem;
+}
+
+.labelContainer{
+    height: 2rem;
+    display: flex;
+    align-items: center;
+    font-size: 1.2rem;
+}
+
+.labelContainer span{
+    color: red;
+    font-size: 1.3rem;
+}
+
+.subFirstNameContainer{
+    /* outline: 1px solid red; */
+    height: 2.5rem;
+    width: 90%;
+    border-radius: 0.5rem;
+    border: solid gray 1px;
+    background-color: #fff;
+    display: flex;
+    align-items: center;
+    font-size: 1rem;
+    font-weight: 600;
+    padding-left: 1rem;
+}
+
+#subFirstNameContainer{
+    width: 94%;
+}
+
+
+.subInputContainer1{
+    height: 12rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.buttonContainer2{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/*laptop*/
+@media only screen and (min-width: 1025px){
+    .subContainer1{
+        height: 91vh;
+    }
+
+    .filterContainer1{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        gap: 1rem;
+        height: 5rem;
+        padding: 0;
+        width: 90%;
+    }
+
+    .userInfoContainer{
+        width: 90%;
+        margin: -0.5rem auto;
+        height: 90%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: row;
+        margin-bottom: 0;
+        padding-bottom: 0rem;
+    }
+
+    .profileContainer{
+        height: 100%;
+        width: 25%;
+        margin-right: auto;
+        padding-left: 0.5rem;
+    
+    }
+
+    .profileContainer1,
+    .profileContainer2{
+        padding: 0rem;
+        width: 95%;
+    }
+
+    .profileInfo{
+        padding: 0rem;
+        margin-bottom: 2rem;
+    }
+
+    .personalInfo1{
+        margin: 0rem auto;
+    }
+
+    .editContainer{
+        height: 100%;
+        width: 70%;
+        margin-right: auto;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        margin-left: 0rem;
+      
+    }
+
+    .subUserInfoContainer{
+        width: 100%;
+        height: 96.5%;
+        padding-bottom: 0rem;
+    }
+
+    .title1 p{
+        font-size: 1.3rem;
+        
+    }
+
+    .inputContainer .subInputContainer{
+        display: flex;
+        flex-direction: row;
+        gap: 0.5rem;
+        height: 6rem;
+    }
+
+    .firstNameContainer{
+        width: 100%;
+    }
+
+    .subInputContainer1{
+        display: flex;
+        flex-direction: row;
+        gap: 1rem;
+        height: 6rem;
+        margin-bottom: 1rem;
+    }
+
+    .buttonContainer2{
+        width: 98.5%;
+        margin-top: -1rem;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+    }
+
+    .inputContainer1 .subFirstNameContainer{
+        height: 3rem;
+    }
+
+    #buttonContainer2{
+        margin-top: 1.5rem;
+        width: 79%;
+    }
+    
+    #inputContainer1{
+        border: 1px solid #ccc;
+        width: 60%;
+        margin: 5rem auto;
+        padding: 1rem;
+    }
+    
+}

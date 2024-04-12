@@ -1,5 +1,4 @@
 .filterContainer1{
-    outline: red dashed 1px;
     height: 5rem;
     width: 100%;
     padding: 0;
@@ -23,7 +22,6 @@
     flex-direction: column;
     width: 90%;
     margin: auto;
-    outline: 1px solid red;
     padding-bottom: 1rem;
 }
 
@@ -31,9 +29,9 @@
     width: 100%;
     background-color: snow;
     border-radius: 0.5rem;
-    /* padding: 1rem 1.5rem; */
+    border: 1px solid #b8b8b8;
     padding-bottom: 2rem;
-    /* outline: 1px solid red; */
+    margin-top: 2.5rem;
 }
 
 .viewInfoCotainer{
@@ -56,7 +54,6 @@
     width: auto;
     height: 15rem;
     color: rgb(2, 116, 200); 
-    /* outline: 1px solid red; */
     gap: 1rem;
 }
 
@@ -65,14 +62,16 @@
 }
 
 .subImageContainer5,
-.equipImage{
+.equipImage,
+.equipImage3{
     height: 11rem;
     width: 11rem;
     border: solid rgb(2, 116, 200) 1px;
     border-radius: 0.5rem;
 }
 
-.equipImage{
+.equipImage,
+.equipImage3{
     border-bottom: 1px solid gray;
 
 }
@@ -80,6 +79,46 @@
 .equipImage2{
     height: 100%;
     width: 100%;
+    border-radius: 0.5rem;
+}
+
+.uploadButtonContainer1,
+.uploadButtonContainer6{
+    height: 3rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.uploadButton1{
+    height: 2rem;
+    width: auto;
+    padding: 0rem 1rem;
+    border-radius: 0.5rem;
+    border: none;
+    background-color: rgb(2, 116, 200);
+    color: white;
+    font-size: 1.1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.15s;
+}
+
+.uploadButton1:hover{
+    background-color: rgb(2, 84, 143);
+}
+
+.uploadButton1:active{
+    background-color: rgb(2, 116, 200);
+    transform: scale(0.9);
+}
+
+.uploadIcon1{
+    height: 1rem;
+    margin-right: 0.5rem;
+    filter: invert(100%);
 }
 
 input{
@@ -95,6 +134,7 @@ input{
     justify-content: right;
     flex-direction: column;
     position: relative;
+    width: 90%;
 }
 
 .userHandler {
@@ -108,19 +148,18 @@ input{
 
 .viewButton{
     height: 2rem;
-    width: 6rem;
+    padding: 1rem;
     background-color: transparent;
-    border-radius: 0.5rem;
+    border-radius: 0.3rem;
     color: rgb(2, 116, 200);
     border: none;
     transition: all 0.15s;
     cursor: pointer;
-    position: absolute;
-    right: 0;
-    margin-right: 1rem;
-    margin-top: -1.9rem;
+    margin-top: -1rem;
+    margin-left: auto;
+    display: flex;
+    align-items: center;
     font-size: 1rem;
-    font-weight: bold;
 }
 
 .viewButton:hover{
@@ -134,12 +173,52 @@ input{
     transform: scale(0.9);
 }
 
+#userContainer{
+    margin-top: 0.5rem;
+    width: 100%;
+    border-radius: 0.5rem;
+    background-color: #fff;
+    border: 1px solid gray;
+}
+
+.viewmoreHeader{
+    height: auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 90%;
+    padding: 1.3rem 0rem;
+    margin: auto;
+    border-bottom: solid rgb(2, 116, 200) 1px;
+}
+
+.viewmoreHeader p{
+    font-size: 1.1rem;
+    font-weight: bold;
+}
+
+.subUserContainer1{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row;
+    width: 90%;
+    margin: auto;
+    padding: 1rem 0rem;
+    font-size: 1.1rem;
+}
+
+.subUserContainer1 .unit{
+    margin-right: 3rem;
+}
+
 .userContainer1{
     margin-top: 1rem;
     width: 100%;
     border-radius: 0.5rem;
     background-color: #fff;
     box-shadow: 0 1px 4px rgba(0, 0, 0, 0.7);
+    
 }
 
 .infoEquipContainer1{
@@ -160,23 +239,13 @@ input{
     font-weight: 600;
 }
 
-.subUserContainer1{
-    height: 2rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-direction: row;
-    padding: 1rem 5rem;
-    padding-left: 1rem;
-    color: #000;
-}
-
 .approveInfoContainer{
-    height: 28rem;
+    height: auto;
     gap: 1.5rem;
     display: flex;
+    align-items: center;
+    justify-content: center;
     flex-direction: column;
-    /* outline: 1px solid red; */
     padding: 0 1.5rem;
 }
 
@@ -188,6 +257,44 @@ input{
     align-items: center;
     width: 100%;
 }
+
+#subApproveInfoContainer{
+    margin-top: 6rem;
+    height: 12rem;
+}
+
+#subApproveInfoContainer1{
+    margin-top: 6rem;
+    margin-bottom: 14rem;
+}
+
+#instruction{
+    margin-top: -5.5rem;
+}
+
+#subApproveInfoContainer .approveContainer{
+    height: 100%;
+}
+
+#subApproveInfoContainer input{
+    height: 100%;
+}
+
+#subApproveInfoContainer span{
+    color: red;
+    font-size: 1.3rem;
+}
+
+.descContainer input{
+    height: 100%;
+    width: 100%;
+}
+
+.descContainer span{
+    color: red;
+    font-size: 1.3rem;
+}
+
 
 .approveContainer1{
     gap: 1rem;
@@ -209,6 +316,10 @@ input{
     height: 100%;
     margin: 3rem auto;
     /* outline: 1px solid red; */
+}
+
+#subApproveInfoContainer2{
+    padding-top: 5.5rem;
 }
 
 .labelContainer1{
@@ -359,16 +470,26 @@ input{
     margin: auto;
 }
 
+#buttonContainer2 p{
+    margin-right: auto;
+}
+
+#buttonContainer2 p{
+    font-weight: 500;
+    color: gray;
+}
+
 #viewInfoContainer{
-    border-bottom: 1px solid gray;
     padding-bottom: 1rem;
 }
 
 .unitSelected{
     font-size: 1.3rem;
     font-weight: bold;
-    padding-top: 1rem;
+    padding: 1.5rem 0rem;
     color: rgb(2, 116, 200);
+    margin-top: 8rem;
+    border-top: 1px solid gray;
 }
 
 .selectedContainer{
@@ -393,14 +514,113 @@ input{
     width: 100%;
 }
 
-.descContainer input{
-    height: 100%;
-    width: 100%;
+/* approved notification */
+
+.container {
+    width: 80%;
+    height: auto;
+    margin: 2rem auto;
+    padding: 2rem 1rem;
+    text-align: center;
+    transition: height 0.3s ease;
+    overflow: hidden;
+  }
+
+  .check {
+    background-color: rgba(0, 128, 0, 0.69);
+    height: 5rem;
+    width: 5rem;
+    padding: 0.5rem;
+    margin-bottom: 3rem;
+    border-radius: 5rem;
+  }
+
+  .check p{
+    font-size: 3rem;
+    color: #fff;
+  }
+  
+  .message {
+    font-weight: bold;
+    font-size: 1.4rem;
+    margin-bottom: 3rem;
+  }
+
+  .paragraph {
+    font-size: 1.1rem;
+    margin-bottom: 3rem;
+    line-height: 2rem;
+  }
+
+  .report-info {
+    display: none;
+    padding-top: 1rem;
+    line-height: 2rem;
+  }
+
+  .report-info span{
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-left: 0.7rem;
+  }
+
+  .report-info .approvedDate{
+    font-size: 1rem;
+    color: #333333b8;
+  }
+
+  .button {
+    background-color: rgb(2, 116, 200);
+    border-radius: 0.3rem;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    cursor: pointer;
+    margin-top: 1rem;
+  }
+
+  /* unit transfer notif */
+
+  .received {
+    background-color:  rgb(2, 116, 200);
+    height: 5rem;
+    width: 5rem;
+    padding: 0.5rem;
+    margin-bottom: 3rem;
+    border-radius: 5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .received img{
+    filter: invert(100%);
+    width: 3.5rem;
+    height: 3.5rem;
+  }
+
+  /* replacement form */
+
+  .equipImageContainer{
+    height: 15rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 1rem auto;
 }
 
-.descContainer span{
-    color: red;
-    font-size: 1.3rem;
+.subEquipImageContainer{
+    height: 12rem;
+    width: 12rem;
+    border-radius: 0.5rem;
+    border: 1px solid rgb(2, 116, 200);
+}
+
+.report-info a{
+    color: blue;
+    border-bottom: 1px solid blue;
+    padding-bottom: 0.2rem;
 }
 
 /*laptop*/
@@ -419,6 +639,9 @@ input{
 
     .subViewApproveContainer{
         width: 100%;
+        display: flex;
+        flex-direction: column;
+        margin-top: 0rem;
     }
 
     .viewInfoContainer{
@@ -428,9 +651,24 @@ input{
         width: 93%;
     }
 
+    #viewInfoContainer1{
+        width: 95%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    #approveInfoContainer,
+    #viewInfoContainer1 .approveInfoContainer{
+        width: 100%;
+    }
+
     .imageContainer4{
         width: 20rem;
         height: 20rem;
+        display: flex;
+        align-items: flex-end;
+        justify-content: flex-end;
     }
 
     #imageContainer4{
@@ -444,21 +682,39 @@ input{
         width: 15rem;
     }
 
-    .equipImage{
-        height: 11rem;
-        width: 11rem;
+    .equipImage, 
+    .equipImage3{
+        height: 15rem;
+        width: 14rem;
         margin-bottom: auto;
+    }
+
+    .equipImage3{
+        margin-top: 1.5rem;
     }
 
     #article{
         padding: 0;
-        margin-top: -3rem;
+        margin-top: -0.5rem;
         margin-bottom: auto;
+    }
+
+    #article p{
+        padding-left: 2rem;
     }
 
     .approveInfoContainer{
         width: 40rem;
         height: auto;
+    }
+
+    #approveContainer{
+        width: 50%;
+    }
+    
+    #approveContainer .container4{
+        text-align: center;
+        padding-left: 0rem;
     }
 
     .subApproveInfoContainer1{
@@ -474,12 +730,29 @@ input{
         margin-top: 2rem;
     }
 
+    #subApproveInfoContainer2{
+        padding-top: 0rem;
+    }
+
+    #subApproveInfoContainer{
+        margin-top: 0rem;
+    }
+
+    #subApproveInfoContainer1{
+        margin-top: 0rem;
+        margin-bottom: 0rem;
+    }
+
+    #instruction{
+        margin-top: 0rem;
+    }
+
     .viewApproveContainer{
         height: 100vh;
     }
 
-    .subViewApproveContainer{
-        width: 100%;
+    .unitSelected{
+        margin-top: 0rem;
     }
 
     .container5{
@@ -500,6 +773,11 @@ input{
     .descriptionContainer1{
         height: 12rem;
         margin-top: 1rem;
+    }
+
+    .uploadButtonContainer1{
+        width: 75%;
+        margin-bottom: 1.5rem;
     }
 
 

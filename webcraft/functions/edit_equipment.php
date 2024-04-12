@@ -1,41 +1,50 @@
 <?php
-function updateEquipment($equipmentID) {
-    global $conn;
-
-    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['confirmSave'])) {
-        $article = $_POST['article'];
-        $deployment = $_POST['deployment'];
-        $propertyNumber = $_POST['property_number'];
-        $accountCode = $_POST['account_code'];
-        $unitValue = $_POST['unit_value'];
-        $remarks = $_POST['remarks'];
-        $description = $_POST['description'];
-        $instruction = $_POST['instruction'];
-
-        $query = "UPDATE equipment SET
-                  article = '$article',
-                  deployment = '$deployment',
-                  property_number = '$propertyNumber',
-                  account_code = '$accountCode',
-                  unit_value = '$unitValue',
-                  remarks = '$remarks',
-                  description = '$description',
-                  instruction = '$instruction'
-                  WHERE equipment_ID = '$equipmentID'";
-
-        $userID = $_SESSION['user_id'];
-        $result = mysqli_query($conn, $query);
-
-        if ($result) {
-            header("Location: inventory.php?equipment_ID=$equipmentID&user_ID=$userID");
-        } else {
-            echo "Error updating equipment information: " . mysqli_error($conn);
-        }
-    }
-}
+include_once "../dbConfig/dbconnect.php";
 
 if (isset($_GET['equipment_ID'])) {
     $equipmentID = $_GET['equipment_ID'];
-    updateEquipment($equipmentID);
+} else {
+    echo "Equipment ID is missing.";
+    exit();
 }
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $article = $_POST['article'];
+    $deployment = $_POST['deployment'];
+    $property_number = $_POST['property_number'];
+    $account_code = $_POST['account_code'];
+    $total_unit = $_POST['total_unit'];
+    $total_value = $_POST['total_value'];
+    $year_received = $_POST['year_received'];
+    $remarks = $_POST['remarks'];
+    $description = $_POST['description'];
+    $instruction = $_POST['instruction'];
+
+    $sql = "UPDATE equipment SET 
+                article = ?,
+                deployment = ?,
+                property_number = ?,
+                account_code = ?,
+                total_unit = ?,
+                total_value = ?,
+                year_received = ?,
+                remarks = ?,
+                description = ?,
+                instruction = ?
+            WHERE equipment_ID = ?";
+
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("ssssississssi", $article, $deployment, $property_number, $account_code, $total_unit, $total_value, $year_received, $remarks, $description, $instruction, $equipmentID);
+
+    if ($stmt->execute()) {
+        header("Location: equip_other_info.php?id={$userID}");
+        exit();
+    } else {
+        echo "Error updating equipment information. Please try again.";
+    }
+
+    $stmt->close();
+}
+
+$conn->close();
 ?>

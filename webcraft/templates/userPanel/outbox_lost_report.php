@@ -1,7 +1,7 @@
 <?php
     include_once "../../functions/header.php";
     include_once "../../authentication/auth.php";
-    include_once "../../dbConfig/dbconnect.php";
+    include_once "../../functions/report_details.php";
 ?>
 
 <!DOCTYPE html>
@@ -15,7 +15,6 @@
     <link rel="stylesheet" href="../../assets/css/inventory.css">
     <link rel="stylesheet" href="../../assets/css/equip_details.css">
     <link rel="stylesheet" href="../../assets/css/sidebar.css">
-    <link rel="stylesheet" href="../../assets/css/newItem.css">
 </head>
 <style>
     .container4{
@@ -38,7 +37,7 @@
         <div class="sideBarContainer3">
             <div class="headerContainer1">
                 <div class="iconContainer10">
-                    <a href="">
+                    <a href="notification.php?id=<?php echo $userID; ?>">
                     <div class="subIconContainer10">
                         <img class="subIconContainer10" src="../../assets/img/notif.png" alt="">
                     </div>
@@ -59,22 +58,31 @@
                 <div class="equipContainer">
                 <div class="filterContainer1" style="width: 100%; margin-top: 0rem;">
                     <div class="inventoryNameContainer">
-                        <p>REVIEW UNIT DETAILS</p>
+                        <p>UNIT REPORTED</p>
                     </div>
 
                     <div class="subFilterContainer1">
+                        <div class="trackContainer">
+                            <a href="notification.php?id=<?php echo $userID ?>">
+                                <button class="trackButton1">Back</button>
+                            </a>
+                        </div>
                     </div>
                 </div>
                 
-                    <form class="subViewApproveContainer" action="" method="post">
+                    <div class="subViewApproveContainer" >
                         <div class="viewInfoContainer" id="viewInfoContainer">
                             <div class="imageContainer4" >
                                 <div class="equipImage" >
-                                    <img class="equipImage2"  src="" alt="Mountain Placeholder" onerror="this.onerror=null; this.src='../../assets/img/img_placeholder.jpg';">
+                                    <?php if (!empty($image_url)): ?>
+                                        <img class="equipImage2" src="../../uploads/<?php echo $image_url; ?>" alt="">
+                                    <?php else: ?>
+                                        <img class="equipImage2" src="../../assets/img/img_placeholder.jpg" alt="">
+                                    <?php endif; ?>
                                 </div>
 
-                                <div class="equipNameContainer" id="article" s>
-                                    <p>zxczx</p>
+                                <div class="equipNameContainer" id="article">
+                                    <p><?php echo $article; ?></p>
                                 </div>
                             </div>
 
@@ -85,7 +93,7 @@
                                             <p>End user</p>
                                         </div>
 
-                                        <input class="container4" type="text">
+                                        <input class="container4" type="text" value="<?php echo $first_name; ?> <?php echo $last_name; ?>" readonly>
                                     </div>
                                 </div>
 
@@ -95,7 +103,7 @@
                                             <p>Deployment</p>
                                         </div>
 
-                                        <input class="container4" type="text">
+                                        <input class="container4" type="text" value="<?php echo $deployment; ?>" readonly>
                                     </div>
                                 </div>
 
@@ -105,7 +113,7 @@
                                             <p>Property number</p>
                                         </div>
 
-                                        <input class="container4" type="text">
+                                        <input class="container4" type="text" value="<?php echo $property_number; ?>" readonly>
                                     </div>
 
                                     <div class="approveContainer">
@@ -113,49 +121,59 @@
                                             <p>Account code</p>
                                         </div>
 
-                                        <input class="container4" type="text">
+                                        <input class="container4" type="text" value="<?php echo $account_code; ?>" readonly>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         
                         <div class="unitSelected">
-                            <p>SELECTED UNIT</p>
+                            <p>UNIT REPORTED</p>
                         </div>
 
-                        <div class="subApproveInfoContainer2" style="margin: 2rem auto;">
-                        
-                            <div class="approveContainer">
-                                <div class="labelContainer1">
-                                    <p>Total unit</p>
+                        <div class="viewInfoContainer" id="viewInfoContainer1">
+
+                            <div class="approveInfoContainer">
+                                
+                                <div class="subApproveInfoContainer1"  style=" width: 60%; gap: 1.5rem;">
+                                    <div class="approveContainer">
+                                        <div class="labelContainer1">
+                                            <p>Unit ID  <span style="color: red; font-size: 1.3rem;">*</span></p>
+                                        </div>
+
+                                        <input class="container4" type="text" name="unit_ID" value="<?php echo $report['unit_ID']; ?>" readonly>
+                                    </div>
+
+                                    <div class="approveContainer">
+                                        <div class="labelContainer1">
+                                            <p>Unit issue <span style="color: red; font-size: 1.3rem;">*</span></p>
+                                        </div>
+
+                                        <input class="container4" type="text" name="report_issue" value="<?php echo $report['report_issue']; ?>" readonly>
+                                    </div>
                                 </div>
 
-                                <input class="container4" type="text" style="margin-right: 0.5rem;">
-                            </div>
+                                <div class="subApproveInfoContainer1" id="subApproveInfoContainer">
 
-                            <div class="approveContainer">
-                                <div class="labelContainer1">
-                                    <p>Unit issue</p>
+                                    <div class="approveContainer">
+                                        <div class="labelContainer1">
+                                            <p>Problem Description <span style="color: red; font-size: 1.3rem;">*</span></p>
+                                        </div>
+
+                                        <input class="container4" type="text" name="problem_desc" value="<?php echo $report['problem_desc']; ?>" readonly>
+                                    </div>
                                 </div>
 
-                                <input class="container4" type="text">
-                            </div>
-
-                            <div class="approveContainer">
-                                <div class="labelContainer1">
-                                    <p>Problem description</p>
-                                </div>
-
-                                <input class="container4" type="text">
                             </div>
                         </div>
                        
-                        <div class="buttonContainer2" id="buttonContainer2" style="width: 92.5%;">
-                            <button class="button4" id="confirm-submit">Submit</button>
-                            <button class="button3"  id="cancel-submit">Cancel</button>
+                        <div class="buttonContainer2" id="buttonContainer2" style="width: 86%;">
+                            <p><span style="font-size: 1.1rem; margin-right: 1rem">Sent:  </span><?php echo $formattedTimestamp ?></p>
+                            <!-- <button class="button4" type="button" onclick="openModal()">Submit</button> -->
                         </div>
+
                         </div>
-                    </form>
+                    </div>
                 </div>
             
             </div>  

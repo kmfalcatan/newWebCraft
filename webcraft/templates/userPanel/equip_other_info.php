@@ -1,9 +1,9 @@
 <?php
+    include_once "../../dbConfig/dbconnect.php";
     include_once "../../functions/header.php";
     include_once "../../authentication/auth.php";
-    include_once "../../dbConfig/dbconnect.php";
     include_once "../../functions/equip_info.php";
-    include_once "../../functions/edit_equipment.php";
+
 ?>
 
 <!DOCTYPE html>
@@ -11,13 +11,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MY POFILE</title>
+    <title>EQUIPMENT DETAILS</title>
 
     <link rel="stylesheet" href="../../assets/css/index.css">
     <link rel="stylesheet" href="../../assets/css/inventory.css">
     <link rel="stylesheet" href="../../assets/css/equip_details.css">
     <link rel="stylesheet" href="../../assets/css/sidebar.css">
 </head>
+<style>
+    .container4{
+        width: 95%;
+    }
+</style>
 <body>
     <div class="sidebar">
         <div  class="sidebarContent">
@@ -34,7 +39,7 @@
         <div class="sideBarContainer3">
             <div class="headerContainer1">
                 <div class="iconContainer10">
-                    <a href="">
+                    <a href="notification.php?id=<?php echo $userID; ?>">
                     <div class="subIconContainer10">
                         <img class="subIconContainer10" src="../../assets/img/notif.png" alt="">
                     </div>
@@ -53,7 +58,7 @@
 
             <div class="subContainer1" id="containerToReplace">
                 <div class="equipContainer">
-                <div class="filterContainer1">
+                <div class="filterContainer1" style="width: 100%; margin-top: 0rem;">
                     <div class="inventoryNameContainer">
                         <p>EQUIPMENT DETAILS</p>
                     </div>
@@ -64,19 +69,22 @@
                             <a href="view_unit.php?id=<?php echo $userID; ?>&equipment_ID=<?php echo $equipmentID; ?>">
                                 <button class="trackButton1" type="button">See unit</button>
                             </a>
-                           
                         </div>
                     </div>
                 </div>
                 
                     <div class="subViewApproveContainer">
-                        <div class="viewInfoContainer">
-                            <div class="imageContainer4">
-                                <div class="subImageContainer5">
-                                    <img class="subImageContainer5" src="<?php echo $imageURL; ?>" alt="Mountain Placeholder" onerror="this.onerror=null; this.src='../../assets/img/img_placeholder.jpg';">
+                        <div class="viewInfoContainer" id="viewInfoContainer">
+                            <div class="imageContainer4" >
+                                <div class="equipImage" >
+                                    <?php if (!empty($imageURL)): ?>
+                                        <img class="equipImage2" src="../../uploads/<?php echo $imageURL; ?>" alt="">
+                                    <?php else: ?>
+                                        <img class="equipImage2" src="../../assets/img/img_placeholder.jpg" alt="">
+                                    <?php endif; ?>
                                 </div>
 
-                                <div class="equipNameContainer">
+                                <div class="equipNameContainer" id="article">
                                     <p><?php echo $article; ?></p>
                                 </div>
                             </div>
@@ -89,9 +97,9 @@
                                         </div>
 
                                         <div class="container4">
-                                            <?php foreach ($userInfo as $info): ?>
+                                            <?php foreach ($userInfo as $key => $info): ?>
                                                 <div class="text1">
-                                                    <p><?php echo $info['user']; ?></p>
+                                                    <p><?php echo $info['user']; ?><?php echo ($key < count($userInfo) - 1) ? ', ' : ''; ?></p>
                                                 </div>
                                             <?php endforeach; ?>
                                         </div>
@@ -101,18 +109,19 @@
                                 <div class="subInfoEquipContainer2">
                                     <button onclick="popup2()" class="viewButton">View more</button>
                                     
-                                    <div class="userContainer1" id="userContainer" style="display: none;">
-                                        <div class="subUserContainer2">
+                                    <div class="userContainer" id="userContainer" style="display: none;">
+                                        <div class="viewmoreHeader">
                                             <p>NAME</p>
                                             <p>UNIT HANDLE</p>
                                         </div>
-    
-                                            <?php foreach ($userInfo as $info): ?>
-                                            <div class="subUserContainer2">
+
+                                        <?php foreach ($userInfo as $info): ?>
+                                            <div class="subUserContainer1">
                                                 <p><?php echo $info['user']; ?></p>
-                                                <p><?php echo $info['units_handled']; ?></p>
+                                                <p class="unit"><?php echo $info['units_handled']; ?></p>
                                             </div>
                                         <?php endforeach; ?>
+                                        
                                     </div>
                                 </div>
 
@@ -122,9 +131,7 @@
                                             <p>Deployment</p>
                                         </div>
 
-                                        <div class="container4">
-                                            <p class="text1"><?php echo $deployment; ?></p>
-                                        </div>
+                                        <input class="container4" type="text" value="<?php echo $deployment; ?>" readonly>
                                     </div>
                                 </div>
 
@@ -134,9 +141,7 @@
                                             <p>Property number</p>
                                         </div>
 
-                                        <div class="container4">
-                                            <p class="text1" id="text1"><?php echo $property_number; ?></p>
-                                        </div>
+                                        <input class="container4" type="text" value="<?php echo $propertyNumber; ?>" readonly>
                                     </div>
 
                                     <div class="approveContainer">
@@ -144,83 +149,76 @@
                                             <p>Account code</p>
                                         </div>
 
-                                        <div class="container4">
-                                            <p class="text1" id="text1"><?php echo $account_code; ?></p>
-                                        </div>
+                                        <input class="container4" type="text" value="<?php echo $accountCode; ?>" readonly>
                                     </div>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="subApproveInfoContainer2">
-                            <div class="approveContainer">
-                                <div class="labelContainer1">
-                                    <p>Total unit</p>
+                        <div class="viewInfoContainer" id="viewInfoContainer1" >
+
+                            <div class="approveInfoContainer">
+                                
+                                <div class="subApproveInfoContainer1" id="subApproveInfoContainer1">
+                                    <div class="approveContainer" id="approveContainer">
+                                        <div class="labelContainer1">
+                                            <p>Total unit </p>
+                                        </div>
+
+                                        <input class="container4" type="text" value="<?php echo $units; ?>" readonly>
+                                    </div>
+
+                                    <div class="approveContainer" id="approveContainer">
+                                        <div class="labelContainer1">
+                                            <p>Total value</p>
+                                        </div>
+
+                                        <input class="container4" type="text" value="<?php echo $totalValue; ?>" readonly>
+                                    </div>
+
+                                    <div class="approveContainer" id="approveContainer">
+                                        <div class="labelContainer1">
+                                            <p>Year received</p>
+                                        </div>
+
+                                        <input class="container4" type="text" value="<?php echo $yearReceived; ?>" readonly>
+                                    </div>
+
+                                    <div class="approveContainer">
+                                        <div class="labelContainer1">
+                                            <p>Remarks</p>
+                                        </div>
+
+                                        <input class="container4" type="text" value="<?php echo $remarks; ?>" readonly>
+                                    </div>
+
                                 </div>
 
-                                <div class="container4" id="container4">
-                                    <p class="text1" id="text1"><?php echo $units; ?></p>
-                                </div>
-                            </div>
+                                <div class="subApproveInfoContainer1" id="subApproveInfoContainer">
 
-                            <div class="approveContainer">
-                                <div class="labelContainer1">
-                                    <p>Unit value</p>
-                                </div>
+                                    <div class="approveContainer">
+                                        <div class="labelContainer1">
+                                            <p>Description</p>
+                                        </div>
 
-                                <div class="container4">
-                                    <p class="text1" id="text1"><?php echo $unit_value; ?></p>
-                                </div>
-                            </div>
+                                        <input class="container4" type="text" value="<?php echo $description; ?>" readonly>
+                                    </div>
 
-                            <div class="approveContainer">
-                                <div class="labelContainer1">
-                                    <p>Total value</p>
-                                </div>
+                                    <div class="approveContainer">
+                                        <div class="labelContainer1">
+                                            <p>Instruction</p>
+                                        </div>
 
-                                <div class="container4">
-                                    <p class="text1" id="text1"><?php echo $total_value; ?></p>
-                                </div>
-                            </div>
-
-                            <div class="approveContainer">
-                                <div class="labelContainer1">
-                                    <p>Remarks</p>
+                                        <input class="container4" type="text" value="<?php echo $instruction; ?>" readonly>
+                                    </div>
                                 </div>
 
-                                <div class="container4">
-                                    <p class="text1"><?php echo $remarks; ?></p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="descriptionContainer">
-                            <div class="approveContainer1">
-                                <div class="labelContainer1">
-                                    <p>Description</p>
-                                </div>
-
-                                <div class="container5">
-                                    <p class="text1"><?php echo $description; ?></p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="descriptionContainer1">
-                            <div class="approveContainer1">
-                                <div class="labelContainer1">
-                                    <p>Instruction</p>
-                                </div>
-
-                                <div class="container5">
-                                    <p class="text1"><?php echo $instruction; ?></p>
-                                </div>
                             </div>
                         </div>
+
                     </div>
                 </div>
-               
-               
+            
             </div>  
         </div>
     </div>
@@ -231,9 +229,14 @@
                 <div class="logout-title" style="display: flex; align-items: center; justify-content: center;">
                     <p>Warranty</p>
                 </div>
-                <p class="confirmsg">Warranty Will Expire On: <br><span><?php echo isset($warranty_end) ? date('M d, Y', strtotime($warranty_end)) : ''; ?></span></p>
+                <?php if ($warranty_status !== "No warranty available"): ?>
+                    <p class="confirmsg">Warranty expiration date: <span class="date"><?php echo date('M d, Y', strtotime($warranty_end)); ?></span></p>
+                    <p><span class="status" style="color: <?php echo $text_color; ?>"><?php echo $warranty_status; ?></span></p>
+                <?php else: ?>
+                    <p class="confirmsg"><?php echo $warranty_status; ?></p>
+                <?php endif; ?>
                 <div class="popupButtons">
-                    <button  class="button4" onclick="hideWarrantyContainer()">Close</button>
+                    <button class="button4" onclick="hideWarrantyContainer()">Close</button>
                 </div>
             </div>
         </div>
@@ -242,79 +245,6 @@
     <script src="../../assets/js/inventory.js"></script>
     <script src="../../assets/js/sidebar.js"></script>
     <script src="../../assets/js/toggle.js"></script>
-
-    <script>
-        document.getElementById("dropdownContent").style.display = "none";
-
-        function toggleDropdown() {
-            var dropdownContent = document.getElementById("dropdownContent");
-            if (dropdownContent.style.display === "block") {
-                dropdownContent.style.display = "none"; 
-            } else {
-                dropdownContent.style.display = "block"; 
-            }
-        }
-
-        document.addEventListener("DOMContentLoaded", function() {
-            var agreementCheckbox = document.getElementById("agreementCheckbox");
-            var proceedButton = document.querySelector(".proceed");
-
-            function toggleButtonState() {
-                proceedButton.disabled = !agreementCheckbox.checked;
-                if (proceedButton.disabled) {
-                    proceedButton.style.backgroundColor = "rgba(2, 117, 200, 0.297)";
-                } else {
-                    proceedButton.style.backgroundColor = ""; 
-                }
-            }
-
-            toggleButtonState();
-
-            agreementCheckbox.addEventListener("change", toggleButtonState);
-        });
-    </script>
-
-    <script>
-        let originalContent;
-
-        function loadEditContent() {
-            originalContent = document.querySelector('.subContainer1').innerHTML;
-
-            document.querySelector('.subContainer1').innerHTML = `
-                <div class="filterContainer1">
-                    <div class="inventoryNameContainer">
-                        <p>EDIT DETAILS</p>
-                    </div>
-                    <div class="subFilterContainer1">
-                        <div class="trackContainer">
-                            <button class="trackButton1" id="btn2" type="button"  onclick="showWarrantyContainer()">Check warranty</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="equipContainer">
-                    <?php include('edit_equipment.php'); ?>
-                </div>`;
-        }
-
-        function closeEditContent() {
-            document.querySelector('.subContainer1').innerHTML = originalContent;
-        }
-
-        document.getElementById('btn2').addEventListener('click', loadEditContent);
-    </script>
-
-<script>
-    function changeToConfirmSubmit() {
-        var saveButton = document.getElementById("saveButton");
-        saveButton.innerHTML = "Confirm Save";
-        saveButton.setAttribute("onclick", "confirmSubmit()");
-    }
-
-    function confirmSubmit() {
-        console.log("Submit button clicked");
-    }
-</script>
-
-
+    
 </body>
 </html>

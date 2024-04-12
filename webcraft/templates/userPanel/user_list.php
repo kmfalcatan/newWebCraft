@@ -43,7 +43,7 @@
         <div class="sideBarContainer3">
             <div class="headerContainer1">
                 <div class="iconContainer10">
-                    <a href="">
+                    <a href="notification.php?id=<?php echo $userID; ?>">
                     <div class="subIconContainer10">
                         <img class="subIconContainer10" src="../../assets/img/notif.png" alt="">
                     </div>
@@ -86,7 +86,7 @@
                                 <div class="imageContainer4">
                                     <div class="subImageContainer4">
                                     <?php if (!empty($user['profile_img'])): ?>
-                                        <img class="image4" src="../uploads/<?php echo $user['profile_img']; ?>" alt="">
+                                        <img class="image4" src="../../uploads/<?php echo $user['profile_img']; ?>" alt="">
                                     <?php else: ?>
                                         <img class="image4" src="../../assets/img/pp_placeholder.png" >
                                     <?php endif; ?>
@@ -99,7 +99,7 @@
                             </div>
 
                             <div class="viewButtonContainer">
-                                <a href="../userPanel/user_profile.php?id=<?php echo $userID; ?>&user_id=<?php echo $user['user_ID']; ?>">
+                                <a href="../userPanel/user_profile.php?id=<?php echo $userID; ?>&user_ID=<?php echo $user['user_ID']; ?>">
                                 <button class="viewButton">View profile</button>
                                 </a>
                             </div>

@@ -2,28 +2,22 @@
     include_once "../../functions/header.php";
     include_once "../../authentication/auth.php";
 
-    if (isset($_GET['user_id'])) {
-        $user_id = $_GET['user_id'];
+    if (isset($_GET['user_ID'])) {
+        $user_ID = $_GET['user_ID'];
     
         $query = "SELECT * FROM users WHERE user_ID = ?";
         $stmt = $conn->prepare($query);
-        $stmt->bind_param('i', $user_id);
+        $stmt->bind_param('i', $user_ID);
         $stmt->execute();
         $result = $stmt->get_result();
         $user = $result->fetch_assoc();
         
-        $query = "SELECT unit_ID, equipment_name FROM units WHERE user = CONCAT(?, ' ', ?)";
+        $query = "SELECT equipment_ID, unit_ID, equipment_name FROM units WHERE user_ID = ?";
         $stmt = $conn->prepare($query);
-        $stmt->bind_param('ss', $user['first_name'], $user['last_name']);
+        $stmt->bind_param('i', $user_ID);
         $stmt->execute();
         $result = $stmt->get_result();
         $units = $result->fetch_all(MYSQLI_ASSOC);
-
-        $query = "SELECT property_number, account_code FROM equipment WHERE article = ?";
-        $stmt = $conn->prepare($query);
-        $stmt->bind_param('s', $equipmentName);
-        $stmt->execute();
-        $result = $stmt->get_result();
 
     }
 ?>
@@ -55,7 +49,7 @@
         <div class="sideBarContainer3">
             <div class="headerContainer1">
                 <div class="iconContainer10">
-                    <a href="">
+                    <a href="notification.php?id=<?php echo $userID; ?>">
                     <div class="subIconContainer10">
                         <img class="subIconContainer10" src="../../assets/img/notif.png" alt="">
                     </div>
@@ -86,7 +80,7 @@
                         <div class="trackContainer">
                             <button class="trackButton1">Sort <img src="../../assets/img/sort.png" alt=""></button>
                             <button class="trackButton1">Print <img src="../../assets/img/print.png" alt=""></button>
-                            <a href="user_profile.php?id=<?php echo $userID; ?>&user_id=<?php echo $user['user_ID']; ?>">
+                            <a href="user_profile.php?id=<?php echo $userID; ?>&user_ID=<?php echo $user['user_ID']; ?>">
                                 <button class="trackButton1" id="go-to-profile">Go to profile <img src="../../assets/img/person-circle.png" style="width: 1.7rem; height: 1.7rem;"></button>
                             </a>
 
@@ -96,7 +90,7 @@
 
                 <div class="tableContainer2">
                     <div class="unitContainer1">
-                        <div class="subUnitContainer1" id="subUnitContainer1">
+                        <div class="subUnitContainer1">
                             <div class="imageContainer2">
                                 <div class="subImageContainer2">
                                     <?php
@@ -108,16 +102,16 @@
                                     ?>
                                 </div>
                             </div>
-                        </div>
 
-                        <div class="subUnitContainer1" >
                             <div class="userNameContainer">
                                 <label for="">End user:</label>
                                 <div class="subUserNameContainer">
                                     <p><?php echo $user['first_name']; ?> <?php echo $user['last_name']; ?></p>
                                 </div>
                             </div>
+                        </div>
 
+                        <div class="subUnitContainer1">
                             <div class="userNameContainer">
                                 <label for="">Designation:</label>
                                 <div class="subUserNameContainer">
@@ -131,9 +125,11 @@
                                     <p><?php echo $user['email']; ?></p>
                                 </div>
                             </div>
+                        </div>
 
-                            <div class="userNameContainer">
-                                <label for="">department:</label>
+                        <div class="subUnitContainer1"  id="departmentContainer">
+                            <div class="userNameContainer" >
+                                <label for="">Department:</label>
                                 <div class="subUserNameContainer">
                                     <p><?php echo $user['department']; ?></p>
                                 </div>
@@ -158,29 +154,29 @@
                                 <?php
                                     $count = 1; 
                                     foreach ($units as $unit) {
-                                        $unitID =  $unit['unit_ID']; 
+                                        $unitID = $unit['unit_ID']; 
                                         $equipmentName = $unit['equipment_name'];
+                                        $equipmentID = $unit['equipment_ID'];
                                         $formattedUnitID = 'UNIT-' . str_pad($unitID, 4, '0', STR_PAD_LEFT);
+
+                                        $query = "SELECT property_number, account_code, remarks FROM equipment WHERE equipment_ID = ?";
+                                        $stmt = $conn->prepare($query);
+                                        $stmt->bind_param('i', $equipmentID);
+                                        $stmt->execute();
+                                        $result = $stmt->get_result();
+                                        $equipment = $result->fetch_assoc();
+
+                                        $propertyNumber = $equipment['property_number'] ?? '';
+                                        $accountCode = $equipment['account_code'] ?? '';
+                                        $remarks = $equipment['remarks'] ?? '';
+                                        
                                         echo "<tr>";
                                         echo "<td>{$count}</td>";
                                         echo "<td>$formattedUnitID</td>";
                                         echo "<td>$equipmentName</td>";
-
-                                        $query = "SELECT property_number, account_code, remarks FROM equipment WHERE article = ?";
-                                        $stmt = $conn->prepare($query);
-                                        $stmt->bind_param('s', $equipmentName);
-                                        $stmt->execute();
-                                        $result = $stmt->get_result();
-
-                                        while ($row = $result->fetch_assoc()) {
-                                            $propertyNumber = $row['property_number'];
-                                            $accountCode = $row['account_code'];
-                                            $remarks = $row['remarks'];
-
-                                            echo "<td>$propertyNumber</td>";
-                                            echo "<td>$accountCode</td>";
-                                            echo "<td>$remarks</td>";
-                                        }
+                                        echo "<td>$propertyNumber</td>";
+                                        echo "<td>$accountCode</td>";
+                                        echo "<td>$remarks</td>";
                                         echo "</tr>";
                                         $count++; 
                                     }

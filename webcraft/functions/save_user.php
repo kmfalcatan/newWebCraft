@@ -18,7 +18,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $username = $_POST['username'];
     $password = $_POST['password'];
 
-    if (isset($_POST['confirmSave'])) {
+    if (isset($_POST)) {
     $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
     $role = "user";
 
@@ -126,7 +126,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             ";
 
             $mail->send();
-            header("Location: ../templates/adminPanel/userList.php?id={$userID}");
+            header("Location: ../templates/adminPanel/user_list.php?id={$userID}");
             exit;
         } catch (Exception $e) {
             echo "Error sending email: " . $mail->ErrorInfo;

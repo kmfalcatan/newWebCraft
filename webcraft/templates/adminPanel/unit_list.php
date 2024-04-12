@@ -76,9 +76,11 @@ if (isset($_POST['unitID'])) {
         <div class="sideBarContainer3">
             <div class="headerContainer1">
                 <div class="iconContainer10">
+                    <a href="notification.php?id=<?php echo $userID; ?>">
                     <div class="subIconContainer10">
                         <img class="subIconContainer10" src="../../assets/img/notif.png" alt="">
                     </div>
+                    </a>
                 </div>
 
                 <div class="subHeaderContainer1">
@@ -259,7 +261,8 @@ if (isset($_POST['unitID'])) {
                                             echo "<td>" . $row['user'] . "</td>";
                                             echo "<td>" . $equipmentRow['year_received'] . "</td>";
                                             echo "<td class='actionContainer' style='display: flex;'>";
-                                            echo "<a href='removeUnit.php?unit_ID={$row['unit_ID']}&id={$userInfo['user_ID']}'><button class='button4'>remove</button</a>";
+                                            echo "<button class='button4' onclick='openModal1($unitID)'>Transfer unit</button>";
+                                            echo "<button class='button4'  id='red-btn' onclick='openModal($unitID)'>Remove</button>";
                                             echo "</td>";
                                             echo "</tr>";
                                             $count++;
@@ -272,125 +275,68 @@ if (isset($_POST['unitID'])) {
                    </div>
                 </div>
             </div>  
+                                          
+        </div>
+    </div>
 
-            <div class="trackUnitContainer" style="display: none;" id="popupContainer">
-                <div class="trackUnitContainer">
-                    <div class="subTrackUnitContainer">
-                        <div class="trackNameContainer">
-                            <div class="subTrackNameContainer">
-                                <p>TRACK UNIT</p>
-                            </div>
-                        </div>
-    
-                        <div class="unitInfoContainer">
-                            <div class="subUnitInfoContainer">
-                                <div class="infoContainer1">
-                                    <div class="imageContainer1">
-                                        <div class="subImageContainer1">
-                                            <img class="image12"  id="imageDisplay" src="" alt="Equipment Image">
-                                        </div>
-    
-                                        <div class="equipNameContainer">
-                                            <p id="equipmentNameDisplay"></p>
-                                            <p id="unitIDDisplay"></p>
-                                        </div>
-                                    </div>
-    
-                                    <div class="subInfoContainer1">
-                                        <div class="unitIDContainer">
-                                            <div class="unitID">
-                                                <p>Current end user:</p>
-    
-                                                <div class="unitInputContainer" >
-                                                    <p id="userDisplay"></p>
-                                                </div>
-                                            </div>
-    
-                                            <div class="unitID">
-                                                <p>Deployment:</p>
-    
-                                                <div class="unitInputContainer">
-                                                    <p id="deploymentDisplay"></p>
-                                                </div>
-                                            </div>
-                                        </div>
-    
-                                        <div class="unitIDContainer">
-                                            <div class="unitID">
-                                                <p>Property number</p>
-    
-                                                <div class="unitInputContainer">
-                                                    <p id="propertyNumberDisplay"></p>
-                                                </div>
-                                            </div>
-    
-                                            <div class="unitID">
-                                                <p>Account code:</p>
-    
-                                                <div class="unitInputContainer">
-                                                    <p id="accountCodeDisplay"></p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                
-                                <div>
-                                    <div class="oldUserContainer">
-                                        <div class="oldUserTextContainer">
-                                            <p>OLD END USER</p>
-                                        </div>
-    
-                                        <div class="unitIDContainer">
-                                            <div class="unitID">
-                                                <p>Name:</p>
-    
-                                                <div class="unitInputContainer">
-    
-                                                </div>
-                                            </div>
-    
-                                            <div class="unitID">
-                                                <p>Year:</p>
-    
-                                                <div class="unitInputContainer">
-    
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-    
-                                    <div class="oldUserContainer">
-                                        <div class="oldUserTextContainer">
-                                            <p>HISTORY</p>
-                                        </div>
-    
-                                        <div class="unitIDContainer">
-                                            <div class="unitID">
-                                                <p>Issue:</p>
-    
-                                                <div class="unitInputContainer">
-    
-                                                </div>
-                                            </div>
-    
-                                            <div class="unitID">
-                                                <p>Date retrieved:</p>
-    
-                                                <div class="unitInputContainer">
-    
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-    
-                        <div class="buttonContainer3">
-                            <button  onclick="closePopup()" class="button5">Close</button>
-                        </div>
-                    </div>
+    <div id="reportModal" class="modal">
+        <div class="modal-content">
+            <h3>REPORT UNIT</h3>
+            <div class="reportform">
+                <div class="unitIssue">
+                    <label for="report_reason">Unit issue</label>
+                    <select name="report_reason" id="report_reason">
+                        <option value="" selected disabled>Select</option>
+                        <option value="Lost">Lost</option>
+                        <option value="For return">For return</option>
+                    </select>
+                </div>
+                <br>
+                <input type="hidden" id="unitID">
+                <div class="buttonContainer2">
+                    <button class="button4" onclick="reportUnit(document.getElementById('unitID').value)">Continue</button>
+                    <button class="button3" type="button" onclick="closeModal()">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="transferModal" class="modal">
+        <div class="modal-content1">
+            <h3>TRANSFER UNIT</h3>
+            <div class="reportform">
+                <div class="enduser">
+                    <label for="report_reason">To whom you want to transfer this unit?</label>
+                    <select name="report_reason" id="selected_user">
+                        <option value="" selected disabled>Select</option>
+                        <?php
+                            $sql = "SELECT user_ID, first_name, last_name FROM users WHERE role = 'user'";
+                            $stmt = $conn->prepare($sql);
+                    
+                            if ($stmt) {
+                                $stmt->execute();
+                                $result = $stmt->get_result();
+                    
+                                while ($row = $result->fetch_assoc()) {
+                                    $new_end_userID = $row['user_ID'];
+                                    $firstName = $row['first_name'];
+                                    $lastName = $row['last_name'];
+                                    $userData = json_encode([$firstName, $lastName, $new_end_userID]);
+                                    echo "<option value='". htmlspecialchars($userData, ENT_QUOTES, 'UTF-8') ."'>$firstName $lastName</option>";
+                                }
+                    
+                                $stmt->close();
+                            } else {
+                                echo "Error retrieving user names: " . $conn->error;
+                            }
+                        ?>
+                    </select>
+                </div>
+                <br>
+                <input type="hidden" id="unitID">
+                <div class="buttonContainer2">
+                    <button class="button4" onclick="transferUnit(document.getElementById('unitID').value)">Continue</button>
+                    <button class="button3" type="button" onclick="closeModal1()">Cancel</button>
                 </div>
             </div>
         </div>
@@ -400,5 +346,68 @@ if (isset($_POST['unitID'])) {
     <script src="../../assets/js/sidebar.js"></script>
     <script src="../../assets/js/filter.js"></script>
     <script src="../../assets/js/toggle.js"></script>
+
+    <script>
+    function reportUnit(unitID) {
+        var reportReason = document.getElementById('report_reason').value;
+        
+        var url;
+        if (reportReason === "Lost") {
+            url = 'remove_lost.php?id=<?php echo $userID; ?>&unitID=' + unitID + '&reportReason=' + reportReason;
+        } else if (reportReason === "For return") {
+            url = 'remove_for_return.php?id=<?php echo $userID; ?>&unitID=' + unitID + '&reportReason=' + reportReason;
+        } else {
+            alert("Please select a valid report reason.");
+            return; 
+        }
+
+        window.location.href = url;
+    }
+
+    function openModal(unitID) {
+        document.getElementById('unitID').value = unitID;
+        
+        var modal = document.getElementById("reportModal");
+        modal.style.display = "block";
+        setTimeout(function() {
+            modal.style.opacity = 1;
+        }, 10);
+    }
+
+    function closeModal() {
+        var modal = document.getElementById("reportModal");
+        modal.style.opacity = 0;
+        setTimeout(function() {
+            modal.style.display = "none";
+        }, 300);
+    }
+</script>
+
+<script>
+    function transferUnit(unitID) {
+        var selectedUser = document.getElementById('selected_user').value;
+        if (!selectedUser) {
+            alert("Please select a user to transfer to.");
+            return;
+        }
+        var userData = JSON.parse(selectedUser);
+        var new_end_userID = userData[2];
+        var url = 'unit_transfer.php?id=<?php echo $userID; ?>&userID=' + new_end_userID + '&unitID=' + unitID + '&selectedUser=' + encodeURIComponent(selectedUser);
+        window.location.href = url;
+    }
+
+    function openModal1(unitID) {
+        document.getElementById('unitID').value = unitID;
+        var modal = document.getElementById("transferModal");
+        modal.style.display = "block";
+        setTimeout(function() { modal.style.opacity = 1; }, 10);
+    }
+
+    function closeModal1() {
+        var modal = document.getElementById("transferModal");
+        modal.style.opacity = 0;
+        setTimeout(function() { modal.style.display = "none"; }, 300);
+    }
+</script>
 </body>
 </html>

@@ -25,3 +25,43 @@ function filterTable() {
 document.querySelector('.year').addEventListener('change', filterTable);
 document.querySelector('.article').addEventListener('change', filterTable);
 document.querySelector('.custodian').addEventListener('change', filterTable);
+
+// notification end user
+
+const inbox = document.getElementById('inbox');
+
+    inbox.addEventListener('click', function() {
+        const items = document.querySelectorAll('#notification-list li');
+
+        items.forEach(item => {
+            if (item.classList.contains('approved') || item.classList.contains('transfer')) {
+                item.style.display = 'block';
+            } else {
+                item.style.display = 'none';
+            }
+        });
+    });
+
+    const outbox = document.getElementById('outbox');
+
+    outbox.addEventListener('click', function() {
+        const items = document.querySelectorAll('#notification-list li');
+
+        items.forEach(item => {
+            if (item.classList.contains('unit')) {
+                item.style.display = 'block';
+            } else {
+                item.style.display = 'none';
+            }
+        });
+    });
+
+    const myNotification = document.querySelector('.menu li');
+
+    myNotification.addEventListener('click', function() {
+        const items = document.querySelectorAll('#notification-list li');
+
+        items.forEach(item => {
+            item.style.display = 'block';
+        });
+    });
