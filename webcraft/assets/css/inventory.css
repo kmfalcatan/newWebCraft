@@ -97,6 +97,10 @@
     color: black;
 }
 
+/* .actionContainer .buton4{
+    color: #fff;
+} */
+
 .iconContainer9{
     /* outline: red dashed 1px; */
     height: 100%;
@@ -152,6 +156,7 @@ a{
     height: 4rem;
     width: 100%;
     background-color: rgb(255,252,252);
+    border: 1px solid #ccc;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -211,93 +216,82 @@ a{
     /* outline: red dashed 1px; */
     height: 91vh;
     width: 90%;
-    outline: red solid 1px;
     margin: auto;
 }
 
 #inventoryContainer{
     width: 90%;
-    outline: red solid 1px;
     margin: auto;
 }
 
 .filterContainer1{
-    outline: red dashed 1px;
     height: 10rem;
+    padding-bottom: 1rem;
 }
 
 .inventoryNameContainer{
-    /* outline: red dashed 1px; */
     height: 2.5rem;
     margin-top: 1rem;
     display: flex;
     align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    font-weight: lighter;
     font-size: 1.7rem;
     font-family: fantasy;
     color: #3333338c;
 }
 
 .subFilterContainer1{
-    /* outline: red dashed 1px; */
     height: 7.5rem;
     display: flex;
     flex-direction: column;
     gap: 1rem;
-    align-items: center;
-    justify-content: flex-end;
 }
 
 .searchContainer1{
-    /* outline: red dashed 1px; */
     height: 3rem;
     display: flex;
     align-items: center;
-    justify-content: flex-end;
+    justify-content: center;
     margin-top: 0.5rem;
 }
 
 .searchBar1{
     height: 2.5rem;
     border-radius: 0.5rem;
-    border: solid gray 2px;
-    width: 70%;
+    border: solid gray 1px;
+    width: 90%;
     padding-left: 0.5rem;
     font-size: 1.2rem;
 }
 
 .trackContainer{
-    /* outline: red dashed 1px; */
     height: 3rem;
     display: flex;
     flex-direction: row;
     gap: 0.5rem;
     display: flex;
     align-items: center;
-    justify-content: flex-end;
+    justify-content: center;
 }
 
 .trackButton1{
     height: 2.5rem;
     width: 7.5rem;
     border-radius: 0.5rem;
-    border: solid gray 2px;
+    border: solid gray 1px;
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
     background-color: rgb(255,252,252);
     transition: all 0.15s;
-    font-size: 1rem;
-    position: relative;
 }
 
 .trackButton1:hover{
     background-color:rgb(2, 116, 200);
     color: white;
-}
-
-.trackButton1 img:hover{
-    filter: invert(100%);
 }
 
 .trackButton1:active{
@@ -306,11 +300,12 @@ a{
     transform: scale(0.9);
 }
 
+
 .trackButton{
     height: 2.5rem;
     width: 7.5rem;
     border-radius: 0.5rem;
-    border: solid gray 0.1px;
+    border: solid gray 0.5px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -318,8 +313,6 @@ a{
     background-color: rgb(255,252,252);
     transition: all 0.15s;
     position: relative;
-    font-size: 1rem;
-    outline: red 1px solid;
 }
 
 .plusIcon{
@@ -329,7 +322,7 @@ a{
 }
 
 .tableContainer2{
-    outline: red dashed 1px;
+    /* outline: red dashed 1px; */
     height: 45rem;
     display: flex;
     align-items: center;
@@ -436,7 +429,7 @@ a{
     border: solid rgb(2, 116, 200) 1px;
     color: rgb(2, 116, 200);
     transition: all 0.15s;
-    font-size: 1.1rem;
+    font-size: 1rem;
     cursor: pointer;
 }
 
@@ -454,7 +447,7 @@ a{
     background-color: rgb(2, 116, 200);
     height: 2rem;
     width: auto;
-    padding: 0 1rem;
+    padding: 0 0.6rem;
     border-radius: 0.5rem;
     display: flex;
     align-items: center;
@@ -463,7 +456,7 @@ a{
     color: snow;
     margin-right: 0.7rem;
     transition: all 0.15s;
-    font-size: 1.1rem;
+    font-size: 1rem;
     cursor: pointer;
 }
 
@@ -476,6 +469,19 @@ a{
 
 .button4:active{
     transform: scale(0.9);
+}
+
+
+#red-btn{
+    background-color: #dc3545;
+    border: none;
+    color: #fff;
+}
+
+#red-btn:hover{
+    background-color: transparent;
+    border: solid #dc3545 1px;
+    color: #dc3545;
 }
 
 .trackUnitContainer{
@@ -523,7 +529,7 @@ a{
 
 .unitInfoContainer{
     /* outline: red dashed 1px; */
-    height: 35rem;
+    height: 39rem;
     width: 100%;
     overflow: auto;
 }
@@ -576,7 +582,7 @@ a{
 }
 
 .imageContainer1{
-    /* outline: red dashed 1px; */
+    outline: red dashed 1px;
     height: 15rem;
     display: flex;
     align-items: center;
@@ -589,7 +595,7 @@ a{
     width: 11rem;
     height: 11rem;
     border-radius: 0.5rem;
-    background-color: rgb(2, 116, 200);
+    border: 1px solid rgb(2, 116, 200);
 }
 
 .image12{
@@ -613,10 +619,22 @@ a{
     text-transform: uppercase;
 }
 
+.subInfoContainer1{
+    padding-bottom: 2rem;
+}
+
 .unitIDContainer{
     /* outline: red dashed 1px; */
     display: flex;
     flex-direction: column;
+}
+
+#unitDesc{
+    height: 10rem
+}
+
+#unitDesc .unitInputContainer{
+    height: 7rem;
 }
 
 .unitID{
@@ -624,6 +642,12 @@ a{
     height: 6rem;
     padding: 0 0.5rem 0 0.5rem;
     font-size: 1.2rem;
+}
+
+.unitID label {
+    padding-right: 8rem;
+    display: flex;
+    align-items: flex-start ;
 }
 
 .unitInputContainer{
@@ -643,6 +667,14 @@ a{
     /* outline: red dashed 1px; */
     display: flex;
     flex-direction: column;
+    padding-bottom: 3rem;
+}
+
+#unitHistory{
+    /* outline: red dashed 1px; */
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 3rem;
 }
 
 .oldUserTextContainer{
@@ -651,9 +683,11 @@ a{
     display: flex;
     align-items: center;
     justify-content: center;
-    color: rgb(2, 116, 200);
-    font-size: 1.5rem;
+    color: gray;
+    font-size: 1.3rem;
     font-weight: bold;
+    padding: 1.5rem 0rem;
+    border-top: 1px solid rgb(161, 160, 160);
 }
 
 @keyframes rotateRight {
@@ -712,9 +746,9 @@ a{
 }
 
 .popupContent {
-    width: 20%;
+    width: 40%;
     max-width: 500px; 
-    height: 25vh;
+    height: 30vh;
     background-color: #fff;
     border: 1px solid gray;
     border-radius: 0.5rem;
@@ -728,7 +762,32 @@ a{
     padding: 1rem;
 }
 
+#popupContent {
+    height: 24vh;
+}
+
 .popupContent .confirmsg{
+    margin-top: -2rem;
+    font-weight: 400;
+}
+
+.popupContent span{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+}
+
+.popupContent .date{
+    margin-top: 1rem;
+}
+
+.popupContent .status{
+    margin-top: -2rem;
+}
+
+.popupContent .popupButtons{
     margin-top: -2rem;
 }
 
@@ -752,11 +811,209 @@ a{
 
 .popupButtons .button3,
 .popupButtons .button4{
-    padding: 1rem;
     border-radius: 0.3rem;
     font-size: 1rem;
     cursor: pointer;
 }
+
+/* sweetalert */
+.sweetalert {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.4);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.sweetalert2 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.4);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.alertModal{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.alertContent{
+    width: 50%;
+    height: 35vh;
+    background-color: snow;
+    border: 1px solid gray;
+    border-radius: 0.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 3rem;
+    font-size: 0.8rem;
+    font-weight: 600;
+    padding: 1rem;
+}
+
+.alertIcon{
+    width: 20%;
+    height: 6rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.iconBorder{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5rem;
+    border: #df9047 1px solid;
+    width: 50%;
+    padding: 0.5rem 1.3rem;
+}
+
+.alertIcon img{
+    width: 100%;
+    height: 100%;
+}
+
+.alertMsg{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    color: #333;
+}
+
+.confirmationMsg{
+    margin: auto;
+    width: 100%;
+    color: #333;
+    font-size: 1.2rem;
+    text-align: center;
+}
+
+.alertBtn{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.alertBtn button{
+    padding: 1.5rem 1rem;
+}
+
+/* action button */
+
+    #unitDetails{
+        margin-top: 1.5rem;
+    }
+
+    .modal {
+        display: none;
+        position: fixed;
+        z-index: 1;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(0,0,0,0.4);
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+
+    .modal-content {
+        background-color: #fefefe;
+        margin: 3% auto;
+        padding: 0.5rem 1rem;
+        border: 1px solid #888;
+        width: 40%;
+        border-radius: 5px;
+        box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    }
+
+    .modal-content1{
+        width: 65%;
+        background-color: #fefefe;
+        margin: 3% auto;
+        padding: 0.5rem 1rem;
+        border: 1px solid #888;
+        border-radius: 5px;
+        box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    }
+
+    .modal-content1 h3,
+    .modal-content h3{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 0.5rem;
+        border-bottom: 1px solid gray;
+        color: rgb(2, 116, 200);
+        font-weight: 600;
+        font-size: 1.5rem;
+    }
+
+    .unitIssue{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 0.5rem;
+        padding-top: 1rem;
+    }
+    
+    .enduser{
+        height: 10%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        gap: 1rem;
+        padding-top: 1.5rem;
+    }
+
+    .enduser label,
+    .enduser select{
+        font-size: 1.2rem;
+    }
+
+    select{
+        width: 50%;
+        height: 2.3rem;
+        border: 1px solid gray;
+        font-size: 1rem;
+        cursor: pointer;
+        
+    }
+
+    .unitIssue label, 
+    .unitIssue select{
+        margin: 0.7rem auto;
+        font-size: 1.2rem;
+    }
+
+
+
 /*tablet*/
 @media only screen and (min-width: 601px) and (max-width: 1024px) {
     .tableContainer2{
@@ -774,7 +1031,7 @@ a{
         justify-content: space-between;
         gap: 1rem;
         height: 4rem;
-        /* padding: 0 0.5rem 0 0.5rem; */
+        padding: 0 0.5rem 0 0.5rem;
     }
 
     .subFilterContainer1{
@@ -822,7 +1079,7 @@ a{
         justify-content: space-between;
         gap: 1rem;
         height: 4rem;
-        /* padding: 0 2rem 0 2rem; */
+        padding-bottom: 0rem;
     }
 
     .subFilterContainer1{
@@ -830,7 +1087,6 @@ a{
         flex-direction: row;
         height: 3rem;
         margin-top: 1rem;
-        /* outline: red dashed 1px; */
     }
 
     .searchContainer1{
@@ -840,6 +1096,12 @@ a{
 
     .inventoryNameContainer{
         height: 3rem;
+        padding-left: 0rem;
+    }
+
+    .inventoryNameContainer p{
+        text-align: flex-start;
+        
     }
 
     .sideBarContainer6{
@@ -864,6 +1126,13 @@ a{
         flex-direction: column;
         width: 65%;
         height: 15rem;
+        padding-bottom: 2rem;
+    }
+
+    #unitDetails{
+        height: auto;
+        gap: 0.7rem;
+        margin-top: 1rem;
     }
 
     .imageContainer1{
@@ -886,11 +1155,68 @@ a{
     .unitID{
         width: 100%;
     }
+    
+    #username{
+        width: 55%;
+    }
+
+    #yearTransferred{
+        width: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        flex-direction: row;
+        gap: 1rem;
+        height: 4rem;
+        margin-top: -1rem;
+    }
+
+    #yearTransferred .unitInputContainer{
+        width: 30%;
+        display: flex;
+        justify-content: flex-start;
+        border: none;
+        background-color: transparent;
+    }
+
 
     .subTrackUnitContainer{
         width: 60rem;
+        height: 47rem;
     }
 
+    /* sweet alert */
+
+    .alertContent{
+        width: 20%;
+        max-width: 500px; 
+        height: 35vh;
+    }
+
+    /* report modal */
+
+    .modal-content {
+        width: 20%;
+    }
+
+    .modal-content1{
+        width: 34%;
+    }
+
+    .enduser{
+        flex-direction: row;
+    }
+
+    .enduser select{
+        width: 15rem;
+    }
+
+    /* warranty modal */
+
+    .popupContent {
+        width: 20%;
+    }
+    
     @keyframes closeSideBar {
         from{
             margin-left: -20rem;

@@ -16,18 +16,44 @@
             'user' => $row['user'],
             'equipmentName' => $row['equipment_name']
         );
+    
+    $user = $row['user'];
+    $userSql = "SELECT first_name, last_name, username, designation, department, email FROM users WHERE CONCAT(first_name, ' ', last_name) = '$user'";
+    $userResult = $conn->query($userSql);
 
-        $equipmentName = $row['equipment_name'];
-        $deploymentSql = "SELECT deployment, account_code, property_number, image FROM equipment WHERE article = '$equipmentName'";
-        $deploymentResult = $conn->query($deploymentSql);
+    if ($userResult->num_rows > 0) {
+        $userRow = $userResult->fetch_assoc();
+        $unitDetails['firstName'] = $userRow['first_name'];
+        $unitDetails['lastName'] = $userRow['last_name'];
+        $unitDetails['userName'] = $userRow['username'];
+        $unitDetails['designation'] = $userRow['designation'];
+        $unitDetails['department'] = $userRow['department'];
+        $unitDetails['email'] = $userRow['email'];
+    }
 
-        if ($deploymentResult->num_rows > 0) {
-            $deploymentRow = $deploymentResult->fetch_assoc();
-            $unitDetails['deployment'] = $deploymentRow['deployment'];
-            $unitDetails['accountCode'] = $deploymentRow['account_code'];
-            $unitDetails['propertyNumber'] = $deploymentRow['property_number'];
-            $unitDetails['image'] = "../../uploads/" . $deploymentRow['image'];
-        }
+    $equipmentName = $row['equipment_name'];
+    $deploymentSql = "SELECT description, deployment, account_code, property_number, unit_value, year_received, remarks, image FROM equipment WHERE article = '$equipmentName'";
+    $deploymentResult = $conn->query($deploymentSql);
+
+    if ($deploymentResult->num_rows > 0) {
+        $deploymentRow = $deploymentResult->fetch_assoc();
+        $unitDetails['description'] = $deploymentRow['description'];
+        $unitDetails['deployment'] = $deploymentRow['deployment'];
+        $unitDetails['accountCode'] = $deploymentRow['account_code'];
+        $unitDetails['propertyNumber'] = $deploymentRow['property_number'];
+        $unitDetails['unitValue'] = $deploymentRow['unit_value'];
+        $unitDetails['remarks'] = $deploymentRow['remarks'];
+        $unitDetails['yearReleased'] = $deploymentRow['year_received'];
+        $unitDetails['image'] = "../../uploads/" . $deploymentRow['image'];
+    }
+
+    $unitIssueSql = "SELECT report_issue FROM unit_report WHERE unit_ID = '$unitID'";
+    $unitIssueResult = $conn->query($unitIssueSql);
+
+    if ($unitIssueResult->num_rows > 0) {
+        $unitIssueRow = $unitIssueResult->fetch_assoc();
+        $unitDetails['reportIssue'] = $unitIssueRow['report_issue'];
+    }
 
         echo json_encode($unitDetails); 
         exit;
@@ -67,7 +93,7 @@
         <div class="sideBarContainer3">
             <div class="headerContainer1">
                 <div class="iconContainer10">
-                    <a href="">
+                    <a href="notification.php?id=<?php echo $userID; ?>">
                     <div class="subIconContainer10">
                         <img class="subIconContainer10" src="../../assets/img/notif.png" alt="">
                     </div>
@@ -187,7 +213,7 @@
                     <div class="subTrackUnitContainer">
                         <div class="trackNameContainer">
                             <div class="subTrackNameContainer">
-                                <p>TRACK UNIT</p>
+                                <p>TRACKER</p>
                             </div>
                         </div>
     
@@ -205,62 +231,186 @@
                                         </div>
                                     </div>
     
-                                    <div class="subInfoContainer1">
-                                        <div class="unitIDContainer">
-                                            <div class="unitID">
-                                                <p>Current end user:</p>
-    
-                                                <div class="unitInputContainer" >
-                                                    <p id="userDisplay"></p>
-                                                </div>
-                                            </div>
-    
-                                            <div class="unitID">
-                                                <p>Deployment:</p>
-    
-                                                <div class="unitInputContainer">
-                                                    <p id="deploymentDisplay"></p>
-                                                </div>
-                                            </div>
-                                        </div>
-    
+                                    <div class="subInfoContainer1" id="unitDetails">
                                         <div class="unitIDContainer">
                                             <div class="unitID">
                                                 <p>Property number</p>
     
-                                                <div class="unitInputContainer">
+                                                <div class="unitInputContainer" >
                                                     <p id="propertyNumberDisplay"></p>
+                                                    <!-- <p id="userDisplay"></p> -->
                                                 </div>
                                             </div>
     
                                             <div class="unitID">
-                                                <p>Account code:</p>
+                                                <p>Account code</p>
     
                                                 <div class="unitInputContainer">
                                                     <p id="accountCodeDisplay"></p>
+                                                    <!-- <p id="deploymentDisplay"></p> -->
                                                 </div>
                                             </div>
                                         </div>
+    
+                                        <div class="unitIDContainer">
+                                            <div class="unitID">
+                                                <p>Unit value</p>
+    
+                                                <div class="unitInputContainer">
+                                                    <p id="unitValueDisplay"></p>
+                                                </div>
+                                            </div>
+    
+                                            <div class="unitID">
+                                                <p>Year released</p>
+    
+                                                <div class="unitInputContainer">
+                                                    <p id="yearReleasedDisplay"></p>
+                                                </div>
+                                            </div>
+
+                                            <div class="unitID">
+                                                <p>Remarks</p>
+    
+                                                <div class="unitInputContainer">
+                                                    <p id="remarksDisplay"></p>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="unitIDContainer">
+                                            <div class="unitID" id="unitDesc">
+                                                <label>Description</label>
+    
+                                                <div class="unitInputContainer">
+                                                    <p id="descriptionDisplay"></p>
+                                                </div>
+                                            </div>
+                                        </div>
+
                                     </div>
                                 </div>
                                 
                                 <div>
                                     <div class="oldUserContainer">
                                         <div class="oldUserTextContainer">
-                                            <p>OLD END USER</p>
+                                            <p>CURRENT END USER</p>
                                         </div>
     
                                         <div class="unitIDContainer">
                                             <div class="unitID">
-                                                <p>Name:</p>
+                                                <p>First name</p>
+    
+                                                <div class="unitInputContainer">
+                                                    <p id="userDisplay" style="display: none;"></p>
+                                                    <p id="firstNameDisplay"></p>
+                                                </div>
+                                            </div>
+    
+                                            <div class="unitID">
+                                                <p>Last name</p>
+    
+                                                <div class="unitInputContainer">
+                                                    <p id="lastNameDisplay"></p>
+                                                </div>
+                                            </div>
+
+                                            <div class="unitID" id="username">
+                                                <p>User name</p>
+    
+                                                <div class="unitInputContainer">
+                                                    <p id="userNameDisplay"></p>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="unitIDContainer">
+                                            <div class="unitID">
+                                                <p>Designation</p>
+    
+                                                <div class="unitInputContainer">
+                                                    <p id="designationDisplay"></p>
+                                                </div>
+                                            </div>
+
+                                            <div class="unitID">
+                                                <p>Department</p>
+    
+                                                <div class="unitInputContainer">
+                                                    <p id="departmentDisplay"></p>
+                                                </div>
+                                            </div>
+
+                                            <div class="unitID">
+                                                <p>Email</p>
+    
+                                                <div class="unitInputContainer">
+                                                    <p id="emailDisplay"></p>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="unitIDContainer">
+                                            <div class="unitID" id="yearTransferred">
+                                                <p>Year trasferred</p>
     
                                                 <div class="unitInputContainer">
     
                                                 </div>
                                             </div>
-    
+                                        </div>
+                                    </div>
+
+                                    <div class="oldUserContainer">
+                                        <div class="oldUserTextContainer">
+                                            <p>OLD END USER</p>
+                                        </div>
+
+                                        <div class="unitIDContainer">
                                             <div class="unitID">
-                                                <p>Year:</p>
+                                                <p>First name</p>
+    
+                                                <div class="unitInputContainer">
+    
+                                                </div>
+                                            </div>
+
+                                            <div class="unitID">
+                                                <p>Last name</p>
+    
+                                                <div class="unitInputContainer">
+    
+                                                </div>
+                                            </div>
+
+                                            <div class="unitID" id="username">
+                                                <p>User name</p>
+    
+                                                <div class="unitInputContainer">
+    
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="unitIDContainer">
+                                            <div class="unitID">
+                                                <p>Designation</p>
+    
+                                                <div class="unitInputContainer">
+    
+                                                </div>
+                                            </div>
+
+                                            <div class="unitID">
+                                                <p>E-mail</p>
+    
+                                                <div class="unitInputContainer">
+    
+                                                </div>
+                                            </div>
+
+                                            <div class="unitID" id="username">
+                                                <p>Year handled</p>
     
                                                 <div class="unitInputContainer">
     
@@ -271,7 +421,7 @@
     
                                     <div class="oldUserContainer">
                                         <div class="oldUserTextContainer">
-                                            <p>HISTORY</p>
+                                            <p>UNIT HISTORY</p>
                                         </div>
     
                                         <div class="unitIDContainer">
@@ -279,7 +429,7 @@
                                                 <p>Issue:</p>
     
                                                 <div class="unitInputContainer">
-    
+                                                    <p id="reportIssueDisplay"></p>
                                                 </div>
                                             </div>
     

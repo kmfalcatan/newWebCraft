@@ -2,7 +2,7 @@
 include_once "../dbConfig/dbconnect.php";
 include_once "../functions/header.php";
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['confirmSave'])) {
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $old_password = $_POST['old_password'];
     $new_password = $_POST['new_password'];
     $confirm_password = $_POST['confirm_password'];

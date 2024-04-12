@@ -3,10 +3,10 @@ include '../dbConfig/dbconnect.php';
 include '../authentication/auth.php';
 include '../functions/header.php';
 
-function saveUserUnit($conn, $article, $enduser, $unitsHandled) {
-    $query = "INSERT INTO user_unit (article, user, units_handled) VALUES (?, ?, ?)";
+function saveUserUnit($conn, $equipment_ID, $article, $user_ID, $enduser, $unitsHandled) {
+    $query = "INSERT INTO user_unit (equipment_ID, article, user_ID, user, units_handled) VALUES (?, ?, ?, ?, ?)";
     $stmt = mysqli_prepare($conn, $query);
-    mysqli_stmt_bind_param($stmt, "sss", $article, $enduser, $unitsHandled);
+    mysqli_stmt_bind_param($stmt, "isiss", $equipment_ID, $article, $user_ID, $enduser, $unitsHandled);
     $result = mysqli_stmt_execute($stmt);
 
     if (!$result) {
@@ -31,22 +31,34 @@ function saveEquipment($conn, $article, $deployment, $property_number, $account_
 
     $equipment_ID = $conn->insert_id;
 
-    $unit_id = 1; 
     foreach ($selectedUsers as $key => $enduser) {
         $unitsHandled = $unitsHandledArray[$key] ?? '';
 
+        $query = "SELECT user_ID FROM users WHERE CONCAT(first_name, ' ', last_name) = ?";
+        $stmt = mysqli_prepare($conn, $query);
+        mysqli_stmt_bind_param($stmt, "s", $enduser);
+        mysqli_stmt_execute($stmt);
+        $result = mysqli_stmt_get_result($stmt);
+        $row = mysqli_fetch_assoc($result);
+        $user_ID = $row['user_ID'];
+
         for ($i = 0; $i < $unitsHandled; $i++) {
-            $insert_unit_sql = "INSERT INTO units (equipment_ID, equipment_name, user) 
-                                VALUES ('$equipment_ID', '$article', '$enduser')";
+            $insert_unit_sql = "INSERT INTO units (equipment_ID, equipment_name, user_ID, user, year_received) 
+                                VALUES ('$equipment_ID', '$article', '$user_ID', '$enduser', '$year_received')";
             if ($conn->query($insert_unit_sql) !== TRUE) {
                 echo "Error: " . $insert_unit_sql . "<br>" . $conn->error;
             }
-            $unit_id++;
+        }
+
+        $userUnitSuccess = saveUserUnit($conn, $equipment_ID, $article, $user_ID, $enduser, $unitsHandled);
+        if (!$userUnitSuccess) {
+            echo "Error occurred while saving user unit information.";
         }
     }
 
     return true;
 }
+
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $article = $_POST['article'] ?? '';
@@ -85,22 +97,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $success = saveEquipment($conn, $article, $deployment, $property_number, $account_code, $unit_value, $total_value, $remarks, $description, $year_received, $warranty_start, $warranty_end, $warranty_image, $total_unit, $instruction, $image, $selectedUsers, $unitsHandledArray);
 
     if ($success) {
-        foreach ($selectedUsers as $key => $enduser) {
-            $unitsHandled = $unitsHandledArray[$key] ?? '';
-
-            $userUnitSuccess = saveUserUnit($conn, $article, $enduser, $unitsHandled);
-
-            if (!$userUnitSuccess) {
-                echo "Error occurred while saving user unit information.";
-            }
-        }
-
         $userID = $_SESSION['user_id'];
         $userInfo = getUserInfo($conn, $userID);
         $role = $userInfo['role'];
     
         if ($role === 'admin') {
-            header("Location: ../templates/adminPanel/inventory.php?equipment_ID={$equipment_ID}&id={$userID}");
+            header("Location: ../templates/adminPanel/inventory.php?id={$userID}");
             exit();
         }
     } else {

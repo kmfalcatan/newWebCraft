@@ -1,0 +1,317 @@
+
+.userListContainer{
+    /* outline: red dashed 1px; */
+    height: 83.5vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 1rem;
+}
+
+.subUserListContainer{
+    height: auto;
+    width: 100%;
+    border-radius: 0.3rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    background-color: snow;
+    border: 1px solid gray;
+    margin-top: 1rem;
+    padding: 2rem 0rem;
+}
+
+.userContainer3{
+    display: none;
+}
+
+
+.userContainer4{
+    height: 5rem;
+    width: 95%;
+    border: solid gray 1px;
+    background-color: #fff;
+    border-radius: 0.5rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    overflow: auto;
+    padding-left: 1rem;
+    margin: 1rem auto;
+    cursor: pointer;
+}
+
+.userContainer5{
+    height: 5rem;
+    width: 85%;
+    border: solid gray 1px;
+    background-color: #fff;
+    border-radius: 0.5rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    overflow: auto;
+    padding-left: 1rem;
+    margin: 1rem auto;
+    cursor: pointer;
+}
+
+.userContainer4:hover,
+.userContainer5:hover{
+    background-color: #cfcfcf39;
+}
+
+.imageContainer4{
+    /* outline: red dashed 1px; */
+    width: 5rem;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.subImageContainer4{
+    /* outline: red dashed 1px; */
+    height: 3.5rem;
+    width: 3.5rem;
+    border-radius: 5rem;
+    border: 2px solid #000;
+}
+
+.image4{
+    height: 100%;
+    width: 100%;
+    border-radius: 5rem;
+}
+
+.userNameContainer{
+    /* outline: red dashed 1px; */
+    width: 10rem;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    font-weight: bold;
+    margin-left: 1.5rem;
+}
+
+.subUserContainer1{
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+    /* outline: red dashed 1px; */
+}
+
+.viewButtonContainer{
+    /* outline: red dashed 1px; */
+    width: 5rem;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-right: 1rem;
+}
+
+.viewButton{
+    height: 2.5rem;
+    border: none;
+    background-color:rgb(2, 116, 200);
+    border-radius: 0.5rem;
+    color: snow;
+    cursor: pointer;
+    transition: all 0.15s;
+}
+
+.viewButton:hover{
+    background-color: transparent;
+    border: solid rgb(2, 116, 200) 1px;
+    color: rgb(2, 116, 200);
+}
+
+.viewButton:active{
+    background-color: rgb(2, 116, 200);
+    color: snow;
+}
+
+.subAddUserContainer{
+    height: 100%;
+    width: 80%;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    padding: 1.5rem;
+}
+
+/* .addUserContainer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.144); 
+    z-index: 999; 
+} */
+
+.userInfoContainer{
+    /* outline: red dashed 1px; */
+    height: 6rem;
+}
+
+.textContainer{
+    /* outline: red dashed 1px; */
+    height: 2rem;
+    display: flex;
+    align-items: center;
+    padding-left: 1rem;
+    font-size: 1.2rem;
+}
+
+.textContainer span{
+    color: red;
+    font-size: 1.3rem;
+}
+
+.textContainer .mi{
+    color: #8b8b8b;
+}
+
+.inputNameContainer{
+    /* outline: red dashed 1px; */
+    height: 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.inputName{
+    height: 3rem;
+    width: 90%;
+    padding-left: 0.5rem;
+    font-size: 1.2rem;
+    border-radius: 0.5rem;
+    border: solid gray 1px;
+}
+
+.infoContainer2{
+    height: 100%;
+}
+
+.buttonContainer4{
+    /* outline: red dashed 1px; */
+    height: 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    gap: 1rem;
+}
+
+button{
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+#saveButton{
+    width: auto;
+    padding: 0 1.6rem;
+}
+
+/* password */
+#password-strength {
+    margin-top: 0.1rem;
+}
+
+.weak,
+.average,
+.strong{
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-left: auto;
+    margin-right: 3rem;
+}
+.weak {
+    color: red;
+}
+.average {
+    color: rgb(2, 116, 200);
+}
+.strong {
+    color: green;
+}
+
+/*tablet*/
+@media only screen and (min-width: 601px) {
+    .viewButtonContainer{
+        width: 8rem;
+    }
+
+    .viewButton{
+        width: 7rem;
+    }
+
+    .userNameContainer{
+        width: 15rem;
+        font-size: 1.2rem;
+    }
+}
+
+/*laptop*/
+@media only screen and (min-width: 1025px){
+    .userListContainer{ 
+        height: 81vh;
+        padding: 1rem 0rem;
+    }
+
+    .subUserListContainer{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        overflow: hidden;
+        flex-direction: row;
+        height: 100%;
+        margin-top: 0rem;
+        padding: 0rem;
+    }
+
+    .userContainer3{
+        width: 50%;
+        height: 90%;
+        margin-left: 2.5rem;
+        overflow: auto;
+        background-color: #fff;
+        border: 1px solid #ccc;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        flex-direction: column;
+    }
+
+    .subAddUserContainer{
+        height: 90%;
+        width: 40%;
+        margin-right: 2.5rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        gap: 0.5rem;
+        padding: 0rem;
+    }
+
+    .infoContainer2{
+        overflow: auto;
+        height: 33rem;
+        width: 90%;
+        padding-top: 1rem;
+    }
+
+    .buttonContainer4{
+        display: flex;
+        align-items: center;
+        justify-content: right;
+        padding: 0.5rem 0rem;
+        width: 90%;
+        border-top: 1px solid #ccc;
+    }
+}

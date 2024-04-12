@@ -14,8 +14,8 @@ body {
 .left-arrow {
     position: absolute;
     left: 20px; 
-    top: 5%; /* Position it vertically in the middle */
-    transform: translateY(-50%); /* Center it vertically */
+    top: 5%; 
+    transform: translateY(-50%);
     font-size: 24px;
     color: rgb(2, 116, 200);
     cursor: pointer;

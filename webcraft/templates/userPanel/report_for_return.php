@@ -8,6 +8,23 @@
     $unitID = $_GET['unitID'] ?? '';
     $reportReason = $_GET['reportReason'] ?? '';
     $formattedUnitID = 'UNIT-' . str_pad($unitID, 4, '0', STR_PAD_LEFT);
+
+    $query1 = "SELECT equipment_name, user FROM units WHERE unit_ID = ?";
+    $stmt1 = $conn->prepare($query1);
+    $stmt1->bind_param("i", $unitID);
+    $stmt1->execute();
+    $stmt1->store_result();
+    $stmt1->bind_result($equipmentName, $user);
+    $stmt1->fetch();
+
+    $query2 = "SELECT equipment_ID, deployment, property_number, account_code, image FROM equipment WHERE article = ?";
+    $stmt2 = $conn->prepare($query2);
+    $stmt2->bind_param("s", $equipmentName);
+    $stmt2->execute();
+    $stmt2->store_result();
+    $stmt2->bind_result($equipmentID, $deployment, $propertyNumber, $accountCode, $image);
+    $stmt2->fetch();
+
 ?>
 
 <!DOCTYPE html>
@@ -21,7 +38,6 @@
     <link rel="stylesheet" href="../../assets/css/inventory.css">
     <link rel="stylesheet" href="../../assets/css/equip_details.css">
     <link rel="stylesheet" href="../../assets/css/sidebar.css">
-    <link rel="stylesheet" href="../../assets/css/newItem.css">
 </head>
 <style>
     .container4{
@@ -45,7 +61,7 @@
         <div class="sideBarContainer3">
             <div class="headerContainer1">
                 <div class="iconContainer10">
-                    <a href="">
+                    <a href="notification.php?id=<?php echo $userID; ?>">
                     <div class="subIconContainer10">
                         <img class="subIconContainer10" src="../../assets/img/notif.png" alt="">
                     </div>
@@ -66,22 +82,27 @@
                 <div class="equipContainer">
                 <div class="filterContainer1" style="width: 100%; margin-top: 0rem;">
                     <div class="inventoryNameContainer">
-                        <p>REVIEW UNIT DETAILS</p>
+                        <p>REMOVE UNIT</p>
                     </div>
 
                     <div class="subFilterContainer1">
                     </div>
                 </div>
                 
-                    <form class="subViewApproveContainer" action="" method="post">
+                    <form class="subViewApproveContainer" action="../../functions/save_report.php" enctype="multipart/form-data" method="post">
                         <div class="viewInfoContainer" id="viewInfoContainer">
                             <div class="imageContainer4" >
                                 <div class="equipImage" >
-                                    <img class="equipImage2"  src="" alt="Mountain Placeholder" onerror="this.onerror=null; this.src='../../assets/img/img_placeholder.jpg';">
+                                    <?php if (!empty($image)): ?>
+                                        <img class="equipImage2" src="../../uploads/<?php echo $image; ?>" alt="">
+                                    <?php else: ?>
+                                        <img class="equipImage2" src="../../assets/img/img_placeholder.jpg" alt="">
+                                    <?php endif; ?>
                                 </div>
 
                                 <div class="equipNameContainer" id="article" s>
-                                    <p>zxczx</p>
+                                    <p><?php echo $equipmentName; ?></p>
+                                    <input type="hidden" name="equipment_ID" id="" value="<?php echo $equipmentID; ?>">
                                 </div>
                             </div>
 
@@ -92,7 +113,8 @@
                                             <p>End user</p>
                                         </div>
 
-                                        <input class="container4" type="text">
+                                        <input class="container4" type="text" value="<?php echo $user; ?>">
+                                        <input class="hidden" type="text" name="user_ID" value="<?php echo $userID; ?>">
                                     </div>
                                 </div>
 
@@ -102,7 +124,7 @@
                                             <p>Deployment</p>
                                         </div>
 
-                                        <input class="container4" type="text">
+                                        <input class="container4" type="text" value="<?php echo $deployment; ?>">
                                     </div>
                                 </div>
 
@@ -112,7 +134,7 @@
                                             <p>Property number</p>
                                         </div>
 
-                                        <input class="container4" type="text">
+                                        <input class="container4" type="text" value="<?php echo $propertyNumber; ?>">
                                     </div>
 
                                     <div class="approveContainer">
@@ -120,68 +142,90 @@
                                             <p>Account code</p>
                                         </div>
 
-                                        <input class="container4" type="text">
+                                        <input class="container4" type="text" value="<?php echo $accountCode; ?>">
                                     </div>
                                 </div>
                             </div>
                         </div>
                         
-                        <div class="unitSelected">
+                        <div class="unitSelected" >
                             <p>SELECTED UNIT</p>
                         </div>
 
-                        <div class="subApproveInfoContainer2" style="margin: 1rem auto;">
-
-                            <div class="imageContainer4" id="imageContainer4">
-                                <div class="equipImage" >
-                                    <img class="equipImage2" id="image3"  src="" alt="Mountain Placeholder" onerror="this.onerror=null; this.src='../../assets/img/img_placeholder.jpg';">
+                        <div class="viewInfoContainer" id="viewInfoContainer">
+                            <div class="imageContainer4" >
+                                <div class="equipImage">
+                                    <img class="equipImage2" id="image3" src="../../assets/img/img_placeholder.jpg" alt="">
                                 </div>
 
                                 <div class="uploadButtonContainer1">
                                     <label class="uploadButton1" type="button">
                                         <img class="uploadIcon1" src="../../assets/img/upload.png" alt="Upload Icon" class="uploadIcon">
                                         upload
-                                        <input id="image" name="image" type="file" style="display: none;">
+                                        <input id="image" name="unit_img" type="file" style="display: none;">
                                     </label>
                                 </div>
+
                             </div>
 
-                            <div class="selectedContainer">
-                                <div class="selectedunitInfo">
+                            <div class="approveInfoContainer">
+                                
+                                <div class="subApproveInfoContainer1">
                                     <div class="approveContainer">
                                         <div class="labelContainer1">
-                                            <p>Unit ID</p>
+                                            <p>Unit ID  <span style="color: red; font-size: 1.3rem;">*</span></p>
                                         </div>
 
-                                        <input class="container4" type="text" name="unit_ID" style="margin-right: 0.5rem;" value="<?php echo $formattedUnitID ?>">
+                                        <input class="container4" type="text" name="unit_ID" value="<?php echo $formattedUnitID; ?>" required>
                                     </div>
 
                                     <div class="approveContainer">
                                         <div class="labelContainer1">
-                                            <p>Unit issue</p>
+                                            <p>Unit issue <span style="color: red; font-size: 1.3rem;">*</span></p>
                                         </div>
 
-                                        <input class="container4" type="text" name="issue" value=" <?php echo $reportReason ?>">
+                                        <input class="container4" type="text" name="report_issue" value="<?php echo $reportReason; ?>" required>
                                     </div>
                                 </div>
 
-                                <div class="descContainer">
-                                    <div class="labelContainer1">
-                                        <p>Problem description <span>*</span></p>
-                                    </div>
+                                <div class="subApproveInfoContainer" id="subApproveInfoContainer">
+                                    <div class="approveContainer">
+                                        <div class="labelContainer1">
+                                            <p>Problem description <span>*</span></p>
+                                        </div>
 
-                                    <input class="container4" type="text">
+                                        <input class="container4" type="text" name="problem_desc" required>
+                                    </div>
                                 </div>
+
                             </div>
-                            
                         </div>
                        
-                        <div class="buttonContainer2" id="buttonContainer2" style="width: 92.5%;">
-                            <button class="button4" id="confirm-submit">Submit</button>
+                        <div class="buttonContainer2" id="buttonContainer2" style="width: 86%;">
+                            <button class="button4" type="button" onclick="openModal()">Submit</button>
                             <a href="my_units.php?id=<?php echo $userID; ?>">
                                 <button class="button3"  id="cancel-submit" type="button">Cancel</button>
                             </a>
                         </div>
+                        </div>
+
+                        <div id="sweetalert" class="sweetalert" style="display: none;">
+                            <div class="alertModal">
+                                <div class="alertContent">
+                                    <div class="alertIcon">
+                                        <div class="iconBorder">
+                                            <img src="../../assets/img/alert.png" alt="">  
+                                        </div>
+                                    </div>
+                                    <div class="alertMsg">
+                                        <h2>Are you sure you want to report?</h2>
+                                    </div>
+                                    <div class="alertBtn" id="alertBtn">
+                                        <button class="button4" type="submit">Yes, I'm sure</button>
+                                        <button class="button3" id="btn" type="button" onclick="closeModal()">Cancel</button>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </form>
                 </div>
@@ -190,9 +234,33 @@
         </div>
     </div>
 
+    <div id="messageContainer" class="message-container" style="display: none;">
+    <div id="messageContent" class="message-content"></div>
+</div>
+
+
     <script src="../../assets/js/inventory.js"></script>
     <script src="../../assets/js/sidebar.js"></script>
     <script src="../../assets/js/uploadImg.js"></script>
 
+<script> 
+    function openModal() {
+        var sweetalert = document.getElementById("sweetalert");
+        sweetalert.style.display = "block";
+        setTimeout(function() {
+            sweetalert.style.opacity = 1;
+        }, 10);
+    }
+
+    function closeModal() {
+        var sweetalert = document.getElementById("sweetalert");
+        sweetalert.style.opacity = 0;
+        setTimeout(function() {
+            sweetalert.style.display = "none";
+        }, 300);
+    }
+</script>
+
+</script>
 </body>
 </html>

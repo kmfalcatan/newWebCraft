@@ -11,7 +11,7 @@
     height: 90%;
     width: 100%;
     /* outline: red dashed 1px; */
-    border-radius: 0.5rem;
+    border-radius: 0.3rem;
     overflow: auto;
     display: flex;
     flex-direction: column;
@@ -27,7 +27,7 @@
     height: 5rem;
     width: 95%;
     border: solid gray 1px;
-    background-color: rgb(240, 240, 240);
+    background-color: #fff;
     border-radius: 0.5rem;
     display: flex;
     flex-direction: row;
@@ -125,7 +125,7 @@
     /* outline: red dashed 1px; */
     height: 40rem;
     width: 90%;
-    border-radius: 0.5rem;
+    border-radius: 0.1rem;
     background-color: snow;
 }
 

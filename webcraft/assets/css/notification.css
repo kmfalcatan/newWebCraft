@@ -1,0 +1,354 @@
+.notifContainer {
+    width: 100%;
+    height: 100%;
+    margin: 50px auto;
+    background-color: snow;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+  
+  }
+
+  .notif-sidebar {
+    flex: 0 0 15%;
+    padding: 20px;
+    background-color: #fff;
+    color: #333;
+    border: 1px solid #ccc;
+
+  }
+
+  .notif-sidebar h2 {
+    display: none;
+  }
+
+  .menu{
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    height: auto;
+  }
+
+  .menu li{
+    background-color: #fff;
+    font-size: 1.1rem;
+    cursor: pointer;
+    gap: 1rem;
+  }
+
+  .content {
+    flex: 1;
+    padding: 20px;
+    overflow: auto;
+  }
+
+  h1 {
+    color: #333;
+    margin-top: 0;
+  }
+  
+  ul {
+    list-style-type: none;
+    padding: 0;
+  }
+
+  .unit, .approved, .transfer{
+    margin-bottom: 1rem;
+  }
+  
+  li {
+    gap: 1rem;
+    padding: 10px;
+    background-color: #fff;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+  }
+
+  li:hover {
+    background-color: #e9e9e9;
+  }
+
+  .notification-title {
+    font-weight: bold;
+    margin-top: 0;
+    margin-bottom: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .notif-info{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+  }
+
+  .profile-image{
+    border-radius: 5rem;
+    height: 3rem;
+    width: 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid gray;
+  }
+
+  .profile-image img{
+    width: 100%;
+    height: 100%;
+    border-radius: 5rem;
+  }
+
+  .notification-title .notif-desc{
+    font-weight: bold;
+    margin-left: 0.1rem;
+    font-size: 0.9rem;
+  }
+
+  .lighter-text {
+    font-weight: lighter;
+  }
+
+
+  .notification-title .notif-time{
+    font-weight: 500;
+    font-size: 0.7rem;
+    color: #3333338c;
+    margin-left: 0.3rem;
+  }
+
+  .notification-actions {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+  }
+
+  .notification-actions button{
+    font-size: 0.6rem;
+
+  }
+
+.userListContainer{
+    /* outline: red dashed 1px; */
+    height: 80vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 1.3rem;
+}
+
+.subUserListContainer{
+    height: 90%;
+    width: 100%;
+    outline: red dashed 1px;
+    border-radius: 0.5rem;
+    overflow: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    background-color: snow;
+    border: 1px solid gray;
+    align-items: center;
+    padding-top: 1rem;
+}
+
+.userContainer4{
+    outline: red dashed 1px;
+    height: 5rem;
+    width: 95%;
+    border: solid gray 1px;
+    background-color: snow;
+    border-radius: 0.5rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    overflow: auto;
+    padding-left: 1rem;
+}
+
+.imageContainer4{
+    /* outline: red dashed 1px; */
+    width: 5rem;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.subImageContainer4{
+    /* outline: red dashed 1px; */
+    height: 3.5rem;
+    width: 3.5rem;
+    border-radius: 5rem;
+    border: 2px solid #000;
+}
+
+.image4{
+    height: 100%;
+    width: 100%;
+    border-radius: 5rem;
+}
+
+.userNameContainer{
+    /* outline: red dashed 1px; */
+    width: 10rem;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    font-weight: bold;
+    margin-left: 1.5rem;
+}
+
+.subUserContainer1{
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+    /* outline: red dashed 1px; */
+}
+
+.viewButtonContainer{
+    /* outline: red dashed 1px; */
+    width: 5rem;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-right: 1rem;
+}
+
+.viewButton{
+    height: 2.5rem;
+    border: none;
+    background-color:rgb(2, 116, 200);
+    border-radius: 0.5rem;
+    color: snow;
+    cursor: pointer;
+    transition: all 0.15s;
+}
+
+.viewButton:hover{
+    background-color: transparent;
+    border: solid rgb(2, 116, 200) 1px;
+    color: rgb(2, 116, 200);
+}
+
+.viewButton:active{
+    background-color: rgb(2, 116, 200);
+    color: snow;
+}
+
+
+
+
+/*tablet*/
+@media only screen and (min-width: 601px) {
+    .viewButtonContainer{
+        width: 8rem;
+    }
+
+    .viewButton{
+        width: 7rem;
+    }
+
+    .userNameContainer{
+        width: 15rem;
+        font-size: 1.2rem;
+    }
+
+    .subAddUserContainer{
+        width: 30rem;
+    }
+}
+
+/*laptop*/
+@media only screen and (min-width: 1025px){
+    .filterContainer1{
+        /* padding: 0 3.5rem; */
+    }
+
+    .notifContainer {
+      display: flex;
+    
+    }
+
+    .menu{
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.3rem;
+    }
+  
+    .menu li{
+      background-color: #fff;
+      font-size: 1.1rem;
+      cursor: pointer;
+      width: 80%;
+    }
+  
+    .content {
+      flex: 1;
+      padding: 20px;
+      overflow: auto;
+     
+    }
+  
+    h1 {
+      color: #333;
+      margin-top: 0;
+    }
+  
+    h2{
+      color: #3333338c;
+      font-size: 1.3rem
+    }
+  
+    li {
+      margin-bottom: 20px;
+      padding: 10px;
+      background-color: #fff;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      /* outline: 1px solid red; */
+    }
+
+    li:hover {
+      background-color: #e9e9e9;
+    }
+  
+  
+    .notif-info{
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+    }
+  
+    .notification-title .notif-desc{
+      font-weight: bold;
+      margin-left: 0.5rem;
+      font-size: 1.1rem;
+    }
+  
+    .lighter-text {
+      font-weight: lighter;
+    }
+  
+  
+    .notification-title .notif-time{
+      font-weight: 500;
+      font-size: 1rem;
+      color: #3333338c;
+      margin-left: 0.5rem;
+    }
+  
+    .notification-actions {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+    }
+  
+    .notification-actions button{
+      font-size: 0.9rem;
+    }
+  
+}

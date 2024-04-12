@@ -1,15 +1,63 @@
+<?php
+    include_once "../../dbConfig/dbconnect.php";
+    include_once "../../functions/header.php";
+    include_once "../../authentication/auth.php";
+
+    $unitID = $_GET['unitID'] ?? '';
+    $selectedUser = $_GET['selectedUser'] ?? '';
+
+    $userData = json_decode(htmlspecialchars_decode($selectedUser), true);
+    $firstName = $userData[0];
+    $lastName = $userData[1];
+    $new_end_userID = $userData[2]; 
+
+    $formattedUnitID = 'UNIT-' . str_pad($unitID, 4, '0', STR_PAD_LEFT);
+
+    $sql = "SELECT equipment_ID, user FROM units WHERE unit_ID = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("s", $unitID);
+    $stmt->execute();
+    $stmt->bind_result($equipmentID, $currentUser);
+    $stmt->fetch();
+    $stmt->close();
+
+    $sql = "SELECT article, account_code, property_number, image FROM equipment WHERE equipment_ID = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("s", $equipmentID);
+    $stmt->execute();
+    $stmt->bind_result($article, $accountCode, $propertyNumber, $image);
+    $stmt->fetch();
+    $stmt->close();
+
+    $sql = "SELECT user_ID, first_name, last_name, email FROM users WHERE CONCAT(first_name, ' ', last_name) = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("s", $currentUser);
+    $stmt->execute();
+    $stmt->bind_result($current_end_userID, $current_firstName, $current_lastName, $current_email);
+    $stmt->fetch();
+    $stmt->close();
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>UNIT TRANSFER</title>
+    <title>UNIT REPORTED</title>
 
-    <link rel="stylesheet" href="../../assets/css/sidebar.css">
     <link rel="stylesheet" href="../../assets/css/index.css">
     <link rel="stylesheet" href="../../assets/css/inventory.css">
-    <link rel="stylesheet" href="../../assets/css/report.css">
+    <link rel="stylesheet" href="../../assets/css/sidebar.css">
+    <link rel="stylesheet" href="../../assets/css/bin.css">
+    
 </head>
+<style>
+    .container4{
+        width: 95%;
+    }
+    
+</style>
 <body>
     <div class="sidebar">
         <div  class="sidebarContent">
@@ -21,18 +69,19 @@
         </div>
         <?php include("sidebar.php"); ?>
     </div>
-        
 
     <div class="mainContainer">
         <div class="sideBarContainer3">
             <div class="headerContainer1">
                 <div class="iconContainer10">
+                    <a href="notification.php?id=<?php echo $userID; ?>">
                     <div class="subIconContainer10">
                         <img class="subIconContainer10" src="../../assets/img/notif.png" alt="">
                     </div>
+                    </a>
                 </div>
 
-                <div class="subHeaderContainer1">
+                <div class="subHeaderContainer1" >
                     <div class="logoNameContainer1">
                         <img class="systemName" src="../../assets/img/system-name.png" alt="">
                     </div>
@@ -41,188 +90,192 @@
                     </div>
                 </div>
             </div>
-            
-            <div class="container5">
-                <div class="subContainer6">
-                    <div class="headerContainer4">
-                        <a href="../user panel/userEquip.php?equipment_ID=<?php echo $equipment_ID; ?>&id=<?php echo $userID; ?>"> 
-                            <div class="backContainer5">
-                                <img class="backContainer6" src="../assets/img/left-arrow.png" alt="">
-                            </div>
-                        </a>
-        
-                        <div class="iconContainer6">
-                            <div class="subIconContainer6">
-                                <img src="../assets/img/transfer-icon.png" alt="" style="width: 2.5rem; height: 2.2rem;">
-                            </div>
-        
-                            <div class="textContainer10">
-                                <p>UNIT TRANSFER</p>
-                            </div>
-                        </div>
+
+            <div class="subContainer1" id="containerToReplace">
+              <div class="equipContainer">
+                <div class="filterContainer1" style="width: 100%; margin-top: 0rem;">
+                    <div class="inventoryNameContainer">
+                        <p>UNIT TRANSFER</p>
                     </div>
-        
-                    <div class="infoContainer90">
-                        <div class="subInfoContainer9">
-                            <div class="imageContainer10">
-                                <div class="subImageContainer10"> 
-                                    <img class="subImageContainer10" src="<?php echo $imageURL; ?>" alt="Mountain Placeholder" onerror="this.onerror=null; this.src='../assets/img/img_placeholder.jpg';">
-                                </div>
-                            </div>
-        
-                            <div class="equipNameContainer67">
-                                <p><?php echo $article; ?></p>
-                            </div>
-                        </div>
-        
-                        <div class="infoContainer17">
-                            <div class="subInfoContainer17">
-                                <p>UNIT CUSTODIAN</p>
-                            </div>
-        
-                            <div class="textContainer56">
-                                <div class="subTextContainer56">
-                                    <?php foreach ($userInfo as $info): ?>
-                                        <div class="userHandler56">
-                                            <p><?php echo $info['user']; ?></p>
-                                        </div>
-                                    <?php endforeach; ?>
-                                </div>
-                            </div>
-        
-                            <div class="subInfoContainer17">
-                                <p>DEPLOYMENT</p>
-                            </div>
-        
-                            <div class="textContainer56">
-                                <div class="subTextContainer56">
-                                    <p><?php echo $deployment; ?></p>
-                                </div>
-                            </div>
-        
-                            <div class="subInfoContainer17">
-                                <p>PROPERTY NUMBER</p>
-                            </div>
-        
-                            <div class="textContainer56">
-                                <div class="subTextContainer56">
-                                    <p><?php echo $property_number; ?></p>
-                                </div>
-                            </div>
-        
-                            <div class="subInfoContainer17">
-                                <p>ACCOUNT CODE</p>
-                            </div>
-        
-                            <div class="textContainer56">
-                                <div class="subTextContainer56">
-                                    <p><?php echo $account_code; ?></p>
-                                </div>
-                            </div>
-        
-                            <div class="subInfoContainer17">
-                                <p>DESCRIPTION</p>
-                            </div>
-        
-                            <div class="textContainer156">
-                                <div class="subTextContainer56">
-                                    <p><?php echo $description; ?></p>
-                                </div>
-                            </div>
-                        </div>
+
+                    <div class="subFilterContainer1">
                     </div>
                 </div>
-        
-                <form class="buttonContainer" id="buttonContainer" action="../functions/saveTransfer.php" method="post">
-                    <button style="display: block;" id="selectButton" onclick="popup()" class="button" type="button">SELECT UNIT</button>
-                    
-                    <input type="hidden" name="equipment_ID" value="<?php echo $equipment_ID; ?>">
-                    <input type="hidden" name="user_ID" value="<?php echo $userID; ?>">
-                    <input type="hidden" name="unit_ID" id="unit_ID">
-                    <input type="hidden" name="reason" id="reason">
-                    <input type="hidden" name="new_handler" id="new_handler">
-        
-        
-                    <div class="unitContainer" style="display: none;">
-                        <div class="subUnitContainer">
-                        <?php
-                                if(isset($_GET['equipment_ID'])) {
-                                    $equipment_ID = $_GET['equipment_ID'];
-                                
-                                    $sql = "SELECT u.unit_ID, u.user 
-                                            FROM units u 
-                                            JOIN users usr ON u.user = usr.fullname 
-                                            WHERE u.equipment_ID = ? AND usr.id = ?";
-                                    $stmt = $conn->prepare($sql);
-                                
-                                    $stmt->bind_param("ii", $equipment_ID, $userID);
-                                    $stmt->execute();
-                                    $result = $stmt->get_result();
-                                
-                                    while($row = $result->fetch_assoc()) {
-                                        $unit_id = $row['unit_ID'];
-                                        $user = $row['user'];
-                                
-                                        $unitPrefix = 'UNIT';
-                                        $defaultUnitID = '0000';
-                                        $formattedUnitID = $unitPrefix . '-' . str_pad($unit_id, strlen($defaultUnitID), '0', STR_PAD_LEFT);
-                                
-                                        echo '<div class="unitAndCheckboxContainer">'; 
-                                        echo '<div class="equipContainer">';
-                                        echo '<div class="checkBoxContainer">';
-                                        echo '<input class="checkbox" type="checkbox" data-unit-id="' . $formattedUnitID . '">';
-                                        echo '</div>';
-                                        echo '<div class="unitNameContainer">';
-                                        echo '<h3>' . $formattedUnitID . '</h3>';
-                                        echo '</div>';
-                                        echo '<div class="userContainer" style="display: none";>';
-                                        echo '<p>' . $user . '</p>';
-                                        echo '</div>';
-                                        echo '<div class="unitNameContainer1">';
-                                        echo '<select  class="issue" data-unit-id="' . $formattedUnitID . '">';
-                                        echo '<option value="" disabled selected>Select user</option>';
-                                        $userQuery = "SELECT fullname FROM users WHERE role = 'user'";
-                                        $userResult = $conn->query($userQuery);
-                                        if ($userResult->num_rows > 0) {
-                                            while($userRow = $userResult->fetch_assoc()) {
-                                                echo '<option value="' . $userRow["fullname"] . '">' . $userRow["fullname"] . '</option>';
-                                            }
-                                        }
-                                        echo '</select>';
-                                        echo '</div>';
-                                        echo '</div>';
-                                        echo '</div>'; 
-                                    }
-                                }
-                                ?>
-                                
-                        </div>
-        
-                        <div class="buttonContainer1">
-                            <button onclick="popup1()" class="button1" id="save-button" type="button">Save</button>
+                
+                <form class="subViewApproveContainer" action="../../functions/save_unit_transfer.php" method="post">
+                    <input type="hidden" name="equipment_ID" value="<?php echo $equipmentID; ?>">
+                    <input type="hidden" name="unit_ID" value="<?php echo $formattedUnitID; ?>">
+                    <input type="hidden" name="new_end_userID" value="<?php echo $new_end_userID; ?>">
+                    <input type="hidden" name="old_end_userID" value="<?php echo $current_end_userID; ?>">
+
+                    <div class="equipImageContainer">
+                        <div class="subEquipImageContainer">
+                            <?php if (!empty($image)): ?>
+                                <img class="subEquipImageContainer" src="../../uploads/<?php echo $image; ?>" alt="">
+                            <?php else: ?>
+                                <img class="subEquipImageContainer" src="../../assets/img/img_placeholder.jpg" alt="">
+                            <?php endif; ?>
                         </div>
                     </div>
-        
-                    <div class="unitContainer1" id="unit" style="display: none;">
-                        <div class="headerContainer2">
-                            <p>SELECTED UNITS</p>
+
+                    <div class="unitInfoContainer">
+                        <div class="subUnitInfoContainer" id="subUnitInfoContainer">
+                            <div class="unitIdContainer" id="unitIdContainer">
+                                <p>Article: <span><?php echo $article; ?></span></p>
+                                <p>Unit ID: <span><?php echo $formattedUnitID; ?><span><p>
+                                <p>Account code: <span><?php echo $accountCode; ?></span></p>
+                                <p>Property number: <span><?php echo $propertyNumber; ?><span></p>
+                            </div>
                         </div>
-        
-                        <div class="unitInfoContainer">
+                    </div>
+
+                    <div class="unitInfoContainer" id="subUnitInfoContainer1">
+                        <diV class="unitContainer1">
+                            <h3>CURRENT END USER INFORMATION</h3>
+                        </div>
+                        
+
+                        <div class="subUnitInfoContainer">
+                            <div class="unitIdContainer">
+                                <div class="subUnitIdContainer">
+                                    <p>First name</p>
+                                </div>
+
+                                <input class="displayUnitID" type="text" name="old_end_user_first_name" value="<?php echo $current_firstName; ?>">
+                            </div>
+
+                            <div class="unitIdContainer">
+                                <div class="subUnitIdContainer" >
+                                    <p>Last name</p>
+                                </div>
+
+                                <input class="displayUnitID" type="text" name="old_end_user_last_name" value="<?php echo $current_lastName; ?>">
+                            </div>
+
+                            <div class="unitIdContainer">
+                                <div class="subUnitIdContainer" >
+                                    <p>E-mail</p>
+                                </div>
+
+                                <input class="displayUnitID" type="text" name="" value="<?php echo $current_email; ?>">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="unitInfoContainer" id="subUnitInfoContainer1">
+                        <div class="unitContainer1">
+                            <h3>NEW END USER INFORMATION</h3>
+                        </div>
+
+                        <div class="instruction">
+                            <p>Please complete all required fields before submitting.</p>
+
+                        </div>
+
+                        <div class="subUnitInfoContainer">
                             
+                            <div class="unitIdContainer">
+                                <div class="subUnitIdContainer">
+                                    <p>First name <span>*</span></p>
+                                </div>
+
+                                <input class="displayUnitID" type="text" name="new_end_user_first_name" value="<?php echo $firstName; ?>" required>
+                            </div>
+
+                            <div class="unitIdContainer">
+                                <div class="subUnitIdContainer" >
+                                    <p>Last name <span>*</span></p>
+                                </div>
+
+                                <input class="displayUnitID" type="text" name="new_end_user_last_name" value="<?php echo $lastName; ?>" required>
+                            </div>
                         </div>
-                        <div class="submitContainer"  id="submitContainer">
-                            <button onclick="popup1()" class="button2" type="button" id="add-more">Add more</button>
-                            <button class="button2"  id="submit-button" type="submit"  onclick="submitForm()">Submit</button>
+                    </div>
+
+                    <div class="unitInfoContainer" style="margin-top: -1rem;">
+                        <div class="subUnitInfoContainer">
+                            <div class="unitIdContainer">
+                                <div class="subUnitIdContainer">
+                                    <p>E-mail <span>*</span></p>
+                                </div>
+ 
+                                <input class="displayUnitID" type="email" name="email" required>
+                            </div>
+
+                            <div class="unitIdContainer">
+                                <div class="subUnitIdContainer">
+                                    <p>Designation <span>*</span></p>
+                                </div>
+
+                                <input class="displayUnitID" type="text" name="designation" required>
+                            </div>
                         </div>
-        
+                    </div>
+
+                    <div class="buttonContainer2">
+                        <div class="dateReplacement">
+                                <p>Date<span>*</span></p>
+
+                            <input class="date" type="date" name="date_transfer">
+                        </div>
+                        <button class="button4" type="button"  onclick="openModal()">Submit</button>
+                        <button  class="button3" type="button" onclick="goBack()">Cancel</button>
+                    </div>
+
+                    <div id="sweetalert" class="sweetalert" style="display: none;">
+                        <div class="alertModal">
+                            <div class="alertContent">
+                                <div class="alertIcon">
+                                    <div class="iconBorder">
+                                        <img src="../../assets/img/alert.png" alt="">  
+                                    </div>
+                                </div>
+                                <div class="alertMsg">
+                                    <h2>Are you sure you want to submit this form?</h2>
+                                </div>
+                                <div class="alertBtn" id="alertBtn">
+                                    <button class="button4" type="submit" id='restore' style="width: auto;">Yes, I'm sure</button>
+                                    <button class="button3" id="btn" type="button" onclick="closeModal()">Cancel</button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </form>
-            </div>
+              </div>
+            </div>  
         </div>
     </div>
+</div>
 
     <script src="../../assets/js/inventory.js"></script>
     <script src="../../assets/js/sidebar.js"></script>
+    <script src="../../assets/js/uploadImg.js"></script>
+
+    <script> 
+        function openModal() {
+            var sweetalert = document.getElementById("sweetalert");
+            sweetalert.style.display = "block";
+            setTimeout(function() {
+                sweetalert.style.opacity = 1;
+            }, 10);
+        }
+
+        function closeModal() {
+            var sweetalert = document.getElementById("sweetalert");
+            sweetalert.style.opacity = 0;
+            setTimeout(function() {
+                sweetalert.style.display = "none";
+            }, 300);
+        }
+    </script>
+
+    <script>
+        function goBack() {
+            window.history.back();
+        }
+    </script>
+
+    
+
 </body>
 </html>

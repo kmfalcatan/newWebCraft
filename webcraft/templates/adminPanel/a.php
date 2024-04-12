@@ -1,187 +1,189 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+<style>
+body {
+  background-color: #f4f4f4;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #333;
+  line-height: 1.6;
+}
 
-    <link rel="stylesheet" href="../../assets/css/about.css">
+.container {
+  max-width: 800px;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 40px;
+  color: #007bff; /* Blue shade for headings */
+  font-weight: 300;
+}
+
+.unit-info {
+  display: flex;
+  align-items: center;
+  margin-bottom: 40px;
+}
+
+.unit-info img {
+  width: 200px;
+  margin-right: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,.1);
+}
+
+.details ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.details li {
+  margin-bottom: 10px;
+  padding-left: 16px;
+  position: relative;
+}
+
+.details li strong {
+  color: #007bff; /* Matching blue for key details */
+}
+
+.details li::before {
+  content: '';
+  background-color: #007bff;
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+.section {
+  margin-top: 50px;
+  border-top: 2px solid #eee;
+  padding-top: 20px;
+}
+
+.section h2 {
+  margin-bottom: 20px;
+  font-size: 1.2rem;
+  color: #333;
+  font-weight: 400;
+}
+
+.user-details ul, .history ol {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.user-details li, .history li {
+  margin-bottom: 10px;
+  padding-left: 16px;
+  position: relative;
+}
+
+.user-details li strong, .history li strong {
+  color: #0056b3; /* Slightly darker blue for emphasis */
+}
+
+.user-details li::before, .history li::before {
+  content: '';
+  background-color: #007bff;
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+.history ol {
+  counter-reset: list;
+}
+
+.history li {
+  list-style-type: none;
+  margin-bottom: 10px;
+  counter-increment: list;
+}
+
+.history li::before {
+  content: counter(list) ". ";
+  color: #007bff;
+  font-weight: bold;
+  margin-right: 5px;
+}
+
+</style>
+
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Unit Tracker</title>
+  <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
-    <div class="container">
-        <div class="headerContainer">
-            <p>ABOUT</p>
+  <div class="container">
+    <h1>Unit Tracker</h1>
 
-            <button class="backButton">Back</button>
-        </div>
-
-        <div class="bodyContainer">
-            <div class="subBodyContainer">
-                <div class="textContainer">
-                    <div class="aboutContainer">
-                        <p>ABOUT THE SYSTEM</p>
-                    </div>
-
-                    <p>
-                        Introducing MedEquip Tracker, the inventory system developed for the College of Medicine. 
-                        This system allows administrators to effortlessly manage users and equipment while providing 
-                        end users with the ability to handle units. With the capability to report unit issues, 
-                        administrators stay informed about maintenance requirements or misplaced units. 
-                        MedEquip Tracker also facilitates seamless unit transfers between staff members, ensuring efficient 
-                        distribution. Furthermore, the system enables the College of Medicine to easily track specific 
-                        equipment or units, providing real-time visibility. Experience the convenience of MedEquip Tracker, 
-                        designed to streamline inventory management and enhance efficiency within the College of Medicine.
-                    </p>
-                </div>
-
-                <div class="subTextContainer">
-                    <img class="image" src="../../assets/img/system.png" alt="">
-                </div>
-            </div>
-
-            <div class="subBodyContainer1">
-                <div class="subTextContainer">
-                    <img class="image1" src="../../assets/img/kyle kuzma.jpg" alt="">
-                </div>
-                
-                <div class="systemContainer">
-                    <div class="aboutContainer">
-                        <p>ABOUT THE CLIENT</p>
-                    </div>
-
-                    <p>
-                        the inventory system developed for the College of Medicine department. 
-                        Designed to simplify equipment management, this system is ideal for laboratory 
-                        technician <strong>Ryan Jonathan Torres</strong>, who plays a crucial role in receiving 
-                        equipment released by the Property Management Office (PMO). With MedEquip Tracker, 
-                        <strong>Mr. Ryan</strong> can efficiently track and manage the equipment, ensuring a 
-                        seamless process of receiving and organizing the resources essential for the department's 
-                        scientific endeavors. Experience the power of MedEquip Tracker, tailored to meet the unique needs 
-                        of laboratory technicians like Ryan Jonathan Torres in the College of Science and Mathematics.
-                    </p>
-                </div>
-            </div>
-
-            <div class="memberContainer">
-                <div class="subMemberContainer">
-                    <div class="memPictureContianer">
-                         <div class="subMemPictureContainer">
-                            <img class="subMemPictureContainer" src="../../assets/img/khriz.jpg" alt="">
-                         </div>
-                    </div>
-
-                    <div class="memInfoContainer">
-                        <div class="subMemInfoContainer">
-                            <p>Khriz Marr L. Falcatan</p>
-                        </div>
-
-                        <div class="subMemInfoContainer1">
-                            <p style="font-weight: bold;">SYSTEM ANALYST</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="subMemberContainer1">
-                    <div class="memPictureContianer">
-                         <div class="subMemPictureContainer">
-                            <img class="subMemPictureContainer" src="../../assets/img/rogie.jpg" alt="">
-                         </div>
-                    </div>
-
-                    <div class="memInfoContainer">
-                        <div class="subMemInfoContainer">
-                            <p>Rogie E. Gabotero</p>
-                        </div>
-
-                        <div class="subMemInfoContainer1">
-                            <p style="font-weight: bold;">LEAD PROGRAMMER</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="subMemberContainer2">
-                    <div class="memPictureContianer">
-                         <div class="subMemPictureContainer">
-                            <img class="subMemPictureContainer" src="../../assets/img/padwa.png" alt="">
-                         </div>
-                    </div>
-
-                    <div class="memInfoContainer">
-                        <div class="subMemInfoContainer">
-                            <p>Padwa S. Tingkasan</p>
-                        </div>
-
-                        <div class="subMemInfoContainer1">
-                            <p style="font-weight: bold;">PROJECT MANAGER</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="subMemberContainer3">
-                    <div class="memPictureContianer">
-                         <div class="subMemPictureContainer">
-                            <img class="subMemPictureContainer" src="../../assets/img/arp.png" alt="">
-                         </div>
-                    </div>
-
-                    <div class="memInfoContainer">
-                        <div class="subMemInfoContainer">
-                            <p>Arp-j P. Villares</p>
-                        </div>
-
-                        <div class="subMemInfoContainer1">
-                            <p style="font-weight: bold;">ARCHIVIST</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="subMemberContainer4">
-                    <div class="memPictureContianer">
-                         <div class="subMemPictureContainer">
-                            <img class="subMemPictureContainer" src="../../assets/img/tabs.png" alt="">
-                         </div>
-                    </div>
-
-                    <div class="memInfoContainer">
-                        <div class="subMemInfoContainer">
-                            <p>John Mark R. Taborada</p>
-                        </div>
-
-                        <div class="subMemInfoContainer1">
-                            <p style="font-weight: bold;">QA ENGINEER</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="subBodyContainer" style="margin-top: 1rem;">
-                <div class="textContainer2">
-                    <div class="aboutContainer1">
-                        <p class="aboutDev">ABOUT THE DEVELOPER</p>
-                    </div>
-
-                    <p>
-                        A cutting-edge inventory system developed by WebCraft team, a talented student 
-                        from the College of Computing Studies pursuing a Bachelor of Science in 
-                        Information Technology. As part of their Software Engineering subject requirements, 
-                        this dedicated developer has created a comprehensive system specifically designed for 
-                        the College of Medicine. MedEquip Tracker simplifies equipment tracking, user management, 
-                        and unit transfers, providing a customized solution to meet the unique inventory management 
-                        needs of the College of Medicine. Experience the capabilities and dedication of this 
-                        student-developed system crafted to optimize inventory management within the College of Medicine.
-                    </p>
-                </div>
-            </div>
-            <div class="systemLogoContainer">
-                <div class="subSystemLogoContainer">
-                    <img class="subSystemLogoContainer" src="../../assets/img/medLogo.png" alt="">
-                </div>
-            </div>
-
-            <div class="textContainer1">
-                <p>Software Engineering Project   |    Copyright  ©  2024  WebCraft</p>
-            </div>
-        </div>  
+    <div class="unit-info">
+      <img src="[Image URL]" alt="Unit Image">
+      <div class="details">
+        <ul>
+          <li><strong>Unit ID:</strong> [Unit ID]</li>
+          <li><strong>Name:</strong> [Unit Name]</li>
+          <li><strong>Property Number:</strong> [Property Number]</li>
+          <li><strong>Account Code:</strong> [Account Code]</li>
+          <li><strong>Year Released:</strong> [Year Released]</li>
+          <li><strong>Warranty Unit Value:</strong> [Warranty Unit Value]</li>
+          <li><strong>Remarks:</strong> [Remarks]</li>
+        </ul>
+      </div>
     </div>
+
+    <div class="section">
+      <h2>Current End User</h2>
+      <div class="user-details">
+        <ul>
+          <li><strong>First Name:</strong> [First Name]</li>
+          <li><strong>Last Name:</strong> [Last Name]</li>
+          <li><strong>Email:</strong> [Email]</li>
+          <li><strong>Designation:</strong> [Designation]</li>
+          <li><strong>Year Started:</strong> [Year Started]</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>Old User</h2>
+      <div class="user-details">
+        <ul>
+          <li><strong>First Name:</strong> [Old User First Name]</li>
+          <li><strong>Last Name:</strong> [Old User Last Name]</li>
+          <li><strong>Email:</strong> [Old User Email]</li>
+          <li><strong>Designation:</strong> [Old User Designation]</li>
+          <li><strong>Year Started:</strong> [Old User Year Started]</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>Unit History</h2>
+      <div class="history">
+        <ol>
+          <li>[Date]: Unit transferred from [Old User Name] to [Current User Name].</li>
+          <li>[Date]: Unit removed from list. Reason: [Reason for Removal]. Retrieved by [Name].</li>
+        </ol>
+      </div>
+    </div>
+  </div>
 </body>
 </html>

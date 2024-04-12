@@ -3,12 +3,12 @@
     include_once "../../authentication/auth.php";
     include_once "../../dbConfig/dbconnect.php";
     
-    if (isset($_GET['user_id'])) {
-        $user_id = $_GET['user_id'];
+    if (isset($_GET['user_ID'])) {
+        $user_ID = $_GET['user_ID'];
     
         $query = "SELECT * FROM users WHERE user_ID = ?";
         $stmt = $conn->prepare($query);
-        $stmt->bind_param('i', $user_id);
+        $stmt->bind_param('i', $user_ID);
         $stmt->execute();
         $result = $stmt->get_result();
         $user = $result->fetch_assoc();
@@ -45,7 +45,7 @@
         <div class="sideBarContainer3">
             <div class="headerContainer1">
                 <div class="iconContainer10">
-                    <a href="">
+                    <a href="notification.php?id=<?php echo $userID; ?>">
                     <div class="subIconContainer10">
                         <img class="subIconContainer10" src="../../assets/img/notif.png" alt="">
                     </div>
@@ -71,7 +71,7 @@
 
                     <div class="subFilterContainer1">
                         <div class="trackContainer">
-                            <a href="enduser_unit.php?id=<?php echo $userID; ?>&user_id=<?php echo $user['user_ID']; ?>">
+                            <a href="enduser_unit.php?id=<?php echo $userID; ?>&user_ID=<?php echo $user['user_ID']; ?>">
                                 <button class="trackButton1">Go to user units <img src="../../assets/img/unit.png" style="height: 1.9rem;"></button>
                             </a>
                         </div>
@@ -94,10 +94,6 @@
 
                             <div class="nameContainer1">
                                 <p><?php echo $user['username']; ?></p>
-                            </div>
-
-                            <div class="nameContainer1">
-                                <p><?php echo date('Y') . '-' . sprintf('%04d', $user['user_ID'] ?? ''); ?></p>
                             </div>
                         </div>
 

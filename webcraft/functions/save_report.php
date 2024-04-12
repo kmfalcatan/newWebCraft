@@ -1,39 +1,48 @@
 <?php
-require_once '../dbConfig/dbconnect.php';
-require_once '../functions/header.php';
-require_once '../authentication/auth.php';
+include_once "../dbConfig/dbconnect.php";
+include_once "../functions/header.php";
+include_once "../authentication/auth.php";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $unitIDs = explode("\n", $_POST['unit_ID']);
-    $reportIssues = explode("\n", $_POST['report_issue']);
-    $problemDescs = explode("\n", $_POST['problem_desc']);
+    $equipmentID = $_POST['equipment_ID'] ?? '';
+    $userID = $_POST['user_ID'] ?? '';
+    $unitID = $_POST['unit_ID'] ?? '';
+    $reportIssue = $_POST['report_issue'] ?? '';
+    $problemDesc = $_POST['problem_desc'] ?? '';
+    $fileName = isset($_FILES['unit_img']['name']) && !empty($_FILES['unit_img']['name']) ? basename($_FILES['unit_img']['name']) : null; // Modified
 
-    $equipment_ID = $_POST['equipment_ID'];
-    $user_ID = $_POST['user_ID'];
-    $user = $_POST['user'];
+    $uploadDir = "../uploads/";
+    $uploadFile = $uploadDir . $fileName;
 
-    $timestamp = date('Y-m-d H:i:s');
-
-    $stmt = $conn->prepare("INSERT INTO unit_report (timestamp, equipment_ID, user_ID, unit_handler, unit_ID, report_issue, problem_desc) VALUES (?, ?, ?, ?, ?, ?, ?)");
-
-    for ($i = 0; $i < count($unitIDs); $i++) {
-        if (!empty($unitIDs[$i]) && !empty($reportIssues[$i]) && !empty($problemDescs[$i])) {
-            $stmt->bind_param("siiisss", $timestamp, $equipment_ID, $user_ID, $user, $unitIDs[$i], $reportIssues[$i], $problemDescs[$i]);
-            $stmt->execute();
+    $fileUploaded = false;
+    if ($fileName !== null) {
+        if (move_uploaded_file($_FILES['unit_img']['tmp_name'], $uploadFile)) {
+            $fileUploaded = true;
+        } else {
+            echo "Sorry, there was an error uploading your file.";
         }
+    } else {
+        $fileUploaded = true;
     }
-    $stmt->close();
-}
 
-$userID = $_SESSION['user_id']; 
-$userInfo = getUserInfo($conn, $userID);
-$role = $userInfo['role'];
+    if ($fileUploaded) {
+        $query = "INSERT INTO unit_report (equipment_ID, user_ID, unit_ID, report_issue, problem_desc, unit_img) VALUES (?, ?, ?, ?, ?, ?)";
+        $stmt = $conn->prepare($query);
+        if (!$fileName) {
+            $stmt->bind_param("iissss", $equipmentID, $userID, $unitID, $reportIssue, $problemDesc, $fileName);
+            $fileName = null;
+        } else {
+            $stmt->bind_param("iissss", $equipmentID, $userID, $unitID, $reportIssue, $problemDesc, $fileName);
+        }
 
-if ($role === 'user') {
-    header("Location: ../user panel/reportSent.php?id={$userID}");
-    exit();
-} else {
-    header("Location: {$_SERVER['HTTP_REFERER']}");
-    exit();
+        if ($stmt->execute()) {
+            $stmt->close();
+            header("Location: ../templates/userPanel/notification.php?id={$userID}");
+            exit;
+        } else {
+            echo "Error: " . $stmt->error;
+        }
+        $stmt->close();
+    }
 }
 ?>

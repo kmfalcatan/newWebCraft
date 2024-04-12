@@ -3,7 +3,7 @@ include "../dbConfig/dbconnect.php";
 include_once "../functions/header.php";
 include_once "../authentication/auth.php";
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['confirmSave'])) {
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $firstName = $_POST['first_name'];
     $lastName = $_POST['last_name'];

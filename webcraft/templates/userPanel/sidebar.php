@@ -136,14 +136,14 @@
 
     <div id="logoutConfirmation" class="popupContainer" style="display: none;">
         <div class="popupModal">
-            <div class="popupContent">
+            <div class="popupContent" id="popupContent">
                 <div class="logout-title">
                     <p>Logout</p>
                 </div>
                 <p  class="confirmsg">Are you sure you want to log out?</p>
                 <div class="popupButtons">
-                    <button  class="button3" onclick="hideLogoutConfirmation()">No</button>
                     <button  class="button4" onclick="logout()">Yes</button>
+                    <button  class="button3" onclick="hideLogoutConfirmation()" style="width: auto; padding: 0 0.7rem">No</button>
                 </div>
             </div>
         </div>
