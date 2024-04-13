@@ -1,12 +1,10 @@
 .subContainer3{
     outline: red dashed 1px;
-    height: 100vh;
     width: 100%;
 }
 
 .dashboardContainer{
     outline: red dashed 1px;
-    height: 30rem;
     padding-top: 1rem;
 }
 
@@ -41,7 +39,6 @@
 
 .subEquipSummaryContainer{
     outline: red dashed 1px;
-    height: 10rem;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -49,15 +46,158 @@
 
 .summaryContainer{
     outline: red dashed 1px;
-    height: 90%;
     width: 90%;
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-direction: row;
+    gap: 1rem;
+    overflow-x: auto;
+}
+
+.summaryContainer1{
+    outline: red dashed 1px;
+    width: 90%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    gap: 1rem;
+    flex-wrap: wrap;
 }
 
 .subSummaryContainer{
     outline: red dashed 1px;
     height: 100%;
     width: 9rem;
+    background-color: snow;
+    border-radius: 0.5rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.imageContainer5{
+    outline: red dashed 1px;
+    height: 5rem;
+    border-radius: 0.5rem 0.5rem 0 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.image17{
+    height: 100%;
+    width: 100%;
+}
+
+.totalOfEquipContainer{
+    outline: red dashed 1px;
+    height: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.2rem;
+}
+
+.totalUnitRemove{
+    outline: red dashed 1px;
+    height: 6rem;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+.subTotalUnitRemove{
+    outline: red dashed 1px;
+    height: 3rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+.unitTableContainer{
+    outline: red dashed 1px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.totalUnitsContainer{
+    outline: red dashed 1px;
+    height: 15rem;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.subTotalUnitsContainer{
+    outline: red dashed 1px;
+    height: 100%;
+    width: 15rem;
+    border-radius: 0.5rem;
+    background-color: snow;
+}
+
+.numberContainer{
+    outline: red dashed 1px;
+    height: 10rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 5rem;
+    font-weight: bold;
+    color: rgb(2, 116, 200);
+}
+
+.linkContainer{
+    outline: red dashed 1px;
+    height: 5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.15rem;
+}
+
+a{
+    text-decoration: underline;
+    color: rgb(2, 116, 200);
+}
+
+.tableContainer{
+    height: 30rem;
+    overflow: auto;
+}
+
+
+/*laptop*/
+@media only screen and (min-width: 1025px){
+    .subContainer3{
+        display: grid;
+        grid-template-columns: 1fr 20rem;
+    }
+    
+    .textContainer1{
+        display: flex;
+        justify-content: left;
+        padding-left: 2rem;
+    }
+
+    .textContainer{
+        display: flex;
+        justify-content: left;
+        padding-left: 2rem;
+        font-size: 2.5rem;
+    }
+
+    .summaryContainer, .summaryContainer1{
+        display: flex;
+        justify-content: left;
+    }
 }
