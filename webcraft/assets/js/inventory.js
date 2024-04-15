@@ -90,6 +90,24 @@ function openPopup() {
                         oldUserTitleContainer.appendChild(oldUserTitle);
                         oldUserContainer.appendChild(oldUserTitleContainer);
                     
+                        unitDetails.oldEndUserNames.sort(function(a, b) {
+                            return b.year_transfer - a.year_transfer;
+                        });
+                    
+                        // Get the earliest and latest year_transfer values
+                        var earliestYear = unitDetails.oldEndUserNames[unitDetails.oldEndUserNames.length - 1].year_transfer;
+                        var latestYear = unitDetails.oldEndUserNames[0].year_transfer;
+                    
+                        // Display year range if there is more than one row
+                        if (earliestYear !== latestYear) {
+                            var yearRange = earliestYear + "-" + latestYear;
+                            displayOldUserDetails(yearRange, latestYear);
+                        } else {
+                            displayOldUserDetails(earliestYear);
+                        }
+                    }
+                    
+                    function displayOldUserDetails(yearRange, latestYear) {
                         for (var i = 0; i < unitDetails.oldEndUserNames.length; i++) {
                             var oldEndUser = unitDetails.oldEndUserNames[i];
                             var firstName = oldEndUser.firstName;
@@ -105,7 +123,14 @@ function openPopup() {
                             var yearDisplay = document.createElement("div");
                             yearDisplay.classList.add("unitInputContainer");
                             var yearText = document.createElement("p");
-                            yearText.textContent = ""; // Update this with the year value
+                            
+                            // Display the appropriate year range
+                            if (latestYear && oldEndUser.year_transfer !== latestYear) {
+                                yearText.textContent = yearRange;
+                            } else {
+                                yearText.textContent = oldEndUser.year_transfer;
+                            }
+                    
                             yearDisplay.appendChild(yearText);
                             yearContainer.appendChild(yearLabel);
                             yearContainer.appendChild(yearDisplay);
@@ -145,10 +170,8 @@ function openPopup() {
                             oldUserElement.appendChild(lastNameContainer);
                             oldUserContainer.appendChild(oldUserElement);
                         }
-                    } else {
-                        var oldUserContainer = document.getElementById("oldUserContainer");
-                        oldUserContainer.style.display = "none";
                     }
+                    
 
                     // unit history
 

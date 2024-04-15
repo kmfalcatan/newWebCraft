@@ -1,12 +1,8 @@
 <?php
 include_once "../dbConfig/dbconnect.php";
 
-if (isset($_GET['equipment_ID'])) {
-    $equipmentID = $_GET['equipment_ID'];
-} else {
-    echo "Equipment ID is missing.";
-    exit();
-}
+
+$equipmentID = isset($_GET['equipment_ID']) ? $_GET['equipment_ID'] : null;
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $article = $_POST['article'];
@@ -34,7 +30,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             WHERE equipment_ID = ?";
 
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param("ssssississssi", $article, $deployment, $property_number, $account_code, $total_unit, $total_value, $year_received, $remarks, $description, $instruction, $equipmentID);
+    $stmt->bind_param("sssisisssssi", $article, $deployment, $property_number, $account_code, $total_unit, $total_value, $year_received, $remarks, $description, $instruction, $equipmentID);
 
     if ($stmt->execute()) {
         header("Location: equip_other_info.php?id={$userID}");

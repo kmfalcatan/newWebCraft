@@ -15,6 +15,16 @@
     <link rel="stylesheet" href="../../assets/css/index.css">
     <link rel="stylesheet" href="../../assets/css/sidebar.css">
     <link rel="stylesheet" href="../../assets/css/notification.css">
+    <style>
+    .notif-info .notif-desc {
+        font-weight: lighter; 
+    }
+
+    /* .notif-info .notif-desc.viewed {
+        font-weight: lighter; 
+    } */
+</style>
+
 </head>
 <body>
     <div class="sidebar">
@@ -68,7 +78,26 @@
                             <h2>Menu</h2>
                             <ul class="menu">
                                 <li>My Notification</li>
-                                <li>Filter</li>
+                                <li class="filter" onclick="track()">Filter</li>
+                                <div class="subTrackContainer" style="display: none;"  id="trackForm" >
+
+                                    <div class="searchUnitContainer">
+                                        <select class="searchBar1" id="userFilter">
+                                            <option value="all" selected>All end user</option>
+                                            <?php
+                                                $userQuery = "SELECT first_name, last_name FROM users WHERE role = 'user'";
+                                                $userResult = mysqli_query($conn, $userQuery);
+
+                                                while ($userRow = mysqli_fetch_assoc($userResult)) {
+                                                    $firstName = $userRow['first_name'];
+                                                    $lastName = $userRow['last_name'];
+                                                    echo "<option value='$firstName $lastName'>$firstName $lastName</option>";
+                                                }
+                                            ?>
+                                        </select>
+                                        <div class="searchBar1"></div>
+                                    </div>
+                                </div>
                             </ul>
                         </div>
 
@@ -142,7 +171,7 @@
                                                 $reportID = $report['report_ID'];
 
                                                 // unit report
-                                                echo "<li>";
+                                                echo "<li class='unit'>";
                                                 echo "<div class='notification-title'>";
                                                 echo "<div class='notif-info'>";
                                                 echo "<div class='profile-image'>";
@@ -166,7 +195,7 @@
                                                 $replacementID = $report['replacement_ID'];
 
                                                 // replacement report
-                                                echo "<li>";
+                                                echo "<li class='replacement'>";
                                                 echo "<div class='notification-title'>";
                                                 echo "<div class='notif-info'>";
                                                 echo "<div class='profile-image'>";
@@ -192,9 +221,46 @@
         </div>
     </div>
 
-    <script src="../../assets/js/password_checker.js"></script>
-    <script src="../../assets/js/userList.js"></script>
+    <script src="../../assets/js/inventory.js"></script>
     <script src="../../assets/js/sidebar.js"></script>
+
+    <script>
+        document.querySelectorAll('.notification-actions .button4').forEach(function(button) {
+            button.addEventListener('click', function() {
+                var notification = button.closest('li');
+
+                var desc = notification.querySelector('.notif-info .notif-desc');
+
+                var isViewed = desc.classList.contains('viewed');
+
+                if (!isViewed) {
+                    desc.classList.add('viewed');
+                }
+            });
+        });
+        
+    </script>
+
+    <script>
+        document.getElementById('userFilter').addEventListener('change', function() {
+            var selectedUser = this.value;
+            var notifications = document.querySelectorAll('#notification-list li');
+
+            notifications.forEach(function(notification) {
+                var notificationUser = notification.querySelector('.notif-info h3').textContent.trim();
+
+                if (selectedUser === 'all') {
+                    notification.style.display = 'block';
+                } else {
+                    if (notificationUser.indexOf(selectedUser) === -1) {
+                        notification.style.display = 'none';
+                    } else {
+                        notification.style.display = 'block';
+                    }
+                }
+            });
+        });
+    </script>
 
 </body>
 </html>

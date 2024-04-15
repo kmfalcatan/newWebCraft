@@ -1,0 +1,359 @@
+body{
+    font-family: system-ui;
+}
+
+.subContainer1{
+    height: auto;
+    padding-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.subContainer3{
+    /* outline: red dashed 1px; */
+    width: 100%;
+}
+
+.dashboardContainer{
+    /* outline: red dashed 1px; */
+    padding-top: 1rem;
+}
+
+.textContainer{
+    /* outline: red dashed 1px; */
+    height: 5rem;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.8rem;
+    font-family: fantasy;
+    color: #3333338c;
+}
+
+.equipSummaryContainer{
+    /* outline: red dashed 1px; */
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.textContainer1{
+    /* outline: red dashed 1px; */
+    height: 3rem;
+    display: flex;
+    justify-content: center;
+    align-items: end;
+    font-size: 1.1rem;
+    color: #464545f7;
+    font-weight: bold;
+}
+
+.subEquipSummaryContainer{
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    outline: red solid 1px;
+    width: 100%;
+    
+}
+
+.summaryContainer{
+    outline: red solid 1px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    gap: 1rem;
+    overflow-x: auto;
+}
+
+.summaryContainer1{
+    /* outline: red dashed 1px; */
+    width: 90%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.subSummaryContainer{
+    height: 100%;
+    width: 9rem;
+   background-color: snow;
+    border-radius: 0.3rem;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid  #888888ab;
+    padding: 0.5rem 0;
+}
+
+.subSummaryContainer1{
+    height: 90%;
+    width: 9rem;
+   background-color: snow;
+    border-radius: 0.3rem;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid  #888888ab;
+}
+
+#subSummaryContainer2 .totalUnitRemove{
+    align-items: flex-end;
+}
+
+.imageContainer5{
+    height: 4rem;
+    width: 4rem;
+    border-radius: 0.5rem 0.5rem 0 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+}
+
+.image17{
+    height: 100%;
+    width: 100%;
+}
+
+.totalOfEquipContainer{
+    /* outline: red dashed 1px; */
+    height: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.2rem;
+}
+
+.totalOfEquipContainer .equipname{
+    width: 90%;
+    font-size: 1rem;
+}
+
+.totalUnitRemove{
+    /* outline: red dashed 1px; */
+    height: 4rem;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+.totalUnitRemove .totalRemoved{
+    color: rgb(2, 116, 200);
+    font-size: 2.5rem;
+}
+
+.subTotalUnitRemove{
+    /* outline: red dashed 1px; */
+    height: 2.7rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.1rem;
+}
+
+.unitTableContainer{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 80%;
+    margin: auto;
+}
+
+#unitTableContainer{
+    width: 100%;
+}
+
+.totalUnitsContainer{
+    height: 15rem;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 1rem;
+}
+
+.subTotalUnitsContainer{
+    height: 100%;
+    width: 18rem;
+    border-radius: 0.3rem;
+   background-color: snow;
+    border: 1px solid #888;
+}
+
+.numberContainer{
+    /* outline: red dashed 1px; */
+    height: 10rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 5rem;
+    font-weight: bold;
+    color: rgb(2, 116, 200);
+}
+
+.linkContainer{
+    /* outline: red dashed 1px; */
+    height: 5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.linkContainer button{
+    color: rgb(4, 111, 188);
+    text-underline-offset: 3px;
+    border: none;
+    background-color: transparent;
+    font-size: 1rem;
+    margin-right: 0.5rem;
+    cursor: pointer;
+}
+
+.linkContainer button:hover{
+    color: blue;
+}
+
+.tableContainer{
+    height: 30rem;
+    overflow: auto;
+   background-color: snow;
+}
+
+
+#unitTableContainer1 .tableContainer{
+    margin-top: 1rem;
+}
+
+tr{
+    height: 1rem;
+}
+
+th{
+    font-weight: 500;
+    font-size: 0.9rem;
+    height: 1.5rem;
+    border: none;
+    border-bottom: 1px solid gray;
+}
+
+.byYear th{
+    font-size: 0.8rem;
+    border: none;
+    border-bottom: 1px solid gray;
+}
+
+td{
+    height: 2rem;
+    border: none;
+    border-bottom: 1px solid #ccc;
+}
+
+.endUser{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.profileImg{
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.profileImg img{
+    width: 100%;
+    height: 100%;
+    border-radius: 5rem;
+}
+
+.equip-unit{
+    display: flex;
+    flex-direction: column;
+    height: auto;
+}
+
+    
+/*laptop*/
+@media only screen and (min-width: 1025px){
+    .subContainer3{
+        display: grid;
+        grid-template-columns: 1fr 20rem;
+    }
+    
+    .textContainer1{
+        display: flex;
+        justify-content: left;
+    }
+
+    #textContainer1{
+        margin-top: 3rem;
+    }
+
+    .textContainer{
+        display: flex;
+        justify-content: left;
+        font-size: 2.1rem;
+        height: 3rem;
+    }
+
+    .summaryContainer, .summaryContainer1{
+        display: flex;
+        justify-content: left;
+    }
+
+    .summaryContainer{
+        overflow-y: auto;
+        width: 40rem;
+        margin-right: auto;
+    }
+
+    #subSummaryContainer1 .totalUnitRemove{
+        height: 5rem;
+    }
+
+    .totalUnitRemove .totalRemoved{
+        margin-bottom: 1rem;
+        color: rgb(2, 116, 200);
+    }
+
+    .subTotalUnitsContainer{
+        margin-left: auto;
+        width: 20rem;
+    }
+
+    .subEquipSummaryContainer{
+        width: 90%;
+    }
+
+    .unitTableContainer,
+    #unitTableContainer{
+        width: 90%;
+        margin-left: 0rem;
+    }
+
+    #unitTableContainer1{
+        width: 100%;
+    }
+
+    #unitTableContainer1 .tableContainer{
+        height: 37.5rem;
+        margin-top: 1rem;
+    }
+
+    .profileImg{
+        width: 2.5rem;
+        height: 2.5rem;
+    }
+}

@@ -1,4 +1,10 @@
+<?php
+ include "../../dbConfig/dbconnect.php";
+ include "../../functions/equip_info.php";
 
+ 
+$equipmentID = isset($_GET['equipment_ID']) ? $_GET['equipment_ID'] : null;
+?>
 <div class="equipContainer">
     <div class="filterContainer1" style="width: 100%; margin-top: 0rem;">
         <div class="inventoryNameContainer">

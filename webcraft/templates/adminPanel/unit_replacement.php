@@ -133,7 +133,7 @@
                         <h3>END USER</h3>
                         <br>
                         <P>First name: <span><?php echo $firstName; ?></span></P>
-                        <P>LaST name: <span><?php echo $lastName; ?></span></P>
+                        <P>Last name: <span><?php echo $lastName; ?></span></P>
                         <P>Designation: <span><?php echo $designation; ?></span></P>
                         <P>E-mail: <span><?php echo $email; ?></span></P>
                         <br>

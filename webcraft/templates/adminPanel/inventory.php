@@ -14,6 +14,7 @@ if (isset($_POST['unitID'])) {
 
     if ($result->num_rows > 0) {
         $row = $result->fetch_assoc();
+        $user_ID = $row['user_ID']; 
         $unitDetails = array(
             'unitID' => $unitIDInput,
             'user_ID' => $row['user_ID'],
@@ -33,7 +34,7 @@ if (isset($_POST['unitID'])) {
         }
 
         $user_ID = $row['user_ID'];
-        $userSql = "SELECT first_name, last_name, username, designation, department, email FROM users WHERE user_ID = ?";
+        $userSql = "SELECT first_name, middle_initial, last_name, username, designation, department, email FROM users WHERE user_ID = ?";
         $userStmt = $conn->prepare($userSql);
         $userStmt->bind_param("i", $user_ID);
         $userStmt->execute();
@@ -42,6 +43,7 @@ if (isset($_POST['unitID'])) {
         if ($userResult->num_rows > 0) {
             $userRow = $userResult->fetch_assoc();
             $unitDetails['firstName'] = $userRow['first_name'];
+            $unitDetails['middleInitial'] = $userRow['middle_initial'];
             $unitDetails['lastName'] = $userRow['last_name'];
             $unitDetails['userName'] = $userRow['username'];
             $unitDetails['designation'] = $userRow['designation'];
@@ -50,7 +52,7 @@ if (isset($_POST['unitID'])) {
         }
 
         $equipmentName = $row['equipment_name'];
-        $equipmentSql = "SELECT description, deployment, account_code, property_number, unit_value, year_received, remarks, warranty_end, image FROM equipment WHERE article = ?";
+        $equipmentSql = "SELECT description, account_code, property_number, unit_value, year_received, remarks, warranty_end, image FROM equipment WHERE article = ?";
         $equipmentStmt = $conn->prepare($equipmentSql);
         $equipmentStmt->bind_param("s", $equipmentName);
         $equipmentStmt->execute();
@@ -59,7 +61,6 @@ if (isset($_POST['unitID'])) {
         if ($equipmentResult->num_rows > 0) {
             $equipmentRow = $equipmentResult->fetch_assoc();
             $unitDetails['description'] = $equipmentRow['description'];
-            $unitDetails['deployment'] = $equipmentRow['deployment'];
             $unitDetails['accountCode'] = $equipmentRow['account_code'];
             $unitDetails['propertyNumber'] = $equipmentRow['property_number'];
             $unitDetails['unitValue'] = $equipmentRow['unit_value'];
@@ -68,24 +69,43 @@ if (isset($_POST['unitID'])) {
             $unitDetails['warrantyEnd'] = $equipmentRow['warranty_end'];
             $unitDetails['image'] = "../../uploads/" . $equipmentRow['image'];
         }
-
-        $unitTransferSql = "SELECT old_end_user_first_name, old_end_user_last_name FROM unit_transfer WHERE unit_ID = ?";
+    
+        $unitTransferSql = "SELECT old_end_user_first_name, old_end_user_last_name, old_end_userID, year_transfer, timestamp FROM unit_transfer WHERE unit_ID = ?";
         $unitTransferStmt = $conn->prepare($unitTransferSql);
         $unitTransferStmt->bind_param("s", $unitIDInput);
         $unitTransferStmt->execute();
         $unitTransferResult = $unitTransferStmt->get_result();
-        
+
         if ($unitTransferResult->num_rows > 0) {
             $unitDetails['oldEndUserNames'] = array();
-        
-            while ($unitTransferRow = $unitTransferResult->fetch_assoc()) {
-                $oldEndUser = array(
-                    'firstName' => $unitTransferRow['old_end_user_first_name'],
-                    'lastName' => $unitTransferRow['old_end_user_last_name']
-                );
-                $unitDetails['oldEndUserNames'][] = $oldEndUser;
+
+        while ($unitTransferRow = $unitTransferResult->fetch_assoc()) {
+            $oldEndUser = array(
+                'firstName' => $unitTransferRow['old_end_user_first_name'],
+                'lastName' => $unitTransferRow['old_end_user_last_name'],
+                'year_transfer' => $unitTransferRow['year_transfer'],
+                'timestamp' => $unitTransferRow['timestamp']
+            );
+
+        $oldEndUserID = $unitTransferRow['old_end_userID'];
+        $userSql = "SELECT middle_initial, username, email, designation, department FROM users WHERE user_ID = ?";
+        $userStmt = $conn->prepare($userSql);
+        $userStmt->bind_param("s", $oldEndUserID);
+        $userStmt->execute();
+        $userResult = $userStmt->get_result();
+
+            if ($userResult->num_rows > 0) {
+                $userRow = $userResult->fetch_assoc();
+                $oldEndUser['middleInitial'] = $userRow['middle_initial'];
+                $oldEndUser['username'] = $userRow['username'];
+                $oldEndUser['email'] = $userRow['email'];
+                $oldEndUser['designation'] = $userRow['designation'];
+                $oldEndUser['department'] = $userRow['department'];
             }
+
+            $unitDetails['oldEndUserNames'][] = $oldEndUser;
         }
+    }
 
         $issueSql = "SELECT report_issue, timestamp FROM approved_report WHERE unit_ID = ?";
         $issueStmt = $conn->prepare($issueSql);
@@ -125,6 +145,7 @@ if (isset($_POST['unitID'])) {
     <link rel="stylesheet" href="../../assets/css/index.css">
     <link rel="stylesheet" href="../../assets/css/inventory.css">
     <link rel="stylesheet" href="../../assets/css/sidebar.css">
+    <link rel="stylesheet" href="../../assets/css/tracker.css">
 </head>
 <body>
     <div class="sidebar">
@@ -266,7 +287,7 @@ if (isset($_POST['unitID'])) {
         </div>
     </div>
 
-    <script src="../../assets/js/inventory.js"></script>
+    <script src="../../assets/js/a.js"></script>
     <script src="../../assets/js/sidebar.js"></script>
 </body>
 </html>
