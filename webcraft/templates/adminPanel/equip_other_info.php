@@ -251,16 +251,28 @@
     <script src="../../assets/js/toggle.js"></script>
     <script src="../../assets/js/uploadImg.js"></script>
 
-
     <script>
         let originalContent;
+        const equipmentID = "<?php echo $equipmentID; ?>"; // Get the equipment ID from PHP
 
         function loadEditContent() {
             originalContent = document.querySelector('.subContainer1').innerHTML;
 
-            document.querySelector('.subContainer1').innerHTML = `
-                <?php include("edit_equipment.php"); ?>
-                </div>`;
+            // Create an XMLHttpRequest to load the edit template dynamically
+            const xhr = new XMLHttpRequest();
+            xhr.open('GET', 'edit_equipment.php?equipment_ID=' + equipmentID, true);
+            xhr.onload = function() {
+                if (xhr.status >= 200 && xhr.status < 300) {
+                    // Replace the current content with the loaded edit template
+                    document.querySelector('.subContainer1').innerHTML = xhr.responseText;
+                } else {
+                    console.error('Failed to load the edit template:', xhr.statusText);
+                }
+            };
+            xhr.onerror = function() {
+                console.error('Request failed');
+            };
+            xhr.send();
         }
 
         function closeEditContent() {
@@ -269,6 +281,7 @@
 
         document.getElementById('btn2').addEventListener('click', loadEditContent);
     </script>
+
 
     <script> 
         function openModal() {

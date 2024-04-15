@@ -13,26 +13,38 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $new_end_user_first_name = $_POST["new_end_user_first_name"];
     $new_end_user_last_name = $_POST["new_end_user_last_name"];
 
+    $unitID_numeric = intval(substr($unitID, strpos($unitID, '-') + 1));
+    
+    // Get the current value of year_received from units table
+    $stmt = $conn->prepare("SELECT year_received FROM units WHERE unit_ID = ?");
+    $stmt->bind_param("i", $unitID_numeric);
+    $stmt->execute();
+    $stmt->bind_result($year_received);
+    $stmt->fetch();
+    $stmt->close();
+
     // Insert into unit_transfer table
-    $sql = "INSERT INTO unit_transfer (unit_ID, equipment_ID, old_end_userID, new_end_userID, old_end_user_first_name, old_end_user_last_name, new_end_user_first_name, new_end_user_last_name) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+    $sql = "INSERT INTO unit_transfer (unit_ID, equipment_ID, old_end_userID, new_end_userID, old_end_user_first_name, old_end_user_last_name, new_end_user_first_name, new_end_user_last_name, year_transfer) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param("siisssss", $unitID, $equipmentID, $old_end_userID, $new_end_userID, $old_end_user_first_name, $old_end_user_last_name, $new_end_user_first_name, $new_end_user_last_name);
+    $stmt->bind_param("siisssssi", $unitID, $equipmentID, $old_end_userID, $new_end_userID, $old_end_user_first_name, $old_end_user_last_name, $new_end_user_first_name, $new_end_user_last_name, $year_received);
     
     if ($stmt->execute()) {
         echo "Unit transfer saved successfully.";
 
-        $unitID_numeric = intval(substr($unitID, strpos($unitID, '-') + 1));
+
+        // Get the current year
+        $current_year = date("Y");
 
         // Update units table
         $user = $new_end_user_first_name . ' ' . $new_end_user_last_name;
-        $sql = "UPDATE units SET user = ?, user_ID = ? WHERE unit_ID = ?";
+        $sql = "UPDATE units SET user = ?, user_ID = ?, year_received = ? WHERE unit_ID = ?";
         $stmt = $conn->prepare($sql);
-        $stmt->bind_param("ssi", $user, $new_end_userID, $unitID_numeric);
+        $stmt->bind_param("sisi", $user, $new_end_userID, $current_year, $unitID_numeric);
         
         if ($stmt->execute()) {
             $stmt->close();
 
-            // upate user_unit
+            // Update user_unit
             $sql_count_matches = "SELECT u.equipment_ID, u.user_ID, COUNT(*) as match_count 
                                   FROM units u
                                   INNER JOIN user_unit uu ON u.equipment_ID = uu.equipment_ID AND u.user_ID = uu.user_ID

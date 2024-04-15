@@ -1,189 +1,329 @@
-<style>
-body {
-  background-color: #f4f4f4;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  color: #333;
-  line-height: 1.6;
-}
-
-.container {
-  max-width: 800px;
-  margin: 20px auto;
-  padding: 20px;
-  background-color: #fff;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  border-radius: 8px;
-}
-
-h1 {
-  text-align: center;
-  margin-bottom: 40px;
-  color: #007bff; /* Blue shade for headings */
-  font-weight: 300;
-}
-
-.unit-info {
-  display: flex;
-  align-items: center;
-  margin-bottom: 40px;
-}
-
-.unit-info img {
-  width: 200px;
-  margin-right: 20px;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0,0,0,.1);
-}
-
-.details ul {
-  list-style-type: none;
-  padding: 0;
-  margin: 0;
-}
-
-.details li {
-  margin-bottom: 10px;
-  padding-left: 16px;
-  position: relative;
-}
-
-.details li strong {
-  color: #007bff; /* Matching blue for key details */
-}
-
-.details li::before {
-  content: '';
-  background-color: #007bff;
-  position: absolute;
-  left: 0;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-}
-
-.section {
-  margin-top: 50px;
-  border-top: 2px solid #eee;
-  padding-top: 20px;
-}
-
-.section h2 {
-  margin-bottom: 20px;
-  font-size: 1.2rem;
-  color: #333;
-  font-weight: 400;
-}
-
-.user-details ul, .history ol {
-  list-style-type: none;
-  padding: 0;
-  margin: 0;
-}
-
-.user-details li, .history li {
-  margin-bottom: 10px;
-  padding-left: 16px;
-  position: relative;
-}
-
-.user-details li strong, .history li strong {
-  color: #0056b3; /* Slightly darker blue for emphasis */
-}
-
-.user-details li::before, .history li::before {
-  content: '';
-  background-color: #007bff;
-  position: absolute;
-  left: 0;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-}
-
-.history ol {
-  counter-reset: list;
-}
-
-.history li {
-  list-style-type: none;
-  margin-bottom: 10px;
-  counter-increment: list;
-}
-
-.history li::before {
-  content: counter(list) ". ";
-  color: #007bff;
-  font-weight: bold;
-  margin-right: 5px;
-}
-
-</style>
-
-
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Unit Tracker</title>
-  <link rel="stylesheet" type="text/css" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <link rel="stylesheet" href="../../assets/css/index.css">
+    <link rel="stylesheet" href="../../assets/css/inventory.css">
+    <link rel="stylesheet" href="../../assets/css/dashboard.css">
 </head>
 <body>
-  <div class="container">
-    <h1>Unit Tracker</h1>
+    <div class="container3">
+        <div class="sideBarContainer6" style="z-index: 3;;">
+            <div class="userContainer">
+                <div class="subUserContainer">
+                    <div class="userPictureContainer">
+                        <div class="subUserPictureContainer">
+                            <img class="profilePicture" src="" alt="">
+                        </div>
+                    </div>
 
-    <div class="unit-info">
-      <img src="[Image URL]" alt="Unit Image">
-      <div class="details">
-        <ul>
-          <li><strong>Unit ID:</strong> [Unit ID]</li>
-          <li><strong>Name:</strong> [Unit Name]</li>
-          <li><strong>Property Number:</strong> [Property Number]</li>
-          <li><strong>Account Code:</strong> [Account Code]</li>
-          <li><strong>Year Released:</strong> [Year Released]</li>
-          <li><strong>Warranty Unit Value:</strong> [Warranty Unit Value]</li>
-          <li><strong>Remarks:</strong> [Remarks]</li>
-        </ul>
-      </div>
+                    <div class="userPictureContainer1">
+                        <p>@UserName</p>
+                    </div>
+                </div>
+
+                <div class="navContainer">
+                    <div class="subNavContainer">
+                        <a href="">
+                            <div class="buttonContainer1">
+                                <div class="iconContainer9">
+                                    <img class="icon" src="../../assets/img/barGraph.png" alt="">
+                                </div>
+
+                                <div class="nameOfIconContainer">
+                                    <p>Dashboard</p>
+                                </div>
+                            </div>
+                        </a>
+
+                        <a href="">
+                            <div class="buttonContainer1">
+                                <div class="iconContainer9">
+                                    <img class="icon" src="../../assets/img/barGraph.png" alt="">
+                                </div>
+
+                                <div class="nameOfIconContainer">
+                                    <p>Inventory</p>
+                                </div>
+                            </div>
+                        </a>
+
+                        <a href="">
+                            <div class="buttonContainer1">
+                                <div class="iconContainer9">
+                                    <img class="icon" src="../../assets/img/barGraph.png" alt="">
+                                </div>
+
+                                <div class="nameOfIconContainer">
+                                    <p>Report</p>
+                                </div>
+                            </div>
+                        </a>
+
+                        <a href="">
+                            <div class="buttonContainer1">
+                                <div class="iconContainer9">
+                                    <img class="icon" src="../../assets/img/barGraph.png" alt="">
+                                </div>
+
+                                <div class="nameOfIconContainer">
+                                    <p>User list</p>
+                                </div>
+                            </div>
+                        </a>
+
+                        <a href="">
+                            <div class="buttonContainer1">
+                                <div class="iconContainer9">
+                                    <img class="icon" src="../../assets/img/barGraph.png" alt="">
+                                </div>
+
+                                <div class="nameOfIconContainer">
+                                    <p>Help</p>
+                                </div>
+                            </div>
+                        </a>
+
+                        <a href="">
+                            <div class="buttonContainer1">
+                                <div class="iconContainer9">
+                                    <img class="icon" src="../../assets/img/barGraph.png" alt="">
+                                </div>
+
+                                <div class="nameOfIconContainer">
+                                    <p>About</p>
+                                </div>
+                            </div>
+                        </a>
+
+                            <div onclick="setting1()" class="buttonContainer1" style="height: 3rem; cursor: pointer;">
+                                <div class="iconContainer9">
+                                    <img class="icon" src="../../assets/img/barGraph.png" alt="">
+                                </div>
+
+                                <div class="nameOfIconContainer">
+                                    <p>setting</p>
+                                </div>
+                            </div>
+
+                        <div class="settingContainer" style="display: none;">
+                            <a href="">
+                                <div class="buttonContainer1">
+                                    <div class="nameOfIconContainer">
+                                        <p>My profile</p>
+                                    </div>
+                                </div>
+                            </a>
+
+                            <a href="">
+                                <div class="buttonContainer1">
+                                    <div class="nameOfIconContainer">
+                                        <p>Change Password</p>
+                                    </div>
+                                </div>
+                            </a>
+
+                            <a href="">
+                                <div class="buttonContainer1">
+                                    <div class="nameOfIconContainer">
+                                        <p>Bin</p>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="subUserContainer">
+                    <div class="userPictureContainer">
+                        <div class="subUserPictureContainer">
+                            <img class="profilePicture" src="" alt="">
+                        </div>
+                    </div>
+
+                    <div class="userPictureContainer1">
+                        <p>Logout</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="arrowContainer">
+                <div class="subArrowContainer">
+                    <img class="hideIcon" src="../../assets/img/chevron-left (1).png" alt="">
+                </div>
+            </div>
+        </div>
+
+        <div class="sideBarContainer3">
+            <div class="headerContainer1">
+                <div class="iconContainer10">
+                    <div class="subIconContainer10">
+                        <img class="subIconContainer10" src="" alt="">
+                    </div>
+                </div>
+
+                <div class="subHeaderContainer1">
+                    <div class="logoNameContainer1">
+                        <img class="systemName" src="../../assets/img/system-name.png" alt="">
+                    </div>
+                    <div class="subImageContainer3">
+                        <img class="image11" src="../../assets/img/medLogo.png" alt="">
+                    </div>
+                </div>
+            </div>
+
+            <div class="subContainer3">
+                <div class="dashboardContainer">
+                    <div class="textContainer">
+                        <p>SY. 2023-2024 SECOND SEMESTER</p>
+                    </div>
+
+                    <div class="equipSummaryContainer">
+                        <div class="textContainer1">
+                            <p>Equipment Summary</p>
+                        </div>
+
+                        <div class="subEquipSummaryContainer">
+                            <div class="summaryContainer">
+                                <div class="subSummaryContainer">
+                                    <div class="imageContainer5">
+                                        <img class="image17" src="../../assets/img/medLogo.png" alt="">
+                                    </div>
+
+                                    <div class="totalOfEquipContainer">
+                                        <p>Alcohol Dispenser</p>
+                                    </div>
+
+                                    <div class="totalOfEquipContainer">
+                                        <p style="font-weight: bold;">LOGO</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="textContainer1">
+                            <p>Total units removed</p>
+                        </div>
+
+                        <div class="subEquipSummaryContainer">
+                            <div class="summaryContainer1">
+                                <div class="subSummaryContainer">
+                                    <div class="totalUnitRemove">
+                                        <p style="color: rgb(2, 116, 200);">100</p>
+                                    </div>
+
+                                    <div class="subTotalUnitRemove">
+                                        <p>Total lost & return</p>
+                                    </div>
+                                </div>
+
+                                <div class="subSummaryContainer">
+                                    <div class="totalUnitRemove">
+                                        <p>100</p>
+                                    </div>
+
+                                    <div class="subTotalUnitRemove">
+                                        <p>Lost</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="subSummaryContainer">
+                                    <div class="totalUnitRemove">
+                                        <p>100</p>
+                                    </div>
+
+                                    <div class="subTotalUnitRemove">
+                                        <p>Return</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="textContainer1">
+                            <p>End user units</p>
+                        </div>
+
+                        <div class="unitTableContainer">
+                            <div class="tableContainer">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>USER PROFILE</th>
+                                            <th>END USER</th>
+                                            <th>DESIGNATION</th>
+                                            <th>TOTAL EQUIPMENT</th>
+                                            <th>TOTAL UNITS</th>
+                                            <th>VIEW</th>
+                                        </tr>
+                                    </thead>
+                
+                                    <tbody id="tblBody">
+                                        <tr>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td> <button class="viewButton6">View</button></td>  
+                                        </tr>
+                                    </tbody>
+                                </table>
+                           </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dashboardContainer">
+                    <div style="margin-top: 5rem;" class="textContainer1">
+                        <p>End user units</p>
+                    </div>
+
+                    <div class="totalUnitsContainer">
+                        <div class="subTotalUnitsContainer">
+                            <div class="numberContainer">
+                                <p>100</p>
+                            </div>
+
+                            <div class="linkContainer">
+                                <p><a href="">Click here</a> to view total units</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="textContainer1">
+                        <p>Equipment by year</p>
+                    </div>
+
+                    <div class="unitTableContainer">
+                        <div class="tableContainer">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>YEAR</th>
+                                        <th>TOTAL EQUIPMENT</th>
+                                        <th>TOTAL UNITS</th>
+                                    </tr>
+                                </thead>
+            
+                                <tbody id="tblBody">
+                                    <tr>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                       </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
-    <div class="section">
-      <h2>Current End User</h2>
-      <div class="user-details">
-        <ul>
-          <li><strong>First Name:</strong> [First Name]</li>
-          <li><strong>Last Name:</strong> [Last Name]</li>
-          <li><strong>Email:</strong> [Email]</li>
-          <li><strong>Designation:</strong> [Designation]</li>
-          <li><strong>Year Started:</strong> [Year Started]</li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="section">
-      <h2>Old User</h2>
-      <div class="user-details">
-        <ul>
-          <li><strong>First Name:</strong> [Old User First Name]</li>
-          <li><strong>Last Name:</strong> [Old User Last Name]</li>
-          <li><strong>Email:</strong> [Old User Email]</li>
-          <li><strong>Designation:</strong> [Old User Designation]</li>
-          <li><strong>Year Started:</strong> [Old User Year Started]</li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="section">
-      <h2>Unit History</h2>
-      <div class="history">
-        <ol>
-          <li>[Date]: Unit transferred from [Old User Name] to [Current User Name].</li>
-          <li>[Date]: Unit removed from list. Reason: [Reason for Removal]. Retrieved by [Name].</li>
-        </ol>
-      </div>
-    </div>
-  </div>
+    <script src="../../assets/js/inventory.js"></script>
+    <script src="../../assets/js/sidebar.js"></script>
 </body>
 </html>

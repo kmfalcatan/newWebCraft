@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 07, 2024 at 02:26 PM
+-- Generation Time: Apr 14, 2024 at 07:55 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -21,19 +21,8 @@ SET time_zone = "+00:00";
 -- Database: `medequip_tracker`
 --
 
--- admin acc
--- 
--- username :    admin@wmsu
--- password  :   adminPass
 -- --------------------------------------------------------
--- 
--- user acc
--- 
--- username  :   pawpatrol
--- password  :   user1@wmsu
--- 
--- username  :   rogie@gab
--- password  :   user2@wmsu
+
 --
 -- Table structure for table `approved_report`
 --
@@ -55,7 +44,13 @@ CREATE TABLE `approved_report` (
 --
 
 INSERT INTO `approved_report` (`approved_ID`, `user_ID`, `unit_ID`, `equipment_ID`, `report_issue`, `problem_desc`, `unit_img`, `timestamp`, `status`) VALUES
-(1, 6, 'UNIT-0009', 2, 'For return', 'Damaged', 'print.png', '2024-04-07 12:22:29', 'Your report has been approved');
+(1, 6, 'UNIT-0009', 2, 'For return', 'Damaged', 'print.png', '2024-04-07 12:22:29', 'Your report has been approved'),
+(2, 0, 'UNIT-0001', 0, 'Lost', 'dfgfd', '', '2024-04-08 17:53:08', 'Your report has been approved'),
+(3, 0, 'UNIT-0001', 0, 'Lost', 'dfgfd', '', '2024-04-08 18:01:46', 'Your report has been approved'),
+(4, 6, 'UNIT-0009', 2, 'For return', 'Damaged', 'print.png', '2024-04-08 18:06:54', 'Your report has been approved'),
+(10, 5, 'UNIT-0002', 25, 'Lost', 'dfds', '', '2024-04-10 16:47:58', 'Your report has been approved'),
+(11, 1, 'UNIT-0003', 25, 'Lost', 'dfds', '', '2024-04-10 17:46:24', 'Your report has been approved'),
+(12, 1, 'UNIT-0003', 25, 'For return', 'sdfsdf', '', '2024-04-10 18:04:16', 'Your report has been approved');
 
 -- --------------------------------------------------------
 
@@ -87,8 +82,11 @@ CREATE TABLE `equipment` (
 --
 
 INSERT INTO `equipment` (`equipment_ID`, `image`, `article`, `description`, `deployment`, `property_number`, `account_code`, `total_unit`, `unit_value`, `total_value`, `remarks`, `year_received`, `warranty_image`, `warranty_start`, `warranty_end`, `instruction`) VALUES
-(1, 'MBFP-1003.jpg', 'Alcohol Dispenser', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.', 'College of Medicine', 'ICS-22-STF-0296/20-4', '1-04-06-010', 4, '500', '2,000.00', '', 2022, 'in.png', '2024-04-07', '2024-05-09', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit'),
-(2, '', 'Cabinet', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor', 'College of Medicine', 'ICS-24-STF-0296/20-4', '1-04-06-010', 4, '1000', '5,000.00', '', 2024, 'in.png', '2024-04-06', '2024-04-24', '');
+(25, 'MBFP-1003.jpg', 'Alcohol Dispenser', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor', 'College of Medicine', 'ICS-24-STF-0296/20-4', '1-04-06-010', 3, '500', '2,000.00', '', 2024, 'in.png', '2024-04-08', '2025-04-08', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit'),
+(26, '905613308e1a3ec2a28271f2693d03b5.jpg', 'Cabinet', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor', 'College of Medicine', 'ICS-22-STF-0296/20-4', '1-04-06-010', 1, '100', '100.00', '', 2022, 'in.png', '2024-04-08', '2025-04-08', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit'),
+(27, 'in.png', 'Chair', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor', 'College of Medicine', 'ICS-22-STF-0296/20-4', '1-04-06-010', 1, '100', '100.00', '', 2022, 'in.png', '2022-06-09', '2023-06-09', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit'),
+(28, '', 'Table', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor', 'College of Medicine', 'ICS-22-STF-0296/20-4', '1-04-06-010', 1, '100', '100.00', '', 2022, '', '0000-00-00', '0000-00-00', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit'),
+(29, '', 'pen', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor', 'College of Medicine', 'ICS-22-STF-0296/20-4', '1-04-06-010', 1, '100', '100.00', '', 2022, '', '0000-00-00', '0000-00-00', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit');
 
 -- --------------------------------------------------------
 
@@ -101,22 +99,22 @@ CREATE TABLE `units` (
   `equipment_ID` int(11) NOT NULL,
   `equipment_name` varchar(255) NOT NULL,
   `user_ID` int(11) DEFAULT NULL,
-  `user` varchar(255) NOT NULL
+  `user` varchar(255) NOT NULL,
+  `year_received` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `units`
 --
 
-INSERT INTO `units` (`unit_ID`, `equipment_ID`, `equipment_name`, `user_ID`, `user`) VALUES
-(1, 1, 'Alcohol Dispenser', NULL, 'Padwa Tingkasan'),
-(2, 1, 'Alcohol Dispenser', NULL, 'Padwa Tingkasan'),
-(3, 1, 'Alcohol Dispenser', NULL, 'Rogie Gabotero'),
-(4, 1, 'Alcohol Dispenser', NULL, 'Rogie Gabotero'),
-(5, 2, 'Cabinet', NULL, 'Padwa Tingkasan'),
-(6, 2, 'Cabinet', NULL, 'Padwa Tingkasan'),
-(7, 2, 'Cabinet', NULL, 'Padwa Tingkasan'),
-(8, 2, 'Cabinet', NULL, 'Rogie Gabotero');
+INSERT INTO `units` (`unit_ID`, `equipment_ID`, `equipment_name`, `user_ID`, `user`, `year_received`) VALUES
+(2, 25, 'Alcohol Dispenser', 5, 'Padwa Tingkasan', NULL),
+(3, 25, 'Alcohol Dispenser', 6, 'Rogie Gabotero', 2024),
+(4, 25, 'Alcohol Dispenser', 6, 'Rogie Gabotero', NULL),
+(5, 26, 'Cabinet', 6, 'Rogie Gabotero', NULL),
+(6, 27, 'Chair', 5, 'Padwa Tingkasan', 2024),
+(7, 28, 'Table', 5, 'Padwa Tingkasan', NULL),
+(8, 29, 'pen', 6, 'Rogie Gabotero', 2022);
 
 -- --------------------------------------------------------
 
@@ -172,7 +170,41 @@ CREATE TABLE `unit_report` (
 INSERT INTO `unit_report` (`report_ID`, `equipment_ID`, `user_ID`, `unit_ID`, `report_issue`, `problem_desc`, `timestamp`, `status`, `unit_img`) VALUES
 (1, 1, 5, 'UNIT-0001', 'Lost', 'Lost unit', '2024-04-07 12:14:23', 'You have sent a report', NULL),
 (2, 2, 6, 'UNIT-0009', 'For return', 'Damaged', '2024-04-07 12:20:38', 'You have sent a report', 'print.png'),
-(3, 1, 6, 'UNIT-0003', 'Lost', 'nawala', '2024-04-07 12:22:15', 'You have sent a report', NULL);
+(3, 1, 6, 'UNIT-0003', 'Lost', 'nawala', '2024-04-07 12:22:15', 'You have sent a report', NULL),
+(4, 25, 5, 'UNIT-0001', 'Lost', 'dfgfd', '2024-04-08 17:52:31', 'You have sent a report', NULL),
+(5, 25, 5, 'UNIT-0002', 'Lost', 'dfds', '2024-04-08 18:17:22', 'You have sent a report', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `unit_transfer`
+--
+
+CREATE TABLE `unit_transfer` (
+  `transfer_ID` int(11) NOT NULL,
+  `unit_ID` varchar(255) DEFAULT NULL,
+  `equipment_ID` int(11) DEFAULT NULL,
+  `old_end_userID` int(11) DEFAULT NULL,
+  `new_end_userID` int(11) DEFAULT NULL,
+  `old_end_user_first_name` varchar(255) DEFAULT NULL,
+  `old_end_user_last_name` varchar(255) DEFAULT NULL,
+  `new_end_user_first_name` varchar(255) DEFAULT NULL,
+  `new_end_user_last_name` varchar(255) DEFAULT NULL,
+  `timestamp` timestamp NOT NULL DEFAULT current_timestamp(),
+  `year_transfer` int(11) DEFAULT NULL,
+  `status` varchar(255) DEFAULT 'You have received a new unit transfer'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `unit_transfer`
+--
+
+INSERT INTO `unit_transfer` (`transfer_ID`, `unit_ID`, `equipment_ID`, `old_end_userID`, `new_end_userID`, `old_end_user_first_name`, `old_end_user_last_name`, `new_end_user_first_name`, `new_end_user_last_name`, `timestamp`, `year_transfer`, `status`) VALUES
+(1, 'UNIT-0001', 25, 5, 6, 'Padwa', 'Tingkasan', 'Rogie', 'Gabotero', '2024-04-08 13:47:10', NULL, 'You have received a new unit transfer'),
+(16, 'UNIT-0006', 27, 6, 5, 'Rogie', 'Gabotero', 'Padwa', 'Tingkasan', '2024-04-13 09:17:53', NULL, 'You have received a new unit transfer'),
+(17, 'UNIT-0008', 29, 5, 6, 'Padwa', 'Tingkasan', 'Rogie', 'Gabotero', '2024-04-13 09:26:03', NULL, 'You have received a new unit transfer'),
+(20, 'UNIT-0003', 25, 6, 5, 'Rogie', 'Gabotero', 'Padwa', 'Tingkasan', '2024-04-13 09:55:53', 2022, 'You have received a new unit transfer'),
+(21, 'UNIT-0003', 25, 5, 6, 'Padwa', 'Tingkasan', 'Rogie', 'Gabotero', '2024-04-13 09:57:18', 2023, 'You have received a new unit transfer');
 
 -- --------------------------------------------------------
 
@@ -213,6 +245,9 @@ INSERT INTO `users` (`user_ID`, `username`, `first_name`, `last_name`, `middle_i
 --
 
 CREATE TABLE `user_unit` (
+  `user_unit_ID` int(11) NOT NULL,
+  `equipment_ID` int(11) DEFAULT NULL,
+  `user_ID` int(11) DEFAULT NULL,
   `user` varchar(255) NOT NULL,
   `article` varchar(255) NOT NULL,
   `units_handled` int(11) NOT NULL
@@ -222,11 +257,13 @@ CREATE TABLE `user_unit` (
 -- Dumping data for table `user_unit`
 --
 
-INSERT INTO `user_unit` (`user`, `article`, `units_handled`) VALUES
-('Padwa Tingkasan', 'Alcohol Dispenser', 2),
-('Rogie Gabotero', 'Alcohol Dispenser', 2),
-('Padwa Tingkasan', 'Cabinet', 3),
-('Rogie Gabotero', 'Cabinet', 2);
+INSERT INTO `user_unit` (`user_unit_ID`, `equipment_ID`, `user_ID`, `user`, `article`, `units_handled`) VALUES
+(1, 25, 5, 'Padwa Tingkasan', 'Alcohol Dispenser', 1),
+(2, 25, 6, 'Rogie Gabotero', 'Alcohol Dispenser', 2),
+(3, 26, 6, 'Rogie Gabotero', 'Cabinet', 1),
+(4, 27, 6, 'Rogie Gabotero', 'Chair', 1),
+(5, 28, 5, 'Padwa Tingkasan', 'Table', 1),
+(6, 29, 5, 'Padwa Tingkasan', 'pen', 1);
 
 --
 -- Indexes for dumped tables
@@ -263,10 +300,23 @@ ALTER TABLE `unit_report`
   ADD PRIMARY KEY (`report_ID`);
 
 --
+-- Indexes for table `unit_transfer`
+--
+ALTER TABLE `unit_transfer`
+  ADD PRIMARY KEY (`transfer_ID`);
+
+--
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`user_ID`);
+
+--
+-- Indexes for table `user_unit`
+--
+ALTER TABLE `user_unit`
+  ADD PRIMARY KEY (`user_unit_ID`),
+  ADD KEY `fk_equipment_id` (`equipment_ID`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -276,19 +326,19 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `approved_report`
 --
 ALTER TABLE `approved_report`
-  MODIFY `approved_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `approved_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `equipment`
 --
 ALTER TABLE `equipment`
-  MODIFY `equipment_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `equipment_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- AUTO_INCREMENT for table `units`
 --
 ALTER TABLE `units`
-  MODIFY `unit_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `unit_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `unit_replacement`
@@ -300,13 +350,35 @@ ALTER TABLE `unit_replacement`
 -- AUTO_INCREMENT for table `unit_report`
 --
 ALTER TABLE `unit_report`
-  MODIFY `report_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `report_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT for table `unit_transfer`
+--
+ALTER TABLE `unit_transfer`
+  MODIFY `transfer_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
   MODIFY `user_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT for table `user_unit`
+--
+ALTER TABLE `user_unit`
+  MODIFY `user_unit_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `user_unit`
+--
+ALTER TABLE `user_unit`
+  ADD CONSTRAINT `fk_equipment_id` FOREIGN KEY (`equipment_ID`) REFERENCES `equipment` (`equipment_ID`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
