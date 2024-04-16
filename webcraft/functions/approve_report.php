@@ -71,10 +71,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             header("Location: {$_SERVER['HTTP_REFERER']}");
             exit(); 
         } else {
-            echo "Error: " . $stmt->error;
+            $_SESSION['error_message'] = "Error: " . $stmt->error;
+        header("Location: approve_report.php");
+        exit(); 
         }
     } else {
-        echo "Error preparing statement: " . $conn->error;
+        $_SESSION['error_message'] = "Invalid request method.";
+    header("Location: approve_report.php");
+    exit(); 
     }
 }
 ?>

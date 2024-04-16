@@ -1,42 +1,162 @@
 <?php
-    include_once "../../dbConfig/dbconnect.php";
-    include_once "../../functions/header.php";
-    include_once "../../authentication/auth.php";
+include_once "../dbConfig/dbconnect.php";
+include_once "../functions/header.php";
+include_once "../authentication/auth.php";
 
-    $unitID = $_GET['unitID'] ?? '';
-    $selectedUser = $_GET['selectedUser'] ?? '';
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $equipmentID = $_POST["equipment_ID"];
+    $unitID = $_POST["unit_ID"];
+    $new_end_userID = $_POST["new_end_userID"];
+    $old_end_userID = $_POST["old_end_userID"];
+    $old_end_user_first_name = $_POST["old_end_user_first_name"];
+    $old_end_user_last_name = $_POST["old_end_user_last_name"];
+    $new_end_user_first_name = $_POST["new_end_user_first_name"];
+    $new_end_user_last_name = $_POST["new_end_user_last_name"];
 
-    $userData = json_decode(htmlspecialchars_decode($selectedUser), true);
-    $firstName = $userData[0];
-    $lastName = $userData[1];
-    $new_end_userID = $userData[2]; 
-
-    $formattedUnitID = 'UNIT-' . str_pad($unitID, 4, '0', STR_PAD_LEFT);
-
-    $sql = "SELECT equipment_ID, user FROM units WHERE unit_ID = ?";
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("s", $unitID);
+    $unitID_numeric = intval(substr($unitID, strpos($unitID, '-') + 1));
+    
+    // Get the current value of year_received from units table
+    $stmt = $conn->prepare("SELECT year_received FROM units WHERE unit_ID = ?");
+    $stmt->bind_param("i", $unitID_numeric);
     $stmt->execute();
-    $stmt->bind_result($equipmentID, $currentUser);
+    $stmt->bind_result($year_received);
     $stmt->fetch();
     $stmt->close();
 
-    $sql = "SELECT article, account_code, property_number, image FROM equipment WHERE equipment_ID = ?";
+    // Insert into unit_transfer table
+    $sql = "INSERT INTO unit_transfer (unit_ID, equipment_ID, old_end_userID, new_end_userID, old_end_user_first_name, old_end_user_last_name, new_end_user_first_name, new_end_user_last_name, year_transfer) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param("s", $equipmentID);
-    $stmt->execute();
-    $stmt->bind_result($article, $accountCode, $propertyNumber, $image);
-    $stmt->fetch();
-    $stmt->close();
+    $stmt->bind_param("siisssssi", $unitID, $equipmentID, $old_end_userID, $new_end_userID, $old_end_user_first_name, $old_end_user_last_name, $new_end_user_first_name, $new_end_user_last_name, $year_received);
+    
+    if ($stmt->execute()) {
+        echo "<div class='errorMessageContainer1' style='display: block;'>
+                <div class='errorMessageContainer'>
+                    <div class='subErrorMessageContainer'>
+                        <div class='errorMessage'>
+                            <p>Unit transfer saved successfully.</p>
+                        </div>
+            
+                        <div class='errorButtonContainer'>
+                            <button onclick='closeErrorMessage()' class='errorButton'>Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>";
 
-    $sql = "SELECT user_ID, first_name, last_name, email FROM users WHERE CONCAT(first_name, ' ', last_name) = ?";
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("s", $currentUser);
-    $stmt->execute();
-    $stmt->bind_result($current_end_userID, $current_firstName, $current_lastName, $current_email);
-    $stmt->fetch();
-    $stmt->close();
+        // Get the current year
+        $current_year = date("Y");
 
+        // Update units table
+        $user = $new_end_user_first_name . ' ' . $new_end_user_last_name;
+        $sql = "UPDATE units SET user = ?, user_ID = ?, year_received = ? WHERE unit_ID = ?";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("sisi", $user, $new_end_userID, $current_year, $unitID_numeric);
+        
+        if ($stmt->execute()) {
+            $stmt->close();
+
+            // Update user_unit
+            $sql_count_matches = "SELECT u.equipment_ID, u.user_ID, COUNT(*) as match_count 
+                                  FROM units u
+                                  INNER JOIN user_unit uu ON u.equipment_ID = uu.equipment_ID AND u.user_ID = uu.user_ID
+                                  GROUP BY u.equipment_ID, u.user_ID";
+            $result_count_matches = $conn->query($sql_count_matches);
+
+            if ($result_count_matches->num_rows > 0) {
+                while ($row = $result_count_matches->fetch_assoc()) {
+                    $match_count = $row["match_count"];
+                    $sql_update = "UPDATE user_unit SET units_handled = ? WHERE equipment_ID = ? AND user_ID = ?";
+                    $stmt_update = $conn->prepare($sql_update);
+                    $stmt_update->bind_param("isi", $match_count, $row["equipment_ID"], $row["user_ID"]);
+                    $stmt_update->execute();
+                    $stmt_update->close();
+                }
+            } else {
+                echo "<div class='errorMessageContainer1' style='display: block;'>
+                            <div class='errorMessageContainer'>
+                                <div class='subErrorMessageContainer'>
+                                    <div class='errorMessage'>
+                                        <p>No matching rows found.</p>
+                                    </div>
+                        
+                                    <div class='errorButtonContainer'>
+                                        <button onclick='closeErrorMessage()' class='errorButton'>Close</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>";
+            }
+            
+            header("Location: ../templates/adminPanel/unit_list.php?id={$userID}");
+            exit;
+        } else {
+                echo "<div class='errorMessageContainer1' style='display: block;'>
+                            <div class='errorMessageContainer'>
+                                <div class='subErrorMessageContainer'>
+                                    <div class='errorMessage'>
+                                        <p>Error updating units table: </p>
+                                    </div>
+                        
+                                    <div class='errorButtonContainer'>
+                                        <button onclick='closeErrorMessage()' class='errorButton'>Close</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>" . $stmt->error;
+        }
+    } else {
+        echo "<div class='errorMessageContainer1' style='display: block;'>
+                    <div class='errorMessageContainer'>
+                        <div class='subErrorMessageContainer'>
+                            <div class='errorMessage'>
+                                <p>Error saving unit transfer: </p>
+                            </div>
+                
+                            <div class='errorButtonContainer'>
+                                <button onclick='closeErrorMessage()' class='errorButton'>Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>" . $stmt->error;
+    }
+
+    $stmt->close();
+    $conn->close();
+}
+
+$unitID = $_GET['unitID'] ?? '';
+$selectedUser = $_GET['selectedUser'] ?? '';
+
+$userData = json_decode(htmlspecialchars_decode($selectedUser), true);
+$firstName = $userData[0];
+$lastName = $userData[1];
+$new_end_userID = $userData[2]; 
+
+$formattedUnitID = 'UNIT-' . str_pad($unitID, 4, '0', STR_PAD_LEFT);
+
+$sql = "SELECT equipment_ID, user FROM units WHERE unit_ID = ?";
+$stmt = $conn->prepare($sql);
+$stmt->bind_param("s", $unitID);
+$stmt->execute();
+$stmt->bind_result($equipmentID, $currentUser);
+$stmt->fetch();
+$stmt->close();
+
+$sql = "SELECT article, account_code, property_number, image FROM equipment WHERE equipment_ID = ?";
+$stmt = $conn->prepare($sql);
+$stmt->bind_param("s", $equipmentID);
+$stmt->execute();
+$stmt->bind_result($article, $accountCode, $propertyNumber, $image);
+$stmt->fetch();
+$stmt->close();
+
+$sql = "SELECT user_ID, first_name, last_name, email FROM users WHERE CONCAT(first_name, ' ', last_name) = ?";
+$stmt = $conn->prepare($sql);
+$stmt->bind_param("s", $currentUser);
+$stmt->execute();
+$stmt->bind_result($current_end_userID, $current_firstName, $current_lastName, $current_email);
+$stmt->fetch();
+$stmt->close();
 ?>
 
 <!DOCTYPE html>
@@ -267,6 +387,17 @@
                 sweetalert.style.display = "none";
             }, 300);
         }
+
+        function closeErrorMessage(){
+        var close1 = document.querySelector('.errorMessageContainer1');
+
+        if(close1.style.display === 'block'){
+            close1.style.display = 'none';
+        } else{
+            close1.style.display = 'block'
+        }
+    }
+
     </script>
 
     <script>

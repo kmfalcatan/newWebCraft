@@ -1,6 +1,73 @@
 <?php
     include_once "../../functions/header.php";
     include_once "../../authentication/auth.php";
+    include "../dbConfig/dbconnect.php";
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $user_ID = $_POST['user_ID'] ?? '';
+    $equipmentID = $_POST['equipment_ID'] ?? '';
+    $unitID = $_POST['unit_ID'] ?? ''; 
+    $unit_cost = $_POST['unit_cost'] ?? '';
+    $unit_specs = $_POST['unit_specs'] ?? '';
+    $first_name = $_POST['first_name'] ?? '';
+    $last_name = $_POST['last_name'] ?? '';
+    $email = $_POST['email'] ?? '';
+    $designation = $_POST['designation'] ?? '';
+    $replacement_date = $_POST['replacement_date'] ?? '';
+
+    $query = "INSERT INTO unit_replacement (user_ID, equipment_ID, unit_ID, unit_cost, unit_specs, first_name, last_name, email, designation, replacement_date) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+    if ($stmt = $conn->prepare($query)) {
+        $stmt->bind_param("iissssssss", $user_ID, $equipmentID, $unitID, $unit_cost, $unit_specs, $first_name, $last_name, $email, $designation, $replacement_date);
+
+        if ($stmt->execute()) {
+            echo "<div class='errorMessageContainer1' style='display: block;'>
+                    <div class='errorMessageContainer'>
+                        <div class='subErrorMessageContainer'>
+                            <div class='errorMessage'>
+                                <p>Data successfully inserted</p>
+                            </div>
+                
+                            <div class='errorButtonContainer'>
+                                <button onclick='closeErrorMessage()' class='errorButton'>Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>";
+        } else {
+            echo "<div class='errorMessageContainer1' style='display: block;'>
+                    <div class='errorMessageContainer'>
+                        <div class='subErrorMessageContainer'>
+                            <div class='errorMessage'>
+                                <p>Error inserting data</p>
+                            </div>
+                
+                            <div class='errorButtonContainer'>
+                                <button onclick='closeErrorMessage()' class='errorButton'>Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>";
+        }
+
+        $stmt->close();
+    } else {
+        echo "<div class='errorMessageContainer1' style='display: block;'>
+                <div class='errorMessageContainer'>
+                    <div class='subErrorMessageContainer'>
+                        <div class='errorMessage'>
+                            <p>Error preparing statement</p>
+                        </div>
+            
+                        <div class='errorButtonContainer'>
+                            <button onclick='closeErrorMessage()' class='errorButton'>Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>";
+    }
+}
+
 
     $approved_ID = $_GET['approved_ID'];
 
@@ -233,6 +300,17 @@
                 sweetalert.style.display = "none";
             }, 300);
         }
+
+        function closeErrorMessage(){
+        var close1 = document.querySelector('.errorMessageContainer1');
+
+        if(close1.style.display === 'block'){
+            close1.style.display = 'none';
+        } else{
+            close1.style.display = 'block'
+        }
+    }
+
     </script>
 
     <script>

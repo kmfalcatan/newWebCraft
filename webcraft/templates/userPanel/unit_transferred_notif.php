@@ -53,15 +53,51 @@ if ($transferID) {
 
             $formattedTimestamp = date("F j, Y | l g:ia", strtotime($timestamp));
         } else {
-            $error_message = "Error: No equipment found with the given ID";
+            echo "<div class='errorMessageContainer1' style='display: block;'>
+                    <div class='errorMessageContainer'>
+                        <div class='subErrorMessageContainer'>
+                            <div class='errorMessage'>
+                                <p>Error: No equipment found with the given ID</p>
+                            </div>
+                
+                            <div class='errorButtonContainer'>
+                                <button onclick='closeErrorMessage()' class='errorButton'>Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>";
         }
 
         $stmt->close();
     } else {
-        $error_message = "Error: No transfer found with the given ID";
+        echo "<div class='errorMessageContainer1' style='display: block;'>
+                <div class='errorMessageContainer'>
+                    <div class='subErrorMessageContainer'>
+                        <div class='errorMessage'>
+                            <p>Error: No transfer found with the given ID</p>
+                        </div>
+            
+                        <div class='errorButtonContainer'>
+                            <button onclick='closeErrorMessage()' class='errorButton'>Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>";
     }
 } else {
-    $error_message = "Error: No transfer ID provided";
+    echo "<div class='errorMessageContainer1' style='display: block;'>
+            <div class='errorMessageContainer'>
+                <div class='subErrorMessageContainer'>
+                    <div class='errorMessage'>
+                        <p>Error: No transfer ID provided</p>
+                    </div>
+        
+                    <div class='errorButtonContainer'>
+                        <button onclick='closeErrorMessage()' class='errorButton'>Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>";
 }
 ?>
 
@@ -184,6 +220,17 @@ if ($transferID) {
       button.textContent = 'See More';
     }
   }
+
+  function closeErrorMessage(){
+        var close1 = document.querySelector('.errorMessageContainer1');
+
+        if(close1.style.display === 'block'){
+            close1.style.display = 'none';
+        } else{
+            close1.style.display = 'block'
+        }
+    }
+
 </script>
 
 </body>

@@ -106,7 +106,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             exit();
         }
     } else {
-        echo "Error occurred while saving equipment information.";
+        $_SESSION['error_message'] = "Error occurred while saving equipment information.";
+    header("Location: save_item.php");
+    exit(); 
     }
 }
 ?>

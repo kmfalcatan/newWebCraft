@@ -26,10 +26,36 @@
     
             $stmt2->close();
         } else {
-            exit("Error preparing equipment details statement.");
+            echo "<div class='errorMessageContainer1' style='display: block;'>
+            <div class='errorMessageContainer'>
+                <div class='subErrorMessageContainer'>
+                    <div class='errorMessage'>
+                        <p>Error preparing approved report statement.</p>
+                    </div>
+        
+                    <div class='errorButtonContainer'>
+                        <button onclick='closeErrorMessage()' class='errorButton'>Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>";
+            exit;
         }
     } else {
-        exit("Error preparing approved report statement.");
+        echo "<div class='errorMessageContainer1' style='display: block;'>
+        <div class='errorMessageContainer'>
+            <div class='subErrorMessageContainer'>
+                <div class='errorMessage'>
+                    <p>Error preparing approved report statement.</p>
+                </div>
+    
+                <div class='errorButtonContainer'>
+                    <button onclick='closeErrorMessage()' class='errorButton'>Close</button>
+                </div>
+            </div>
+        </div>
+    </div>";
+        exit;
     }
     
     $formattedTimestamp = date("F j, Y | l g:ia", strtotime($timestamp));
@@ -157,7 +183,18 @@
     <script src="../../assets/js/inventory.js"></script>
     <script src="../../assets/js/sidebar.js"></script>
     <script src="../../assets/js/uploadImg.js"></script>
+    <script>
+            function closeErrorMessage(){
+        var close1 = document.querySelector('.errorMessageContainer1');
 
+        if(close1.style.display === 'block'){
+            close1.style.display = 'none';
+        } else{
+            close1.style.display = 'block'
+        }
+    }
+
+    </script>
 
 </body>
 </html>

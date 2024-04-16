@@ -129,7 +129,20 @@ if (isset($_POST['unitID'])) {
         echo json_encode($unitDetails);
         exit;
     } else {
-        echo "not_exists";
+        echo "<div class='errorMessageContainer1' style='display: block;'>
+        <div class='errorMessageContainer'>
+            <div class='subErrorMessageContainer'>
+                <div class='errorMessage'>
+                    <p>Not exits.</p>
+                </div>
+    
+                <div class='errorButtonContainer'>
+                    <button onclick='closeErrorMessage()' class='errorButton'>Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+";
         exit;
     }
 }
@@ -193,7 +206,7 @@ if (isset($_POST['unitID'])) {
                         </div>
 
                         <div class="trackContainer">
-                            <div class="trackButton">
+                            <div style="border: none;" class="trackButton">
                                 <button class="trackButton" type="button" onclick="track()">Track Unit</button>
                                 <form class="subTrackContainer" style="display: none;"  id="trackForm" method="post">
                                     <div class="searhUnitContainer">

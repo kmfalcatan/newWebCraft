@@ -3,8 +3,73 @@ include_once "../../dbConfig/dbconnect.php";
 include_once "../../authentication/auth.php";
 include_once "../../functions/header.php";
 
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-?>
+    $firstName = $_POST['first_name'];
+    $lastName = $_POST['last_name'];
+    $middleInitial = $_POST['middle_initial'];
+    $designation = $_POST['designation'];
+    $department = $_POST['department'];
+    $email = $_POST['email'];
+    $address = $_POST['address'];
+    $gender = $_POST['gender'];
+
+    $profile_img = '';
+    if (isset($_FILES['profile_img']) && $_FILES['profile_img']['error'] === UPLOAD_ERR_OK) {
+        $tmp_name = $_FILES['profile_img']['tmp_name'];
+        $filename = $_FILES['profile_img']['name'];
+        $profile_img = $filename;
+        move_uploaded_file($tmp_name, '../uploads/' . $profile_img);
+    }
+
+    $stmt = $conn->prepare("UPDATE users SET first_name=?, last_name=?, middle_initial=?, designation=?, department=?, email=?, address=?, gender=?, profile_img=? WHERE user_ID = '$userID'");
+
+    $stmt->bind_param("sssssssss", $firstName, $lastName, $middleInitial, $designation, $department, $email, $address, $gender, $profile_img);
+
+    if ($stmt->execute()) {
+        echo "<div class='errorMessageContainer1' style='display: block;'>
+                <div class='errorMessageContainer'>
+                    <div class='subErrorMessageContainer'>
+                        <div class='errorMessage'>
+                            <p>Data updated successfully</p>
+                        </div>
+            
+                        <div class='errorButtonContainer'>
+                            <button onclick='closeErrorMessage()' class='errorButton'>Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>";
+    } else {
+        echo "<div class='errorMessageContainer1' style='display: block;'>
+                <div class='errorMessageContainer'>
+                    <div class='subErrorMessageContainer'>
+                        <div class='errorMessage'>
+                            <p>Error updating data:</p>
+                        </div>
+            
+                        <div class='errorButtonContainer'>
+                            <button onclick='closeErrorMessage()' class='errorButton'>Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>" . $stmt->error;
+    }
+
+    $stmt->close();
+
+    $userID = $_SESSION['user_id'];
+    $userInfo = getUserInfo($conn, $userID);
+    $role = $userInfo['role'];
+
+    if ($role === 'admin') {
+        header("Location: ../templates/adminPanel/my_profile.php?id={$userID}");
+    } else {
+        header("Location: ../templates/userPanel/my_profile.php?id={$userID}");
+        exit();
+    }
+}
+?>  
 
 <!DOCTYPE html>
 <html lang="en">
@@ -268,6 +333,17 @@ include_once "../../functions/header.php";
             sweetalert.style.display = "none";
         }, 300);
     }
+
+    function closeErrorMessage(){
+        var close1 = document.querySelector('.errorMessageContainer1');
+
+        if(close1.style.display === 'block'){
+            close1.style.display = 'none';
+        } else{
+            close1.style.display = 'block'
+        }
+    }
+
     </script>
   </body>
   </html>

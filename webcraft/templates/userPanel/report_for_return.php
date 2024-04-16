@@ -25,6 +25,22 @@
     $stmt2->bind_result($equipmentID, $deployment, $propertyNumber, $accountCode, $image);
     $stmt2->fetch();
 
+    
+    if(isset($_SESSION['error_message'])) {
+        echo "<div class='errorMessageContainer1' style='display: block;'>";
+        echo "<div class='errorMessageContainer'>";
+        echo "<div class='subErrorMessageContainer'>";
+        echo "<div class='errorMessage'>";
+        echo "<p>" . $_SESSION['error_message'] . "</p>";
+        echo "</div>";
+        echo "<div class='errorButtonContainer'>";
+        echo "<button onclick='closeErrorMessage()' class='errorButton'>Close</button>";
+        echo "</div>";
+        echo "</div>";
+        echo "</div>";
+        echo "</div>";
+        unset($_SESSION['error_message']);
+    }
 ?>
 
 <!DOCTYPE html>
@@ -259,6 +275,17 @@
             sweetalert.style.display = "none";
         }, 300);
     }
+
+    function closeErrorMessage(){
+        var close1 = document.querySelector('.errorMessageContainer1');
+
+        if(close1.style.display === 'block'){
+            close1.style.display = 'none';
+        } else{
+            close1.style.display = 'block'
+        }
+    }
+
 </script>
 
 </script>

@@ -3,7 +3,145 @@ include_once "../../dbConfig/dbconnect.php";
 include_once "../../authentication/auth.php";
 include_once "../../functions/header.php";
 
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Check if all required POST variables are set
+    if (isset($_POST['old_password'], $_POST['new_password'], $_POST['confirm_password'])) {
+        $old_password = $_POST['old_password'];
+        $new_password = $_POST['new_password'];
+        $confirm_password = $_POST['confirm_password'];
 
+        $sql = "SELECT password FROM users WHERE user_ID = '$userID'";
+        $result = mysqli_query($conn, $sql);
+
+        if ($result) {
+            $row = mysqli_fetch_assoc($result);
+            if ($row) {
+                $current_password_hashed = $row['password'];
+
+                if (password_verify($old_password, $current_password_hashed)) {
+                    if ($new_password != $confirm_password) {
+                        echo "<div class='errorMessageContainer1' style='display: block;'>
+                                <div class='errorMessageContainer'>
+                                    <div class='subErrorMessageContainer'>
+                                        <div class='errorMessage'>
+                                            <p>New password and confirm password do not match.</p>
+                                        </div>
+                            
+                                        <div class='errorButtonContainer'>
+                                            <button onclick='closeErrorMessage()' class='errorButton'>Close</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>";
+                    } elseif (strlen($new_password) < 6) {
+                        echo "<div class='errorMessageContainer1' style='display: block;'>
+                                <div class='errorMessageContainer'>
+                                    <div class='subErrorMessageContainer'>
+                                        <div class='errorMessage'>
+                                            <p>Password should be at least 6 characters long.</p>
+                                        </div>
+                            
+                                        <div class='errorButtonContainer'>
+                                            <button onclick='closeErrorMessage()' class='errorButton'>Close</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>";
+                    } else {
+                        $new_password_hashed = password_hash($new_password, PASSWORD_DEFAULT);
+
+                        $sql = "UPDATE users SET password = '$new_password_hashed' WHERE user_ID = '$userID'";
+                        if (mysqli_query($conn, $sql)) {
+                            echo "<div class='errorMessageContainer1' style='display: block;'>
+                                    <div class='errorMessageContainer'>
+                                        <div class='subErrorMessageContainer'>
+                                            <div class='errorMessage'>
+                                                <p>Password updated successfully.</p>
+                                            </div>
+                                
+                                            <div class='errorButtonContainer'>
+                                                <button onclick='closeErrorMessage()' class='errorButton'>Close</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>";
+                        } else {
+                            echo "<div class='errorMessageContainer1' style='display: block;'>
+                                    <div class='errorMessageContainer'>
+                                        <div class='subErrorMessageContainer'>
+                                            <div class='errorMessage'>
+                                                <p>Error updating password: </p>
+                                            </div>
+                                
+                                            <div class='errorButtonContainer'>
+                                                <button onclick='closeErrorMessage()' class='errorButton'>Close</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>" . mysqli_error($conn);
+                        }
+                    }
+                } else {
+                    echo "<div class='errorMessageContainer1' style='display: block;'>
+                            <div class='errorMessageContainer'>
+                                <div class='subErrorMessageContainer'>
+                                    <div class='errorMessage'>
+                                        <p>Old password is incorrect.</p>
+                                    </div>
+                        
+                                    <div class='errorButtonContainer'>
+                                        <button onclick='closeErrorMessage()' class='errorButton'>Close</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>";
+                }
+            } else {
+                echo "<div class='errorMessageContainer1' style='display: block;'>
+                        <div class='errorMessageContainer'>
+                            <div class='subErrorMessageContainer'>
+                                <div class='errorMessage'>
+                                    <p>User not found.</p>
+                                </div>
+                    
+                                <div class='errorButtonContainer'>
+                                    <button onclick='closeErrorMessage()' class='errorButton'>Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>";
+            }
+        } else {
+            echo "<div class='errorMessageContainer1' style='display: block;'>
+                    <div class='errorMessageContainer'>
+                        <div class='subErrorMessageContainer'>
+                            <div class='errorMessage'>
+                                <p>Error querying database: </p>
+                            </div>
+                
+                            <div class='errorButtonContainer'>
+                                <button onclick='closeErrorMessage()' class='errorButton'>Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>" . mysqli_error($conn);
+        }
+    } else {
+        echo "<div class='errorMessageContainer1' style='display: block;'>
+                <div class='errorMessageContainer'>
+                    <div class='subErrorMessageContainer'>
+                        <div class='errorMessage'>
+                            <p>Please fill out all fields.</p>
+                        </div>
+            
+                        <div class='errorButtonContainer'>
+                            <button onclick='closeErrorMessage()' class='errorButton'>Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>";
+    }
+}
 ?>
 
 <!DOCTYPE html>
@@ -104,7 +242,7 @@ include_once "../../functions/header.php";
                     </div>
 
                     <div class="editContainer">
-                        <form class="subUserInfoContainer" action="../../functions/change_passwod.php" method="post">
+                        <form class="subUserInfoContainer" action="" method="post">
                             <div class="title1">
                                 <p>CHANGE PASSWORD</p>
                             </div>
@@ -196,6 +334,16 @@ include_once "../../functions/header.php";
         setTimeout(function() {
             sweetalert.style.display = "none";
         }, 300);
+    }
+
+    function closeErrorMessage(){
+        var close1 = document.querySelector('.errorMessageContainer1');
+
+        if(close1.style.display === 'block'){
+            close1.style.display = 'none';
+        } else{
+            close1.style.display = 'block'
+        }
     }
     </script>
   </body>
