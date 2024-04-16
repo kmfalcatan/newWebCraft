@@ -11,6 +11,66 @@
 }
 
 
+.errorMessageContainer, .errorMessageContainer1{
+    outline: red dashed 1px;
+    height: 100vh;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    background-color: rgba(0, 0, 0, 0.24);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.subErrorMessageContainer{
+    outline: red dashed 1px;
+    height: 15rem;
+    width: 20rem;
+    background-color: white;
+    border-radius: 0.5rem;
+}
+
+.errorMessage{
+    outline: red dashed 1px;
+    height: 12rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-align: center;
+    padding: 0 0.5rem;
+}
+
+.errorButtonContainer{
+    outline: red dashed 1px;
+    height: 3rem;
+    display: flex;
+    justify-content: right;
+    align-items: center;
+    padding-right: 1rem;
+}
+
+.errorButton{
+    height: 2.5rem;
+    width: 6rem;
+    font-size: 1.2rem;
+    border-radius: 0.5rem;
+    background-color: rgb(2, 116, 200);
+    border: none;
+    color: snow;
+    cursor: pointer;
+    transition: all 0.15s;
+}
+
+.errorButton:hover{
+    background-color: rgb(3, 83, 139);
+}
+
+.errorButton:active{
+    transform: scale(0.9);
+}
 
 .userContainer{
     /* outline: red dashed 1px; */

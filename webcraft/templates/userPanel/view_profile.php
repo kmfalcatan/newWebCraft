@@ -191,10 +191,34 @@
                         <div id="alert">
                             <?php
                                 if (isset($error_message)) {
-                                    echo "<div class='error-message'>$error_message</div>";
+                                    echo "<div class='errorMessageContainer1' style='display: block;'>
+                                        <div class='errorMessageContainer'>
+                                            <div class='subErrorMessageContainer'>
+                                                <div class='errorMessage'>
+                                                    <p>$error_message</p>
+                                                </div>
+                                    
+                                                <div class='errorButtonContainer'>
+                                                    <button onclick='closeErrorMessage()' class='errorButton'>Close</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>";
                                 }
                                 if (isset($success_message)) {
-                                    echo "<div class='success-message'>$success_message</div>";
+                                    echo "<div class='errorMessageContainer1' style='display: block;'>
+                                        <div class='errorMessageContainer'>
+                                            <div class='subErrorMessageContainer'>
+                                                <div class='errorMessage'>
+                                                    <p>$success_message</p>
+                                                </div>
+                                    
+                                                <div class='errorButtonContainer'>
+                                                    <button onclick='closeErrorMessage()' class='errorButton'>Close</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>";
                                 }
                             ?>
                         </div>
@@ -242,6 +266,17 @@
     <script src="../../assets/js/inventory.js"></script>
     <script src="../../assets/js/sidebar.js"></script>
     <script src="../../assets/js/profile.js"></script>
+    <script>
+        function closeErrorMessage(){
+        var close1 = document.querySelector('.errorMessageContainer1');
 
+        if(close1.style.display === 'block'){
+            close1.style.display = 'none';
+        } else{
+            close1.style.display = 'block'
+        }
+    }
+
+    </script>
 </body>
 </html>

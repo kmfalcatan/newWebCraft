@@ -235,6 +235,17 @@
                 sweetalert.style.display = "none";
             }, 300);
         }
+
+        function closeErrorMessage(){
+        var close1 = document.querySelector('.errorMessageContainer1');
+
+        if(close1.style.display === 'block'){
+            close1.style.display = 'none';
+        } else{
+            close1.style.display = 'block'
+        }
+    }
+
     </script>
 
 </body>

@@ -2,9 +2,62 @@
  include "../../dbConfig/dbconnect.php";
  include "../../functions/equip_info.php";
 
- 
 $equipmentID = isset($_GET['equipment_ID']) ? $_GET['equipment_ID'] : null;
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $article = $_POST['article'];
+    $deployment = $_POST['deployment'];
+    $property_number = $_POST['property_number'];
+    $account_code = $_POST['account_code'];
+    $total_unit = $_POST['total_unit'];
+    $total_value = $_POST['total_value'];
+    $year_received = $_POST['year_received'];
+    $remarks = $_POST['remarks'];
+    $description = $_POST['description'];
+    $instruction = $_POST['instruction'];
+
+    $sql = "UPDATE equipment SET 
+                article = ?,
+                deployment = ?,
+                property_number = ?,
+                account_code = ?,
+                total_unit = ?,
+                total_value = ?,
+                year_received = ?,
+                remarks = ?,
+                description = ?,
+                instruction = ?
+            WHERE equipment_ID = ?";
+
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("sssisisssssi", $article, $deployment, $property_number, $account_code, $total_unit, $total_value, $year_received, $remarks, $description, $instruction, $equipmentID);
+
+    if ($stmt->execute()) {
+        header("Location: equip_other_info.php?id={$userID}");
+        exit();
+    } else {
+        echo "
+        <div class='errorMessageContainer1' style='display: block;'>
+            <div class='errorMessageContainer'>
+                <div class='subErrorMessageContainer'>
+                    <div class='errorMessage'>
+                        <p>Error updating equipment information. Please try again.</p>
+                    </div>
+        
+                    <div class='errorButtonContainer'>
+                        <button onclick='closeErrorMessage()' class='errorButton'>Close</button>
+                    </div>
+                </div>
+            </div>
+            </div>";
+    }
+
+    $stmt->close();
+}
+
+$conn->close();
 ?>
+
 <div class="equipContainer">
     <div class="filterContainer1" style="width: 100%; margin-top: 0rem;">
         <div class="inventoryNameContainer">
@@ -18,7 +71,7 @@ $equipmentID = isset($_GET['equipment_ID']) ? $_GET['equipment_ID'] : null;
         </div>
     </div>
 
-        <form class="subViewApproveContainer" action="../../functions/edit_equipment.php" enctype="multipart/form-data" method="post">
+        <form class="subViewApproveContainer" action="" enctype="multipart/form-data" method="post">
             <div class="viewInfoContainer" id="viewInfoContainer">
                 <div class="imageContainer4" >
                     <div class="equipImage" >

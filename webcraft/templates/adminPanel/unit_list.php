@@ -40,7 +40,19 @@ if (isset($_POST['unitID'])) {
         echo json_encode($unitDetails);
         exit;
     } else {
-        echo "not_exists";
+        echo "<div class='errorMessageContainer1' style='display: block;'>
+        <div class='errorMessageContainer'>
+            <div class='subErrorMessageContainer'>
+                <div class='errorMessage'>
+                    <p>Not exits.</p>
+                </div>
+    
+                <div class='errorButtonContainer'>
+                    <button onclick='closeErrorMessage()' class='errorButton'>Close</button>
+                </div>
+            </div>
+        </div>
+    </div>";
         exit;
     }
 }
@@ -327,7 +339,20 @@ if (isset($_POST['unitID'])) {
                     
                                 $stmt->close();
                             } else {
-                                echo "Error retrieving user names: " . $conn->error;
+                                echo "<div class='errorMessageContainer1' style='display: block;'>
+                                <div class='errorMessageContainer'>
+                                    <div class='subErrorMessageContainer'>
+                                        <div class='errorMessage'>
+                                            <p>Error retrieving user names: t.</p>
+                                        </div>
+                            
+                                        <div class='errorButtonContainer'>
+                                            <button onclick='closeErrorMessage()' class='errorButton'>Close</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                " . $conn->error;
                             }
                         ?>
                     </select>
@@ -408,6 +433,17 @@ if (isset($_POST['unitID'])) {
         modal.style.opacity = 0;
         setTimeout(function() { modal.style.display = "none"; }, 300);
     }
+
+    function closeErrorMessage(){
+        var close1 = document.querySelector('.errorMessageContainer1');
+
+        if(close1.style.display === 'block'){
+            close1.style.display = 'none';
+        } else{
+            close1.style.display = 'block'
+        }
+    }
+
 </script>
 </body>
 </html>

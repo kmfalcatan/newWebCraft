@@ -263,7 +263,19 @@
 
                                                 $stmt->close();
                                             } else {
-                                                echo "Error: Unable to prepare statement.";
+                                                echo "<div class='errorMessageContainer1' style='display: block;'>
+                                                <div class='errorMessageContainer'>
+                                                    <div class='subErrorMessageContainer'>
+                                                        <div class='errorMessage'>
+                                                            <p>Error: Unable to prepare statement.</p>
+                                                        </div>
+                                            
+                                                        <div class='errorButtonContainer'>
+                                                            <button onclick='closeErrorMessage()' class='errorButton'>Close</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>";
                                             }
                                         ?>  
                                         </tbody>
@@ -335,7 +347,19 @@
                                         $stmt_equipment->fetch();
                                         $stmt_equipment->close();
                                     } else {
-                                        echo "Error: Unable to prepare statement.";
+                                        echo "<div class='errorMessageContainer1' style='display: block;'>
+                                            <div class='errorMessageContainer'>
+                                                <div class='subErrorMessageContainer'>
+                                                    <div class='errorMessage'>
+                                                        <p>Error: Unable to prepare statement.</p>
+                                                    </div>
+                                        
+                                                    <div class='errorButtonContainer'>
+                                                        <button onclick='closeErrorMessage()' class='errorButton'>Close</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>";
                                         exit(); 
                                     }
 
@@ -350,7 +374,19 @@
                                     $stmt_units->fetch();
                                     $stmt_units->close();
                                 } else {
-                                    echo "Error: Unable to prepare statement.";
+                                    echo "<div class='errorMessageContainer1' style='display: block;'>
+                                        <div class='errorMessageContainer'>
+                                            <div class='subErrorMessageContainer'>
+                                                <div class='errorMessage'>
+                                                    <p>Error: Unable to prepare statement.</p>
+                                                </div>
+                                    
+                                                <div class='errorButtonContainer'>
+                                                    <button onclick='closeErrorMessage()' class='errorButton'>Close</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>";
                                     exit(); 
                                 }
 
@@ -364,7 +400,19 @@
                                     echo "</tbody>
                                         </table>";
                                 } else {
-                                    echo "Error: Unable to prepare statement.";
+                                    echo "<div class='errorMessageContainer1' style='display: block;'>
+                                        <div class='errorMessageContainer'>
+                                            <div class='subErrorMessageContainer'>
+                                                <div class='errorMessage'>
+                                                    <p>Error: Unable to prepare statement.</p>
+                                                </div>
+                                    
+                                                <div class='errorButtonContainer'>
+                                                    <button onclick='closeErrorMessage()' class='errorButton'>Close</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>";
                                 }
 
                                 $conn->close();
@@ -376,9 +424,11 @@
 
             </div>
 
-
+            
         </div>
     </div>
+
+    
 
     <script src="../../assets/js/sidebar.js"></script>
 
@@ -428,6 +478,17 @@
         }
         }, interval);
     });
+
+
+    function closeErrorMessage(){
+        var close1 = document.querySelector('.errorMessageContainer1');
+
+        if(close1.style.display === 'block'){
+            close1.style.display = 'none';
+        } else{
+            close1.style.display = 'block'
+        }
+    }
     </script>
 </body>
 </html>

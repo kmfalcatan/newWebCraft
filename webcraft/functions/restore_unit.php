@@ -60,10 +60,14 @@ if ($result_insert) {
         exit();
     } else {
         mysqli_close($conn);
-        echo "Failed to update total_unit in equipment table: " . mysqli_error($conn);
+        $_SESSION['error_message'] = "Failed to update total_unit in equipment table: " . mysqli_error($conn);
+        header("Location: restore_unit.php");
+        exit(); 
     }
 } else {
     mysqli_close($conn);
-    echo "Failed to insert data into units table: " . mysqli_error($conn);
+    $_SESSION['error_message'] = "Failed to insert data into units table: " . mysqli_error($conn);
+    header("Location: restore_unit.php");
+    exit(); 
 }
 ?>

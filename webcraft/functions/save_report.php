@@ -20,6 +20,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $fileUploaded = true;
         } else {
             echo "Sorry, there was an error uploading your file.";
+            $_SESSION['error_message'] = "Sorry, there was an error uploading your file.";
+        header("Location: save_report.php");
+        exit(); 
         }
     } else {
         $fileUploaded = true;
@@ -40,7 +43,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             header("Location: ../templates/userPanel/notification.php?id={$userID}");
             exit;
         } else {
-            echo "Error: " . $stmt->error;
+            $_SESSION['error_message'] = "Error: " . $stmt->error;
+        header("Location: save_report.php");
+        exit(); 
         }
         $stmt->close();
     }

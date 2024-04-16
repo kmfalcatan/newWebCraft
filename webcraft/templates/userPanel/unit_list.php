@@ -40,7 +40,20 @@ if (isset($_POST['unitID'])) {
         echo json_encode($unitDetails);
         exit;
     } else {
-        echo "not_exists";
+        echo "<div class='errorMessageContainer1' style='display: block;'>
+        <div class='errorMessageContainer'>
+            <div class='subErrorMessageContainer'>
+                <div class='errorMessage'>
+                    <p>not_exists</p>
+                </div>
+    
+                <div class='errorButtonContainer'>
+                    <button onclick='closeErrorMessage()' class='errorButton'>Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+";
         exit;
     }
 }
@@ -320,5 +333,17 @@ if (isset($_POST['unitID'])) {
 
     <script src="../../assets/js/inventory.js"></script>
     <script src="../../assets/js/sidebar.js"></script>
+    <script>
+        function closeErrorMessage(){
+        var close1 = document.querySelector('.errorMessageContainer1');
+
+        if(close1.style.display === 'block'){
+            close1.style.display = 'none';
+        } else{
+            close1.style.display = 'block'
+        }
+    }
+
+    </script>
 </body>
 </html>
