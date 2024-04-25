@@ -2,30 +2,17 @@
  include_once "../../functions/header.php";
  include_once "../../dbConfig/dbconnect.php";
  include_once "../../authentication/auth.php";
-    
- $sql = "SELECT ar.approved_ID, ar.user_ID, ar.unit_ID, ar.equipment_ID, ar.report_issue, ar.timestamp, e.article, u.first_name, u.last_name 
+
+ $success_message = isset($_GET['success_message']) ? $_GET['success_message'] : '';
+ $error_message = isset($_GET['error_message']) ? $_GET['error_message'] : '';
+
+ $sql = "SELECT ar.approved_ID, ar.user_ID, ar.unit_ID, ar.equipment_ID, ar.unit_year, ar.report_issue, ar.timestamp, e.article, u.first_name, u.last_name 
     FROM approved_report ar 
     JOIN equipment e ON ar.equipment_ID = e.equipment_ID
     JOIN users u ON ar.user_ID = u.user_ID";
  $stmt = $conn->prepare($sql);
  $stmt->execute();
- $stmt->bind_result($approvedID, $user_ID, $unitID, $equipmentID, $reportIssue, $timestamp, $article, $firstName, $lastName);
-
- if(isset($_SESSION['error_message'])) {
-    echo "<div class='errorMessageContainer1' style='display: block;'>";
-    echo "<div class='errorMessageContainer'>";
-    echo "<div class='subErrorMessageContainer'>";
-    echo "<div class='errorMessage'>";
-    echo "<p>" . $_SESSION['error_message'] . "</p>";
-    echo "</div>";
-    echo "<div class='errorButtonContainer'>";
-    echo "<button onclick='closeErrorMessage()' class='errorButton'>Close</button>";
-    echo "</div>";
-    echo "</div>";
-    echo "</div>";
-    echo "</div>";
-    unset($_SESSION['error_message']);
-}
+ $stmt->bind_result($approvedID, $user_ID, $unitID, $equipmentID, $unitYear, $reportIssue, $timestamp, $article, $firstName, $lastName);
 
 ?>
 
@@ -34,12 +21,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <link rel="icon" type="image/png" href="../../assets/img/medLogo.png">
+    <title>MedEquip Tracker</title>
 
     <link rel="stylesheet" href="../../assets/css/index.css">
     <link rel="stylesheet" href="../../assets/css/inventory.css">
     <link rel="stylesheet" href="../../assets/css/sidebar.css">
     <link rel="stylesheet" href="../../assets/css/bin.css">
+    <link rel="stylesheet" href="../../assets/css/filter.css">
+    <style>
+    @media print {
+        th:nth-child(6),
+        td:nth-child(6),
+        td:nth-child(7),
+        .actionContainer button{
+            display: none;
+        }
+    }
+    </style>  
 </head>
 <body>
     <div class="sidebar">
@@ -57,7 +56,7 @@
         <div class="sideBarContainer3">
             <div class="headerContainer1">
                 <div class="iconContainer10">
-                    <a href="notification.php?id=<?php echo $userID; ?>">
+                    <a href="notification.php?id=<?php echo urlencode($userID); ?>">
                     <div class="subIconContainer10">
                         <img class="subIconContainer10" src="../../assets/img/notif.png" alt="">
                     </div>
@@ -80,18 +79,43 @@
                         <p>REMOVED UNIT LIST</p>
                     </div>
 
+
                     <div class="subFilterContainer1" >
                         <div class="searchContainer1">
                             <input class="searchBar1" type="text" name="" id="" placeholder="Search...">
                         </div>
 
-                        <div class="trackContainer">
-                            <button class="trackButton1">Sort <img src="../../assets/img/sort.png" alt="" style="margin-left: 0.5rem; width: 1.4rem; height: 1.2rem;"></button>
-                            <a href="new_item.php?id=<?php echo $userID; ?>">
-                            </a>
-                        </div>
+                        <button class="trackButton1" onclick="openPrintSettings()">Print <img src="../../assets/img/print.png" alt="" style="margin-left: 0.5rem; width: 1.2rem; height: 1.5rem;"></button>
+                            
                     </div>
                 </div>
+
+                <div id="messageModal" class="messageModal">
+                        <div class="alertModal">
+                            <div class="alertContent">
+                                <div class="alertIcon">
+                                    <div class="iconBorder" style="<?php echo !empty($success_message) ? 'border: 1px solid rgba(0, 128, 0, 0.69);' : 'border: 1px solid red;'; ?>">
+                                        <?php if (!empty($success_message)): ?>
+                                            <p>&#10004;</p>
+                                        <?php else: ?>
+                                            <p class="errorIcon" style="color: red; margin-top: -0.8rem;">&times;</p> 
+                                        <?php endif; ?>
+                                    </div>
+                                </div>
+                                <div class="alertMsg">
+                                    <?php if (!empty($success_message)): ?>
+                                        <div class="success-message"><?php echo $success_message; ?></div>
+                                    <?php endif; ?>
+                                    <?php if (!empty($error_message)): ?>
+                                        <div class="error-message"><?php echo $error_message; ?></div>
+                                    <?php endif; ?>
+                                </div>
+                                <div class="alertBtn1">
+                                    <button class="closebtn">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
                 <div class="tableContainer2">
 
@@ -120,21 +144,21 @@
                                         echo "<td>$article</td>";
                                         echo "<td>$reportIssue</td>";
                                         echo "<td>$formattedTimestamp</td>";
-                                        echo "<td style='display: flex;'>";
+                                        echo "<td class='actionContainer' style='display: flex;'>";
 
                                         if (strtolower($reportIssue) == "lost") {
-                                            echo "<a href='approved_lost.php?id=$userID&approved_ID=$approvedID'><button class='button4' type='button'>View</button></a>";
+                                            echo "<a href='approved_lost.php?id=" . urlencode($userID) . "&approved_ID=" . urlencode($approvedID) . "'><button class='button4' type='button'>View</button></a>";
                                         } else {
-                                            echo "<a href='approved_for_return.php?id=$userID&approved_ID=$approvedID'><button class='button4' type='button'>View</button></a>";
+                                            echo "<a href='approved_for_return.php?id=" . urlencode($userID) . "&approved_ID=" . urlencode($approvedID) . "'><button class='button4' type='button'>View</button></a>";
                                         }
-                                        echo "<button class='button3' onclick='openModal(\"$user_ID\", \"$unitID\", \"$equipmentID\", \"$article\", \"$firstName\", \"$lastName\")'>Restore</button>";
+                                        echo "<button class='button3' onclick='openModal(\"$user_ID\", \"$unitID\", \"$equipmentID\", \"$article\", \"$unitYear\", \"$firstName\", \"$lastName\")'>Restore</button>";
 
                                         echo "</td>";
                                         echo "</tr>";
+                                        
                                         $count++;
                                     }
                                 ?>
-
 
                                 <div id="sweetalert" class="sweetalert" style="display: none;">
                                     <div class="alertModal">
@@ -156,6 +180,9 @@
                                 </div>
                             </tbody>
                         </table>
+                        <div class="noResultsFound" style="display: none;">
+                            <p>No results found</p>
+                        </div>
                    </div>
                 </div>
             </div>  
@@ -167,9 +194,8 @@
     <script src="../../assets/js/inventory.js"></script>
     <script src="../../assets/js/sidebar.js"></script>
 
-
 <script>
-    function openModal(user_ID, unitID, equipmentID, article, firstName, lastName) {
+    function openModal(user_ID, unitID, equipmentID, article, unitYear, firstName, lastName) {
         var sweetalert = document.getElementById("sweetalert");
         sweetalert.style.display = "block";
         setTimeout(function() {
@@ -177,7 +203,7 @@
         }, 10);
 
         document.getElementById("restore").onclick = function() {
-            restoreUnit(user_ID, unitID, equipmentID, article, firstName, lastName);
+            restoreUnit(user_ID, unitID, equipmentID, article, unitYear, firstName, lastName);
         };
     }
 
@@ -189,7 +215,7 @@
         }, 300);
     }
 
-    function restoreUnit(user_ID, unitID, equipmentID, article, firstName, lastName) {
+    function restoreUnit(user_ID, unitID, equipmentID, article, unitYear, firstName, lastName) {
         $.ajax({
             type: "POST",
             url: "../../functions/restore_unit.php",
@@ -198,6 +224,7 @@
                 unitID: unitID,
                 equipmentID: equipmentID,
                 article: article,
+                unitYear: unitYear,
                 firstName: firstName,
                 lastName: lastName
             },
@@ -210,19 +237,70 @@
             }
         });
     }
+</script>
 
-    function closeErrorMessage(){
-        var close1 = document.querySelector('.errorMessageContainer1');
+<script>
+    function filterTable() {
+        var searchTerm = document.querySelector(".searchBar1").value.trim().toLowerCase();
 
-        if(close1.style.display === 'block'){
-            close1.style.display = 'none';
-        } else{
-            close1.style.display = 'block'
+        var rows = document.querySelectorAll("#tblBody tr");
+        var noResultsMessage = document.querySelector(".noResultsFound");
+
+        var found = false;
+
+        rows.forEach(function(row) {
+            var unitID = row.querySelector("td:nth-child(2)").textContent.toLowerCase();
+            var article = row.querySelector("td:nth-child(3)").textContent.toLowerCase();
+            var reportIssue = row.querySelector("td:nth-child(4)").textContent.toLowerCase(); 
+
+            if (unitID.includes(searchTerm) || article.includes(searchTerm) || reportIssue.includes(searchTerm)) { 
+                row.style.display = ""; 
+                found = true;
+            } else {
+                row.style.display = "none"; 
+            }
+        });
+
+        if (found) {
+            noResultsMessage.style.display = "none";
+        } else {
+            noResultsMessage.style.display = "block";
         }
     }
 
+    document.querySelector(".searchBar1").addEventListener("input", filterTable);
 </script>
 
+<script>
+    window.onload = function() {
+        var modal = document.getElementById("messageModal");
+        var button = document.getElementsByClassName("closebtn")[0];
+
+        button.onclick = function() {
+            modal.style.display = "none";
+        }
+
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+
+        <?php if (!empty($success_message) || !empty($error_message)): ?>
+            modal.style.display = "block";
+        <?php endif; ?>
+    }
+</script>
 
 </body>
 </html>
+
+<!-- *Copyright  © 2024 WebCraft - All Rights Reserved*
+    *Administartive Office Facility Reservation and Management System*
+    *IT 132 - Software Engineering *
+    *(WebCraft) Members:
+        Falcatan, Khriz Marr
+        Gabotero, Rogie
+        Taborada, John Mark
+        Tingkasan, Padwa 
+        Villares, Arp-J* -->

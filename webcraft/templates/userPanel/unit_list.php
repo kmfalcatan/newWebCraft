@@ -40,24 +40,10 @@ if (isset($_POST['unitID'])) {
         echo json_encode($unitDetails);
         exit;
     } else {
-        echo "<div class='errorMessageContainer1' style='display: block;'>
-        <div class='errorMessageContainer'>
-            <div class='subErrorMessageContainer'>
-                <div class='errorMessage'>
-                    <p>not_exists</p>
-                </div>
-    
-                <div class='errorButtonContainer'>
-                    <button onclick='closeErrorMessage()' class='errorButton'>Close</button>
-                </div>
-            </div>
-        </div>
-    </div>
-";
+        echo "not_exists";
         exit;
     }
 }
-    
 ?>
 
 <!DOCTYPE html>
@@ -65,11 +51,13 @@ if (isset($_POST['unitID'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <link rel="icon" type="image/png" href="../../assets/img/medLogo.png">
+    <title>MedEquip Tracker</title>
 
     <link rel="stylesheet" href="../../assets/css/index.css">
     <link rel="stylesheet" href="../../assets/css/inventory.css">
     <link rel="stylesheet" href="../../assets/css/sidebar.css">
+    <link rel="stylesheet" href="../../assets/css/filter.css">
 </head>
 <body>
     <div class="sidebar">
@@ -115,37 +103,94 @@ if (isset($_POST['unitID'])) {
                         </div>
 
                         <div class="trackContainer">
-                            <div class="trackButton">
-                                <button class="trackButton" onclick="track()">Track Unit</button>
-                                <form class="subTrackContainer" style="display: none;"  id="trackForm" method="post">
-                                    <div class="searhUnitContainer">
-                                        <p>Enter Unit ID:</p>
+                            <button class="trackButton1" onclick="showFilterPopup()">Sort <img src="../../assets/img/sort.png" alt="" style="margin-left: 0.5rem; width: 1.4rem; height: 1.2rem;"></button>
+                            <button class="trackButton1" onclick="openPrintSettings()">Print <img src="../../assets/img/print.png" alt="" style="margin-left: 0.5rem; width: 1.2rem; height: 1.5rem;"></button>
+                            <div class="filterPopupContainer" id="filterPopupContainer" style="display: none;">
+                                <div class="filterPopupContent">
+                                    <h2>UNIT FILTERS</h2>
+                                    <div id="desc">
+                                        <p>Use filter to find unit</p>
                                     </div>
 
-                                    <div class="searchUnitContainer">
-                                        <input type="text" class="searchBar1" id="unitID">
-                                    </div>
-
-                                    <div class="buttonContainer2">
-                                        <div onclick="track()" class="button3">
-                                            <p>Cancel</p>
+                                    <div class="filters">
+                                        <div class="labelContainer">
+                                            <p id="allFilter" onclick="resetFilters()">All</p>
+                                            <p>Year</p>
+                                            <p>Unit ID</p>
+                                            <p>End user</p>
+                                            <p>Alphabetical</p>
                                         </div>
 
-                                        <div class="button4" onclick="openPopup()">
-                                            <p>Track</p>
+                                        <div class="filterOptions">
+                                            <div class="year">
+                                                <select name="yearFilter" id="yearFilter">
+                                                    <option value="" selected disabled>Select year</option>
+                                                    <?php
+                                                    $sql = "SELECT DISTINCT year_received FROM equipment";
+                                                    $stmt = $conn->prepare($sql);
+                                                    $stmt->execute();
+                                                    $result = $stmt->get_result();
+                                                    while ($row = $result->fetch_assoc()) {
+                                                        echo '<option value="' . $row["year_received"] . '">' . $row["year_received"] . '</option>';
+                                                    }
+                                                    ?>
+                                                </select>
+                                            </div>
+
+                                            <div class="unit">
+                                                <select name="unitIDFilter" id="unitIDFilter">
+                                                    <option value="" selected disabled>Select unit ID</option>
+                                                                                        <?php
+                                                    $sql = "SELECT DISTINCT unit_ID FROM units";
+                                                    $stmt = $conn->prepare($sql);
+                                                    $stmt->execute();
+                                                    $result = $stmt->get_result();
+                                                    while ($row = $result->fetch_assoc()) {
+                                                        $formatted_unit_ID = sprintf("UNIT-%04d", $row["unit_ID"]); 
+                                                        echo '<option value="' . $formatted_unit_ID . '">' . $formatted_unit_ID . '</option>';
+                                                    }
+                                                    
+                                                    ?>
+                                                </select>
+                                            </div>
+
+                                            <div class="Enduser">
+                                                <select name="endUserFilter" id="endUserFilter">
+                                                    <option value="" selected disabled>Select end user</option>
+                                                    <?php
+                                                    $sql = "SELECT DISTINCT user FROM units";
+                                                    $stmt = $conn->prepare($sql);
+                                                    $stmt->execute();
+                                                    $result = $stmt->get_result();
+                                                    while ($row = $result->fetch_assoc()) {
+                                                        echo '<option value="' . $row["user"] . '">' . $row["user"] . '</option>';
+                                                    }
+                                                    ?>
+                                                </select>
+                                            </div>
+
+                                            <div class="alphabet">
+                                                <select name="alphabetFilter" id="alphabetFilter" onchange="filterTable()">
+                                                    <option value="Alphabet" selected disabled>Alphabet</option>
+                                                    <option value="asc">A-Z</option>
+                                                    <option value="desc">Z-A</option>
+                                                </select>
+                                            </div>
                                         </div>
                                     </div>
-                                </form>
+
+                                <div class="buttonContainer2" id="buttonContainer2">
+                                    <button class="button3" onclick="hideFilterPopup()">Close</button>
+                                </div> 
                             </div>
-                            <button class="trackButton1">Sort <img src="../../assets/img/sort.png" alt="" style="margin-left: 0.5rem; width: 1.4rem; height: 1.2rem;"></button>
-                           
+                            </div>
                         </div>
                     </div>
                 </div>
 
                 <div class="tableContainer2">
                     <div class="unitContainer">
-                        <a href="inventory.php?id=<?php echo $userID; ?>">
+                        <a href="inventory.php?id=<?php echo urlencode($userID); ?>">
                             <button class="unitList">Go to inventory</button>
                         </a>
                     </div>
@@ -204,146 +249,102 @@ if (isset($_POST['unitID'])) {
                                 ?>
                             </tbody>
                         </table>
+                        <div class="noResultsFound" style="display: none;">
+                            <p>No results found</p>
+                        </div>
                    </div>
                 </div>
             </div>  
-
-            <div class="trackUnitContainer" style="display: none;" id="popupContainer">
-                <div class="trackUnitContainer">
-                    <div class="subTrackUnitContainer">
-                        <div class="trackNameContainer">
-                            <div class="subTrackNameContainer">
-                                <p>TRACK UNIT</p>
-                            </div>
-                        </div>
     
-                        <div class="unitInfoContainer">
-                            <div class="subUnitInfoContainer">
-                                <div class="infoContainer1">
-                                    <div class="imageContainer1">
-                                        <div class="subImageContainer1">
-                                            <img class="image12"  id="imageDisplay" src="" alt="Equipment Image">
-                                        </div>
-    
-                                        <div class="equipNameContainer">
-                                            <p id="equipmentNameDisplay"></p>
-                                            <p id="unitIDDisplay"></p>
-                                        </div>
-                                    </div>
-    
-                                    <div class="subInfoContainer1">
-                                        <div class="unitIDContainer">
-                                            <div class="unitID">
-                                                <p>Current end user:</p>
-    
-                                                <div class="unitInputContainer" >
-                                                    <p id="userDisplay"></p>
-                                                </div>
-                                            </div>
-    
-                                            <div class="unitID">
-                                                <p>Deployment:</p>
-    
-                                                <div class="unitInputContainer">
-                                                    <p id="deploymentDisplay"></p>
-                                                </div>
-                                            </div>
-                                        </div>
-    
-                                        <div class="unitIDContainer">
-                                            <div class="unitID">
-                                                <p>Property number</p>
-    
-                                                <div class="unitInputContainer">
-                                                    <p id="propertyNumberDisplay"></p>
-                                                </div>
-                                            </div>
-    
-                                            <div class="unitID">
-                                                <p>Account code:</p>
-    
-                                                <div class="unitInputContainer">
-                                                    <p id="accountCodeDisplay"></p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                
-                                <div>
-                                    <div class="oldUserContainer">
-                                        <div class="oldUserTextContainer">
-                                            <p>OLD END USER</p>
-                                        </div>
-    
-                                        <div class="unitIDContainer">
-                                            <div class="unitID">
-                                                <p>Name:</p>
-    
-                                                <div class="unitInputContainer">
-    
-                                                </div>
-                                            </div>
-    
-                                            <div class="unitID">
-                                                <p>Year:</p>
-    
-                                                <div class="unitInputContainer">
-    
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-    
-                                    <div class="oldUserContainer">
-                                        <div class="oldUserTextContainer">
-                                            <p>HISTORY</p>
-                                        </div>
-    
-                                        <div class="unitIDContainer">
-                                            <div class="unitID">
-                                                <p>Issue:</p>
-    
-                                                <div class="unitInputContainer">
-    
-                                                </div>
-                                            </div>
-    
-                                            <div class="unitID">
-                                                <p>Date retrieved:</p>
-    
-                                                <div class="unitInputContainer">
-    
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-    
-                        <div class="buttonContainer3">
-                            <button  onclick="closePopup()" class="button5">Close</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
     </div>
 
     <script src="../../assets/js/inventory.js"></script>
     <script src="../../assets/js/sidebar.js"></script>
+    <script src="../../assets/js/filter.js"></script>
+    <script src="../../assets/js/toggle.js"></script>
+
     <script>
-        function closeErrorMessage(){
-        var close1 = document.querySelector('.errorMessageContainer1');
+        function filterTable() {
+            var year = document.getElementById("yearFilter").value;
+            var unitID = document.getElementById("unitIDFilter").value;
+            var endUser = document.getElementById("endUserFilter").value;
+            var alphabet = document.getElementById("alphabetFilter").value;
+            var rows = document.querySelectorAll("#tblBody tr");
+            var anyMatch = false;
+            var sortedRows = Array.from(rows); 
 
-        if(close1.style.display === 'block'){
-            close1.style.display = 'none';
-        } else{
-            close1.style.display = 'block'
+            for (var i = 0; i < sortedRows.length; i++) {
+                var row = sortedRows[i];
+                var yearCell = row.querySelector("td:nth-child(7)");
+                var unitIDCell = row.querySelector("td:nth-child(2)");
+                var endUserCell = row.querySelector("td:nth-child(6)");
+
+                var showRow =
+                    (!year || year === yearCell.textContent) &&
+                    (!unitID || unitID === unitIDCell.textContent) &&
+                    (!endUser || endUser === endUserCell.textContent);
+                row.style.display = showRow ? "" : "none";
+                if (showRow) {
+                    anyMatch = true;
+                }
+            }
+
+            if (alphabet === "asc") {
+                rows = Array.prototype.slice.call(rows);
+                rows.sort(function (a, b) {
+                    var articleA = a.querySelector("td:nth-child(3)").textContent.toLowerCase();
+                    var articleB = b.querySelector("td:nth-child(3)").textContent.toLowerCase();
+                    return articleA.localeCompare(articleB);
+                });
+
+                var tableBody = document.getElementById("tblBody");
+                tableBody.innerHTML = "";
+                for (var j = 0; j < rows.length; j++) {
+                    tableBody.appendChild(rows[j]);
+                }
+                } else if (alphabet === "desc") {
+                    rows = Array.prototype.slice.call(rows);
+                    rows.sort(function (a, b) {
+                        var articleA = a.querySelector("td:nth-child(3)").textContent.toLowerCase();
+                        var articleB = b.querySelector("td:nth-child(3)").textContent.toLowerCase();
+                        return articleB.localeCompare(articleA);
+                    });
+
+                    var tableBody = document.getElementById("tblBody");
+                    tableBody.innerHTML = "";
+                    for (var j = 0; j < rows.length; j++) {
+                        tableBody.appendChild(rows[j]);
+                    }
+            }
+
+            document.getElementById("noResultsMessage").style.display = anyMatch ? "none" : "";
         }
-    }
 
+        document.getElementById("yearFilter").addEventListener("change", filterTable);
+        document.getElementById("unitIDFilter").addEventListener("change", filterTable);
+        document.getElementById("endUserFilter").addEventListener("change", filterTable);
+        document.getElementById("alphabetFilter").addEventListener("change", filterTable); 
+
+        filterTable();
+
+        function resetFilters() {
+            document.getElementById("yearFilter").selectedIndex = 0;
+            document.getElementById("unitIDFilter").selectedIndex = 0;
+            document.getElementById("endUserFilter").selectedIndex = 0;
+            document.getElementById("alphabetFilter").selectedIndex = 0;
+            filterTable();
+        }
     </script>
 </body>
 </html>
+
+<!-- *Copyright  © 2024 WebCraft - All Rights Reserved*
+        *Administartive Office Facility Reservation and Management System*
+        *IT 132 - Software Engineering *
+        *(WebCraft) Members:
+            Falcatan, Khriz Marr
+            Gabotero, Rogie
+            Taborada, John Mark
+            Tingkasan, Padwa 
+            Villares, Arp-J* -->

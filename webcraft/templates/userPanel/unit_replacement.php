@@ -1,73 +1,6 @@
 <?php
     include_once "../../functions/header.php";
     include_once "../../authentication/auth.php";
-    include "../dbConfig/dbconnect.php";
-
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $user_ID = $_POST['user_ID'] ?? '';
-    $equipmentID = $_POST['equipment_ID'] ?? '';
-    $unitID = $_POST['unit_ID'] ?? ''; 
-    $unit_cost = $_POST['unit_cost'] ?? '';
-    $unit_specs = $_POST['unit_specs'] ?? '';
-    $first_name = $_POST['first_name'] ?? '';
-    $last_name = $_POST['last_name'] ?? '';
-    $email = $_POST['email'] ?? '';
-    $designation = $_POST['designation'] ?? '';
-    $replacement_date = $_POST['replacement_date'] ?? '';
-
-    $query = "INSERT INTO unit_replacement (user_ID, equipment_ID, unit_ID, unit_cost, unit_specs, first_name, last_name, email, designation, replacement_date) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-
-    if ($stmt = $conn->prepare($query)) {
-        $stmt->bind_param("iissssssss", $user_ID, $equipmentID, $unitID, $unit_cost, $unit_specs, $first_name, $last_name, $email, $designation, $replacement_date);
-
-        if ($stmt->execute()) {
-            echo "<div class='errorMessageContainer1' style='display: block;'>
-                    <div class='errorMessageContainer'>
-                        <div class='subErrorMessageContainer'>
-                            <div class='errorMessage'>
-                                <p>Data successfully inserted</p>
-                            </div>
-                
-                            <div class='errorButtonContainer'>
-                                <button onclick='closeErrorMessage()' class='errorButton'>Close</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>";
-        } else {
-            echo "<div class='errorMessageContainer1' style='display: block;'>
-                    <div class='errorMessageContainer'>
-                        <div class='subErrorMessageContainer'>
-                            <div class='errorMessage'>
-                                <p>Error inserting data</p>
-                            </div>
-                
-                            <div class='errorButtonContainer'>
-                                <button onclick='closeErrorMessage()' class='errorButton'>Close</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>";
-        }
-
-        $stmt->close();
-    } else {
-        echo "<div class='errorMessageContainer1' style='display: block;'>
-                <div class='errorMessageContainer'>
-                    <div class='subErrorMessageContainer'>
-                        <div class='errorMessage'>
-                            <p>Error preparing statement</p>
-                        </div>
-            
-                        <div class='errorButtonContainer'>
-                            <button onclick='closeErrorMessage()' class='errorButton'>Close</button>
-                        </div>
-                    </div>
-                </div>
-            </div>";
-    }
-}
-
 
     $approved_ID = $_GET['approved_ID'];
 
@@ -88,7 +21,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>UNIT REPORTED</title>
+    <link rel="icon" type="image/png" href="../../assets/img/medLogo.png">
+    <title>MedEquip Tracker</title>
 
     <link rel="stylesheet" href="../../assets/css/index.css">
     <link rel="stylesheet" href="../../assets/css/inventory.css">
@@ -118,7 +52,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <div class="sideBarContainer3">
             <div class="headerContainer1">
                 <div class="iconContainer10">
-                    <a href="notification.php?id=<?php echo $userID; ?>">
+                    <a href="notification.php?id=<?php echo urlencode($userID); ?>">
                     <div class="subIconContainer10">
                         <img class="subIconContainer10" src="../../assets/img/notif.png" alt="">
                     </div>
@@ -187,16 +121,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                 <div class="subUnitIdContainer">
                                     <p>Unit cost <span>*</span></p>
                                 </div>
-
-                                <input class="displayUnitID" type="number" name="unit_cost">
+                                <input class="displayUnitID" type="number" name="unit_cost" maxlength="100" title="Maximum 100 characters allowed">
                             </div>
 
                             <div class="unitIdContainer">
                                 <div class="subUnitIdContainer" >
                                     <p>Unit specs <span>*</span></p>
                                 </div>
-
-                                <input class="displayUnitID" type="text" name="unit_specs">
+                                <input class="displayUnitID" type="text" name="unit_specs" maxlength="200" title="Maximum 200 characters allowed">
                             </div>
                         </div>
                     </div>
@@ -211,36 +143,39 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                 <div class="subUnitIdContainer">
                                     <p>First name <span>*</span></p>
                                 </div>
-
-                                <input class="displayUnitID" type="text" name="first_name">
+                                <input class="displayUnitID" type="text" name="first_name" maxlength="100" title="Maximum 100 characters allowed">
                             </div>
 
                             <div class="unitIdContainer">
                                 <div class="subUnitIdContainer">
                                     <p>Last name <span>*</span></p>
                                 </div>
-
-                                <input class="displayUnitID" type="text" name="last_name">
+                                <input class="displayUnitID" type="text" name="last_name" maxlength="100" title="Maximum 100 characters allowed">
                             </div>
                         </div>
                     </div>
 
                     <div class="unitInfoContainer" style="margin-top: -1rem;">
+                        <div class="unitIdContainer">
+                            <div class="subUnitIdContainer">
+                                <p>Rank <span>*</span></p>
+                            </div>
+                            <input class="displayUnitID" type="text" name="rank" maxlength="100" title="Maximum 100 characters allowed">
+                        </div>
+
+                        <div class="unitIdContainer">
+                            <div class="subUnitIdContainer">
+                                <p>Designation <span>*</span></p>
+                            </div>
+                            <input class="displayUnitID" type="text" name="designation" maxlength="100" title="Maximum 100 characters allowed">
+                        </div>
+
                         <div class="subUnitInfoContainer">
                             <div class="unitIdContainer">
                                 <div class="subUnitIdContainer">
                                     <p>E-mail <span>*</span></p>
                                 </div>
-
-                                <input class="displayUnitID" type="email" name="email">
-                            </div>
-
-                            <div class="unitIdContainer">
-                                <div class="subUnitIdContainer">
-                                    <p>Designation <span>*</span></p>
-                                </div>
-
-                                <input class="displayUnitID" type="text" name="designation">
+                                <input class="displayUnitID" type="email" name="email" maxlength="100" title="Maximum 100 characters allowed">
                             </div>
                         </div>
                     </div>
@@ -300,17 +235,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 sweetalert.style.display = "none";
             }, 300);
         }
-
-        function closeErrorMessage(){
-        var close1 = document.querySelector('.errorMessageContainer1');
-
-        if(close1.style.display === 'block'){
-            close1.style.display = 'none';
-        } else{
-            close1.style.display = 'block'
-        }
-    }
-
     </script>
 
     <script>
@@ -319,7 +243,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
     </script>
 
-    
-
 </body>
 </html>
+
+<!-- *Copyright  © 2024 WebCraft - All Rights Reserved*
+        *Administartive Office Facility Reservation and Management System*
+        *IT 132 - Software Engineering *
+        *(WebCraft) Members:
+            Falcatan, Khriz Marr
+            Gabotero, Rogie
+            Taborada, John Mark
+            Tingkasan, Padwa 
+            Villares, Arp-J* -->

@@ -1,9 +1,11 @@
 <?php
-    include_once "../../authentication/auth.php";
     include_once "../../functions/header.php";
     include_once "../../dbConfig/dbconnect.php";
+    include_once "../../authentication/auth.php";
     include_once "../../functions/equip_info.php";
 
+    $success_message = isset($_GET['success_message']) ? $_GET['success_message'] : '';
+    $error_message = isset($_GET['error_message']) ? $_GET['error_message'] : '';
 ?>
 
 <!DOCTYPE html>
@@ -11,7 +13,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EQUIPMENT DETAILS</title>
+    <link rel="icon" type="image/png" href="../../assets/img/medLogo.png">
+    <title>MedEquip Tracker</title>
 
     <link rel="stylesheet" href="../../assets/css/index.css">
     <link rel="stylesheet" href="../../assets/css/inventory.css">
@@ -46,7 +49,7 @@
                     </a>
                 </div>
 
-                <div class="subHeaderContainer1" >
+                <div class="subHeaderContainer1">
                     <div class="logoNameContainer1">
                         <img class="systemName" src="../../assets/img/system-name.png" alt="">
                     </div>
@@ -62,12 +65,41 @@
                     <div class="inventoryNameContainer">
                         <p>EQUIPMENT DETAILS</p>
                     </div>
+                    
+                    <div id="messageModal" class="messageModal">
+                        <div class="alertModal">
+                            <div class="alertContent">
+                                <div class="alertIcon">
+                                    <div class="iconBorder" style="<?php echo !empty($success_message) ? 'border: 1px solid rgba(0, 128, 0, 0.69);' : 'border: 1px solid red;'; ?>">
+                                        <?php if (!empty($success_message)): ?>
+                                            <p>&#10004;</p>
+                                        <?php else: ?>
+                                            <p class="errorIcon" style="color: red; margin-top: -0.8rem;">&times;</p> 
+                                        <?php endif; ?>
+                                    </div>
+                                </div>
+                                <div class="alertMsg">
+                                    <?php if (!empty($success_message)): ?>
+                                        <div class="success-message"><?php echo $success_message; ?></div>
+                                    <?php endif; ?>
+                                    <?php if (!empty($error_message)): ?>
+                                        <div class="error-message"><?php echo $error_message; ?></div>
+                                    <?php endif; ?>
+                                </div>
+                                <div class="alertBtn1">
+                                    <button class="closebtn">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
                     <div class="subFilterContainer1">
                         <div class="trackContainer">
                             <button class="trackButton1" type="button"  onclick="showWarrantyContainer()">Check warranty</button>
-                            <button class="trackButton1"  id="btn2" >Edit <img src="../../assets/img/edit.png" alt=""></button>
-                            <a href="view_unit.php?id=<?php echo $userID; ?>&equipment_ID=<?php echo $equipmentID; ?>">
+                            <a href="edit_equipment.php?id=<?php echo urlencode($userID); ?>&equipment_ID=<?php echo urlencode($equipmentID); ?>">
+                                <button class="trackButton1">Edit <img src="../../assets/img/edit.png" alt=""></button>
+                            </a>
+                            <a href="view_unit.php?id=<?php echo urlencode($userID); ?>&equipment_ID=<?php echo urlencode($equipmentID); ?>">
                                 <button class="trackButton1" type="button">See unit</button>
                             </a>
                         </div>
@@ -98,9 +130,9 @@
                                         </div>
 
                                         <div class="container4">
-                                            <?php foreach ($userInfo as $key => $info): ?>
+                                            <?php foreach ($equipInfo as $key => $info): ?>
                                                 <div class="text1">
-                                                    <p><?php echo $info['user']; ?><?php echo ($key < count($userInfo) - 1) ? ', ' : ''; ?></p>
+                                                    <p><?php echo $info['user']; ?><?php echo ($key < count($equipInfo) - 1) ? ', ' : ''; ?></p>
                                                 </div>
                                             <?php endforeach; ?>
                                         </div>
@@ -116,7 +148,7 @@
                                             <p>UNIT HANDLE</p>
                                         </div>
 
-                                        <?php foreach ($userInfo as $info): ?>
+                                        <?php foreach ($equipInfo as $info): ?>
                                             <div class="subUserContainer1">
                                                 <p><?php echo $info['user']; ?></p>
                                                 <p class="unit"><?php echo $info['units_handled']; ?></p>
@@ -202,7 +234,7 @@
                                             <p>Description</p>
                                         </div>
 
-                                        <input class="container4" type="text" value="<?php echo $description; ?>" readonly>
+                                        <textarea class="container4" type="text" readonly style="padding: 1rem;"><?php echo $description; ?></textarea>
                                     </div>
 
                                     <div class="approveContainer">
@@ -210,7 +242,7 @@
                                             <p>Instruction</p>
                                         </div>
 
-                                        <input class="container4" type="text" value="<?php echo $instruction; ?>" readonly>
+                                        <textarea class="container4" type="text" readonly style="padding: 1rem;"><?php echo $instruction; ?></textarea>
                                     </div>
                                 </div>
 
@@ -251,37 +283,6 @@
     <script src="../../assets/js/toggle.js"></script>
     <script src="../../assets/js/uploadImg.js"></script>
 
-    <script>
-        let originalContent;
-        const equipmentID = "<?php echo $equipmentID; ?>"; // Get the equipment ID from PHP
-
-        function loadEditContent() {
-            originalContent = document.querySelector('.subContainer1').innerHTML;
-
-            // Create an XMLHttpRequest to load the edit template dynamically
-            const xhr = new XMLHttpRequest();
-            xhr.open('GET', 'edit_equipment.php?equipment_ID=' + equipmentID, true);
-            xhr.onload = function() {
-                if (xhr.status >= 200 && xhr.status < 300) {
-                    // Replace the current content with the loaded edit template
-                    document.querySelector('.subContainer1').innerHTML = xhr.responseText;
-                } else {
-                    console.error('Failed to load the edit template:', xhr.statusText);
-                }
-            };
-            xhr.onerror = function() {
-                console.error('Request failed');
-            };
-            xhr.send();
-        }
-
-        function closeEditContent() {
-            document.querySelector('.subContainer1').innerHTML = originalContent;
-        }
-
-        document.getElementById('btn2').addEventListener('click', loadEditContent);
-    </script>
-
 
     <script> 
         function openModal() {
@@ -299,20 +300,37 @@
                 sweetalert.style.display = "none";
             }, 300);
         }
-
-        
-
-    function closeErrorMessage(){
-        var close1 = document.querySelector('.errorMessageContainer1');
-
-        if(close1.style.display === 'block'){
-            close1.style.display = 'none';
-        } else{
-            close1.style.display = 'block'
-        }
-    }
     </script>
 
-    
+    <script>
+        window.onload = function() {
+            var modal = document.getElementById("messageModal");
+            var button = document.getElementsByClassName("closebtn")[0];
+
+            button.onclick = function() {
+                modal.style.display = "none";
+            }
+
+            window.onclick = function(event) {
+                if (event.target == modal) {
+                    modal.style.display = "none";
+                }
+            }
+
+            <?php if (!empty($success_message) || !empty($error_message)): ?>
+                modal.style.display = "block";
+            <?php endif; ?>
+        }
+    </script>
 </body>
 </html>
+
+<!-- *Copyright  © 2024 WebCraft - All Rights Reserved*
+    *Administartive Office Facility Reservation and Management System*
+    *IT 132 - Software Engineering *
+    *(WebCraft) Members:
+        Falcatan, Khriz Marr
+        Gabotero, Rogie
+        Taborada, John Mark
+        Tingkasan, Padwa 
+        Villares, Arp-J* -->

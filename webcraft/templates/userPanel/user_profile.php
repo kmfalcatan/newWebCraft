@@ -13,7 +13,6 @@
         $result = $stmt->get_result();
         $user = $result->fetch_assoc();
     }
-    
 ?>
 
 <!DOCTYPE html>
@@ -21,7 +20,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <link rel="icon" type="image/png" href="../../assets/img/medLogo.png">
+    <title>MedEquip Tracker</title>
 
     <link rel="stylesheet" href="../../assets/css/index.css">
     <link rel="stylesheet" href="../../assets/css/inventory.css">
@@ -45,7 +45,7 @@
         <div class="sideBarContainer3">
             <div class="headerContainer1">
                 <div class="iconContainer10">
-                    <a href="notification.php?id=<?php echo $userID; ?>">
+                    <a href="notification.php?id=<?php echo urlencode($userID); ?>">
                     <div class="subIconContainer10">
                         <img class="subIconContainer10" src="../../assets/img/notif.png" alt="">
                     </div>
@@ -71,9 +71,9 @@
 
                     <div class="subFilterContainer1">
                         <div class="trackContainer">
-                            <a href="enduser_unit.php?id=<?php echo $userID; ?>&user_ID=<?php echo $user['user_ID']; ?>">
-                                <button class="trackButton1">Go to user units <img src="../../assets/img/unit.png" style="height: 1.9rem;"></button>
-                            </a>
+                        <a href="enduser_unit.php?id=<?php echo urlencode($userID); ?>&user_ID=<?php echo urlencode($user['user_ID']); ?>">
+                            <button class="trackButton1">Go to user units <img src="../../assets/img/unit.png" style="height: 1.9rem;"></button>
+                        </a>
                         </div>
                     </div>
                 </div>
@@ -125,12 +125,22 @@
                                     </div>
 
                                     <div class="subFirstNameContainer">
-                                        <p class="text"><?php echo $user['middle_initial']; ?>.</p>
+                                        <p class="text"><?php echo $user['middle_initial']; ?></p>
                                     </div>
                                 </div>
                             </div>
 
                             <div class="subInputContainer">
+                                <div class="firstNameContainer">
+                                    <div class="labelContainer">
+                                        <p>Rank:</p>
+                                    </div>
+
+                                    <div class="subFirstNameContainer">
+                                        <p class="text"><?php echo $user['rank']; ?></p>
+                                    </div>
+                                </div>
+
                                 <div class="firstNameContainer">
                                     <div class="labelContainer">
                                         <p>Designation:</p>
@@ -141,6 +151,18 @@
                                     </div>
                                 </div>
 
+                                <div class="firstNameContainer">
+                                    <div class="labelContainer">
+                                        <p>E-mail:</p>
+                                    </div>
+
+                                    <div class="subFirstNameContainer">
+                                        <p class="text"><?php echo $user['email']; ?></p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="subInputContainer1">
                                 <div class="firstNameContainer">
                                     <div class="labelContainer">
                                         <p>Department:</p>
@@ -158,18 +180,6 @@
 
                                     <div class="subFirstNameContainer">
                                         <p class="text"><?php echo $user['gender']; ?></p>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="subInputContainer1">
-                                <div class="firstNameContainer">
-                                    <div class="labelContainer">
-                                        <p>E-mail:</p>
-                                    </div>
-
-                                    <div class="subFirstNameContainer">
-                                        <p class="text"><?php echo $user['email']; ?></p>
                                     </div>
                                 </div>
 
@@ -194,3 +204,13 @@
     <script src="../../assets/js/sidebar.js"></script>
 </body>
 </html>
+
+<!-- *Copyright  © 2024 WebCraft - All Rights Reserved*
+        *Administartive Office Facility Reservation and Management System*
+        *IT 132 - Software Engineering *
+        *(WebCraft) Members:
+            Falcatan, Khriz Marr
+            Gabotero, Rogie
+            Taborada, John Mark
+            Tingkasan, Padwa 
+            Villares, Arp-J* -->

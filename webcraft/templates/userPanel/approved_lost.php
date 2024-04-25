@@ -22,24 +22,6 @@
     } else {
         $formattedTimestamp = "Invalid timestamp";
     }
-
-    
-    if(isset($_SESSION['error_message'])) {
-        echo "<div class='errorMessageContainer1' style='display: block;'>";
-        echo "<div class='errorMessageContainer'>";
-        echo "<div class='subErrorMessageContainer'>";
-        echo "<div class='errorMessage'>";
-        echo "<p>" . $_SESSION['error_message'] . "</p>";
-        echo "</div>";
-        echo "<div class='errorButtonContainer'>";
-        echo "<button onclick='closeErrorMessage()' class='errorButton'>Close</button>";
-        echo "</div>";
-        echo "</div>";
-        echo "</div>";
-        echo "</div>";
-        unset($_SESSION['error_message']);
-    }
-?>
 ?>
 
 <!DOCTYPE html>
@@ -47,7 +29,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MY POFILE</title>
+    <link rel="icon" type="image/png" href="../../assets/img/medLogo.png">
+    <title>MedEquip Tracker</title>
 
     <link rel="stylesheet" href="../../assets/css/index.css">
     <link rel="stylesheet" href="../../assets/css/inventory.css">
@@ -75,7 +58,7 @@
         <div class="sideBarContainer3">
             <div class="headerContainer1">
                 <div class="iconContainer10">
-                    <a href="notification.php?id=<?php echo $userID; ?>">
+                    <a href="notification.php?id=<?php echo urlencode($userID); ?>">
                     <div class="subIconContainer10">
                         <img class="subIconContainer10" src="../../assets/img/notif.png" alt="">
                     </div>
@@ -101,11 +84,11 @@
 
                     <div class="subFilterContainer1">
                         <div class="trackContainer">
-                            <a href="unit_replacement.php?id=<?php echo $userID; ?>&approved_ID=<?php echo $approvedID; ?>">
-                                <button class="trackButton" style="padding: 0 1.5rem;">Replacement<span style="margin-left: 0.4rem;">form</span></button>
+                            <a href="unit_replacement.php?id=<?php echo urlencode($userID); ?>&approved_ID=<?php echo urlencode($approvedID); ?>">
+                                <button class="trackButton" style="width: 8rem;">Replacement<span style="margin-left: 0.4rem;">form</span></button>
                             </a>
-                            <a href="bin.php?id=<?php echo $userID; ?>">
-                                <button class="trackButton" style="padding: 0 1.5rem;">Back</button>
+                            <a href="bin.php?id=<?php echo urlencode($userID); ?>">
+                                <button class="trackButton" style="width: auto; padding: 0 1rem;">Back</button>
                             </a>
                         </div>
                     </div>
@@ -203,7 +186,7 @@
                                             <p>Problem Description</p>
                                         </div>
 
-                                        <input class="container4" type="text" name="problem_desc" value="<?php echo $problemDesc; ?>" readonly>
+                                        <textarea class="container4" type="text" readonly><?php echo $problemDesc; ?></textarea>
                                     </div>
                                 </div>
 
@@ -260,18 +243,17 @@
                 sweetalert.style.display = "none";
             }, 300);
         }
-
-        function closeErrorMessage(){
-        var close1 = document.querySelector('.errorMessageContainer1');
-
-        if(close1.style.display === 'block'){
-            close1.style.display = 'none';
-        } else{
-            close1.style.display = 'block'
-        }
-    }
-
     </script>
 
 </body>
 </html>
+
+<!-- *Copyright  © 2024 WebCraft - All Rights Reserved*
+    *Administartive Office Facility Reservation and Management System*
+    *IT 132 - Software Engineering *
+    *(WebCraft) Members:
+        Falcatan, Khriz Marr
+        Gabotero, Rogie
+        Taborada, John Mark
+        Tingkasan, Padwa 
+        Villares, Arp-J* -->

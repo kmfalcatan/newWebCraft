@@ -9,38 +9,22 @@
     $reportReason = $_GET['reportReason'] ?? '';
     $formattedUnitID = 'UNIT-' . str_pad($unitID, 4, '0', STR_PAD_LEFT);
 
-    $query1 = "SELECT equipment_name, user FROM units WHERE unit_ID = ?";
+    $query1 = "SELECT user_ID, equipment_name, user, year_received FROM units WHERE unit_ID = ?";
     $stmt1 = $conn->prepare($query1);
     $stmt1->bind_param("i", $unitID);
     $stmt1->execute();
     $stmt1->store_result();
-    $stmt1->bind_result($equipmentName, $user);
+    $stmt1->bind_result($user_ID, $equipmentName, $user, $yearReceived);
     $stmt1->fetch();
 
-    $query2 = "SELECT equipment_ID, deployment, property_number, account_code FROM equipment WHERE article = ?";
+    $query2 = "SELECT equipment_ID, deployment, property_number, account_code, image FROM equipment WHERE article = ?";
     $stmt2 = $conn->prepare($query2);
     $stmt2->bind_param("s", $equipmentName);
     $stmt2->execute();
     $stmt2->store_result();
-    $stmt2->bind_result($equipmentID, $deployment, $propertyNumber, $accountCode);
+    $stmt2->bind_result($equipmentID, $deployment, $propertyNumber, $accountCode, $image);
     $stmt2->fetch();
 
-
-    if(isset($_SESSION['error_message'])) {
-        echo "<div class='errorMessageContainer1' style='display: block;'>";
-        echo "<div class='errorMessageContainer'>";
-        echo "<div class='subErrorMessageContainer'>";
-        echo "<div class='errorMessage'>";
-        echo "<p>" . $_SESSION['error_message'] . "</p>";
-        echo "</div>";
-        echo "<div class='errorButtonContainer'>";
-        echo "<button onclick='closeErrorMessage()' class='errorButton'>Close</button>";
-        echo "</div>";
-        echo "</div>";
-        echo "</div>";
-        echo "</div>";
-        unset($_SESSION['error_message']);
-    }
 ?>
 
 <!DOCTYPE html>
@@ -48,7 +32,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MY POFILE</title>
+    <link rel="icon" type="image/png" href="../../assets/img/medLogo.png">
+    <title>MedEquip Tracker</title>
 
     <link rel="stylesheet" href="../../assets/css/index.css">
     <link rel="stylesheet" href="../../assets/css/inventory.css">
@@ -77,7 +62,7 @@
         <div class="sideBarContainer3">
             <div class="headerContainer1">
                 <div class="iconContainer10">
-                    <a href="notification.php?id=<?php echo $userID; ?>">
+                    <a href="notification.php?id=<?php echo urlencode($userID); ?>">
                     <div class="subIconContainer10">
                         <img class="subIconContainer10" src="../../assets/img/notif.png" alt="">
                     </div>
@@ -101,6 +86,24 @@
                         <p>REMOVE UNIT</p>
                     </div>
 
+                    <div id="ImgsizeModal" class="messageModal" style="display: none;">
+                        <div class="alertModal">
+                            <div class="alertContent">
+                                <div class="alertIcon">
+                                    <div class="iconBorder" style="border: 1px solid red;">
+                                        <p class="errorIcon" style="color: red; margin-top: -0.8rem;">&times;</p> 
+                                    </div>
+                                </div>
+                                <div class="alertMsg">
+                                    <div class="error-message">File size exceeds the maximum limit of 2 MB.</div>
+                                </div>
+                                <div class="alertBtn1">
+                                    <button class="closebtn">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="subFilterContainer1">
                     </div>
                 </div>
@@ -109,7 +112,11 @@
                         <div class="viewInfoContainer" id="viewInfoContainer">
                             <div class="imageContainer4" >
                                 <div class="equipImage" >
-                                    <img class="equipImage2"  src="" alt="Mountain Placeholder" onerror="this.onerror=null; this.src='../../assets/img/img_placeholder.jpg';">
+                                    <?php if (!empty($image)): ?>
+                                        <img class="equipImage2" src="../../uploads/<?php echo $image; ?>" alt="">
+                                    <?php else: ?>
+                                        <img class="equipImage2" src="../../assets/img/img_placeholder.jpg" alt="">
+                                    <?php endif; ?>
                                 </div>
 
                                 <div class="equipNameContainer" id="article" s>
@@ -125,8 +132,10 @@
                                             <p>End user</p>
                                         </div>
 
-                                        <input class="container4" type="text" value="<?php echo $user; ?>">
-                                        <input class="hidden" type="text" name="user_ID" value="<?php echo $userID; ?>">
+                                        <input class="container4" type="text" value="<?php echo $user; ?>" maxlength="100" title="Maximum 100 characters allowed">
+                                        <input class="hidden" type="text" name="user_ID" value="<?php echo $user_ID; ?>">
+                                        <input type="hidden" value="<?php echo $userID; ?>">
+                                        <input type="hidden" name="unit_year" value="<?php echo $yearReceived; ?>">
                                     </div>
                                 </div>
 
@@ -136,7 +145,7 @@
                                             <p>Deployment</p>
                                         </div>
 
-                                        <input class="container4" type="text" value="<?php echo $deployment; ?>">
+                                        <input class="container4" type="text" value="<?php echo $deployment; ?>" maxlength="100" title="Maximum 100 characters allowed">
                                     </div>
                                 </div>
 
@@ -146,7 +155,7 @@
                                             <p>Property number</p>
                                         </div>
 
-                                        <input class="container4" type="text" value="<?php echo $propertyNumber; ?>">
+                                        <input class="container4" type="text" value="<?php echo $propertyNumber; ?>" maxlength="100" title="Maximum 100 characters allowed">
                                     </div>
 
                                     <div class="approveContainer">
@@ -154,7 +163,7 @@
                                             <p>Account code</p>
                                         </div>
 
-                                        <input class="container4" type="text" value="<?php echo $accountCode; ?>">
+                                        <input class="container4" type="text" value="<?php echo $accountCode; ?>" maxlength="100" title="Maximum 100 characters allowed">
                                     </div>
                                 </div>
                             </div>
@@ -206,7 +215,7 @@
                                             <p>Problem description <span>*</span></p>
                                         </div>
 
-                                        <input class="container4" type="text" name="problem_desc" required>
+                                        <textarea class="container4" type="text" name="problem_desc" required maxlength="500" title="Maximum 500 characters allowed"></textarea>
                                     </div>
                                 </div>
 
@@ -215,7 +224,7 @@
                        
                         <div class="buttonContainer2" id="buttonContainer2" style="width: 86%;">
                             <button class="button4" id="red-btn" type="button" onclick="openModal()">Remove</button>
-                            <a href="unit_list.php?id=<?php echo $userID; ?>">
+                            <a href="unit_list.php?id=<?php echo urlencode($userID); ?>">
                                 <button class="button3"  id="cancel-submit" type="button">Cancel</button>
                             </a>
                         </div>
@@ -234,7 +243,7 @@
                                     </div>
                                     <div class="alertBtn" id="alertBtn">
                                         <button class="button4" type="submit">Yes, I'm sure</button>
-                                        <button class="button3" id="btn" type="button" onclick="closeModal()">Cancel</button>
+                                        <button class="button3" id="btn" type="button" onclick="closebtnModal()">Cancel</button>
                                     </div>
                                 </div>
                             </div>
@@ -249,40 +258,19 @@
     <div id="messageContainer" class="message-container" style="display: none;">
     <div id="messageContent" class="message-content"></div>
 </div>
-
-
     <script src="../../assets/js/inventory.js"></script>
     <script src="../../assets/js/sidebar.js"></script>
     <script src="../../assets/js/uploadImg.js"></script>
-
-<script> 
-    function openModal() {
-        var sweetalert = document.getElementById("sweetalert");
-        sweetalert.style.display = "block";
-        setTimeout(function() {
-            sweetalert.style.opacity = 1;
-        }, 10);
-    }
-
-    function closeModal() {
-        var sweetalert = document.getElementById("sweetalert");
-        sweetalert.style.opacity = 0;
-        setTimeout(function() {
-            sweetalert.style.display = "none";
-        }, 300);
-    }
-
-    function closeErrorMessage(){
-        var close1 = document.querySelector('.errorMessageContainer1');
-
-        if(close1.style.display === 'block'){
-            close1.style.display = 'none';
-        } else{
-            close1.style.display = 'block'
-        }
-    }
-
-</script>
-
+    <script src="../../assets/js/toggle.js"></script>
 </body>
 </html>
+
+<!-- *Copyright  © 2024 WebCraft - All Rights Reserved*
+    *Administartive Office Facility Reservation and Management System*
+    *IT 132 - Software Engineering *
+    *(WebCraft) Members:
+        Falcatan, Khriz Marr
+        Gabotero, Rogie
+        Taborada, John Mark
+        Tingkasan, Padwa 
+        Villares, Arp-J* -->

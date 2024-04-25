@@ -24,23 +24,6 @@
     $stmt2->store_result();
     $stmt2->bind_result($equipmentID, $deployment, $propertyNumber, $accountCode, $image);
     $stmt2->fetch();
-
-    
-    if(isset($_SESSION['error_message'])) {
-        echo "<div class='errorMessageContainer1' style='display: block;'>";
-        echo "<div class='errorMessageContainer'>";
-        echo "<div class='subErrorMessageContainer'>";
-        echo "<div class='errorMessage'>";
-        echo "<p>" . $_SESSION['error_message'] . "</p>";
-        echo "</div>";
-        echo "<div class='errorButtonContainer'>";
-        echo "<button onclick='closeErrorMessage()' class='errorButton'>Close</button>";
-        echo "</div>";
-        echo "</div>";
-        echo "</div>";
-        echo "</div>";
-        unset($_SESSION['error_message']);
-    }
 ?>
 
 <!DOCTYPE html>
@@ -48,7 +31,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MY POFILE</title>
+    <link rel="icon" type="image/png" href="../../assets/img/medLogo.png">
+    <title>MedEquip Tracker</title>
 
     <link rel="stylesheet" href="../../assets/css/index.css">
     <link rel="stylesheet" href="../../assets/css/inventory.css">
@@ -76,7 +60,7 @@
         <div class="sideBarContainer3">
             <div class="headerContainer1">
                 <div class="iconContainer10">
-                    <a href="notification.php?id=<?php echo $userID; ?>">
+                    <a href="notification.php?id=<?php echo urlencode($userID); ?>">
                     <div class="subIconContainer10">
                         <img class="subIconContainer10" src="../../assets/img/notif.png" alt="">
                     </div>
@@ -97,7 +81,7 @@
                 <div class="equipContainer">
                 <div class="filterContainer1" style="width: 100%; margin-top: 0rem;">
                     <div class="inventoryNameContainer">
-                        <p>REMOVE UNIT</p>
+                        <p>REPORT UNIT</p>
                     </div>
 
                     <div class="subFilterContainer1">
@@ -128,7 +112,7 @@
                                             <p>End user</p>
                                         </div>
 
-                                        <input class="container4" type="text" value="<?php echo $user; ?>">
+                                        <input class="container4" type="text" value="<?php echo $user; ?>" maxlength="100" title="Maximum 100 characters allowed">
                                         <input class="hidden" type="text" name="user_ID" value="<?php echo $userID; ?>">
                                     </div>
                                 </div>
@@ -138,8 +122,7 @@
                                         <div class="labelContainer1">
                                             <p>Deployment</p>
                                         </div>
-
-                                        <input class="container4" type="text" value="<?php echo $deployment; ?>">
+                                        <input class="container4" type="text" value="<?php echo $deployment; ?>" maxlength="100" title="Maximum 100 characters allowed">
                                     </div>
                                 </div>
 
@@ -148,16 +131,14 @@
                                         <div class="labelContainer1">
                                             <p>Property number</p>
                                         </div>
-
-                                        <input class="container4" type="text" value="<?php echo $propertyNumber; ?>">
+                                        <input class="container4" type="text" value="<?php echo $propertyNumber; ?>" maxlength="100" title="Maximum 100 characters allowed">
                                     </div>
 
                                     <div class="approveContainer">
                                         <div class="labelContainer1">
                                             <p>Account code</p>
                                         </div>
-
-                                        <input class="container4" type="text" value="<?php echo $accountCode; ?>">
+                                        <input class="container4" type="text" value="<?php echo $accountCode; ?>" maxlength="100" title="Maximum 100 characters allowed">
                                     </div>
                                 </div>
                             </div>
@@ -176,7 +157,6 @@
                                         <div class="labelContainer1">
                                             <p>Unit ID  <span style="color: red; font-size: 1.3rem;">*</span></p>
                                         </div>
-
                                         <input class="container4" type="text" name="unit_ID" value="<?php echo $formattedUnitID; ?>" required>
                                     </div>
 
@@ -184,7 +164,6 @@
                                         <div class="labelContainer1">
                                             <p>Unit issue <span style="color: red; font-size: 1.3rem;">*</span></p>
                                         </div>
-
                                         <input class="container4" type="text" name="report_issue" value="<?php echo $reportReason; ?>" required>
                                     </div>
                                 </div>
@@ -195,8 +174,7 @@
                                         <div class="labelContainer1">
                                             <p>Problem Description <span style="color: red; font-size: 1.3rem;">*</span></p>
                                         </div>
-
-                                        <input class="container4" type="text" name="problem_desc" required>
+                                        <textarea class="container4" type="text" name="problem_desc" required maxlength="500" title="Maximum 500 characters allowed"></textarea>
                                     </div>
                                 </div>
 
@@ -205,7 +183,7 @@
                        
                         <div class="buttonContainer2" id="buttonContainer2" style="width: 86%;">
                             <button class="button4" type="button" onclick="openModal()">Submit</button>
-                            <a href="my_units.php?id=<?php echo $userID; ?>">
+                            <a href="my_units.php?id=<?php echo urlencode($userID); ?>">
                                 <button class="button3"  id="cancel-submit" type="button">Cancel</button>
                             </a>
                         </div>
@@ -239,35 +217,17 @@
     <script src="../../assets/js/inventory.js"></script>
     <script src="../../assets/js/sidebar.js"></script>
     <script src="../../assets/js/uploadImg.js"></script>
-
-    <script> 
-        function openModal() {
-            var sweetalert = document.getElementById("sweetalert");
-            sweetalert.style.display = "block";
-            setTimeout(function() {
-                sweetalert.style.opacity = 1;
-            }, 10);
-        }
-
-        function closeModal() {
-            var sweetalert = document.getElementById("sweetalert");
-            sweetalert.style.opacity = 0;
-            setTimeout(function() {
-                sweetalert.style.display = "none";
-            }, 300);
-        }
-
-        function closeErrorMessage(){
-        var close1 = document.querySelector('.errorMessageContainer1');
-
-        if(close1.style.display === 'block'){
-            close1.style.display = 'none';
-        } else{
-            close1.style.display = 'block'
-        }
-    }
-
-    </script>
+    <script src="../../assets/js/toggle.js"></script>
 
 </body>
 </html>
+
+<!-- *Copyright  © 2024 WebCraft - All Rights Reserved*
+    *Administartive Office Facility Reservation and Management System*
+    *IT 132 - Software Engineering *
+    *(WebCraft) Members:
+        Falcatan, Khriz Marr
+        Gabotero, Rogie
+        Taborada, John Mark
+        Tingkasan, Padwa 
+        Villares, Arp-J* -->

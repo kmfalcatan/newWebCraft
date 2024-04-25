@@ -2,6 +2,7 @@
     include_once "../../functions/header.php";
     include_once "../../authentication/auth.php";
     include_once "../../functions/report_details.php";
+
 ?>
 
 <!DOCTYPE html>
@@ -9,7 +10,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MY POFILE</title>
+    <link rel="icon" type="image/png" href="../../assets/img/medLogo.png">
+    <title>MedEquip Tracker</title>
 
     <link rel="stylesheet" href="../../assets/css/index.css">
     <link rel="stylesheet" href="../../assets/css/inventory.css">
@@ -37,7 +39,7 @@
         <div class="sideBarContainer3">
             <div class="headerContainer1">
                 <div class="iconContainer10">
-                    <a href="notification.php?id=<?php echo $userID; ?>">
+                    <a href="notification.php?id=<?php echo urlencode($userID); ?>">
                     <div class="subIconContainer10">
                         <img class="subIconContainer10" src="../../assets/img/notif.png" alt="">
                     </div>
@@ -62,11 +64,11 @@
                     </div>
 
                     <div class="subFilterContainer1">
-                        <div class="trackContainer">
-                            <a href="notification.php?id=<?php echo $userID ?>">
-                                <button class="trackButton1">Back</button>
+                        <!-- <div class="trackContainer">
+                            <a href="notification.php?id=<?php echo urlencode($userID) ?>">
+                                <button class="trackButton1" style="width: auto; padding: 0 1.5rem;">Back</button>
                             </a>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
                 
@@ -144,6 +146,7 @@
                                         </div>
 
                                         <input class="container4" type="text" name="unit_ID" value="<?php echo $report['unit_ID']; ?>" readonly>
+                                        <input class="container4" type="hidden" name="unit_year" value="<?php echo $year_received; ?>" readonly>
                                     </div>
 
                                     <div class="approveContainer">
@@ -162,7 +165,7 @@
                                             <p>Problem Description <span style="color: red; font-size: 1.3rem;">*</span></p>
                                         </div>
 
-                                        <input class="container4" type="text" name="problem_desc" value="<?php echo $report['problem_desc']; ?>" readonly>
+                                        <textarea class="container4" type="text" name="problem_desc" readonl><?php echo $report['problem_desc']; ?></textarea>
                                     </div>
                                 </div>
 
@@ -171,9 +174,9 @@
                        
                         <div class="buttonContainer2" id="buttonContainer2" style="width: 86%;">
                             <p><?php echo $formattedTimestamp ?></p>
-                            <button class="button4" id="confirm-submit" type="button" onclick="openModal()">Approve</button>
-                            <a href="my_units.php?id=<?php echo $userID; ?>">
-                                <button class="button3"  id="red-btn" type="button">Decline</button>
+                            <button class="button4"  id="confirm-submit" type="button" onclick="openModal()">Approve</button>
+                            <a href="notification.php?id=<?php echo urlencode($userID); ?>">
+                                <button class="button3" type="button">Close</button>
                             </a>
                         </div>
 
@@ -207,8 +210,9 @@
     <script src="../../assets/js/inventory.js"></script>
     <script src="../../assets/js/sidebar.js"></script>
     <script src="../../assets/js/uploadImg.js"></script>
-
-    <script> 
+    <script src="../../assets/js/toggle.js"></script>
+    
+    <script>
         function openModal() {
             var sweetalert = document.getElementById("sweetalert");
             sweetalert.style.display = "block";
@@ -225,6 +229,15 @@
             }, 300);
         }
     </script>
-    
 </body>
 </html>
+
+<!-- *Copyright  © 2024 WebCraft - All Rights Reserved*
+    *Administartive Office Facility Reservation and Management System*
+    *IT 132 - Software Engineering *
+    *(WebCraft) Members:
+        Falcatan, Khriz Marr
+        Gabotero, Rogie
+        Taborada, John Mark
+        Tingkasan, Padwa 
+        Villares, Arp-J* -->

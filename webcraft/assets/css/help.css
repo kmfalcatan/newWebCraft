@@ -1,0 +1,255 @@
+body{
+    overflow-x: hidden;
+}
+
+.subHeaderContainer1{
+}
+
+.subImageContainer3{
+    height: 78%;
+    width: 3rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.image11{
+    height: 2rem;
+}
+
+
+.sideBarContainer3,
+.mainContainer{
+    height: auto;
+}
+
+.container{
+    height: 12rem;
+    width: 100%;
+    padding-top: 1rem;
+    text-align: center;
+    margin: auto;
+}
+
+.subContainer{
+    height: 10rem;
+    width: 97%;
+    background-color: rgb(2, 116, 200);
+    border-radius: 0.3rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    color: white;
+}
+
+.text{
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+}
+
+.text1{
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.newEquipContainer{
+    height: auto;
+    width: 97%;
+    margin: auto;
+    padding-bottom: 2rem;
+    
+}
+
+.subNewEquipContainer{
+    height: 4rem;
+    display: flex;
+    justify-content: center;
+    align-items: start;
+    color: #3333338c;
+    font-weight: lighter;
+    border-radius: 0.3rem;
+    letter-spacing: normal;
+    font-family: fantasy;
+    letter-spacing: 0.9px;
+}
+
+.imageContainer1{
+    display: flex;
+    flex-direction: column;
+    height: auto;
+}
+
+.subImageContainer1, .subImageContainer3{
+    height: 20rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 70%;
+    border-radius: 0.3rem;
+}
+
+.subImageContainer1 img,
+.subImageContainer3 img{
+    width: 100%;
+    height: 100%;
+    border-radius: 0.3rem;
+    
+}
+
+@media only screen and (max-width: 1024px) {
+    .subImageContainer3{
+        height: 78%;
+        width: 3rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    
+    .image11{
+        height: 2rem;
+    }
+
+    .image6{
+        height: 100%;
+        border-radius: 0.3rem;
+    }
+}
+
+.stepContainer, .stepContainer1{
+    height: auto;
+    margin-top: 1rem;
+}
+
+.subStepContainer{
+    height: 5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1rem;
+}
+
+.numberContainer{
+    height: 100%;
+    width: 5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 5rem;
+    color: #fff;
+    background-color: rgb(2, 116, 200);
+    margin-right: 0.5rem;
+}
+
+.step{
+    height: 100%;
+    width: 30rem;
+    display: flex;
+    align-items: center;
+    font-size: 1.2rem;
+    background-color: rgb(2, 116, 200);
+    border-radius: 0.3rem;
+    color: #fff;
+    padding-left: 0.5rem;
+}
+
+/*laptop*/
+@media only screen and (min-width: 1025px) and (max-width: 1440px){
+    .imageContainer1{
+        display: flex;
+        flex-direction: row;
+        width: 100%;
+        height: auto;
+    }
+
+
+    .subImageContainer1, .subImageContainer3{
+        height: 80%;
+        width: 80%;
+        border-radius: 0.3rem;
+    }
+
+    .subImageContainer3{
+        order:2; 
+    }
+
+    .stepContainer1{
+        order: 1; 
+    }
+
+    .image6{
+        width: 25rem;
+        border-radius: 0.3rem;
+    }
+
+    .stepContainer, .stepContainer1{
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
+
+    .subStepContainer{
+        width: 100%;
+    }
+}
+
+/*pc*/
+@media only screen and (min-width: 1441px){
+    .imageContainer1{
+        display: flex;
+        flex-direction: row;
+        width: 100%;
+        height: auto;
+    }
+
+
+    .subImageContainer1, .subImageContainer3{
+        height: 80%;
+        width: 80%;
+        border-radius: 0.3rem;
+    }
+    
+    .subImageContainer3{
+        order:2; 
+    }
+
+    .stepContainer1{
+        order: 1; 
+    }
+
+    .image6{
+        width: 100%;
+        border-radius: 0.3rem;
+    }
+
+    .stepContainer, .stepContainer1{
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
+
+    .subStepContainer{
+        width: 100%;
+    }
+
+    .step{
+        width: 40rem;
+    }
+}
+
+/* *Copyright © 2024 WebCraft - All Rights Reserved*
+        *Administartive Office Facility Reservation and Management System*
+        *IT 132 - Software Engineering *
+        *(WebCraft) Members:
+            Falcatan, Khriz Marr
+            Gabotero, Rogie
+            Taborada, John Mark
+            Tingkasan, Padwa 
+            Villares, Arp-J* */

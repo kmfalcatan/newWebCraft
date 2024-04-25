@@ -29,10 +29,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $stmt->bind_param("siisssssi", $unitID, $equipmentID, $old_end_userID, $new_end_userID, $old_end_user_first_name, $old_end_user_last_name, $new_end_user_first_name, $new_end_user_last_name, $year_received);
     
     if ($stmt->execute()) {
-        echo "Unit transfer saved successfully.";
+        $success_message = "Unit transferred successfully.";
 
-
-        // Get the current year
         $current_year = date("Y");
 
         // Update units table
@@ -61,19 +59,29 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     $stmt_update->close();
                 }
             } else {
-                echo "No matching rows found.";
+                $error_message = "No matching rows found.";
             }
             
-            header("Location: ../templates/adminPanel/unit_list.php?id={$userID}");
+            header("Location: ../templates/adminPanel/unit_list.php?id={$userID}&success_message={$success_message}");
             exit;
         } else {
-            echo "Error updating units table: " . $stmt->error;
+            $error_message = "Error updating units table: " . $stmt->error;
         }
     } else {
-        echo "Error saving unit transfer: " . $stmt->error;
+        $error_message = "Error unit transfer: " . $stmt->error;
     }
 
-    $stmt->close();
-    $conn->close();
+    header("Location: ../templates/adminPanel/unit_list.php?id={$userID}&error_message={$error_message}");
+    exit;
 }
 ?>
+
+<!-- *Copyright  © 2024 WebCraft - All Rights Reserved*
+    *Administartive Office Facility Reservation and Management System*
+    *IT 132 - Software Engineering *
+    *(WebCraft) Members:
+        Falcatan, Khriz Marr
+        Gabotero, Rogie
+        Taborada, John Mark
+        Tingkasan, Padwa 
+        Villares, Arp-J* -->

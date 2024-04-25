@@ -26,7 +26,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <link rel="icon" type="image/png" href="../../assets/img/medLogo.png">
+    <title>MedEquip Tracker</title>
 
     <link rel="stylesheet" href="../../assets/css/index.css">
     <link rel="stylesheet" href="../../assets/css/inventory.css">
@@ -49,7 +50,7 @@
         <div class="sideBarContainer3">
             <div class="headerContainer1">
                 <div class="iconContainer10">
-                    <a href="notification.php?id=<?php echo $userID; ?>">
+                    <a href="notification.php?id=<?php echo urlencode($userID); ?>">
                     <div class="subIconContainer10">
                         <img class="subIconContainer10" src="../../assets/img/notif.png" alt="">
                     </div>
@@ -78,9 +79,8 @@
                         </div>
 
                         <div class="trackContainer">
-                            <button class="trackButton1">Sort <img src="../../assets/img/sort.png" alt=""></button>
-                            <button class="trackButton1">Print <img src="../../assets/img/print.png" alt=""></button>
-                            <a href="user_profile.php?id=<?php echo $userID; ?>&user_ID=<?php echo $user['user_ID']; ?>">
+                            <button class="trackButton1" onclick="openPrintSettings()">Print <img src="../../assets/img/print.png" alt=""></button>
+                            <a href="user_profile.php?id=<?php echo urlencode($userID); ?>&user_ID=<?php echo urlencode($user['user_ID']); ?>">
                                 <button class="trackButton1" id="go-to-profile">Go to profile <img src="../../assets/img/person-circle.png" style="width: 1.7rem; height: 1.7rem;"></button>
                             </a>
 
@@ -159,8 +159,8 @@
                                         $equipmentID = $unit['equipment_ID'];
                                         $formattedUnitID = 'UNIT-' . str_pad($unitID, 4, '0', STR_PAD_LEFT);
 
-                                        $query = "SELECT property_number, account_code, remarks FROM equipment WHERE equipment_ID = ?";
-                                        $stmt = $conn->prepare($query);
+                                        $sql = "SELECT property_number, account_code, remarks FROM equipment WHERE equipment_ID = ?";
+                                        $stmt = $conn->prepare($sql);
                                         $stmt->bind_param('i', $equipmentID);
                                         $stmt->execute();
                                         $result = $stmt->get_result();
@@ -183,6 +183,9 @@
                                 ?>
                             </tbody>
                         </table>
+                        <div class="noResultsFound" style="display: none;">
+                            <p>No results found</p>
+                        </div>
                    </div>
                 </div>
             </div>
@@ -191,5 +194,105 @@
 
     <script src="../../assets/js/inventory.js"></script>
     <script src="../../assets/js/sidebar.js"></script>
+
+    <script>
+        function filterTable() {
+        var searchTerm = document.querySelector(".searchBar1").value.trim().toLowerCase();
+
+        var rows = document.querySelectorAll("#tblBody tr");
+        var noResultsMessage = document.querySelector(".noResultsFound");
+
+        var found = false;
+
+        rows.forEach(function(row) {
+            var unitID = row.querySelector("td:nth-child(2)").textContent.toLowerCase(); 
+            var article = row.querySelector("td:nth-child(3)").textContent.toLowerCase(); 
+            var propertyNumber = row.querySelector("td:nth-child(4)").textContent.toLowerCase(); 
+            var accountCode = row.querySelector("td:nth-child(5)").textContent.toLowerCase(); 
+            var remarks = row.querySelector("td:nth-child(6)").textContent.toLowerCase(); 
+
+            if (unitID.includes(searchTerm) || article.includes(searchTerm) || propertyNumber.includes(searchTerm) || accountCode.includes(searchTerm) || remarks.includes(searchTerm)) {
+                row.style.display = ""; 
+                found = true;
+            } else {
+                row.style.display = "none"; 
+            }
+        });
+
+        if (found) {
+            noResultsMessage.style.display = "none";
+        } else {
+            noResultsMessage.style.display = "block";
+        }
+    }
+
+    document.querySelector(".searchBar1").addEventListener("input", filterTable);
+    </script>
+
+    <script>
+        function filterTable() {
+            var year = document.getElementById("yearFilter").value;
+            var unitID = document.getElementById("unitIDFilter").value;
+            var endUser = document.getElementById("endUserFilter").value;
+            var alphabetFilter = document.getElementById("alphabetFilter").value; 
+            var rows = document.querySelectorAll("#tblBody tr");
+            var anyMatch = false;
+            var sortedRows = Array.from(rows); 
+
+            if (alphabetFilter === "A-Z") {
+                sortedRows.sort((a, b) => {
+                    return a.querySelector("td:nth-child(6)").textContent.localeCompare(b.querySelector("td:nth-child(6)").textContent);
+                });
+            } else if (alphabetFilter === "Z-A") {
+                sortedRows.sort((a, b) => {
+                    return b.querySelector("td:nth-child(6)").textContent.localeCompare(a.querySelector("td:nth-child(6)").textContent);
+                });
+            }
+
+            for (var i = 0; i < sortedRows.length; i++) {
+                var row = sortedRows[i];
+                var yearCell = row.querySelector("td:nth-child(7)");
+                var unitIDCell = row.querySelector("td:nth-child(2)");
+                var endUserCell = row.querySelector("td:nth-child(6)");
+
+                var showRow =
+                    (!year || year === yearCell.textContent) &&
+                    (!unitID || unitID === unitIDCell.textContent) &&
+                    (!endUser || endUser === endUserCell.textContent);
+                row.style.display = showRow ? "" : "none";
+                if (showRow) {
+                    anyMatch = true;
+                }
+            }
+
+            document.getElementById("noResultsMessage").style.display = anyMatch ? "none" : "";
+        }
+
+        document.getElementById("yearFilter").addEventListener("change", filterTable);
+        document.getElementById("unitIDFilter").addEventListener("change", filterTable);
+        document.getElementById("endUserFilter").addEventListener("change", filterTable);
+        document.getElementById("alphabetFilter").addEventListener("change", filterTable); 
+
+        filterTable();
+
+        function resetFilters() {
+            document.getElementById("yearFilter").selectedIndex = 0;
+            document.getElementById("unitIDFilter").selectedIndex = 0;
+            document.getElementById("endUserFilter").selectedIndex = 0;
+            document.getElementById("alphabetFilter").selectedIndex = 0;
+            filterTable();
+        }
+    </script>
+
 </body>
 </html>
+
+<!-- *Copyright  © 2024 WebCraft - All Rights Reserved*
+    *Administartive Office Facility Reservation and Management System*
+    *IT 132 - Software Engineering *
+    *(WebCraft) Members:
+        Falcatan, Khriz Marr
+        Gabotero, Rogie
+        Taborada, John Mark
+        Tingkasan, Padwa 
+        Villares, Arp-J* -->

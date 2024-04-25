@@ -1,7 +1,7 @@
 <?php
     include_once "../../functions/header.php";
-    include_once "../../authentication/auth.php";
     include_once "../../dbConfig/dbconnect.php";
+    include_once "../../authentication/auth.php";
 
     $userID = $_GET['id'];
 
@@ -9,20 +9,20 @@
     $reportReason = $_GET['reportReason'] ?? '';
     $formattedUnitID = 'UNIT-' . str_pad($unitID, 4, '0', STR_PAD_LEFT);
 
-    $query1 = "SELECT equipment_name, user FROM units WHERE unit_ID = ?";
-    $stmt1 = $conn->prepare($query1);
+    $sql = "SELECT user_ID, equipment_name, user, year_received FROM units WHERE unit_ID = ?";
+    $stmt1 = $conn->prepare($sql);
     $stmt1->bind_param("i", $unitID);
     $stmt1->execute();
     $stmt1->store_result();
-    $stmt1->bind_result($equipmentName, $user);
+    $stmt1->bind_result($user_ID, $equipmentName, $user, $yearReceived);
     $stmt1->fetch();
 
-    $query2 = "SELECT equipment_ID, deployment, property_number, account_code FROM equipment WHERE article = ?";
-    $stmt2 = $conn->prepare($query2);
+    $sql = "SELECT equipment_ID, deployment, property_number, account_code, image FROM equipment WHERE article = ?";
+    $stmt2 = $conn->prepare($sql);
     $stmt2->bind_param("s", $equipmentName);
     $stmt2->execute();
     $stmt2->store_result();
-    $stmt2->bind_result($equipmentID, $deployment, $propertyNumber, $accountCode);
+    $stmt2->bind_result($equipmentID, $deployment, $propertyNumber, $accountCode, $image);
     $stmt2->fetch();
 ?>
 
@@ -31,7 +31,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MY POFILE</title>
+    <link rel="icon" type="image/png" href="../../assets/img/medLogo.png">
+    <title>MedEquip Tracker</title>
 
     <link rel="stylesheet" href="../../assets/css/index.css">
     <link rel="stylesheet" href="../../assets/css/inventory.css">
@@ -91,7 +92,11 @@
                         <div class="viewInfoContainer" id="viewInfoContainer">
                             <div class="imageContainer4" >
                                 <div class="equipImage" >
-                                    <img class="equipImage2"  src="" alt="Mountain Placeholder" onerror="this.onerror=null; this.src='../../assets/img/img_placeholder.jpg';">
+                                    <?php if (!empty($image)): ?>
+                                        <img class="equipImage2" src="../../uploads/<?php echo $image; ?>" alt="">
+                                    <?php else: ?>
+                                        <img class="equipImage2" src="../../assets/img/img_placeholder.jpg" alt="">
+                                    <?php endif; ?>
                                 </div>
 
                                 <div class="equipNameContainer" id="article" s>
@@ -107,8 +112,10 @@
                                             <p>End user</p>
                                         </div>
 
-                                        <input class="container4" type="text" value="<?php echo $user; ?>">
-                                        <input class="hidden" type="text" name="user_ID" value="<?php echo $userID; ?>">
+                                        <input class="container4" type="text" value="<?php echo $user; ?>" maxlength="100" title="Maximum 100 characters allowed">
+                                        <input class="hidden" type="text" name="user_ID" value="<?php echo $user_ID; ?>">
+                                        <input type="hidden" value="<?php echo $userID; ?>">
+                                        <input type="hidden" name="unit_year" value="<?php echo $yearReceived; ?>">
                                     </div>
                                 </div>
 
@@ -118,7 +125,7 @@
                                             <p>Deployment</p>
                                         </div>
 
-                                        <input class="container4" type="text" value="<?php echo $deployment; ?>">
+                                        <input class="container4" type="text" value="<?php echo $deployment; ?>" maxlength="100" title="Maximum 100 characters allowed">
                                     </div>
                                 </div>
 
@@ -128,7 +135,7 @@
                                             <p>Property number</p>
                                         </div>
 
-                                        <input class="container4" type="text" value="<?php echo $propertyNumber; ?>">
+                                        <input class="container4" type="text" value="<?php echo $propertyNumber; ?>" maxlength="100" title="Maximum 100 characters allowed">
                                     </div>
 
                                     <div class="approveContainer">
@@ -136,7 +143,7 @@
                                             <p>Account code</p>
                                         </div>
 
-                                        <input class="container4" type="text" value="<?php echo $accountCode; ?>">
+                                        <input class="container4" type="text" value="<?php echo $accountCode; ?>" maxlength="100" title="Maximum 100 characters allowed">
                                     </div>
                                 </div>
                             </div>
@@ -175,7 +182,7 @@
                                             <p>Problem Description <span style="color: red; font-size: 1.3rem;">*</span></p>
                                         </div>
 
-                                        <input class="container4" type="text" name="problem_desc" required>
+                                        <textarea class="container4" type="text" name="problem_desc" required maxlength="500" title="Maximum 500 characters allowed"></textarea>
                                     </div>
                                 </div>
 
@@ -218,35 +225,16 @@
     <script src="../../assets/js/inventory.js"></script>
     <script src="../../assets/js/sidebar.js"></script>
     <script src="../../assets/js/uploadImg.js"></script>
-
-    <script> 
-        function openModal() {
-            var sweetalert = document.getElementById("sweetalert");
-            sweetalert.style.display = "block";
-            setTimeout(function() {
-                sweetalert.style.opacity = 1;
-            }, 10);
-        }
-
-        function closeModal() {
-            var sweetalert = document.getElementById("sweetalert");
-            sweetalert.style.opacity = 0;
-            setTimeout(function() {
-                sweetalert.style.display = "none";
-            }, 300);
-        }
-
-        function closeErrorMessage(){
-        var close1 = document.querySelector('.errorMessageContainer1');
-
-        if(close1.style.display === 'block'){
-            close1.style.display = 'none';
-        } else{
-            close1.style.display = 'block'
-        }
-    }
-
-    </script>
+    <script src="../../assets/js/toggle.js"></script>
 
 </body>
 </html>
+<!-- *Copyright  © 2024 WebCraft - All Rights Reserved*
+    *Administartive Office Facility Reservation and Management System*
+    *IT 132 - Software Engineering *
+    *(WebCraft) Members:
+        Falcatan, Khriz Marr
+        Gabotero, Rogie
+        Taborada, John Mark
+        Tingkasan, Padwa 
+        Villares, Arp-J* -->

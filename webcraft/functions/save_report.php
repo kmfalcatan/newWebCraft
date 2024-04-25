@@ -15,14 +15,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $uploadFile = $uploadDir . $fileName;
 
     $fileUploaded = false;
+    $error_message = ''; // Initialize error message variable
+
     if ($fileName !== null) {
-        if (move_uploaded_file($_FILES['unit_img']['tmp_name'], $uploadFile)) {
-            $fileUploaded = true;
+        $file_size = $_FILES['unit_img']['size'];
+        $max_size = 77824;
+
+        if ($file_size > $max_size) {
+            $error_message = "Image size exceeds the maximum limit (76.0 KB).";
         } else {
-            echo "Sorry, there was an error uploading your file.";
-            $_SESSION['error_message'] = "Sorry, there was an error uploading your file.";
-        header("Location: save_report.php");
-        exit(); 
+            if (move_uploaded_file($_FILES['unit_img']['tmp_name'], $uploadFile)) {
+                $fileUploaded = true;
+            } else {
+                $error_message = "Sorry, there was an error uploading your file.";
+            }
         }
     } else {
         $fileUploaded = true;
@@ -40,14 +46,30 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         if ($stmt->execute()) {
             $stmt->close();
-            header("Location: ../templates/userPanel/notification.php?id={$userID}");
-            exit;
+            $success_message = "Report submitted successfully.";
         } else {
-            $_SESSION['error_message'] = "Error: " . $stmt->error;
-        header("Location: save_report.php");
-        exit(); 
+            $error_message = "Error submitting report: " . $stmt->error;
         }
-        $stmt->close();
+    }
+
+    if (!empty($error_message)) {
+        header("Location: ../templates/userPanel/notification.php?id={$userID}&error_message={$error_message}");
+        exit;
+    }
+
+    if (!empty($success_message)) {
+        header("Location: ../templates/userPanel/notification.php?id={$userID}&success_message={$success_message}");
+        exit;
     }
 }
 ?>
+
+<!-- *Copyright  © 2024 WebCraft - All Rights Reserved*
+    *Administartive Office Facility Reservation and Management System*
+    *IT 132 - Software Engineering *
+    *(WebCraft) Members:
+        Falcatan, Khriz Marr
+        Gabotero, Rogie
+        Taborada, John Mark
+        Tingkasan, Padwa 
+        Villares, Arp-J* -->

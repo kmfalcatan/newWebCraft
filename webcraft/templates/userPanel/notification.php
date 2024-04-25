@@ -2,6 +2,9 @@
 include_once "../../dbConfig/dbconnect.php";
 include_once "../../authentication/auth.php";
 include_once "../../functions/header.php";
+
+$success_message = isset($_GET['success_message']) ? $_GET['success_message'] : '';
+$error_message = isset($_GET['error_message']) ? $_GET['error_message'] : '';
 ?>
 
 <!DOCTYPE html>
@@ -9,7 +12,8 @@ include_once "../../functions/header.php";
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <link rel="icon" type="image/png" href="../../assets/img/medLogo.png">
+    <title>MedEquip Tracker</title>
 
     <link rel="stylesheet" href="../../assets/css/inventory.css">
     <link rel="stylesheet" href="../../assets/css/index.css">
@@ -55,10 +59,37 @@ include_once "../../functions/header.php";
                         <p>NOTIFICATION</p>
                     </div>
 
-                    <div class="subFilterContainer1">
-                        <div class="searchContainer1">
-                            <input class="searchBar1" type="text" name="" id="" placeholder="Search...">
+                    <div id="messageModal" class="messageModal">
+                        <div class="alertModal">
+                            <div class="alertContent">
+                                <div class="alertIcon">
+                                    <div class="iconBorder" style="<?php echo !empty($success_message) ? 'border: 1px solid rgba(0, 128, 0, 0.69);' : 'border: 1px solid red;'; ?>">
+                                        <?php if (!empty($success_message)): ?>
+                                            <p>&#10004;</p>
+                                        <?php else: ?>
+                                            <p class="errorIcon" style="color: red; margin-top: -0.8rem;">&times;</p> 
+                                        <?php endif; ?>
+                                    </div>
+                                </div>
+                                <div class="alertMsg">
+                                    <?php if (!empty($success_message)): ?>
+                                        <div class="success-message"><?php echo $success_message; ?></div>
+                                    <?php endif; ?>
+                                    <?php if (!empty($error_message)): ?>
+                                        <div class="error-message"><?php echo $error_message; ?></div>
+                                    <?php endif; ?>
+                                </div>
+                                <div class="alertBtn1">
+                                    <button class="closebtn">Close</button>
+                                </div>
+                            </div>
                         </div>
+                    </div>
+
+                    <div class="subFilterContainer1">
+                        <!-- <div class="searchContainer1">
+                            <input class="searchBar1" type="text" name="" id="" placeholder="Search...">
+                        </div> -->
                     </div>
                 </div>
 
@@ -141,13 +172,12 @@ include_once "../../functions/header.php";
                                                     <div class='notification-actions'>";
                                         
                                                     if ($report_issue == 'Lost') {
-                                                        echo "<a href='outbox_lost_report.php?id=$userID&report_ID=$reportID'><button class='button4'>View</button></a> ";
+                                                        echo "<a href='outbox_lost_report.php?id=" . urlencode($userID) . "&report_ID=" . urlencode($reportID) . "'><button class='button4'>View</button></a> ";
                                                     } elseif ($report_issue == 'For return') {
-                                                        echo "<a href='outbox_for_return_report.php?id=$userID&report_ID=$reportID'><button class='button4'>View</button></a> ";
+                                                        echo "<a href='outbox_for_return_report.php?id=" . urlencode($userID) . "&report_ID=" . urlencode($reportID) . "'><button class='button4'>View</button></a> ";
                                                     }
         
-                                        echo        "<button class='button4' id='red-btn' type='button' onclick='openModal()'>Delete</button>
-                                                    </div>
+                                        echo        " </div>
                                                 </div>
                                             </li>";
 
@@ -155,20 +185,19 @@ include_once "../../functions/header.php";
                                             $approvedID = $report['approved_ID'];
                                             $status = $report['status'];
 
-                                            echo "<li  class='approved'>
-                                                    <div class='notification-title'>
-                                                        <div class='notif-info'>
-                                                            <div class='profile-image'>
-                                                                <img src='$profileImage' alt='Profile Image'>
-                                                            </div>
-                                                            <h3><span class='notif-desc'>$status</span> <span class='notif-time'>$timeAgoText</span></h3>
+                                            echo "<li class='approved'>
+                                                <div class='notification-title'>
+                                                    <div class='notif-info'>
+                                                        <div class='profile-image'>
+                                                            <img src='$profileImage' alt='Profile Image'>
                                                         </div>
-                                                        <div class='notification-actions'>
-                                                            <a href='report_approved_notif.php?id=$userID&approved_ID=$approvedID'><button class='button4'>View</button></a> 
-                                                            <button class='button4' id='red-btn' type='button' onclick='openModal()'>Delete</button>
-                                                        </div>
+                                                        <h3><span class='notif-desc'>$status</span> <span class='notif-time'>$timeAgoText</span></h3>
                                                     </div>
-                                                </li>";
+                                                    <div class='notification-actions'>
+                                                        <a href='report_approved_notif.php?id=" . urlencode($userID) . "&approved_ID=" . urlencode($approvedID) . "'><button class='button4'>View</button></a> 
+                                                    </div>
+                                                </div>
+                                            </li>";
                                         } elseif ($report['type'] === 'transfer') {
                                             $transferID = $report['transfer_ID'];
                                             $status = $report['status'];
@@ -182,8 +211,7 @@ include_once "../../functions/header.php";
                                                             <h3><span class='notif-desc'>$status</span> <span class='notif-time'>$timeAgoText</span></h3>
                                                         </div>
                                                         <div class='notification-actions'>
-                                                            <a href='unit_transferred_notif.php?id=$userID&transfer_ID=$transferID'><button class='button4'>View</button></a> 
-                                                            <button class='button4' id='red-btn' type='button' onclick='openModal()'>Delete</button>
+                                                            <a href='unit_transferred_notif.php?id=" . urlencode($userID) . "&transfer_ID=" . urlencode($transferID) . "'><button class='button4'>View</button></a>
                                                         </div>
                                                     </div>
                                                 </li>";
@@ -219,16 +247,13 @@ include_once "../../functions/header.php";
         </div>
     </div>
 
-
     <script src="../../assets/js/userList.js"></script>
     <script src="../../assets/js/sidebar.js"></script>
     
     <script>
         const inbox = document.getElementById('inbox');
-
         inbox.addEventListener('click', function() {
             const items = document.querySelectorAll('#notification-list li');
-
             items.forEach(item => {
                 if (item.classList.contains('approved') || item.classList.contains('transfer')) {
                     item.style.display = 'block';
@@ -239,7 +264,6 @@ include_once "../../functions/header.php";
         });
 
         const outbox = document.getElementById('outbox');
-
         outbox.addEventListener('click', function() {
             const items = document.querySelectorAll('#notification-list li');
 
@@ -253,7 +277,6 @@ include_once "../../functions/header.php";
         });
 
         const myNotification = document.querySelector('.menu li');
-
         myNotification.addEventListener('click', function() {
             const items = document.querySelectorAll('#notification-list li');
 
@@ -271,7 +294,6 @@ include_once "../../functions/header.php";
                 sweetalert.style.opacity = 1;
             }, 10);
         }
-
         function closeModal() {
             var sweetalert = document.getElementById("sweetalert");
             sweetalert.style.opacity = 0;
@@ -281,6 +303,35 @@ include_once "../../functions/header.php";
         }
     </script>
 
+    <script>
+        window.onload = function() {
+            var modal = document.getElementById("messageModal");
+            var button = document.getElementsByClassName("closebtn")[0];
+
+            button.onclick = function() {
+                modal.style.display = "none";
+            }
+
+            window.onclick = function(event) {
+                if (event.target == modal) {
+                    modal.style.display = "none";
+                }
+            }
+            <?php if (!empty($success_message) || !empty($error_message)): ?>
+                modal.style.display = "block";
+            <?php endif; ?>
+        }
+    </script>
     
 </body>
 </html>
+
+<!-- *Copyright  © 2024 WebCraft - All Rights Reserved*
+    *Administartive Office Facility Reservation and Management System*
+    *IT 132 - Software Engineering *
+    *(WebCraft) Members:
+        Falcatan, Khriz Marr
+        Gabotero, Rogie
+        Taborada, John Mark
+        Tingkasan, Padwa 
+        Villares, Arp-J* -->

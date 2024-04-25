@@ -1,25 +1,4 @@
-// var sidebar = document.querySelector('.sideBarContainer6');
-// var hideButton = document.querySelector('.arrowContainer');
-// var rotateImg = document.querySelector('.hideIcon');
 
-// hideButton.addEventListener('click', function() {
-//     if (sidebar.classList.contains('sideBarContainer6')) {
-//         sidebar.classList.remove('sideBarContainer6');
-//         sidebar.classList.add('openSideBar');
-//     } else {
-//         sidebar.classList.add('sideBarContainer6');
-//         sidebar.classList.remove('openSideBar');
-//     }
-
-//     if(rotateImg.classList.contains('rotate')){
-//         rotateImg.classList.remove('rotate');
-//         rotateImg.classList.add('hideIcon');
-//     } else {
-//         rotateImg.classList.add('rotate');
-//         rotateImg.classList.remove('hideIcon');
-//     }
-
-// });
 
 document.getElementById('toggleButton').addEventListener('click', function() {
     var sidebar = document.querySelector('.sidebar');
@@ -80,3 +59,13 @@ function hideWarrantyContainer() {
 function logout() {
     window.location.href = "../../functions/signout.php";
 }
+
+ // *Copyright  © 2024 WebCraft - All Rights Reserved*
+    // *Administartive Office Facility Reservation and Management System*
+    // *IT 132 - Software Engineering *
+    // *(WebCraft) Members:
+        // Falcatan, Khriz Marr
+        // Gabotero, Rogie
+        // Taborada, John Mark
+        // Tingkasan, Padwa 
+        // Villares, Arp-J*

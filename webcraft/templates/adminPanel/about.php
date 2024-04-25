@@ -8,7 +8,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <link rel="icon" type="image/png" href="../../assets/img/medLogo.png">
+    <title>MedEquip Tracker</title>
 
     <link rel="stylesheet" href="../../assets/css/about.css">
 </head>
@@ -46,7 +47,7 @@
 
             <div class="subBodyContainer1">
                 <div class="subTextContainer">
-                    <img class="image1" src="../../assets/img/kyle kuzma.jpg" alt="">
+                    <img class="image1" style="border-radius: 0.3rem; border: 1px solid rgb(2, 116, 200);"  src="../../assets/img/client.png" alt="">
                 </div>
                 
                 <div class="systemContainer">
@@ -65,7 +66,7 @@
                         of laboratory technicians like Ryan Jonathan Torres in the College of Science and Mathematics.
                         <br>
                         <div class="clientContact">
-                            <button class="button">Contact Information</button>
+                            <button class="button" onclick="openModal()">Contact Information</button>
                         </div>
                     </p>
                 </div>
@@ -183,7 +184,7 @@
             </div>
             <div class="systemLogoContainer">
                 <div class="subSystemLogoContainer">
-                    <img class="subSystemLogoContainer" src="../../assets/img/medLogo.png" alt="">
+                    <img class="subSystemLogoContainer" src="../../assets/img/webcraft_logo.png" alt="">
                 </div>
             </div>
 
@@ -193,10 +194,60 @@
         </div>  
     </div>
 
+     <!-- client contact -->
+     <div id="clientContact1" class="clientContact1" style="display: none;">
+        <div class="contactModal">
+            <div class="contactContent">
+                <div class="clientImg">
+                    <img src="../../assets/img/client.png" alt="">
+                </div>
+                <div class="clientDetails">
+                    <div class="clientDetails1">
+                        <p>Name: <span>Ryan Jonathan A. Torres</span></p>
+                        <p>Username: <span>admin@wmsu</span></p>
+                        <p>E-mail: <span>rjat030878@gmail.com</span></p>
+                        <p>Address: <span>Baliwasa, Zamboanga City</span></p>
+                    </div>
+                </div>
+                <div class="closebtn">
+                    <p onclick="closeModal()">x</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script>
         function goBack() {
             window.history.back();
         }
     </script>
+
+    <script> 
+        function openModal() {
+            var clientContact1 = document.getElementById("clientContact1");
+            clientContact1.style.display = "block";
+            setTimeout(function() {
+                clientContact1.style.opacity = 1;
+            }, 10);
+        }
+
+        function closeModal() {
+            var clientContact1 = document.getElementById("clientContact1");
+            clientContact1.style.opacity = 0;
+            setTimeout(function() {
+                clientContact1.style.display = "none";
+            }, 300);
+        }
+    </script>
 </body>
 </html>
+
+<!-- *Copyright  © 2024 WebCraft - All Rights Reserved*
+    *Administartive Office Facility Reservation and Management System*
+    *IT 132 - Software Engineering *
+    *(WebCraft) Members:
+        Falcatan, Khriz Marr
+        Gabotero, Rogie
+        Taborada, John Mark
+        Tingkasan, Padwa 
+        Villares, Arp-J* -->

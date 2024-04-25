@@ -11,36 +11,22 @@ function popup2(){
     }
 }
 
-// report options
-document.getElementById("dropdownContent").style.display = "none";
-
-function toggleDropdown() {
-    var dropdownContent = document.getElementById("dropdownContent");
-    if (dropdownContent.style.display === "block") {
-        dropdownContent.style.display = "none"; 
-    } else {
-        dropdownContent.style.display = "block"; 
-    }
+// sweet alert
+function openModal() {
+    var sweetalert = document.getElementById("sweetalert");
+    sweetalert.style.display = "block";
+    setTimeout(function() {
+        sweetalert.style.opacity = 1;
+    }, 10);
 }
 
-document.addEventListener("DOMContentLoaded", function() {
-    var agreementCheckbox = document.getElementById("agreementCheckbox");
-    var proceedButton = document.querySelector(".proceed");
-
-    function toggleButtonState() {
-        proceedButton.disabled = !agreementCheckbox.checked;
-        if (proceedButton.disabled) {
-            proceedButton.style.backgroundColor = "rgba(2, 117, 200, 0.297)";
-        } else {
-            proceedButton.style.backgroundColor = ""; 
-        }
-    }
-
-    toggleButtonState();
-
-    agreementCheckbox.addEventListener("change", toggleButtonState);
-});
-
+function closeModal() {
+    var sweetalert = document.getElementById("sweetalert");
+    sweetalert.style.opacity = 0;
+    setTimeout(function() {
+        sweetalert.style.display = "none";
+    }, 300);
+}
 
 
 // warranty
@@ -118,3 +104,53 @@ function toggleDropdown(element) {
     }
   }
   
+
+//   dashboard label
+function enableEditMode() {
+    const headerText = document.getElementById('headerText');
+    const editIcon = document.querySelector('.edit-icon');
+
+    headerText.contentEditable = true;
+    headerText.focus();
+    editIcon.style.display = 'none';
+
+    headerText.addEventListener('keydown', function (event) {
+        if (event.key === 'Enter') {
+            event.preventDefault();
+            headerText.contentEditable = false;
+            editIcon.style.display = 'inline';
+            saveHeaderText(headerText.innerHTML);
+        }
+    });
+}
+
+function saveHeaderText(text) {
+    localStorage.setItem('headerText', text);
+}
+
+function getHeaderText() {
+    return localStorage.getItem('headerText');
+}
+
+window.addEventListener('DOMContentLoaded', function () {
+    const headerText = getHeaderText();
+    if (headerText) {
+        document.getElementById('headerText').innerHTML = headerText;
+    }
+});
+
+
+// go back
+function goBack() {
+    window.history.back();
+}
+
+   // *Copyright  © 2024 WebCraft - All Rights Reserved*
+    // *Administartive Office Facility Reservation and Management System*
+    // *IT 132 - Software Engineering *
+    // *(WebCraft) Members:
+        // Falcatan, Khriz Marr
+        // Gabotero, Rogie
+        // Taborada, John Mark
+        // Tingkasan, Padwa 
+        // Villares, Arp-J*

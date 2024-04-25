@@ -171,3 +171,31 @@ document.addEventListener("DOMContentLoaded", function () {
           popup.styl.display = 'none';
       }
   }
+
+  // sweet alert
+  
+  function openModal() {
+    var sweetalert = document.getElementById("sweetalert");
+    sweetalert.style.display = "block";
+    setTimeout(function() {
+        sweetalert.style.opacity = 1;
+    }, 10);
+}
+
+function closeModal() {
+    var sweetalert = document.getElementById("sweetalert");
+    sweetalert.style.opacity = 0;
+    setTimeout(function() {
+        sweetalert.style.display = "none";
+    }, 300);
+}
+
+ // *Copyright  © 2024 WebCraft - All Rights Reserved*
+    // *Administartive Office Facility Reservation and Management System*
+    // *IT 132 - Software Engineering *
+    // *(WebCraft) Members:
+        // Falcatan, Khriz Marr
+        // Gabotero, Rogie
+        // Taborada, John Mark
+        // Tingkasan, Padwa 
+        // Villares, Arp-J*

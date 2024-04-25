@@ -1,151 +1,10 @@
 <?php
-include_once "../../functions/header.php";
-include_once "../../authentication/auth.php";
-
-if (isset($_POST['unitID'])) {
-    $unitIDInput = $_POST['unitID'];
-
-    $unitID = intval(substr($unitIDInput, 5));
-    $sql = "SELECT * FROM units WHERE unit_ID = ?";
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("i", $unitID);
-    $stmt->execute();
-    $result = $stmt->get_result();
-
-    if ($result->num_rows > 0) {
-        $row = $result->fetch_assoc();
-        $user_ID = $row['user_ID']; 
-        $unitDetails = array(
-            'unitID' => $unitIDInput,
-            'user_ID' => $row['user_ID'],
-            'equipmentName' => $row['equipment_name']
-        );
-
-        $unitID = intval(substr($unitIDInput, 5));
-        $unitSql = "SELECT year_received FROM units WHERE unit_ID = ?";
-        $unitStmt = $conn->prepare($unitSql);
-        $unitStmt->bind_param("i", $unitID);
-        $unitStmt->execute();
-        $unitResult = $unitStmt->get_result();
-
-        if ($unitResult->num_rows > 0) {
-            $unitRow = $unitResult->fetch_assoc();
-            $unitDetails['unitYearReceived'] = $unitRow['year_received'];
-        }
-
-        $user_ID = $row['user_ID'];
-        $userSql = "SELECT first_name, middle_initial, last_name, username, designation, department, email FROM users WHERE user_ID = ?";
-        $userStmt = $conn->prepare($userSql);
-        $userStmt->bind_param("i", $user_ID);
-        $userStmt->execute();
-        $userResult = $userStmt->get_result();
-
-        if ($userResult->num_rows > 0) {
-            $userRow = $userResult->fetch_assoc();
-            $unitDetails['firstName'] = $userRow['first_name'];
-            $unitDetails['middleInitial'] = $userRow['middle_initial'];
-            $unitDetails['lastName'] = $userRow['last_name'];
-            $unitDetails['userName'] = $userRow['username'];
-            $unitDetails['designation'] = $userRow['designation'];
-            $unitDetails['department'] = $userRow['department'];
-            $unitDetails['email'] = $userRow['email'];
-        }
-
-        $equipmentName = $row['equipment_name'];
-        $equipmentSql = "SELECT description, account_code, property_number, unit_value, year_received, remarks, warranty_end, image FROM equipment WHERE article = ?";
-        $equipmentStmt = $conn->prepare($equipmentSql);
-        $equipmentStmt->bind_param("s", $equipmentName);
-        $equipmentStmt->execute();
-        $equipmentResult = $equipmentStmt->get_result();
-
-        if ($equipmentResult->num_rows > 0) {
-            $equipmentRow = $equipmentResult->fetch_assoc();
-            $unitDetails['description'] = $equipmentRow['description'];
-            $unitDetails['accountCode'] = $equipmentRow['account_code'];
-            $unitDetails['propertyNumber'] = $equipmentRow['property_number'];
-            $unitDetails['unitValue'] = $equipmentRow['unit_value'];
-            $unitDetails['remarks'] = $equipmentRow['remarks'];
-            $unitDetails['yearReceived'] = $equipmentRow['year_received'];
-            $unitDetails['warrantyEnd'] = $equipmentRow['warranty_end'];
-            $unitDetails['image'] = "../../uploads/" . $equipmentRow['image'];
-        }
-    
-        $unitTransferSql = "SELECT old_end_user_first_name, old_end_user_last_name, old_end_userID, year_transfer, timestamp FROM unit_transfer WHERE unit_ID = ?";
-        $unitTransferStmt = $conn->prepare($unitTransferSql);
-        $unitTransferStmt->bind_param("s", $unitIDInput);
-        $unitTransferStmt->execute();
-        $unitTransferResult = $unitTransferStmt->get_result();
-
-        if ($unitTransferResult->num_rows > 0) {
-            $unitDetails['oldEndUserNames'] = array();
-
-        while ($unitTransferRow = $unitTransferResult->fetch_assoc()) {
-            $oldEndUser = array(
-                'firstName' => $unitTransferRow['old_end_user_first_name'],
-                'lastName' => $unitTransferRow['old_end_user_last_name'],
-                'year_transfer' => $unitTransferRow['year_transfer'],
-                'timestamp' => $unitTransferRow['timestamp']
-            );
-
-        $oldEndUserID = $unitTransferRow['old_end_userID'];
-        $userSql = "SELECT middle_initial, username, email, designation, department FROM users WHERE user_ID = ?";
-        $userStmt = $conn->prepare($userSql);
-        $userStmt->bind_param("s", $oldEndUserID);
-        $userStmt->execute();
-        $userResult = $userStmt->get_result();
-
-            if ($userResult->num_rows > 0) {
-                $userRow = $userResult->fetch_assoc();
-                $oldEndUser['middleInitial'] = $userRow['middle_initial'];
-                $oldEndUser['username'] = $userRow['username'];
-                $oldEndUser['email'] = $userRow['email'];
-                $oldEndUser['designation'] = $userRow['designation'];
-                $oldEndUser['department'] = $userRow['department'];
-            }
-
-            $unitDetails['oldEndUserNames'][] = $oldEndUser;
-        }
-    }
-
-        $issueSql = "SELECT report_issue, timestamp FROM approved_report WHERE unit_ID = ?";
-        $issueStmt = $conn->prepare($issueSql);
-        $issueStmt->bind_param("s", $unitIDInput);
-        $issueStmt->execute();
-        $issueResult = $issueStmt->get_result();
-        
-        if ($issueResult->num_rows > 0) {
-            $unitDetails['unitIssues'] = array();
-        
-            while ($issueRow = $issueResult->fetch_assoc()) {
-                $unitIssue = array(
-                    'reportIssue' => $issueRow['report_issue'],
-                    'timestamp' => $issueRow['timestamp']
-                );
-                $unitDetails['unitIssues'][] = $unitIssue;
-            }
-        }
-        
-
-        echo json_encode($unitDetails);
-        exit;
-    } else {
-        echo "<div class='errorMessageContainer1' style='display: block;'>
-        <div class='errorMessageContainer'>
-            <div class='subErrorMessageContainer'>
-                <div class='errorMessage'>
-                    <p>Not exits.</p>
-                </div>
-    
-                <div class='errorButtonContainer'>
-                    <button onclick='closeErrorMessage()' class='errorButton'>Close</button>
-                </div>
-            </div>
-        </div>
-    </div>
-";
-        exit;
-    }
-}
+   include_once "../../functions/header.php";
+   include_once "../../authentication/auth.php";
+   include_once "../../functions/get_track.php";
+   
+   $success_message = isset($_GET['success_message']) ? $_GET['success_message'] : '';
+   $error_message = isset($_GET['error_message']) ? $_GET['error_message'] : '';
 ?>
 
 <!DOCTYPE html>
@@ -153,12 +12,15 @@ if (isset($_POST['unitID'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <link rel="icon" type="image/png" href="../../assets/img/medLogo.png">
+    <title>MedEquip Tracker</title>
 
     <link rel="stylesheet" href="../../assets/css/index.css">
     <link rel="stylesheet" href="../../assets/css/inventory.css">
     <link rel="stylesheet" href="../../assets/css/sidebar.css">
     <link rel="stylesheet" href="../../assets/css/tracker.css">
+    <link rel="stylesheet" href="../../assets/css/filter.css">
+
 </head>
 <body>
     <div class="sidebar">
@@ -171,13 +33,12 @@ if (isset($_POST['unitID'])) {
         </div>
         <?php include("sidebar.php"); ?>
     </div>
-        
 
     <div class="mainContainer">
         <div class="sideBarContainer3">
             <div class="headerContainer1">
                 <div class="iconContainer10">
-                    <a href="notification.php?id=<?php echo $userID; ?>">
+                    <a href="notification.php?id=<?php echo urlencode($userID); ?>">
                     <div class="subIconContainer10">
                         <img class="subIconContainer10" src="../../assets/img/notif.png" alt="">
                     </div>
@@ -200,21 +61,48 @@ if (isset($_POST['unitID'])) {
                         <p>INVENTORY</p>
                     </div>
 
+                    <div id="messageModal" class="messageModal">
+                        <div class="alertModal">
+                            <div class="alertContent">
+                                <div class="alertIcon">
+                                    <div class="iconBorder" style="<?php echo !empty($success_message) ? 'border: 1px solid rgba(0, 128, 0, 0.69);' : 'border: 1px solid red;'; ?>">
+                                        <?php if (!empty($success_message)): ?>
+                                            <p>&#10004;</p>
+                                        <?php else: ?>
+                                            <p class="errorIcon" style="color: red; margin-top: -0.8rem;">&times;</p> 
+                                        <?php endif; ?>
+                                    </div>
+                                </div>
+                                <div class="alertMsg">
+                                    <?php if (!empty($success_message)): ?>
+                                        <div class="success-message"><?php echo $success_message; ?></div>
+                                    <?php endif; ?>
+                                    <?php if (!empty($error_message)): ?>
+                                        <div class="error-message"><?php echo $error_message; ?></div>
+                                    <?php endif; ?>
+                                </div>
+                                <div class="alertBtn1">
+                                    <button class="closebtn">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="subFilterContainer1">
                         <div class="searchContainer1">
                             <input class="searchBar1" type="text" name="" id="" placeholder="Search...">
                         </div>
 
                         <div class="trackContainer">
-                            <div style="border: none;" class="trackButton">
-                                <button class="trackButton" type="button" onclick="track()">Track Unit</button>
+                            <div class="trackButton">
+                                <button class="trackButton" type="button" onclick="track()" style="border: none;">Track Unit</button>
                                 <form class="subTrackContainer" style="display: none;"  id="trackForm" method="post">
                                     <div class="searhUnitContainer">
                                         <p>Enter Unit ID:</p>
                                     </div>
 
                                     <div class="searchUnitContainer">
-                                        <input type="text" class="searchBar1" id="unitID">
+                                        <input type="text" class="searchBar1" id="unitID" placeholder="e.g. UNIT-0001">
                                     </div>
 
                                     <div class="buttonContainer2">
@@ -228,17 +116,82 @@ if (isset($_POST['unitID'])) {
                                     </div>
                                 </form>
                             </div>
-                            <button class="trackButton1">Sort <img src="../../assets/img/sort.png" alt="" style="margin-left: 0.5rem; width: 1.4rem; height: 1.2rem;"></button>
                             <a href="new_item.php?id=<?php echo $userID; ?>">
                             <button class="trackButton1" id="new-equip">New Item<span class="plusIcon">+</span></button>
                             </a>
+                            <button class="trackButton1" onclick="showFilterPopup()">Sort <img src="../../assets/img/sort.png" alt="" style="margin-left: 0.5rem; width: 1.4rem; height: 1.2rem;"></button>
+
+                            <div class="filterPopupContainer" id="filterPopupContainer" style="display: none;">
+                                <div class="filterPopupContent">
+                                    <h2>UNIT FILTERS</h2>
+                                    <div id="desc">
+                                        <p>Use filter to find equipment</p>
+                                    </div>
+
+                                    <div class="filters">
+                                        <div class="labelContainer">
+                                            <p id="allFilter" onclick="resetFilters()">All</p>
+                                            <p>Year</p>
+                                            <p>Article</p>
+                                            <p>Alphabetical</p>
+                                        </div>
+
+                                        <div class="filterOptions">
+                                            <div class="year">
+                                                <select name="yearFilter" id="yearFilter">
+                                                    <option value="" selected disabled>Select year</option>
+                                                    <?php
+                                                    $sql = "SELECT DISTINCT year_received FROM equipment";
+                                                    $stmt = $conn->prepare($sql);
+                                                    $stmt->execute();
+                                                    $result = $stmt->get_result();
+                                                    while ($row = $result->fetch_assoc()) {
+                                                        echo '<option value="' . $row["year_received"] . '">' . $row["year_received"] . '</option>';
+                                                    }
+                                                    ?>
+                                                </select>
+                                            </div>
+
+                                            <div class="unit">
+                                                <select name="unitIDFilter" id="unitIDFilter">
+                                                    <option value="" selected disabled>Select article</option>
+                                                                                        <?php
+                                                    $sql = "SELECT article FROM equipment";
+                                                    $stmt = $conn->prepare($sql);
+                                                    $stmt->execute();
+                                                    $result = $stmt->get_result();
+                                                    while ($row = $result->fetch_assoc()) {
+                                                        echo '<option value="' .  $row['article'] . '">' . $row['article'] . '</option>';
+                                                    }
+                                                    
+                                                    ?>
+                                                </select>
+                                            </div>
+
+                                            <div class="alphabet">
+                                                <select name="alphabetFilter" id="alphabetFilter" onchange="filterTable()">
+                                                    <option value="Alphabet" selected disabled>Alphabet</option>
+                                                    <option value="asc">A-Z</option>
+                                                    <option value="desc">Z-A</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                <div class="buttonContainer2" id="buttonContainer2">
+                                    <button class="button3" onclick="hideFilterPopup()">Close</button>
+                                </div> 
+                            </div>
+
                         </div>
+                        </div>
+                        
                     </div>
                 </div>
 
                 <div class="tableContainer2">
                     <div class="unitContainer">
-                        <a href="unit_list.php?id=<?php echo $userID; ?>">
+                        <a href="unit_list.php?id=<?php echo urlencode($userID); ?>">
                             <button class="unitList">Go to unit list</button>
                         </a>
                     </div>
@@ -260,9 +213,13 @@ if (isset($_POST['unitID'])) {
                             <tbody id="tblBody">
                                 <?php
                                     $searchTerm = isset($_GET['search']) ? $_GET['search'] : '';
+                                    $sql = "SELECT * FROM equipment WHERE article LIKE ? OR description LIKE ? OR property_number LIKE ? OR account_code LIKE ? OR total_unit LIKE ? OR year_received LIKE ?";
+                                    $stmt = $conn->prepare($sql);
+                                    $searchPattern = "%$searchTerm%";
+                                    $stmt->bind_param("ssssss", $searchPattern, $searchPattern, $searchPattern, $searchPattern, $searchPattern, $searchPattern);
 
-                                    $sql = "SELECT * FROM equipment WHERE article LIKE '%$searchTerm%' OR description LIKE '%$searchTerm%'";
-                                    $result = $conn->query($sql);
+                                    $stmt->execute();
+                                    $result = $stmt->get_result();
 
                                     if ($result->num_rows > 0) {
                                         $count = 1; 
@@ -275,9 +232,9 @@ if (isset($_POST['unitID'])) {
                                             echo "<td>{$row['total_unit']}</td>";
                                             echo "<td>{$row['year_received']}</td>";
                                             echo "<td class='actionContainer' style='display: flex;'>";
-                                            echo "<a href='equip_other_info.php?id={$userID}&equipment_ID={$row['equipment_ID']}'>
-                                                    <div class='button4'><p>View</p></div>
-                                                    </a>";
+                                            echo "<a href='equip_other_info.php?id=" . urlencode($userID) . "&equipment_ID=" . urlencode($row['equipment_ID']) . "'>";
+                                            echo "<div class='button4'><p>View</p></div>";
+                                            echo "</a>";
                                             echo "</td>";
                                             echo "</tr>";
                                             $count++; 
@@ -290,6 +247,9 @@ if (isset($_POST['unitID'])) {
                                 ?>
                             </tbody>
                         </table>
+                        <div class="noResultsFound" style="display: none;">
+                            <p>No results found</p>
+                        </div>
                    </div>
                 </div>
             </div>  
@@ -300,7 +260,108 @@ if (isset($_POST['unitID'])) {
         </div>
     </div>
 
-    <script src="../../assets/js/a.js"></script>
+    <script src="../../assets/js/inventory.js"></script>
     <script src="../../assets/js/sidebar.js"></script>
+    <script src="../../assets/js/filter.js"></script>
+    <script src="../../assets/js/toggle.js"></script>
+
+    <script>
+        function filterTable() {
+        var year = document.getElementById("yearFilter").value;
+        var unitID = document.getElementById("unitIDFilter").value;
+        var alphabet = document.getElementById("alphabetFilter").value;
+        var rows = document.querySelectorAll("#tblBody tr");
+        var anyMatch = false;
+
+        for (var i = 0; i < rows.length; i++) {
+            var row = rows[i];
+            var yearCell = row.querySelector("td:nth-child(6)");
+            var unitIDCell = row.querySelector("td:nth-child(2)");
+
+            var showRow =
+                (!year || year === yearCell.textContent) &&
+                (!unitID || unitID === unitIDCell.textContent);
+
+            row.style.display = showRow ? "" : "none";
+
+            if (showRow) {
+                anyMatch = true;
+            }
+        }
+
+        if (alphabet === "asc") {
+            rows = Array.prototype.slice.call(rows);
+            rows.sort(function (a, b) {
+                var articleA = a.querySelector("td:nth-child(2)").textContent.toLowerCase();
+                var articleB = b.querySelector("td:nth-child(2)").textContent.toLowerCase();
+                return articleA.localeCompare(articleB);
+            });
+
+            var tableBody = document.getElementById("tblBody");
+            tableBody.innerHTML = "";
+            for (var j = 0; j < rows.length; j++) {
+                tableBody.appendChild(rows[j]);
+            }
+            } else if (alphabet === "desc") {
+                rows = Array.prototype.slice.call(rows);
+                rows.sort(function (a, b) {
+                    var articleA = a.querySelector("td:nth-child(2)").textContent.toLowerCase();
+                    var articleB = b.querySelector("td:nth-child(2)").textContent.toLowerCase();
+                    return articleB.localeCompare(articleA);
+                });
+
+                var tableBody = document.getElementById("tblBody");
+                tableBody.innerHTML = "";
+                for (var j = 0; j < rows.length; j++) {
+                    tableBody.appendChild(rows[j]);
+                }
+            }
+
+            document.getElementById("noResultsMessage").style.display = anyMatch ? "none" : "";
+        }
+
+        document.getElementById("yearFilter").addEventListener("change", filterTable);
+        document.getElementById("unitIDFilter").addEventListener("change", filterTable);
+        document.getElementById("alphabetFilter").addEventListener("change", filterTable);
+
+        filterTable();
+
+        function resetFilters() {
+        document.getElementById("yearFilter").selectedIndex = 0;
+        document.getElementById("unitIDFilter").selectedIndex = 0;
+        filterTable();
+        }
+    </script>
+
+<script>
+    window.onload = function() {
+        var modal = document.getElementById("messageModal");
+        var button = document.getElementsByClassName("closebtn")[0];
+
+        button.onclick = function() {
+            modal.style.display = "none";
+        }
+
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+
+        <?php if (!empty($success_message) || !empty($error_message)): ?>
+            modal.style.display = "block";
+        <?php endif; ?>
+    }
+</script>
 </body>
 </html>
+
+<!-- *Copyright  © 2024 WebCraft - All Rights Reserved*
+    *Administartive Office Facility Reservation and Management System*
+    *IT 132 - Software Engineering *
+    *(WebCraft) Members:
+        Falcatan, Khriz Marr
+        Gabotero, Rogie
+        Taborada, John Mark
+        Tingkasan, Padwa 
+        Villares, Arp-J* -->

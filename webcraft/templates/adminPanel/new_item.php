@@ -14,22 +14,6 @@
          $users[] = $row['first_name'] . ' ' . $row['last_name'];
      }
  }
-
- if(isset($_SESSION['error_message'])) {
-     echo "<div class='errorMessageContainer1' style='display: block;'>";
-     echo "<div class='errorMessageContainer'>";
-     echo "<div class='subErrorMessageContainer'>";
-     echo "<div class='errorMessage'>";
-     echo "<p>" . $_SESSION['error_message'] . "</p>";
-     echo "</div>";
-     echo "<div class='errorButtonContainer'>";
-     echo "<button onclick='closeErrorMessage()' class='errorButton'>Close</button>";
-     echo "</div>";
-     echo "</div>";
-     echo "</div>";
-     echo "</div>";
-     unset($_SESSION['error_message']);
- }
 ?>
 
 
@@ -38,7 +22,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MY POFILE</title>
+    <link rel="icon" type="image/png" href="../../assets/img/medLogo.png">
+    <title>MedEquip Tracker</title>
 
     <link rel="stylesheet" href="../../assets/css/index.css">
     <link rel="stylesheet" href="../../assets/css/inventory.css">
@@ -87,10 +72,28 @@
             </div>
 
             <div class="subContainer1" id="containerToReplace">
-                <div class="equipContainer">
-                <div class="filterContainer1" style="width: 100%; margin-top: 0rem;">
+                <div class="equipContainer" >
+                <div class="filterContainer1" style="width: 100%; margin-top: 0rem;" style="outline: 1px solid red;">
                     <div class="inventoryNameContainer">
                         <p>INSERT NEW ITEM</p>
+                    </div>
+                    
+                    <div id="ImgsizeModal" class="messageModal" style="display: none;">
+                        <div class="alertModal">
+                            <div class="alertContent">
+                                <div class="alertIcon">
+                                    <div class="iconBorder" style="border: 1px solid red;">
+                                        <p class="errorIcon" style="color: red; margin-top: -0.8rem;">&times;</p> 
+                                    </div>
+                                </div>
+                                <div class="alertMsg">
+                                    <div class="error-message">File size exceeds the maximum limit of 2 MB.</div>
+                                </div>
+                                <div class="alertBtn1">
+                                    <button class="close">Close</button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
                     <div class="subFilterContainer1">
@@ -150,7 +153,7 @@
                                             <p>Article <span>*</span></p>
                                         </div>
 
-                                        <input class="container4" type="text" name="article" required>
+                                        <input class="container4" type="text" name="article" required  maxlength="100" title="Maximum 100 characters allowed">
                                     </div>
                                 </div>
 
@@ -160,7 +163,7 @@
                                             <p>Deployment <span>*</span></p>
                                         </div>
 
-                                        <input class="container4" type="text" name="deployment" required>
+                                        <input class="container4" type="text" name="deployment" required  maxlength="100" title="Maximum 100 characters allowed">
                                     </div>
 
                                     <div class="approveContainer" id="approveContainer">
@@ -189,7 +192,7 @@
                                             <p>Total unit <span>*</span></p>
                                         </div>
 
-                                        <input class="container4" type="text" name="total_unit" id="totalUnits" required>
+                                        <input class="container4" type="text" name="total_unit" id="totalUnits" required  maxlength="100" title="Maximum 100 characters allowed">
                                     </div>
 
                                     <div class="approveContainer">
@@ -197,7 +200,7 @@
                                             <p>Unit value <span>*</span></p>
                                         </div>
 
-                                        <input class="container4" type="text"  name="unit_value" required style="text-align: center;">
+                                        <input class="container4" type="text"  name="unit_value" required style="text-align: center;"  maxlength="100" title="Maximum 100 characters allowed">
                                     </div>
 
                                     <div class="approveContainer">
@@ -205,7 +208,7 @@
                                             <p>Total value <span>*</span></p>
                                         </div>
 
-                                        <input class="container4" type="text"  name="total_value" required style="text-align: center;">
+                                        <input class="container4" type="text"  name="total_value" required style="text-align: center;"  maxlength="100" title="Maximum 100 characters allowed">
                                     </div>
                                 </div>
                                 
@@ -215,7 +218,7 @@
                                             <p>Property number <span>*</span></p>
                                         </div>
 
-                                        <input class="container4" type="text"  name="property_number" required>
+                                        <input class="container4" type="text"  name="property_number" required  maxlength="100" title="Maximum 100 characters allowed">
                                     </div>
 
                                      <div class="approveContainer">
@@ -223,7 +226,7 @@
                                             <p>Account code <span>*</span></p>
                                         </div>
 
-                                        <input class="container4" type="text" name="account_code" required>
+                                        <input class="container4" type="text" name="account_code" required  maxlength="100" title="Maximum 100 characters allowed">
                                     </div>
                                 </div>
 
@@ -233,7 +236,7 @@
                                             <p>Descripton <span>*</span></p>
                                         </div>
 
-                                        <input class="container5" type="text" name="description">
+                                        <textarea class="container5" type="text" name="description" maxlength="500" title="Maximum 500 characters allowed"></textarea>
                                     </div>
                                 </div>
 
@@ -244,7 +247,6 @@
                             <div class="instruction">
 
                                 <p>If applicable, add additional information such as warranty details, warranty picture, and a description with instructions for the equipment.</p>
-                                <!-- <p>Please complete all the required fields and, if applicable, add an equipment picture before submitting the new item.</p> -->
                             </div>
                         </div>
 
@@ -289,7 +291,7 @@
                                             <p>Instruction <span></span></p>
                                         </div>
 
-                                        <input class="container5" type="text" name="instruction">
+                                        <textarea class="container5" type="text" name="instruction"  maxlength="500" title="Maximum 500 characters allowed"></textarea>
                                     </div>
                                 </div>
 
@@ -299,7 +301,7 @@
                                             <p>Remarks</p>
                                         </div>
 
-                                        <input class="container4" type="text" name="remarks">
+                                        <input class="container4" type="text" name="remarks"  maxlength="100" title="Maximum 100 characters allowed">
                                     </div>
 
                                     <div class="approveContainer" id="approveContainer1">
@@ -348,40 +350,20 @@
     </div>
 </div>
 
-
     <script src="../../assets/js/inventory.js"></script>
     <script src="../../assets/js/newItem.js"></script>
     <script src="../../assets/js/sidebar.js"></script>
     <script src="../../assets/js/uploadImg.js"></script>
 
-    <script> 
-        function openModal() {
-            var sweetalert = document.getElementById("sweetalert");
-            sweetalert.style.display = "block";
-            setTimeout(function() {
-                sweetalert.style.opacity = 1;
-            }, 10);
-        }
-
-        function closeModal() {
-            var sweetalert = document.getElementById("sweetalert");
-            sweetalert.style.opacity = 0;
-            setTimeout(function() {
-                sweetalert.style.display = "none";
-            }, 300);
-        }
-
-        function closeErrorMessage(){
-        var close1 = document.querySelector('.errorMessageContainer1');
-
-        if(close1.style.display === 'block'){
-            close1.style.display = 'none';
-        } else{
-            close1.style.display = 'block'
-        }
-    }
-
-    </script>
-
 </body>
 </html>
+
+<!-- *Copyright  © 2024 WebCraft - All Rights Reserved*
+    *Administartive Office Facility Reservation and Management System*
+    *IT 132 - Software Engineering *
+    *(WebCraft) Members:
+        Falcatan, Khriz Marr
+        Gabotero, Rogie
+        Taborada, John Mark
+        Tingkasan, Padwa 
+        Villares, Arp-J* -->

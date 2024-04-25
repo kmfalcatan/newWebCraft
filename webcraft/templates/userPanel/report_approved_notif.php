@@ -47,16 +47,15 @@ if ($approvedID) {
 } else {
     $error_message = "Error: No transfer ID provided";
 }
-
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NOTIFICATION</title>
+    <link rel="icon" type="image/png" href="../../assets/img/medLogo.png">
+    <title>MedEquip Tracker</title>
 
     <link rel="stylesheet" href="../../assets/css/index.css">
     <link rel="stylesheet" href="../../assets/css/inventory.css">
@@ -80,7 +79,7 @@ if ($approvedID) {
         <div class="sideBarContainer3">
             <div class="headerContainer1">
                 <div class="iconContainer10">
-                    <a href="#">
+                    <a href="notification.php?id=<?php echo urlencode($userID); ?>">
                     <div class="subIconContainer10">
                         <img class="subIconContainer10" src="../../assets/img/notif.png" alt="">
                     </div>
@@ -105,11 +104,11 @@ if ($approvedID) {
                         </div>
 
                         <div class="subFilterContainer1">
-                            <div class="trackContainer">
-                                <a href="notification.php?id=<?php echo $userID ?>">
-                                    <button class="trackButton1">Back</button>
+                            <!-- <div class="trackContainer">
+                                <a href="notification.php?id=<?php echo urlencode($userID); ?>">
+                                    <button class="trackButton1" style="width: auto; padding: 0 1.5rem;">Back</button>
                                 </a>
-                            </div>
+                            </div> -->
                         </div>
                     </div>
 
@@ -141,6 +140,10 @@ if ($approvedID) {
                         </div>
 
                         <button class="button" onclick="toggleReportInfo()">See Report</button>
+                        <br>
+                        <a href="notification.php?id=<?php echo urlencode($userID); ?>">
+                            <button class="button3" type="button" style="border-radius: 0.3rem;">Close</button>
+                        </a>
                     </div>
 
                 </div>
@@ -148,8 +151,6 @@ if ($approvedID) {
     
     </div>
 </div>
-
-
  <script src="../../assets/js/sidebar.js"></script>
 
  <script>
@@ -169,3 +170,13 @@ if ($approvedID) {
 
 </body>
 </html>
+
+<!-- *Copyright  © 2024 WebCraft - All Rights Reserved*
+    *Administartive Office Facility Reservation and Management System*
+    *IT 132 - Software Engineering *
+    *(WebCraft) Members:
+        Falcatan, Khriz Marr
+        Gabotero, Rogie
+        Taborada, John Mark
+        Tingkasan, Padwa 
+        Villares, Arp-J* -->

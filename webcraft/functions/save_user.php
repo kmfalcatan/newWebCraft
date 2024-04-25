@@ -13,37 +13,42 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $first_name = $_POST['first_name'];
     $last_name = $_POST['last_name'];
     $middle_initial = $_POST['middle_initial'];
+    $rank = $_POST['rank'];
     $designation = $_POST['designation'];
     $email = $_POST['email'];
     $username = $_POST['username'];
     $password = $_POST['password'];
 
+    if (!empty($middle_initial)) {
+        $middle_initial = $middle_initial . '.';
+    }
+
     if (isset($_POST)) {
-    $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-    $role = "user";
+        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+        $role = "user";
 
-    $sql = "INSERT INTO users (first_name, last_name, middle_initial, designation, email, username, password, role) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        $sql = "INSERT INTO users (first_name, last_name, middle_initial, rank, designation, email, username, password, role) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("ssssssss", $first_name, $last_name, $middle_initial, $designation, $email, $username, $hashedPassword, $role);
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("sssssssss", $first_name, $last_name, $middle_initial, $rank, $designation, $email, $username, $hashedPassword, $role);
 
-    if ($stmt->execute()) {
-        $mail = new PHPMailer(true);
-        try {
-            $mail->isSMTP();
-            $mail->Host = 'smtp.gmail.com';
-            $mail->SMTPAuth = true;
-            $mail->Username = 'pawtingkasan20@gmail.com';
-            $mail->Password = 'pxmr fvrz lcgl fwjc';
-            $mail->SMTPSecure = 'tls';
-            $mail->Port = 587;
+        if ($stmt->execute()) {
+            $mail = new PHPMailer(true);
+            try {
+                $mail->isSMTP();
+                $mail->Host = 'smtp.gmail.com';
+                $mail->SMTPAuth = true;
+                $mail->Username = 'pawtingkasan20@gmail.com';
+                $mail->Password = 'pxmr fvrz lcgl fwjc';
+                $mail->SMTPSecure = 'tls';
+                $mail->Port = 587;
 
-            $mail->setFrom('pawtingkasan20@gmail.com');
-            $mail->addAddress($email);
+                $mail->setFrom('pawtingkasan20@gmail.com');
+                $mail->addAddress($email);
 
-            $mail->isHTML(true);
-            $mail->Subject = 'Welcome to MedEquip Tracker';
-            $mail->Body = "
+                $mail->isHTML(true);
+                $mail->Subject = 'Welcome to MedEquip Tracker';
+                $mail->Body = "
                 <!DOCTYPE html>
                 <html lang='en'>
                 <head>
@@ -108,35 +113,53 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                             <div class='header-content'>
                                 <p>Western Mindanao State University <br> College of Medicine <br> National Road, Baliwasan, Zamboanga City</p>
                             </div>
-                            <img src='https://drive.google.com/uc?export=view&id=1cMPyfzCR8XWfoJnvIeGlZjsnU_w9XFWW' alt='Logo Right' class='logo'>
+                            <img src='https://drive.google.com/uc?export=view&id=1cMPyfzCR8XWfoJnvIeGlZjsnU_w9XFWW' alt='Logo Right'class='logo'>
                         </div>
-                        <p>Welcome to MedEquip Tracker, <strong>$first_name $last_name</strong>!</p>
-                        <br>
-                        <p class='message'>We are delighted to have you as one of our valued end users. By adding you to our system, you are now responsible for managing the units under your name. Should you encounter any issues or have any concerns, please don't hesitate to report them to our administration. We will takeprompt action to address any matters that require attention.</p>
-                        <br>
-                        <p>Here are your account details:</p>
-                        <p>Email: <strong>$username</strong></p>
-                        <p>Password: <strong>$password</strong></p>
-                        <br>
-                        <p>To access your account and continue, please click the following link: <a href='http://localhost/WebCraft-main/WebCraft/landing_page.php'>Login</a></p>
-                        <p>Thank you for joining MedEquip Tracker. We look forward to assisting you in managing your units effectively.</p>
+                        <div class='message'>
+                            <p>Dear $first_name $middle_initial $last_name,</p>
+                            <p>Welcome to MedEquip Tracker! We are excited to have you on board.</p>
+                            <p>You can now log in to your account using the following credentials:</p>
+                            <p><strong>Username:</strong> $username</p>
+                            <p><strong>Password:</strong> $password </p>
+                            <p>Please keep your login credentials confidential and do not share them with anyone.</p>
+                            <p>If you have any questions or need assistance, feel free to reach out to us.</p>
+                            <p>Thank you and enjoy using MedEquip Tracker!</p>
+                        </div>
+                        <div class='footer'>
+                            <p>MedEquip Tracker &copy; 2024. All rights reserved.</p>
+                        </div>
                     </div>
                 </body>
                 </html>
-            ";
+                ";
 
-            $mail->send();
-            header("Location: ../templates/adminPanel/user_list.php?id={$userID}");
-            exit;
-        } catch (Exception $e) {
-            echo "Error sending email: " . $mail->ErrorInfo;
+                if ($mail->send()) {
+                    header("Location: ../templates/adminPanel/user_list.php?id={$userID}&success_message=New user added successfully.");
+                    exit();
+                } else {
+                    header("Location: ../templates/adminPanel/user_list.php?id={$userID}error_message=Failed to send email.");
+                    exit();
+                }
+            } catch (Exception $e) {
+                header("Location: ../templates/adminPanel/user_list.php?id={$userID}&error_message=Error: {$mail->ErrorInfo}");
+                exit();
+            }
+        } else {
+            header("Location: ../templates/adminPanel/user_list.php??id={$userID}&error_message=Failed to add new user.");
+            exit();
         }
-    } else {
-        echo "Error: " . $stmt->error;
+        $stmt->close();
+        $conn->close();
     }
-
-    $stmt->close();
-    $conn->close();
-}
 }
 ?>
+
+<!-- *Copyright  © 2024 WebCraft - All Rights Reserved*
+    *Administartive Office Facility Reservation and Management System*
+    *IT 132 - Software Engineering *
+    *(WebCraft) Members:
+        Falcatan, Khriz Marr
+        Gabotero, Rogie
+        Taborada, John Mark
+        Tingkasan, Padwa 
+        Villares, Arp-J* -->

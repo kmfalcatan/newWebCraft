@@ -3,145 +3,7 @@ include_once "../../dbConfig/dbconnect.php";
 include_once "../../authentication/auth.php";
 include_once "../../functions/header.php";
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Check if all required POST variables are set
-    if (isset($_POST['old_password'], $_POST['new_password'], $_POST['confirm_password'])) {
-        $old_password = $_POST['old_password'];
-        $new_password = $_POST['new_password'];
-        $confirm_password = $_POST['confirm_password'];
 
-        $sql = "SELECT password FROM users WHERE user_ID = '$userID'";
-        $result = mysqli_query($conn, $sql);
-
-        if ($result) {
-            $row = mysqli_fetch_assoc($result);
-            if ($row) {
-                $current_password_hashed = $row['password'];
-
-                if (password_verify($old_password, $current_password_hashed)) {
-                    if ($new_password != $confirm_password) {
-                        echo "<div class='errorMessageContainer1' style='display: block;'>
-                                <div class='errorMessageContainer'>
-                                    <div class='subErrorMessageContainer'>
-                                        <div class='errorMessage'>
-                                            <p>New password and confirm password do not match.</p>
-                                        </div>
-                            
-                                        <div class='errorButtonContainer'>
-                                            <button onclick='closeErrorMessage()' class='errorButton'>Close</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>";
-                    } elseif (strlen($new_password) < 6) {
-                        echo "<div class='errorMessageContainer1' style='display: block;'>
-                                <div class='errorMessageContainer'>
-                                    <div class='subErrorMessageContainer'>
-                                        <div class='errorMessage'>
-                                            <p>Password should be at least 6 characters long.</p>
-                                        </div>
-                            
-                                        <div class='errorButtonContainer'>
-                                            <button onclick='closeErrorMessage()' class='errorButton'>Close</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>";
-                    } else {
-                        $new_password_hashed = password_hash($new_password, PASSWORD_DEFAULT);
-
-                        $sql = "UPDATE users SET password = '$new_password_hashed' WHERE user_ID = '$userID'";
-                        if (mysqli_query($conn, $sql)) {
-                            echo "<div class='errorMessageContainer1' style='display: block;'>
-                                    <div class='errorMessageContainer'>
-                                        <div class='subErrorMessageContainer'>
-                                            <div class='errorMessage'>
-                                                <p>Password updated successfully.</p>
-                                            </div>
-                                
-                                            <div class='errorButtonContainer'>
-                                                <button onclick='closeErrorMessage()' class='errorButton'>Close</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>";
-                        } else {
-                            echo "<div class='errorMessageContainer1' style='display: block;'>
-                                    <div class='errorMessageContainer'>
-                                        <div class='subErrorMessageContainer'>
-                                            <div class='errorMessage'>
-                                                <p>Error updating password: </p>
-                                            </div>
-                                
-                                            <div class='errorButtonContainer'>
-                                                <button onclick='closeErrorMessage()' class='errorButton'>Close</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>" . mysqli_error($conn);
-                        }
-                    }
-                } else {
-                    echo "<div class='errorMessageContainer1' style='display: block;'>
-                            <div class='errorMessageContainer'>
-                                <div class='subErrorMessageContainer'>
-                                    <div class='errorMessage'>
-                                        <p>Old password is incorrect.</p>
-                                    </div>
-                        
-                                    <div class='errorButtonContainer'>
-                                        <button onclick='closeErrorMessage()' class='errorButton'>Close</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>";
-                }
-            } else {
-                echo "<div class='errorMessageContainer1' style='display: block;'>
-                        <div class='errorMessageContainer'>
-                            <div class='subErrorMessageContainer'>
-                                <div class='errorMessage'>
-                                    <p>User not found.</p>
-                                </div>
-                    
-                                <div class='errorButtonContainer'>
-                                    <button onclick='closeErrorMessage()' class='errorButton'>Close</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>";
-            }
-        } else {
-            echo "<div class='errorMessageContainer1' style='display: block;'>
-                    <div class='errorMessageContainer'>
-                        <div class='subErrorMessageContainer'>
-                            <div class='errorMessage'>
-                                <p>Error querying database: </p>
-                            </div>
-                
-                            <div class='errorButtonContainer'>
-                                <button onclick='closeErrorMessage()' class='errorButton'>Close</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>" . mysqli_error($conn);
-        }
-    } else {
-        echo "<div class='errorMessageContainer1' style='display: block;'>
-                <div class='errorMessageContainer'>
-                    <div class='subErrorMessageContainer'>
-                        <div class='errorMessage'>
-                            <p>Please fill out all fields.</p>
-                        </div>
-            
-                        <div class='errorButtonContainer'>
-                            <button onclick='closeErrorMessage()' class='errorButton'>Close</button>
-                        </div>
-                    </div>
-                </div>
-            </div>";
-    }
-}
 ?>
 
 <!DOCTYPE html>
@@ -149,7 +11,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <link rel="icon" type="image/png" href="../../assets/img/medLogo.png">
+    <title>MedEquip Tracker</title>
 
     <link rel="stylesheet" href="../../assets/css/index.css">
     <link rel="stylesheet" href="../../assets/css/sidebar.css">
@@ -173,7 +36,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <div class="sideBarContainer3">
             <div class="headerContainer1">
                 <div class="iconContainer10">
-                    <a href="#">
+                    <a href="notification.php?id=<?php echo urlencode($userID); ?>">
                     <div class="subIconContainer10">
                         <img class="subIconContainer10" src="../../assets/img/notif.png" alt="">
                     </div>
@@ -242,7 +105,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     </div>
 
                     <div class="editContainer">
-                        <form class="subUserInfoContainer" action="" method="post">
+                    <form class="subUserInfoContainer" action="../../functions/change_passwod.php" method="post" onsubmit="checkFormSubmission(event)">
                             <div class="title1">
                                 <p>CHANGE PASSWORD</p>
                             </div>
@@ -258,13 +121,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                     </div>
                                 </div>
 
-                                <div class="subInputContainer" id="subInputContainer">
+                                <div class="subInputContainer" id="subInputContainer" style="margin-top: -0.5rem;">
                                     <div class="firstNameContainer">
                                         <div class="labelContainer">
                                             <p>New password <span>*</span></s></p>
                                         </div>
 
-                                        <input type="password" class="subFirstNameContainer" name="new_password" required>
+                                        <input type="password" class="subFirstNameContainer" name="new_password" required oninput="validatePassword(this.value)">
                                     </div>
                                 </div>
 
@@ -278,9 +141,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                     </div>
                                 </div>
 
+                                <div class="passwordHint" id="subInputContainer">
+                                    <div class="passwordHint1">
+                                        <h3>Password Hint</h3>
+                                        <p id="lengthHint">Minimum 6 characters</p>
+                                        <p id="upperCaseHint">At least 1 uppercase (A - Z)</p>
+                                        <p id="lowerCaseHint">At least 1 lowercase (a - z)</p>
+                                        <p id="numberHint">At least 1 number (0 - 9)</p>
+                                        <p id="symbolHint">At least 1 non-alphanumeric symbol (e.g., '@Z$%&!')</p>
+                                    </div>
+                                </div>
+
                                 <div class="buttonContainer2" id="buttonContainer2">
                                     <button class="button4" id="saveButton" type="button" onclick="openModal()">Save Changes</button>
-                                    <a href="my_profile.php?id=<?php echo $userID; ?>">
+                                    <a href="my_profile.php?id=<?php echo urlencode($userID); ?>">
                                         <button class="button3" id="saveButton" type="button">Cancel</button>
                                     </a>
                                 </div>
@@ -335,16 +209,86 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             sweetalert.style.display = "none";
         }, 300);
     }
+    </script>
 
-    function closeErrorMessage(){
-        var close1 = document.querySelector('.errorMessageContainer1');
+<script>
+    function validatePassword(password) {
+        const lengthHint = document.getElementById("lengthHint");
+        const upperCaseHint = document.getElementById("upperCaseHint");
+        const lowerCaseHint = document.getElementById("lowerCaseHint");
+        const numberHint = document.getElementById("numberHint");
+        const symbolHint = document.getElementById("symbolHint");
 
-        if(close1.style.display === 'block'){
-            close1.style.display = 'none';
-        } else{
-            close1.style.display = 'block'
+        if (password.length >= 6) {
+            lengthHint.style.color = "green";
+            lengthHint.style.fontWeight = "bold";
+        } else {
+            lengthHint.style.color = "";
+            lengthHint.style.fontWeight = "";
+        }
+
+        if (/[A-Z]/.test(password)) {
+            upperCaseHint.style.color = "green";
+            upperCaseHint.style.fontWeight = "bold";
+        } else {
+            upperCaseHint.style.color = "";
+            upperCaseHint.style.fontWeight = "";
+        }
+
+        if (/[a-z]/.test(password)) {
+            lowerCaseHint.style.color = "green";
+            lowerCaseHint.style.fontWeight = "bold";
+        } else {
+            lowerCaseHint.style.color = "";
+            lowerCaseHint.style.fontWeight = "";
+        }
+
+        if (/[0-9]/.test(password)) {
+            numberHint.style.color = "green";
+            numberHint.style.fontWeight = "bold";
+        } else {
+            numberHint.style.color = "";
+            numberHint.style.fontWeight = "";
+        }
+
+        if (/[^a-zA-Z0-9]/.test(password)) {
+            symbolHint.style.color = "green";
+            symbolHint.style.fontWeight = "bold";
+        } else {
+            symbolHint.style.color = "";
+            symbolHint.style.fontWeight = "";
         }
     }
-    </script>
+
+    function checkFormSubmission(event) {
+        const lengthHint = document.getElementById("lengthHint");
+        const upperCaseHint = document.getElementById("upperCaseHint");
+        const lowerCaseHint = document.getElementById("lowerCaseHint");
+        const numberHint = document.getElementById("numberHint");
+        const symbolHint = document.getElementById("symbolHint");
+
+        if (
+            lengthHint.style.color !== "green" ||
+            upperCaseHint.style.color !== "green" ||
+            lowerCaseHint.style.color !== "green" ||
+            numberHint.style.color !== "green" ||
+            symbolHint.style.color !== "green"
+        ) {
+            event.preventDefault(); 
+            alert("Make sure to complete all the password requirements.");
+        }
+    }
+</script>
+
   </body>
   </html>
+
+  <!-- *Copyright  © 2024 WebCraft - All Rights Reserved*
+    *Administartive Office Facility Reservation and Management System*
+    *IT 132 - Software Engineering *
+    *(WebCraft) Members:
+        Falcatan, Khriz Marr
+        Gabotero, Rogie
+        Taborada, John Mark
+        Tingkasan, Padwa 
+        Villares, Arp-J* -->

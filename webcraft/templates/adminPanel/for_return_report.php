@@ -9,7 +9,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>UNIT REPORTED</title>
+    <link rel="icon" type="image/png" href="../../assets/img/medLogo.png">
+    <title>MedEquip Tracker</title>
 
     <link rel="stylesheet" href="../../assets/css/index.css">
     <link rel="stylesheet" href="../../assets/css/inventory.css">
@@ -39,7 +40,7 @@
         <div class="sideBarContainer3">
             <div class="headerContainer1">
                 <div class="iconContainer10">
-                    <a href="notification.php?id=<?php echo $userID; ?>">
+                    <a href="notification.php?id=<?php echo urlencode($userID); ?>">
                     <div class="subIconContainer10">
                         <img class="subIconContainer10" src="../../assets/img/notif.png" alt="">
                     </div>
@@ -64,16 +65,16 @@
                     </div>
 
                     <div class="subFilterContainer1">
-                        <div class="trackContainer">
-                            <a href="notification.php?id=<?php echo $userID ?>">
-                                <button class="trackButton1">Back</button>
+                        <!-- <div class="trackContainer">
+                            <a href="notification.php?id=<?php echo urlencode($userID) ?>">
+                                <button class="trackButton1" style="width: auto; padding: 0 1.5rem;">Back</button>
                             </a>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
                 
                     <form class="subViewApproveContainer" action="../../functions/approve_report.php" enctype="multipart/form-data" method="post">
-                        <div class="viewInfoContainer" id="viewInfoContainer">
+                        <div class="viewInfoContainer" id="viewInfoContainer" >
                             <div class="imageContainer4" >
                                 <div class="equipImage" >
                                     <?php if (!empty($image_url)): ?>
@@ -87,6 +88,7 @@
                                     <p><?php echo $article; ?></p>
                                     <input type="hidden" name="equipment_ID" value="<?php echo $report['equipment_ID']; ?>">
                                     <input type="hidden" name="user_ID" value="<?php echo $report['user_ID']; ?>">
+                                    <input type="hidden" name="unit_year" value="<?php echo $year_received; ?>" readonly>
                                 </div>
                             </div>
 
@@ -174,7 +176,7 @@
                                             <p>Problem description</p>
                                         </div>
 
-                                        <input class="container4" type="text" name="problem_desc" value="<?php echo $report['problem_desc']; ?>" readonly>
+                                        <textarea class="container4" type="text" name="problem_desc" style="padding: 1rem;" readonly><?php echo $report['problem_desc']; ?></textarea>
                                     </div>
                                 </div>
 
@@ -184,8 +186,8 @@
                         <div class="buttonContainer2" id="buttonContainer2" style="width: 86%;">
                             <p><?php echo $formattedTimestamp ?></p>
                             <button class="button4" id="confirm-submit" type="button" onclick="openModal()">Approve</button>
-                            <a href="my_units.php?id=<?php echo $userID; ?>">
-                                <button class="button3"  id="red-btn" type="button">Decline</button>
+                            <a href="notification.php?id=<?php echo urlencode($userID); ?>">
+                                <button class="button3" type="button">Close</button>
                             </a>
                         </div>
                        
@@ -220,24 +222,17 @@
     <script src="../../assets/js/inventory.js"></script>
     <script src="../../assets/js/sidebar.js"></script>
     <script src="../../assets/js/uploadImg.js"></script>
-
-    <script> 
-        function openModal() {
-            var sweetalert = document.getElementById("sweetalert");
-            sweetalert.style.display = "block";
-            setTimeout(function() {
-                sweetalert.style.opacity = 1;
-            }, 10);
-        }
-
-        function closeModal() {
-            var sweetalert = document.getElementById("sweetalert");
-            sweetalert.style.opacity = 0;
-            setTimeout(function() {
-                sweetalert.style.display = "none";
-            }, 300);
-        }
-    </script>
+    <script src="../../assets/js/toggle.js"></script>
 
 </body>
 </html>
+
+<!-- *Copyright  © 2024 WebCraft - All Rights Reserved*
+    *Administartive Office Facility Reservation and Management System*
+    *IT 132 - Software Engineering *
+    *(WebCraft) Members:
+        Falcatan, Khriz Marr
+        Gabotero, Rogie
+        Taborada, John Mark
+        Tingkasan, Padwa 
+        Villares, Arp-J* -->

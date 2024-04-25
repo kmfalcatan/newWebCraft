@@ -1,5 +1,7 @@
 <?php
 include_once "../dbConfig/dbconnect.php";
+include_once "../functions/header.php";
+include_once "../authentication/auth.php";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
@@ -8,6 +10,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $equipment_ID = $_POST['equipment_ID'] ?? '';
     $report_issue = $_POST['report_issue'] ?? '';
     $problem_desc = $_POST['problem_desc'] ?? '';
+    $yearReceived = $_POST['unit_year'] ?? '';
     
     $unit_img = $_POST['unit_img'] ?? '';
     if (isset($_FILES['unit_img']['name']) && $_FILES['unit_img']['name'] !== '') {
@@ -23,12 +26,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
     }
 
-    $sql = "INSERT INTO approved_report (user_ID, unit_ID, equipment_ID, report_issue, problem_desc, unit_img) VALUES (?, ?, ?, ?, ?, ?)";
+    $sql = "INSERT INTO approved_report (user_ID, unit_ID, equipment_ID, report_issue, problem_desc, unit_img, unit_year) VALUES (?, ?, ?, ?, ?, ?, ?)";
 
     if ($stmt = $conn->prepare($sql)) {
-        $stmt->bind_param("isisss", $user_ID, $unit_ID, $equipment_ID, $report_issue, $problem_desc, $unit_img);
+        $stmt->bind_param("isisssi", $user_ID, $unit_ID, $equipment_ID, $report_issue, $problem_desc, $unit_img,  $yearReceived);
 
         if ($stmt->execute()) {
+
+            // Insert into unit_history
+            $stmt_unit_history = $conn->prepare("INSERT INTO unit_history (equipment_ID, unit_ID, report_issue) VALUES (?, ?, ?)");
+            $stmt_unit_history->bind_param("iss", $equipment_ID, $unit_ID, $report_issue);
+            $stmt_unit_history->execute();
+            $stmt_unit_history->close();
 
             $unit_ID_numeric = intval(substr($unit_ID, strpos($unit_ID, '-') + 1));
 
@@ -47,7 +56,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $stmt_update_total_unit->bind_param("i", $equipment_ID);
             $stmt_update_total_unit->execute();
 
-            // upate user_unit
+            // Update user_unit
             $sql_count_matches = "SELECT u.equipment_ID, u.user_ID, COUNT(*) as match_count 
                                   FROM units u
                                   INNER JOIN user_unit uu ON u.equipment_ID = uu.equipment_ID AND u.user_ID = uu.user_ID
@@ -67,18 +76,26 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 echo "No matching rows found.";
             }
 
-
-            header("Location: {$_SERVER['HTTP_REFERER']}");
-            exit(); 
+            header("Location: ../templates/adminPanel/bin.php?id={$userID}&success_message=Unit removed successfully.");
+            exit();
         } else {
-            $_SESSION['error_message'] = "Error: " . $stmt->error;
-        header("Location: approve_report.php");
-        exit(); 
+            echo "Error: " . $stmt->error;
+
+            header("Location: ../templates/adminPanel/bin.php?id={$userID}&error_message=Error removing unit.");
+            exit();
         }
     } else {
-        $_SESSION['error_message'] = "Invalid request method.";
-    header("Location: approve_report.php");
-    exit(); 
+        echo "Error preparing statement: " . $conn->error;
     }
 }
 ?>
+
+<!-- *Copyright  © 2024 WebCraft - All Rights Reserved*
+        *Administartive Office Facility Reservation and Management System*
+        *IT 132 - Software Engineering *
+        *(WebCraft) Members:
+            Falcatan, Khriz Marr
+            Gabotero, Rogie
+            Taborada, John Mark
+            Tingkasan, Padwa 
+            Villares, Arp-J* -->

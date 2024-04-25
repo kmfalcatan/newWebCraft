@@ -3,80 +3,17 @@ include_once "../../dbConfig/dbconnect.php";
 include_once "../../authentication/auth.php";
 include_once "../../functions/header.php";
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-
-    $firstName = $_POST['first_name'];
-    $lastName = $_POST['last_name'];
-    $middleInitial = $_POST['middle_initial'];
-    $designation = $_POST['designation'];
-    $department = $_POST['department'];
-    $email = $_POST['email'];
-    $address = $_POST['address'];
-    $gender = $_POST['gender'];
-
-    $profile_img = '';
-    if (isset($_FILES['profile_img']) && $_FILES['profile_img']['error'] === UPLOAD_ERR_OK) {
-        $tmp_name = $_FILES['profile_img']['tmp_name'];
-        $filename = $_FILES['profile_img']['name'];
-        $profile_img = $filename;
-        move_uploaded_file($tmp_name, '../uploads/' . $profile_img);
-    }
-
-    $stmt = $conn->prepare("UPDATE users SET first_name=?, last_name=?, middle_initial=?, designation=?, department=?, email=?, address=?, gender=?, profile_img=? WHERE user_ID = '$userID'");
-
-    $stmt->bind_param("sssssssss", $firstName, $lastName, $middleInitial, $designation, $department, $email, $address, $gender, $profile_img);
-
-    if ($stmt->execute()) {
-        echo "<div class='errorMessageContainer1' style='display: block;'>
-                <div class='errorMessageContainer'>
-                    <div class='subErrorMessageContainer'>
-                        <div class='errorMessage'>
-                            <p>Data updated successfully</p>
-                        </div>
-            
-                        <div class='errorButtonContainer'>
-                            <button onclick='closeErrorMessage()' class='errorButton'>Close</button>
-                        </div>
-                    </div>
-                </div>
-            </div>";
-    } else {
-        echo "<div class='errorMessageContainer1' style='display: block;'>
-                <div class='errorMessageContainer'>
-                    <div class='subErrorMessageContainer'>
-                        <div class='errorMessage'>
-                            <p>Error updating data:</p>
-                        </div>
-            
-                        <div class='errorButtonContainer'>
-                            <button onclick='closeErrorMessage()' class='errorButton'>Close</button>
-                        </div>
-                    </div>
-                </div>
-            </div>" . $stmt->error;
-    }
-
-    $stmt->close();
-
-    $userID = $_SESSION['user_id'];
-    $userInfo = getUserInfo($conn, $userID);
-    $role = $userInfo['role'];
-
-    if ($role === 'admin') {
-        header("Location: ../templates/adminPanel/my_profile.php?id={$userID}");
-    } else {
-        header("Location: ../templates/userPanel/my_profile.php?id={$userID}");
-        exit();
-    }
-}
-?>  
+$success_message = isset($_GET['success_message']) ? $_GET['success_message'] : '';
+$error_message = isset($_GET['error_message']) ? $_GET['error_message'] : '';
+?>
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <link rel="icon" type="image/png" href="../../assets/img/medLogo.png">
+    <title>MedEquip Tracker</title>
 
     <link rel="stylesheet" href="../../assets/css/index.css">
     <link rel="stylesheet" href="../../assets/css/sidebar.css">
@@ -100,7 +37,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <div class="sideBarContainer3">
             <div class="headerContainer1">
                 <div class="iconContainer10">
-                    <a href="#">
+                    <a  href="notification.php?id=<?php echo urlencode($userID); ?>">
                     <div class="subIconContainer10">
                         <img class="subIconContainer10" src="../../assets/img/notif.png" alt="">
                     </div>
@@ -123,15 +60,60 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <p>MY PROFILE</p>
                     </div>
 
+                    <div id="messageModal" class="messageModal">
+                        <div class="alertModal">
+                            <div class="alertContent">
+                                <div class="alertIcon">
+                                    <div class="iconBorder" style="<?php echo !empty($success_message) ? 'border: 1px solid rgba(0, 128, 0, 0.69);' : 'border: 1px solid red;'; ?>">
+                                        <?php if (!empty($success_message)): ?>
+                                            <p>&#10004;</p>
+                                        <?php else: ?>
+                                            <p class="errorIcon" style="color: red; margin-top: -0.8rem;">&times;</p> 
+                                        <?php endif; ?>
+                                    </div>
+                                </div>
+                                <div class="alertMsg">
+                                    <?php if (!empty($success_message)): ?>
+                                        <div class="success-message"><?php echo $success_message; ?></div>
+                                    <?php endif; ?>
+                                    <?php if (!empty($error_message)): ?>
+                                        <div class="error-message"><?php echo $error_message; ?></div>
+                                    <?php endif; ?>
+                                </div>
+                                <div class="alertBtn1">
+                                    <button class="closebtn">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="ImgsizeModal" class="messageModal" style="display: none;">
+                        <div class="alertModal">
+                            <div class="alertContent">
+                                <div class="alertIcon">
+                                    <div class="iconBorder" style="border: 1px solid red;">
+                                        <p class="errorIcon" style="color: red; margin-top: -0.8rem;">&times;</p> 
+                                    </div>
+                                </div>
+                                <div class="alertMsg">
+                                    <div class="error-message">File size exceeds the maximum limit of 2 MB.</div>
+                                </div>
+                                <div class="alertBtn1">
+                                    <button class="close">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="subFilterContainer1">
                         <div class="trackContainer">
-                            <a href="change_password.php?id=<?php echo $userID; ?>">
+                            <a href="change_password.php?id=<?php echo urlencode($userID); ?>">
                                 <button class="trackButton1">Change password <img src="../../assets/img/change-password.png" style="height: 1.6rem; width: 1.5rem; margin-left: 0.8rem;"></button>
                             </a>
-                            <a href="my_units.php?id=<?php echo $userID; ?>">
+                            <a href="my_units.php?id=<?php echo urlencode($userID); ?>">
                                 <button class="trackButton1" id="new-equip">My units</button>
                             </a>
-                            <a href="view_profile.php?id=<?php echo $userID; ?>">
+                            <a href="view_profile.php?id=<?php echo urlencode($userID); ?>">
                                 <button class="trackButton1" id="new-equip">View Only</button>
                             </a>
                         </div>
@@ -152,7 +134,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             </div>
 
                             <div class="profileInfo">
-                                <p class="name"><?php echo $userInfo['first_name'] ?? ''; ?> <?php echo $userInfo['middle_initial'] ?? ''; ?>. <?php echo $userInfo['last_name'] ?? ''; ?></p>
+                                <p class="name"><?php echo $userInfo['first_name'] ?? ''; ?> <?php echo $userInfo['middle_initial'] ?? ''; ?> <?php echo $userInfo['last_name'] ?? ''; ?></p>
                                 <p>End user</p>
                             </div>
                         </div>
@@ -164,6 +146,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             <div class="personalInfo">
                                 <div class="personalInfo1">
                                     <p><?php echo $userInfo['username'] ?? ''; ?></p>
+                                    <p><?php echo $userInfo['rank'] ?? ''; ?></p>
                                     <p><?php echo $userInfo['designation'] ?? ''; ?></p>
                                     <p><?php echo $userInfo['department'] ?? ''; ?></p>
                                     <p><?php echo $userInfo['gender'] ?? ''; ?></p>
@@ -210,7 +193,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                             <p>First name <span>*</span></s></p>
                                         </div>
 
-                                        <input type="text" class="subFirstNameContainer" name="first_name" value="<?php echo $userInfo['first_name'] ?? ''; ?>" required>
+                                        <input type="text" class="subFirstNameContainer" name="first_name" value="<?php echo $userInfo['first_name'] ?? ''; ?>" required maxlength="100" title="Maximum 100 characters allowed">
                                     </div>
 
                                     <div class="firstNameContainer">
@@ -218,7 +201,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                             <p>Last name <span>*</span></p>
                                         </div>
 
-                                        <input type="text" class="subFirstNameContainer" name="last_name" value="<?php echo $userInfo['last_name'] ?? ''; ?>" required>
+                                        <input type="text" class="subFirstNameContainer" name="last_name" value="<?php echo $userInfo['last_name'] ?? ''; ?>" required maxlength="100" title="Maximum 100 characters allowed">
                                     </div>
 
                                     <div class="firstNameContainer">
@@ -226,25 +209,43 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                             <p>Middle Initial </p>
                                         </div>
 
-                                        <input type="text" class="subFirstNameContainer" name="middle_initial" value="<?php echo $userInfo['middle_initial'] ?? ''; ?>">
+                                        <input type="text" class="subFirstNameContainer" name="middle_initial" value="<?php echo $userInfo['middle_initial'] ?? ''; ?>" maxlength="100" title="Maximum 100 characters allowed">
                                     </div>
                                 </div>
 
                                 <div class="subInputContainer">
                                     <div class="firstNameContainer">
                                         <div class="labelContainer">
+                                            <p>Rank <span>*</span></p>
+                                        </div>
+
+                                        <input type="text" class="subFirstNameContainer" name="rank" value="<?php echo $userInfo['rank'] ?? ''; ?>" required maxlength="100" title="Maximum 100 characters allowed">
+                                    </div>
+
+                                    <div class="firstNameContainer">
+                                        <div class="labelContainer">
                                             <p>Designation <span>*</span></p>
                                         </div>
 
-                                        <input type="text" class="subFirstNameContainer" name="designation" value="<?php echo $userInfo['designation'] ?? ''; ?>" required>
+                                        <input type="text" class="subFirstNameContainer" name="designation" value="<?php echo $userInfo['designation'] ?? ''; ?>" required maxlength="100" title="Maximum 100 characters allowed">
                                     </div>
 
+                                    <div class="firstNameContainer">
+                                        <div class="labelContainer">
+                                            <p>E-mail <span>*</span></p>
+                                        </div>
+
+                                        <input type="email" class="subFirstNameContainer" name="email" value="<?php echo $userInfo['email'] ?? ''; ?>" required maxlength="100" title="Maximum 100 characters allowed">
+                                    </div>
+                                </div>
+
+                                <div class="subInputContainer1">
                                     <div class="firstNameContainer">
                                         <div class="labelContainer">
                                             <p>Department <span>*</span></p>
                                         </div>
 
-                                        <input type="text" class="subFirstNameContainer" name="department" value="<?php echo $userInfo['department'] ?? ''; ?>" required>
+                                        <input type="text" class="subFirstNameContainer" name="department" value="<?php echo $userInfo['department'] ?? ''; ?>" required maxlength="100" title="Maximum 100 characters allowed">
                                     </div>
 
                                     <div class="firstNameContainer">
@@ -259,23 +260,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                             <option value="Other">Other</option>
                                         </select>
                                     </div>
-                                </div>
-
-                                <div class="subInputContainer1">
-                                    <div class="firstNameContainer">
-                                        <div class="labelContainer">
-                                            <p>E-mail <span>*</span></p>
-                                        </div>
-
-                                        <input type="email" class="subFirstNameContainer" name="email" value="<?php echo $userInfo['email'] ?? ''; ?>" required>
-                                    </div>
 
                                     <div class="firstNameContainer">
                                         <div class="labelContainer">
                                             <p>Permanent address <span>*</span></p>
                                         </div>
 
-                                        <input type="text" class="subFirstNameContainer" name="address" value="<?php echo $userInfo['address'] ?? ''; ?>" required>
+                                        <input type="text" class="subFirstNameContainer" name="address" value="<?php echo $userInfo['address'] ?? ''; ?>" required maxlength="100" title="Maximum 100 characters allowed">
                                     </div>
                                 </div>
 
@@ -317,33 +308,35 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   <script src="../../assets/js/sidebar.js"></script>
   <script src="../../assets/js/profile.js"></script>
 
-    <script> 
-    function openModal() {
-        var sweetalert = document.getElementById("sweetalert");
-        sweetalert.style.display = "block";
-        setTimeout(function() {
-            sweetalert.style.opacity = 1;
-        }, 10);
-    }
+    <script>
+        window.onload = function() {
+            var modal = document.getElementById("messageModal");
+            var button = document.getElementsByClassName("closebtn")[0];
 
-    function closeModal() {
-        var sweetalert = document.getElementById("sweetalert");
-        sweetalert.style.opacity = 0;
-        setTimeout(function() {
-            sweetalert.style.display = "none";
-        }, 300);
-    }
+            button.onclick = function() {
+                modal.style.display = "none";
+            }
 
-    function closeErrorMessage(){
-        var close1 = document.querySelector('.errorMessageContainer1');
+            window.onclick = function(event) {
+                if (event.target == modal) {
+                    modal.style.display = "none";
+                }
+            }
 
-        if(close1.style.display === 'block'){
-            close1.style.display = 'none';
-        } else{
-            close1.style.display = 'block'
+            <?php if (!empty($success_message) || !empty($error_message)): ?>
+                modal.style.display = "block";
+            <?php endif; ?>
         }
-    }
-
     </script>
   </body>
   </html>
+
+  <!-- *Copyright  © 2024 WebCraft - All Rights Reserved*
+    *Administartive Office Facility Reservation and Management System*
+    *IT 132 - Software Engineering *
+    *(WebCraft) Members:
+        Falcatan, Khriz Marr
+        Gabotero, Rogie
+        Taborada, John Mark
+        Tingkasan, Padwa 
+        Villares, Arp-J* -->
