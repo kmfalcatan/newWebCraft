@@ -19,123 +19,135 @@ if (mysqli_num_rows($result) > 0) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap">
-    <link rel="icon" type="image/png" href="../assets/img/webcraftLogo.png">
+    <link rel="icon" type="image/png" href="assets/img/medLogo.png">
     <title>MedEquip Tracker</title>
 
     <link rel="stylesheet" href="assets/css/index.css">
     <link rel="stylesheet" href="assets/css/view_inventory.css">
+    <link rel="stylesheet" href="assets/css/inventory.css">
 </head>
-<body id="body">
-    <div class="container1">
-        <div class="headerContainer">
-            <div class="subHeaderContainer">
-                <div class="imageContainer">
-                    <div class="subImageContainer">
-                        <img class="image" src="assets/img/medLogo.png" alt="">
-                    </div>
+<body>
+    <div class="mainContainer">
+        <div class="headerContainer1">
+            <div class="iconContainer10">
+            </div>
 
-                    <div class="nameContainer">
-                       <img src="assets/img/system-name.png" alt="">
-                    </div>
+            <div class="subHeaderContainer1">
+                <div class="logoNameContainer1">
+                    <img class="systemName" src="assets/img/system-name.png" alt="">
                 </div>
-
+                <div class="subImageContainer3">
+                    <img class="image11" src="assets/img/medLogo.png" alt="">
+                </div>
             </div>
         </div>
-    </div>
 
-    <div class="container2" id="container2">
-        
-        <div class="topContainer">
-            <div class="backbtn">
-                <a href="landing_page.php"><img src="assets/img/left-arrow.png" alt=""></a>
-            </div>
-            
-            <div class="buttonContainer">
-                <a href="about.php">
-                    <button class="button1" id="btn">About</button>
-                </a>
-                <a href="authentication/signin.php">
-                    <button class="button1" id="btn2">Sign in</button>
-                </a>
-            </div>
-        </div>
-        
-        <div class="subContainer2" style="width: 80%;">
-            <div class="equipContainer">
-                <div class="searchBarContainer1">
-                    <input class="searchBar1" type="text" placeholder="Search.." oninput="filterEquipment(this.value)">
-                </div>
-
-                <div class="subEquipContainer">
-                    <div class="textEquipContainer">
-                        <p>Equipment:</p>
-                    </div>
-
-                    <ul class="equipment_list">
-                        <?php
-                        foreach ($equipmentData as $equipmentName => $equipment) {
-                            echo "<div class='equipment' onclick='showDetails(\"$equipmentName\")'>
-                                    <p>$equipmentName</p>
-                                  </div>";
-                        }
-                        ?>
-                    </ul>
+        <div class="inventoryContainer">
+            <div class="topContainer">
+                <div class="topbtn">
+                    <p class="label">INVENTORY</p>
+                    <a href="about.php">
+                        <button>About</button>
+                    </a>
+                    <a href="contact.php">
+                        <button>Contact</button>
+                    </a>
+                    <a href="authentication/signin.php">
+                        <button class="signinbtn">Sign in</button>
+                    </a>
                 </div>
             </div>
 
-            <div class="detailsContainer">
-                <div class="subDetailsContainer">
-                    <div class="imageContainer1">
-                        <div class="subImageContainer1">
-                            <img class="image12" src="assets/img/img_placeholder.jpg">
-                        </div>
-
-                        <div class="subEquipNameContainer">
-                            <div class="equipNameContainer">
-                                <p id="equipmentName">Equipment name</p>
-                            </div>
-    
-                            <div class="descriptionContainer">
-                                <p id="equipmentDescription"></p>
-                            </div>
-                        </div>
+            <div class="bodyContainer">
+                <div class="leftContainer">
+                    <div class="searchContainer">
+                        <input class="searchBar" type="text" placeholder="Search.." oninput="filterEquipment(this.value)">
                     </div>
 
-                    <div class="howToUseContainer">
-                        <div class="subHowToUseContainer">
-                            <p id="howToUse"></p>
+                    <div class="listContainer">
+                        <div class="listTitle">
+                            <h3>EQUIPMENT LIST</h3>
                         </div>
+                        <ul class="list-container">
+                            <?php
+                                foreach ($equipmentData as $equipmentName => $equipment) {
+                                    echo "<div class='list' onclick='showDetails(\"$equipmentName\")'>
+                                            <li>$equipmentName</li>
+                                        </div>";
+                                }
+                            ?>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="rightContainer">
+                    <div  class="rightContent">
+                        <div class="first-row">
+                            <div class="imgContainer">
+                                <img class="image12" src="assets/img/img_placeholder.jpg">
+                            </div>
+                            <div class="equipContainer">
+                                <div class="equipName">
+                                    <p id="equipmentName"></p>
+                                </div>
+
+                                <div class="equipDesc">
+                                    <p id="equipmentDescription"></p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="second-row">
+                                <div class="equipInstruct">
+                                    <p id="howToUse"></p>
+                                </div>
+                        </div>
+
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <script src="assets/js/view_inventory.js"></script>
-
-     <script> 
+    <script> 
         function showDetails(equipmentName) {
             var equipment = <?php echo json_encode($equipmentData); ?>;
             var selectedEquipment = equipment[equipmentName];
-            document.querySelector(".image12").src = "../uploads/" + selectedEquipment['image'];
+            document.querySelector(".image12").src = "uploads/" + selectedEquipment['image'];
             document.getElementById("equipmentName").textContent = selectedEquipment['article'];
             document.getElementById("equipmentDescription").textContent = selectedEquipment['description'];
             document.getElementById("howToUse").textContent = selectedEquipment['instruction'];
         }
 
         function filterEquipment(searchTerm) {
-            var equipmentList = document.querySelectorAll('.equipment');
+            var equipmentList = document.querySelectorAll(".list");
             searchTerm = searchTerm.toLowerCase();
-            equipmentList.forEach(function(item) {
-                var equipmentName = item.textContent.trim().toLowerCase();
+            var resultsFound = false;
+
+            equipmentList.forEach(function (equipment) {
+                var equipmentName = equipment.textContent.toLowerCase();
                 if (equipmentName.includes(searchTerm)) {
-                    item.style.display = 'block';
+                    equipment.style.display = "block";
+                    resultsFound = true;
                 } else {
-                    item.style.display = 'none';
+                    equipment.style.display = "none";
                 }
             });
+
+            var noResultsMessage = document.getElementById("noResultsMessage");
+            if (!resultsFound) {
+                if (!noResultsMessage) {
+                    noResultsMessage = document.createElement("p");
+                    noResultsMessage.id = "noResultsMessage";
+                    noResultsMessage.textContent = "No results found";
+                    document.querySelector(".listContainer").appendChild(noResultsMessage);
+                } else {
+                    noResultsMessage.style.display = "block";
+                }
+            } else if (noResultsMessage) {
+                noResultsMessage.style.display = "none";
+            }
         }
     </script>
-
 </body>
 </html>

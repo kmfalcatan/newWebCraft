@@ -75,193 +75,30 @@ function openPopup() {
             if (xhr.status === 200) {
                 if (xhr.responseText !== "not_exists") {
                     var unitDetails = JSON.parse(xhr.responseText);
-                    document.getElementById("unitIDDisplay").textContent = "" + unitDetails.unitID;
-                    document.getElementById("user_IDDisplay").textContent = "" + unitDetails.user_ID;
-                    document.getElementById("equipmentNameDisplay").textContent = "" + unitDetails.equipmentName;
-
-                    if (unitDetails.oldEndUserNames && unitDetails.oldEndUserNames.length > 0) {
-                        var oldUserContainer = document.getElementById("oldUserContainer");
-                        oldUserContainer.innerHTML = ""; // Clear previous content
-                    
-                        var oldUserTitleContainer = document.createElement("div");
-                        oldUserTitleContainer.classList.add("oldUserTextContainer");
-                        var oldUserTitle = document.createElement("p");
-                        oldUserTitle.textContent = "OLD END USER";
-                        oldUserTitleContainer.appendChild(oldUserTitle);
-                        oldUserContainer.appendChild(oldUserTitleContainer);
-                    
-                        unitDetails.oldEndUserNames.sort(function(a, b) {
-                            return b.year_transfer - a.year_transfer;
-                        });
-                    
-                        // Get the earliest and latest year_transfer values
-                        var earliestYear = unitDetails.oldEndUserNames[unitDetails.oldEndUserNames.length - 1].year_transfer;
-                        var latestYear = unitDetails.oldEndUserNames[0].year_transfer;
-                    
-                        // Display year range if there is more than one row
-                        if (earliestYear !== latestYear) {
-                            var yearRange = earliestYear + "-" + latestYear;
-                            displayOldUserDetails(yearRange, latestYear);
-                        } else {
-                            displayOldUserDetails(earliestYear);
-                        }
-                    }
-                    
-                    function displayOldUserDetails(yearRange, latestYear) {
-                        for (var i = 0; i < unitDetails.oldEndUserNames.length; i++) {
-                            var oldEndUser = unitDetails.oldEndUserNames[i];
-                            var firstName = oldEndUser.firstName;
-                            var lastName = oldEndUser.lastName;
-                    
-                            var oldUserElement = document.createElement("div");
-                            oldUserElement.classList.add("unitIDContainer");
-                    
-                            var yearContainer = document.createElement("div");
-                            yearContainer.classList.add("unitID");
-                            var yearLabel = document.createElement("p");
-                            yearLabel.textContent = "Year:";
-                            var yearDisplay = document.createElement("div");
-                            yearDisplay.classList.add("unitInputContainer");
-                            var yearText = document.createElement("p");
-                            
-                            // Display the appropriate year range
-                            if (latestYear && oldEndUser.year_transfer !== latestYear) {
-                                yearText.textContent = yearRange;
-                            } else {
-                                yearText.textContent = oldEndUser.year_transfer;
-                            }
-                    
-                            yearDisplay.appendChild(yearText);
-                            yearContainer.appendChild(yearLabel);
-                            yearContainer.appendChild(yearDisplay);
-                    
-                            var firstNameContainer = document.createElement("div");
-                            firstNameContainer.classList.add("unitID");
-                    
-                            var firstNameLabel = document.createElement("p");
-                            firstNameLabel.textContent = "First name";
-                    
-                            var firstNameDisplay = document.createElement("div");
-                            firstNameDisplay.classList.add("unitInputContainer");
-                            var firstNameText = document.createElement("p");
-                            firstNameText.id = "oldEndUserFirstNameDisplay";
-                            firstNameText.textContent = firstName;
-                            firstNameDisplay.appendChild(firstNameText);
-                            firstNameContainer.appendChild(firstNameLabel);
-                            firstNameContainer.appendChild(firstNameDisplay);
-                    
-                            var lastNameContainer = document.createElement("div");
-                            lastNameContainer.classList.add("unitID");
-                    
-                            var lastNameLabel = document.createElement("p");
-                            lastNameLabel.textContent = "Last name";
-                    
-                            var lastNameDisplay = document.createElement("div");
-                            lastNameDisplay.classList.add("unitInputContainer");
-                            var lastNameText = document.createElement("p");
-                            lastNameText.id = "oldEndUserLastNameDisplay";
-                            lastNameText.textContent = lastName;
-                            lastNameDisplay.appendChild(lastNameText);
-                            lastNameContainer.appendChild(lastNameLabel);
-                            lastNameContainer.appendChild(lastNameDisplay);
-                    
-                            oldUserElement.appendChild(yearContainer);
-                            oldUserElement.appendChild(firstNameContainer);
-                            oldUserElement.appendChild(lastNameContainer);
-                            oldUserContainer.appendChild(oldUserElement);
-                        }
-                    }
-                    
-
-                    // unit history
-
-                    if (unitDetails.unitIssues && unitDetails.unitIssues.length > 0) {
-                        var unitHistoryContainer = document.getElementById("unitHistory");
-                        unitHistoryContainer.innerHTML = ""; 
-                    
-                        var unitHistoryTextContainer = document.createElement("div");
-                        unitHistoryTextContainer.classList.add("oldUserTextContainer");
-                        var unitHistoryTitle = document.createElement("p");
-                        unitHistoryTitle.textContent = "UNIT HISTORY";
-                        unitHistoryTextContainer.appendChild(unitHistoryTitle);
-                        unitHistoryContainer.appendChild(unitHistoryTextContainer);
-                    
-                        for (var i = 0; i < unitDetails.unitIssues.length; i++) {
-                            var unitIssue = unitDetails.unitIssues[i];
-                            var reportIssue = unitIssue.reportIssue;
-                            var timestamp = unitIssue.timestamp;
-                    
-                            var unitIssueElement = document.createElement("div");
-                            unitIssueElement.classList.add("unitIDContainer");
-                            unitIssueElement.style.width = "80%";
-                            unitIssueElement.style.margin = "auto";
-
-                    
-                            var reportIssueContainer = document.createElement("div");
-                            reportIssueContainer.classList.add("unitID");
-                    
-                            var reportIssueLabel = document.createElement("p");
-                            reportIssueLabel.textContent = "Unit issue";
-                    
-                            var reportIssueDisplay = document.createElement("div");
-                            reportIssueDisplay.classList.add("unitInputContainer");
-                            var reportIssueText = document.createElement("p");
-                            reportIssueText.textContent = reportIssue;
-                            reportIssueDisplay.appendChild(reportIssueText);
-                            reportIssueContainer.appendChild(reportIssueLabel);
-                            reportIssueContainer.appendChild(reportIssueDisplay);
-                    
-                            var dateContainer = document.createElement("div");
-                            dateContainer.classList.add("unitID");
-
-                            var dateLabel = document.createElement("p");
-                            dateLabel.textContent = "Date";
-
-                            var dateDisplay = document.createElement("div");
-                            dateDisplay.classList.add("unitInputContainer");
-                            var dateText = document.createElement("p");
-
-                            var formattedDate = formatDate(new Date(timestamp));
-                            dateText.textContent = formattedDate;
-
-                            dateDisplay.appendChild(dateText);
-                            dateContainer.appendChild(dateLabel);
-                            dateContainer.appendChild(dateDisplay);
-
-                            unitIssueElement.appendChild(reportIssueContainer);
-                            unitIssueElement.appendChild(dateContainer);
-
-                            unitHistoryContainer.appendChild(unitIssueElement);
-
-                        }
+                    document.getElementById("firstNameDisplay").textContent = unitDetails.firstName + " " + unitDetails.middleInitial + " " + unitDetails.lastName;
+                    document.getElementById("userNameDisplay").textContent = "" + unitDetails.userName;
+                    document.getElementById("emailDisplay").textContent = "" + unitDetails.email;
+                    document.getElementById("rankDisplay").textContent = "" + unitDetails.rank;
+                    document.getElementById("designationDisplay").textContent = "" + unitDetails.designation;
+                    document.getElementById("departmentDisplay").textContent = "" + unitDetails.department;
+                    // unit info
+                    document.getElementById("propertyNumberDisplay").textContent = "" + unitDetails.propertyNumber;
+                    document.getElementById("accountCodeDisplay").textContent = "" + unitDetails.accountCode;
+                    document.getElementById("unitValueDisplay").textContent = "" + unitDetails.unitValue;
+                    document.getElementById("yearReceivedDisplay").textContent = "" + unitDetails.yearReceived;
+                    document.getElementById("descriptionDisplay").textContent = "" + unitDetails.description;
+                    document.getElementById("remarksDisplay").textContent = "" + unitDetails.remarks;
+                    var imageDisplayElement = document.getElementById("imageDisplay");
+                    imageDisplayElement.src = unitDetails.image;
+                    var warrantyStatusElement = document.getElementById("warrantyStatusDisplay");
+                
+                    var warrantyEndDate = new Date(unitDetails.warrantyEnd);
+                    var currentDate = new Date();
+                
+                    if (warrantyEndDate > currentDate) {
+                        warrantyStatusElement.innerHTML = "<span style='color: green;'>Active</span> <span style='font-weight: lighter;'>until</span> " + formatDate(warrantyEndDate);
                     } else {
-                        var unitHistoryContainer = document.getElementById("unitHistory");
-                        unitHistoryContainer.style.display = "none";
-                    }
-                    
-                    
-                    if (unitDetails.firstName) {
-                        document.getElementById("firstNameDisplay").textContent = "" + unitDetails.firstName;
-                    }
-
-                    if (unitDetails.lastName) {
-                        document.getElementById("lastNameDisplay").textContent = "" + unitDetails.lastName;
-                    }
-
-                    if (unitDetails.userName) {
-                        document.getElementById("userNameDisplay").textContent = "" + unitDetails.userName;
-                    }
-
-                    if (unitDetails.designation) {
-                        document.getElementById("designationDisplay").textContent = "" + unitDetails.designation;
-                    }
-
-                    if (unitDetails.department) {
-                        document.getElementById("departmentDisplay").textContent = "" + unitDetails.department;
-                    }
-
-                    if (unitDetails.email) {
-                        document.getElementById("emailDisplay").textContent = "" + unitDetails.email;
+                        warrantyStatusElement.innerHTML = "<span style='color: red;'>Expired</span> <span style='font-weight: lighter;'>since</span> " + formatDate(warrantyEndDate);
                     }
 
                     var unitYearReceivedDisplay = document.getElementById("unitYearReceivedDisplay");
@@ -277,57 +114,148 @@ function openPopup() {
                     } else {
                         unitYearReceivedDisplay.textContent = "N/A";
                     }
-
-
-                    if (unitDetails.yearReceived) {
-                        document.getElementById("yearReceivedDisplay").textContent = "" + unitDetails.yearReceived;
-                    }
-
-                    if (unitDetails.unitValue) {
-                        document.getElementById("unitValueDisplay").textContent = "" + unitDetails.unitValue;
-                    }
-
-                    if (unitDetails.remarks) {
-                        document.getElementById("remarksDisplay").textContent = "" + unitDetails.remarks;
-                    } else {
-                        document.getElementById("remarksDisplay").textContent = "";
-                    }
-
-                    if (unitDetails.propertyNumber) {
-                        document.getElementById("propertyNumberDisplay").textContent = "" + unitDetails.propertyNumber;
-                    }
-
-                    if (unitDetails.accountCode) {
-                        document.getElementById("accountCodeDisplay").textContent = "" + unitDetails.accountCode;
-                    }
-
-                    if (unitDetails.warrantyEnd && unitDetails.warrantyEnd !== '0000-00-00') {
-                        var warrantyEndDate = new Date(unitDetails.warrantyEnd);
-                        var currentDate = new Date();
-                        var warrantyDisplayElement = document.getElementById("warrantyEndDisplay");
                     
-                        var formattedDate = formatDate(warrantyEndDate);
+                    if (unitDetails.oldEndUserNames && unitDetails.oldEndUserNames.length > 0) {
+                        var oldUserContainer = document.getElementById("oldUserContainer");
+                        oldUserContainer.innerHTML = ""; 
                     
-                        if (warrantyEndDate > currentDate) {
-                            warrantyDisplayElement.innerHTML = "Warranty will expire on: <span style='color: green; font-weight: bold;'>" + formattedDate + "</span>";
+                        var oldUserTitleContainer = document.createElement("div");
+                        oldUserTitleContainer.classList.add("oldUserTextContainer");
+                        var oldUserTitle = document.createElement("p");
+                        oldUserTitle.textContent = "OLD END USER";
+                        oldUserTitleContainer.appendChild(oldUserTitle);
+                        oldUserContainer.appendChild(oldUserTitleContainer);
+                    
+                        unitDetails.oldEndUserNames.sort(function(a, b) {
+                            return b.year_transfer - a.year_transfer;
+                        });
+                    
+                        var earliestYear = unitDetails.oldEndUserNames[unitDetails.oldEndUserNames.length - 1].year_transfer;
+                        var latestYear = unitDetails.oldEndUserNames[0].year_transfer;
+                    
+                        if (earliestYear !== latestYear) {
+                            var yearRange = earliestYear + "-" + latestYear;
+                            displayOldUserDetails(yearRange, latestYear);
                         } else {
-                            warrantyDisplayElement.innerHTML = "Warranty was expired on: <span style='color: red; font-weight: bold;'>" + formattedDate + "</span>";
+                            displayOldUserDetails(earliestYear);
                         }
-                    } else {
-                        document.getElementById("warrantyEndDisplay").textContent = "No available warranty for this unit";
-                        document.getElementById("warrantyEndDisplay").style.color = "inherit";
-                        document.getElementById("warrantyEndDisplay").style.fontWeight = "inherit"; 
                     }
                     
+                    function displayOldUserDetails(yearRange, latestYear) {
+                        for (var i = 0; i < unitDetails.oldEndUserNames.length; i++) {
+                            var oldEndUser = unitDetails.oldEndUserNames[i];
+                            var firstName = oldEndUser.firstName;
+                            var lastName = oldEndUser.lastName;
+                    
+                            var oldUserElement = document.createElement("div");
+                            oldUserElement.classList.add("oldUserContainer");
+                    
+                            var oldUserInfoContainer = document.createElement("div");
+                            oldUserInfoContainer.classList.add("infoContainer1");
+                    
+                            var unitIDContainer1 = document.createElement("div");
+                            unitIDContainer1.classList.add("unitIDContainer1");
+                    
+                            var yearInfo = document.createElement("div");
+                            yearInfo.classList.add("unitInfo");
+                            var yearLabel = document.createElement("label");
+                            yearLabel.setAttribute("for", "");
+                            yearLabel.textContent = "Year:";
+                            var yearText = document.createElement("p");
+                            if (latestYear && oldEndUser.year_transfer !== latestYear) {
+                                yearText.textContent = yearRange;
+                            } else {
+                                yearText.textContent = oldEndUser.year_transfer;
+                            }
+                            yearInfo.appendChild(yearLabel);
+                            yearInfo.appendChild(yearText);
+                    
+                            var oldUserInfo = document.createElement("div");
+                            oldUserInfo.classList.add("olduserInfo");
+                    
+                            var nameInfo = document.createElement("div");
+                            nameInfo.classList.add("unitInfo");
+                            var nameLabel = document.createElement("label");
+                            nameLabel.setAttribute("for", "");
+                            nameLabel.textContent = "Name:";
+                            var nameText = document.createElement("p");
+                            nameText.textContent = firstName + " " + (oldEndUser.middleInitial ? oldEndUser.middleInitial + " " : "") + lastName;
+                            nameInfo.appendChild(nameLabel);
+                            nameInfo.appendChild(nameText);
+                    
+                            var usernameInfo = document.createElement("div");
+                            usernameInfo.classList.add("unitInfo");
+                            var usernameLabel = document.createElement("label");
+                            usernameLabel.setAttribute("for", "");
+                            usernameLabel.textContent = "Username:";
+                            var usernameText = document.createElement("p");
+                            usernameText.textContent = oldEndUser.username; 
+                            usernameInfo.appendChild(usernameLabel);
+                            usernameInfo.appendChild(usernameText);
+                    
+                            var emailInfo = document.createElement("div");
+                            emailInfo.classList.add("unitInfo");
+                            var emailLabel = document.createElement("label");
+                            emailLabel.setAttribute("for", "");
+                            emailLabel.textContent = "E-mail:";
+                            var emailText = document.createElement("p");
+                            emailText.textContent = oldEndUser.email;
+                            emailInfo.appendChild(emailLabel);
+                            emailInfo.appendChild(emailText);
+                    
+                            var rankInfo = document.createElement("div");
+                            rankInfo.classList.add("unitInfo");
+                            var rankLabel = document.createElement("label");
+                            rankLabel.setAttribute("for", "");
+                            rankLabel.textContent = "Rank:";
+                            var rankText = document.createElement("p");
+                            rankText.textContent = oldEndUser.rank; 
+                            rankInfo.appendChild(rankLabel);
+                            rankInfo.appendChild(rankText);
 
-                    if (unitDetails.image) {
-                        document.getElementById("imageDisplay").src = unitDetails.image;
-                    } else {
-                        document.getElementById("imageDisplay").src = "../../assets/img/img_placeholder.jpg";
+                            var designationInfo = document.createElement("div");
+                            designationInfo.classList.add("unitInfo");
+                            var designationLabel = document.createElement("label");
+                            designationLabel.setAttribute("for", "");
+                            designationLabel.textContent = "Designation:";
+                            var designationText = document.createElement("p");
+                            designationText.textContent = oldEndUser.designation; 
+                            designationInfo.appendChild(designationLabel);
+                            designationInfo.appendChild(designationText);
+                    
+                            var departmentInfo = document.createElement("div");
+                            departmentInfo.classList.add("unitInfo");
+                            var departmentLabel = document.createElement("label");
+                            departmentLabel.setAttribute("for", "");
+                            departmentLabel.textContent = "Department:";
+                            var departmentText = document.createElement("p");
+                            departmentText.textContent = oldEndUser.department; 
+                            departmentInfo.appendChild(departmentLabel);
+                            departmentInfo.appendChild(departmentText);
+                    
+                            oldUserInfo.appendChild(nameInfo);
+                            oldUserInfo.appendChild(usernameInfo);
+                            oldUserInfo.appendChild(emailInfo);
+                            oldUserInfo.appendChild(rankInfo);
+                            oldUserInfo.appendChild(designationInfo);
+                            oldUserInfo.appendChild(departmentInfo);
+                    
+                            unitIDContainer1.appendChild(yearInfo);
+                            unitIDContainer1.appendChild(oldUserInfo);
+                            oldUserInfoContainer.appendChild(unitIDContainer1);
+                            oldUserInfoContainer.appendChild(oldUserElement);
+                            oldUserContainer.appendChild(oldUserInfoContainer);
+                        }
                     }
 
+                    if (unitDetails.unitIssues && unitDetails.unitIssues.length > 0) {
+                        // Call function to display unit history
+                        displayUnitHistory(unitDetails.unitIssues);
+                    }
+                    
                     document.getElementById("popupContainer").style.display = "block";
-                } else {
+                }
+                 else {
                     document.getElementById("unitIDDisplay").textContent = "Unit id does not exist";
                     document.getElementById("popupContainer").style.display = "block";
                     document.getElementById("unitIDDisplay").style.color = "red";
@@ -344,10 +272,52 @@ function openPopup() {
     xhr.send("unitID=" + unitID);
 }
 
+function displayUnitHistory(issues) {
+    var unitHistoryContainer = document.getElementById("oldUserContainer");
+    var unitHistoryTitle = document.createElement("div");
+    unitHistoryTitle.classList.add("oldUserTextContainer");
+    var unitHistoryTitleText = document.createElement("p");
+    unitHistoryTitleText.textContent = "UNIT HISTORY";
+    unitHistoryTitle.appendChild(unitHistoryTitleText);
+    unitHistoryContainer.appendChild(unitHistoryTitle);
+
+    issues.forEach(function(issue) {
+        var issueContainer = document.createElement("div");
+        issueContainer.classList.add("infoContainer1");
+
+        var issueDiv = document.createElement("div");
+        issueDiv.classList.add("unitIssue");
+
+        var issueInfo = document.createElement("div");
+        issueInfo.classList.add("unitInfo");
+        var issueLabel = document.createElement("label");
+        issueLabel.textContent = "Unit Issue:";
+        var issueText = document.createElement("p");
+        issueText.textContent = issue.reportIssue;
+        issueInfo.appendChild(issueLabel);
+        issueInfo.appendChild(issueText);
+
+        var dateInfo = document.createElement("div");
+        dateInfo.classList.add("unitInfo");
+        var dateLabel = document.createElement("label");
+        dateLabel.textContent = "Date:";
+        var dateText = document.createElement("p");
+        dateText.textContent = formatDate(new Date(issue.timestamp));
+        dateInfo.appendChild(dateLabel);
+        dateInfo.appendChild(dateText);
+
+        issueDiv.appendChild(issueInfo);
+        issueDiv.appendChild(dateInfo);
+
+        issueContainer.appendChild(issueDiv);
+        unitHistoryContainer.appendChild(issueContainer);
+    });
+}
+
 function formatDate(date) {
     const monthNames = ["January", "February", "March", "April", "May", "June",
                         "July", "August", "September", "October", "November", "December"];
-    const day = ("0" + date.getDate()).slice(-2); 
+    const day = ("0" + date.getDate()).slice(-2);
     const monthIndex = date.getMonth();
     const year = date.getFullYear();
 
@@ -357,3 +327,52 @@ function formatDate(date) {
 function closePopup() {
     location.reload();
 }
+
+// print
+    function openPrintSettings() {
+        window.print();
+    }
+    
+// inventory search bar
+    function filterTable() {
+        var searchTerm = document.querySelector(".searchBar1").value.toLowerCase();
+
+        var rows = document.querySelectorAll("#tblBody tr");
+        var noResultsMessage = document.querySelector(".noResultsFound");
+
+        var found = false;
+
+        rows.forEach(function(row) {
+            var article = row.querySelector("td:nth-child(2)").textContent.toLowerCase(); 
+            var description = row.querySelector("td:nth-child(3)").textContent.toLowerCase(); 
+            var propertyNumber = row.querySelector("td:nth-child(4)").textContent.toLowerCase(); 
+            var accountCode = row.querySelector("td:nth-child(5)").textContent.toLowerCase(); 
+            var totalUnit = row.querySelector("td:nth-child(6)").textContent.toLowerCase(); 
+            var yearReceived = row.querySelector("td:nth-child(7)").textContent.toLowerCase(); 
+
+            if (article.indexOf(searchTerm) > -1 || description.indexOf(searchTerm) > -1 || propertyNumber.indexOf(searchTerm) > -1 || accountCode.indexOf(searchTerm) > -1 || totalUnit.indexOf(searchTerm) > -1 || yearReceived.indexOf(searchTerm) > -1) {
+                row.style.display = ""; 
+                found = true;
+            } else {
+                row.style.display = "none"; 
+            }
+        });
+
+        if (found) {
+            noResultsMessage.style.display = "none";
+        } else {
+            noResultsMessage.style.display = "block";
+        }
+    }
+
+    document.querySelector(".searchBar1").addEventListener("input", filterTable);
+
+     // *Copyright  © 2024 WebCraft - All Rights Reserved*
+    // *Administartive Office Facility Reservation and Management System*
+    // *IT 132 - Software Engineering *
+    // *(WebCraft) Members:
+        // Falcatan, Khriz Marr
+        // Gabotero, Rogie
+        // Taborada, John Mark
+        // Tingkasan, Padwa 
+        // Villares, Arp-J*

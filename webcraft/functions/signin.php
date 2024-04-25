@@ -14,9 +14,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $user = getUserByusername($username);
             $_SESSION['user_id'] = $user['user_ID'];
             if ($user['role'] === 'admin') {
-                header("Location: ../templates/adminPanel/loading.php?id=" . $user['user_ID']);
+                header("Location: ../templates/adminPanel/loading.php?id=" . urlencode($user['user_ID']));
             } else {
-                header("Location: ../templates/userPanel/loading.php?id=" . $user['user_ID']);
+                header("Location: ../templates/userPanel/loading.php?id=" . urlencode($user['user_ID']));
+
             }
             exit();
         } else {
@@ -70,3 +71,13 @@ function getUserByusername($username)
     return $result->fetch_assoc();
 }
 ?>
+
+<!-- *Copyright  © 2024 WebCraft - All Rights Reserved*
+    *Administartive Office Facility Reservation and Management System*
+    *IT 132 - Software Engineering *
+    *(WebCraft) Members:
+        Falcatan, Khriz Marr
+        Gabotero, Rogie
+        Taborada, John Mark
+        Tingkasan, Padwa 
+        Villares, Arp-J* -->

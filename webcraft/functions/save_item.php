@@ -102,13 +102,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $role = $userInfo['role'];
     
         if ($role === 'admin') {
-            header("Location: ../templates/adminPanel/inventory.php?id={$userID}");
+            $success_message = "New equipment saved successfully.";
+            header("Location: ../templates/adminPanel/inventory.php?id={$userID}&success_message={$success_message}");
             exit();
         }
     } else {
-        $_SESSION['error_message'] = "Error occurred while saving equipment information.";
-    header("Location: save_item.php");
-    exit(); 
+        $error_message = "Error occurred while saving equipment.";
+        header("Location: ../templates/adminPanel/inventory.php?id={$userID}&error_message={$error_message}");
+        exit();
     }
 }
 ?>
+
+<!-- *Copyright © 2024 WebCraft - All Rights Reserved*
+        *Administartive Office Facility Reservation and Management System*
+        *IT 132 - Software Engineering *
+        *(WebCraft) Members:
+            Falcatan, Khriz Marr
+            Gabotero, Rogie
+            Taborada, John Mark
+            Tingkasan, Padwa 
+            Villares, Arp-J* -->

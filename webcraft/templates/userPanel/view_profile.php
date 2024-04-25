@@ -8,7 +8,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MY POFILE</title>
+    <link rel="icon" type="image/png" href="../../assets/img/medLogo.png">
+    <title>MedEquip Tracker</title>
 
     <link rel="stylesheet" href="../../assets/css/index.css">
     <link rel="stylesheet" href="../../assets/css/inventory.css">
@@ -32,7 +33,7 @@
         <div class="sideBarContainer3">
             <div class="headerContainer1">
                 <div class="iconContainer10">
-                    <a href="notification.php?id=<?php echo $userID; ?>">
+                    <a href="notification.php?id=<?php echo urlencode($userID); ?>">
                     <div class="subIconContainer10">
                         <img class="subIconContainer10" src="../../assets/img/notif.png" alt="">
                     </div>
@@ -58,8 +59,10 @@
 
                     <div class="subFilterContainer1">
                         <div class="trackContainer">
-                            <button class="trackButton1" onclick="popupForm1()">Change password <img src="../../assets/img/change-password.png" style="height: 1.6rem; width: 1.5rem; margin-left: 0.8rem;"></button>
-                            <a href="my_profile.php?id=<?php echo $userID; ?>">
+                            <a href="change_password.php?id=<?php echo urlencode($userID); ?>">
+                                <button class="trackButton1">Change password <img src="../../assets/img/change-password.png" style="height: 1.6rem; width: 1.5rem; margin-left: 0.8rem;"></button>
+                            </a>
+                            <a href="my_profile.php?id=<?php echo urlencode($userID); ?>">
                                 <button class="trackButton1" id="btn2">Edit Profile <img src="../../assets/img/edit.png" alt=""></button>
                             </a>    
                         </div>
@@ -113,12 +116,22 @@
                                     </div>
 
                                     <div class="subFirstNameContainer">
-                                        <p class="text"><?php echo $userInfo['middle_initial'] ?? ''; ?>.</p>
+                                        <p class="text"><?php echo $userInfo['middle_initial'] ?? ''; ?></p>
                                     </div>
                                 </div>
                             </div>
 
                             <div class="subInputContainer">
+                                <div class="firstNameContainer">
+                                    <div class="labelContainer">
+                                        <p>Rank:</p>
+                                    </div>
+
+                                    <div class="subFirstNameContainer">
+                                        <p class="text"><?php echo $userInfo['rank'] ?? ''; ?></p>
+                                    </div>
+                                </div>
+
                                 <div class="firstNameContainer">
                                     <div class="labelContainer">
                                         <p>Designation:</p>
@@ -129,6 +142,18 @@
                                     </div>
                                 </div>
 
+                                <div class="firstNameContainer">
+                                    <div class="labelContainer">
+                                        <p>E-mail:</p>
+                                    </div>
+
+                                    <div class="subFirstNameContainer">
+                                        <p class="text"><?php echo $userInfo['email'] ?? ''; ?></p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="subInputContainer1">
                                 <div class="firstNameContainer">
                                     <div class="labelContainer">
                                         <p>Department:</p>
@@ -148,18 +173,6 @@
                                         <p class="text"><?php echo $userInfo['gender'] ?? ''; ?></p>
                                     </div>
                                 </div>
-                            </div>
-
-                            <div class="subInputContainer1">
-                                <div class="firstNameContainer">
-                                    <div class="labelContainer">
-                                        <p>E-mail:</p>
-                                    </div>
-
-                                    <div class="subFirstNameContainer">
-                                        <p class="text"><?php echo $userInfo['email'] ?? ''; ?></p>
-                                    </div>
-                                </div>
 
                                 <div class="firstNameContainer">
                                     <div class="labelContainer">
@@ -176,7 +189,6 @@
                 </div>
             </div>  
         </div>
-
     </div>
 
     <div class="changepassContainer" style="display: none;">
@@ -191,34 +203,10 @@
                         <div id="alert">
                             <?php
                                 if (isset($error_message)) {
-                                    echo "<div class='errorMessageContainer1' style='display: block;'>
-                                        <div class='errorMessageContainer'>
-                                            <div class='subErrorMessageContainer'>
-                                                <div class='errorMessage'>
-                                                    <p>$error_message</p>
-                                                </div>
-                                    
-                                                <div class='errorButtonContainer'>
-                                                    <button onclick='closeErrorMessage()' class='errorButton'>Close</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>";
+                                    echo "<div class='error-message'>$error_message</div>";
                                 }
                                 if (isset($success_message)) {
-                                    echo "<div class='errorMessageContainer1' style='display: block;'>
-                                        <div class='errorMessageContainer'>
-                                            <div class='subErrorMessageContainer'>
-                                                <div class='errorMessage'>
-                                                    <p>$success_message</p>
-                                                </div>
-                                    
-                                                <div class='errorButtonContainer'>
-                                                    <button onclick='closeErrorMessage()' class='errorButton'>Close</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>";
+                                    echo "<div class='success-message'>$success_message</div>";
                                 }
                             ?>
                         </div>
@@ -266,17 +254,16 @@
     <script src="../../assets/js/inventory.js"></script>
     <script src="../../assets/js/sidebar.js"></script>
     <script src="../../assets/js/profile.js"></script>
-    <script>
-        function closeErrorMessage(){
-        var close1 = document.querySelector('.errorMessageContainer1');
 
-        if(close1.style.display === 'block'){
-            close1.style.display = 'none';
-        } else{
-            close1.style.display = 'block'
-        }
-    }
-
-    </script>
 </body>
 </html>
+
+<!-- *Copyright  © 2024 WebCraft - All Rights Reserved*
+        *Administartive Office Facility Reservation and Management System*
+        *IT 132 - Software Engineering *
+        *(WebCraft) Members:
+            Falcatan, Khriz Marr
+            Gabotero, Rogie
+            Taborada, John Mark
+            Tingkasan, Padwa 
+            Villares, Arp-J* -->

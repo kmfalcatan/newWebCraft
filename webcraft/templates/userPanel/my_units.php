@@ -32,12 +32,23 @@ if(isset($_GET['id'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <link rel="icon" type="image/png" href="../../assets/img/medLogo.png">
+    <title>MedEquip Tracker</title>
 
     <link rel="stylesheet" href="../../assets/css/index.css">
     <link rel="stylesheet" href="../../assets/css/inventory.css">
     <link rel="stylesheet" href="../../assets/css/enduser_unit.css">
     <link rel="stylesheet" href="../../assets/css/sidebar.css">
+    <style>
+    @media print {
+        th:nth-child(6),
+        td:nth-child(6),
+        .actionContainer button,
+        td:last-child {
+            display: none;
+        }
+    }
+    </style>
 </head>
 <body>
     <div class="sidebar">
@@ -55,7 +66,7 @@ if(isset($_GET['id'])) {
         <div class="sideBarContainer3">
             <div class="headerContainer1">
                 <div class="iconContainer10">
-                    <a href="notification.php?id=<?php echo $userID; ?>">
+                    <a href="notification.php?id=<?php echo urlencode($userID); ?>">
                     <div class="subIconContainer10">
                         <img class="subIconContainer10" src="../../assets/img/notif.png" alt="">
                     </div>
@@ -75,7 +86,7 @@ if(isset($_GET['id'])) {
             <div class="subContainer1">
                 <div class="filterContainer1">
                     <div class="inventoryNameContainer">
-                        <p>END USER UNITS</p>
+                        <p>MY UNITS</p>
                     </div>
 
                     <div class="subFilterContainer1">
@@ -84,8 +95,7 @@ if(isset($_GET['id'])) {
                         </div>
 
                         <div class="trackContainer">
-                            <button class="trackButton1">Sort <img src="../../assets/img/sort.png" alt=""></button>
-                            <button class="trackButton1">Print <img src="../../assets/img/print.png" alt=""></button>
+                            <button class="trackButton1" onclick="openPrintSettings()">Print <img src="../../assets/img/print.png" alt=""></button>
                             
                             <!-- <button class="trackButton1">Report</button> -->
                         </div>
@@ -192,6 +202,9 @@ if(isset($_GET['id'])) {
 
                             </tbody>
                         </table>
+                        <div class="noResultsFound" style="display: none;">
+                            <p>No results found</p>
+                        </div>
                    </div>
                 </div>
             </div>
@@ -220,27 +233,9 @@ if(isset($_GET['id'])) {
         </div>
     </div>
 
-
     <script src="../../assets/js/inventory.js"></script>
     <script src="../../assets/js/sidebar.js"></script>
-
-<script> 
-    function openModal() {
-        var modal = document.getElementById("reportModal");
-        modal.style.display = "block";
-        setTimeout(function() {
-            modal.style.opacity = 1;
-        }, 10);
-    }
-
-    function closeModal() {
-        var modal = document.getElementById("reportModal");
-        modal.style.opacity = 0;
-        setTimeout(function() {
-            modal.style.display = "none";
-        }, 300);
-    }
-</script>
+    <script src="../../assets/js/units.js"></script>
 
 <script>
     function reportUnit(unitID) {
@@ -248,9 +243,9 @@ if(isset($_GET['id'])) {
         
         var url;
         if (reportReason === "Lost") {
-            url = 'report_lost.php?id=<?php echo $userID; ?>&unitID=' + unitID + '&reportReason=' + reportReason;
+            url = 'report_lost.php?id=<?php echo urlencode($userID); ?>&unitID=' + encodeURIComponent(unitID) + '&reportReason=' + encodeURIComponent(reportReason);
         } else if (reportReason === "For return") {
-            url = 'report_for_return.php?id=<?php echo $userID; ?>&unitID=' + unitID + '&reportReason=' + reportReason;
+            url = 'report_for_return.php?id=<?php echo urlencode($userID); ?>&unitID=' + encodeURIComponent(unitID) + '&reportReason=' + encodeURIComponent(reportReason);
         } else {
             alert("Please select a valid report reason.");
             return; 
@@ -277,7 +272,15 @@ if(isset($_GET['id'])) {
         }, 300);
     }
 </script>
-
-
 </body>
 </html>
+
+<!-- *Copyright  © 2024 WebCraft - All Rights Reserved*
+    *Administartive Office Facility Reservation and Management System*
+    *IT 132 - Software Engineering *
+    *(WebCraft) Members:
+        Falcatan, Khriz Marr
+        Gabotero, Rogie
+        Taborada, John Mark
+        Tingkasan, Padwa 
+        Villares, Arp-J* -->

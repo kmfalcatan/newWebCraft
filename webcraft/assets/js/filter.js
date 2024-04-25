@@ -1,33 +1,41 @@
+
+
+
+// search bar unit list
 function filterTable() {
-    const selectedYear = document.querySelector('.year').value;
-    const selectedArticle = document.querySelector('.article').value;
-    const selectedCustodian = document.querySelector('.custodian').value;
+    var searchTerm = document.querySelector(".searchBar1").value.toLowerCase();
 
-    const rows = document.querySelectorAll('#tblBody tr');
+    var rows = document.querySelectorAll("#tblBody tr");
+    var noResultsMessage = document.querySelector(".noResultsFound");
 
-    rows.forEach(row => {
-        const yearCell = row.querySelector('td:nth-child(7)');
-        const articleCell = row.querySelector('td:nth-child(3)'); 
-        const custodianCell = row.querySelector('td:nth-child(6)');
+    var found = false;
 
-        const yearMatch = selectedYear === 'All' || yearCell.textContent.trim() === selectedYear;
-        const articleMatch = selectedArticle === 'All' || articleCell.textContent.trim() === selectedArticle;
-        const custodianMatch = selectedCustodian === 'All' || custodianCell.textContent.trim() === selectedCustodian;
+    rows.forEach(function(row) {
+        var article = row.querySelector("td:nth-child(2)").textContent.toLowerCase(); 
+        var description = row.querySelector("td:nth-child(3)").textContent.toLowerCase(); 
+        var propertyNumber = row.querySelector("td:nth-child(4)").textContent.toLowerCase(); 
+        var accountCode = row.querySelector("td:nth-child(5)").textContent.toLowerCase(); 
+        var totalUnit = row.querySelector("td:nth-child(6)").textContent.toLowerCase(); 
+        var yearReceived = row.querySelector("td:nth-child(7)").textContent.toLowerCase(); 
 
-        if ((selectedYear === 'All' || yearMatch) || (selectedArticle === 'All' || articleMatch) || (selectedCustodian === 'All' || custodianMatch)) {
-            row.style.display = '';
+        if (article.indexOf(searchTerm) > -1 || description.indexOf(searchTerm) > -1 || propertyNumber.indexOf(searchTerm) > -1 || accountCode.indexOf(searchTerm) > -1 || totalUnit.indexOf(searchTerm) > -1 || yearReceived.indexOf(searchTerm) > -1) {
+            row.style.display = ""; 
+            found = true;
         } else {
-            row.style.display = 'none';
+            row.style.display = "none"; 
         }
     });
+
+    if (found) {
+        noResultsMessage.style.display = "none";
+    } else {
+        noResultsMessage.style.display = "block";
+    }
 }
 
-document.querySelector('.year').addEventListener('change', filterTable);
-document.querySelector('.article').addEventListener('change', filterTable);
-document.querySelector('.custodian').addEventListener('change', filterTable);
+document.querySelector(".searchBar1").addEventListener("input", filterTable);
 
 // notification end user
-
 const inbox = document.getElementById('inbox');
 
     inbox.addEventListener('click', function() {
@@ -65,3 +73,13 @@ const inbox = document.getElementById('inbox');
             item.style.display = 'block';
         });
     });
+
+    // *Copyright  © 2024 WebCraft - All Rights Reserved*
+    // *Administartive Office Facility Reservation and Management System*
+    // *IT 132 - Software Engineering *
+    // *(WebCraft) Members:
+        // Falcatan, Khriz Marr
+        // Gabotero, Rogie
+        // Taborada, John Mark
+        // Tingkasan, Padwa 
+        // Villares, Arp-J*

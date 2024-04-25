@@ -1,5 +1,7 @@
 <?php
 include "../dbConfig/dbconnect.php";
+include "../functions/header.php";
+include "../authentication/auth.php";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $user_ID = $_POST['user_ID'] ?? '';
@@ -18,15 +20,31 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($stmt = $conn->prepare($query)) {
         $stmt->bind_param("iissssssss", $user_ID, $equipmentID, $unitID, $unit_cost, $unit_specs, $first_name, $last_name, $email, $designation, $replacement_date);
 
+    
         if ($stmt->execute()) {
-            echo "<script>alert('Data successfully inserted');</script>";
+            $stmt->close();
+            $success_message = "Replacement form submitted successfully.";
         } else {
-            echo "<script>alert('Error inserting data');</script>";
+            $error_message = "Error submitting replacement form: " . $stmt->error;
         }
+    }
 
-        $stmt->close();
+    if (!empty($success_message)) {
+        header("Location: ../templates/userPanel/bin.php?id={$userID}&success_message={$success_message}");
+        exit;
     } else {
-        echo "<script>alert('Error preparing statement');</script>";
+        header("Location: ../templates/userPanel/bin.php?id={$userID}&error_message={$error_message}");
+        exit;
     }
 }
 ?>
+
+<!-- *Copyright  © 2024 WebCraft - All Rights Reserved*
+    *Administartive Office Facility Reservation and Management System*
+    *IT 132 - Software Engineering *
+    *(WebCraft) Members:
+        Falcatan, Khriz Marr
+        Gabotero, Rogie
+        Taborada, John Mark
+        Tingkasan, Padwa 
+        Villares, Arp-J* -->

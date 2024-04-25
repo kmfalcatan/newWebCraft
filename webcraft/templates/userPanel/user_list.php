@@ -1,17 +1,21 @@
 <?php
  include_once "../../functions/header.php";
 
-    $sql = "SELECT * FROM users WHERE role = 'user'";
-    $result = $conn->query($sql);
-
+    $sql = "SELECT * FROM users WHERE role = ?";
+    $stmt = $conn->prepare($sql);
+    $role = "user"; 
+    $stmt->bind_param("s", $role);
+    
+    $stmt->execute();
+    $result = $stmt->get_result();
     if ($result->num_rows > 0) {
         $users = array();
-
+    
         while ($row = $result->fetch_assoc()) {
             $users[] = $row;
         }
     } else {
-        $users = array();
+        $users = array(); 
     }
 ?>
 
@@ -20,7 +24,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <link rel="icon" type="image/png" href="../../assets/img/medLogo.png">
+    <title>MedEquip Tracker</title>
 
     <link rel="stylesheet" href="../../assets/css/inventory.css">
     <link rel="stylesheet" href="../../assets/css/index.css">
@@ -28,7 +33,7 @@
     <link rel="stylesheet" href="../../assets/css/sidebar.css">
 </head>
 <body>
-   <div class="sidebar">
+    <div class="sidebar">
         <div  class="sidebarContent">
             <div class="arrowContainer" style="margin-left: 80rem;" id="toggleButton">
                 <div class="subArrowContainer">
@@ -43,7 +48,7 @@
         <div class="sideBarContainer3">
             <div class="headerContainer1">
                 <div class="iconContainer10">
-                    <a href="notification.php?id=<?php echo $userID; ?>">
+                    <a href="notification.php?id=<?php echo urlencode($userID); ?>">
                     <div class="subIconContainer10">
                         <img class="subIconContainer10" src="../../assets/img/notif.png" alt="">
                     </div>
@@ -70,11 +75,7 @@
                         <div class="searchContainer1">
                             <input class="searchBar1" type="text" name="" id="" placeholder="Search...">
                         </div>
-
-                        <div class="trackContainer">
-                        <button class="trackButton1">Sort <img src="../../assets/img/sort.png" alt="" style="margin-left: 0.5rem; width: 1.4rem; height: 1.2rem;"></button>
-                          
-                        </div>
+    
                     </div>
                 </div>
 
@@ -82,135 +83,42 @@
                     <div class="subUserListContainer">
                         <?php foreach ($users as $user): ?>
                         <div class="userContainer4">
-                            <div class="subUserContainer1" >
-                                <div class="imageContainer4">
-                                    <div class="subImageContainer4">
-                                    <?php if (!empty($user['profile_img'])): ?>
-                                        <img class="image4" src="../../uploads/<?php echo $user['profile_img']; ?>" alt="">
-                                    <?php else: ?>
-                                        <img class="image4" src="../../assets/img/pp_placeholder.png" >
-                                    <?php endif; ?>
+                            <div class="userContainer5">
+                                <div class="subUserContainer1" >
+                                    <div class="imageContainer4">
+                                        <div class="subImageContainer4">
+                                        <?php if (!empty($user['profile_img'])): ?>
+                                            <img class="image4" src="../../uploads/<?php echo $user['profile_img']; ?>" alt="">
+                                        <?php else: ?>
+                                            <img class="image4" src="../../assets/img/pp_placeholder.png" >
+                                        <?php endif; ?>
+                                        </div>
+                                    </div>
+        
+                                    <div class="userNameContainer">
+                                        <p><?php echo $user['first_name']; ?> <?php echo $user['middle_initial']; ?> <?php echo $user['last_name']; ?></p>
                                     </div>
                                 </div>
-    
-                                <div class="userNameContainer">
-                                    <p><?php echo $user['first_name']; ?> <?php echo $user['middle_initial']; ?> <?php echo $user['last_name']; ?></p>
-                                </div>
-                            </div>
 
-                            <div class="viewButtonContainer">
-                                <a href="../userPanel/user_profile.php?id=<?php echo $userID; ?>&user_ID=<?php echo $user['user_ID']; ?>">
-                                <button class="viewButton">View profile</button>
+                                <div class="viewButtonContainer">
+                                <a href="../userPanel/user_profile.php?id=<?php echo urlencode($userID); ?>&user_ID=<?php echo urlencode($user['user_ID']); ?>">
+                                    <button class="viewButton">View profile</button>
                                 </a>
+                                </div>
                             </div>
                         </div>
                         <?php endforeach; ?>
-                    </div>
-
-                    <div class="addUserContainer" style="display: none;">
-                        <form class="addUserContainer" action="../../functions/save_user.php" method="POST" onsubmit="return validateForm()">
-                            <div class="subAddUserContainer">
-                                <div class="trackNameContainer">
-                                    <div class="subTrackNameContainer">
-                                        <p>ADD NEW USER</p>
-                                    </div>
-                                </div>
-
-                                <div class="infoContainer2">
-                                    <div class="userInfoContainer">
-                                        <div class="textContainer">
-                                            <p>Last name <span>*</span></p>
-                                        </div>
-    
-                                        <div class="inputNameContainer">
-                                            <input type="text" class="inputName" name="last_name" required>
-                                        </div>
-                                    </div>
-    
-                                    <div class="userInfoContainer">
-                                        <div class="textContainer">
-                                            <p>First name  <span>*</span></p>
-                                        </div>
-    
-                                        <div class="inputNameContainer">
-                                            <input type="text" class="inputName" name="first_name" required>
-                                        </div>
-                                    </div>
-    
-                                    <div class="userInfoContainer">
-                                        <div class="textContainer">
-                                            <p>Middle initial <span class="mi">(optional)</span></p>
-                                        </div>
-    
-                                        <div class="inputNameContainer">
-                                            <input type="text" class="inputName" name="middle_initial">
-                                        </div>
-                                    </div>
-    
-                                    <div class="userInfoContainer">
-                                        <div class="textContainer">
-                                            <p>Designation  <span>*</span></p>
-                                        </div>
-    
-                                        <div class="inputNameContainer">
-                                            <input type="text" class="inputName" name="designation" required>
-                                        </div>
-                                    </div>
-    
-                                    <div class="userInfoContainer">
-                                        <div class="textContainer">
-                                            <p>E-mail  <span>*</span></p>
-                                        </div>
-    
-                                        <div class="inputNameContainer">
-                                            <input type="email" class="inputName" name="email" required>
-                                        </div>
-                                    </div>
-
-                                    <div class="userInfoContainer">
-                                        <div class="textContainer">
-                                            <p>Username  <span>*</span></p>
-                                        </div>
-    
-                                        <div class="inputNameContainer">
-                                            <input type="text" class="inputName" name="username" required>
-                                        </div>
-                                    </div>
-    
-                                    <div class="userInfoContainer">
-                                        <div class="textContainer">
-                                            <p>Default password  <span>*</span></p>
-                                            <div id="password-strength"></div>
-                                        </div>
-    
-                                        <div class="inputNameContainer">
-                                            <input type="password" class="inputName" id="password" name="password" required>
-                                        </div>
-                                    </div>
-    
-                                    <div class="userInfoContainer">
-                                        <div class="textContainer">
-                                            <p>Confirm password  <span>*</span></p>
-                                        </div>
-    
-                                        <div class="inputNameContainer">
-                                            <input type="password" class="inputName" name="confirmPassword" required>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="buttonContainer4">
-                                    <button type="button" onclick="popUp2()" class="button3">Cancel</button>
-                                    <button id="saveButton" class="button4" onclick="changeToConfirmSubmit()">Save</button>
-                                    <input type="hidden" name="confirmSave" value="1">
-                                </div>
-                            </div>
-                        </form>
+                        <div class="noResultsFound" style="display: none;">
+                            <p>No results found</p>
+                        </div>
                     </div>
                 </div>
             </div>  
         </div>
     </div>
+
+    <script src="../../assets/js/userList.js"></script>
+    <script src="../../assets/js/sidebar.js"></script>
 
     <script>
         function changeToConfirmSubmit() {
@@ -224,8 +132,15 @@
         }
     </script>
 
-    <script src="../../assets/js/password_checker.js"></script>
-    <script src="../../assets/js/userList.js"></script>
-    <script src="../../assets/js/sidebar.js"></script>
 </body>
 </html>
+
+<!-- *Copyright  © 2024 WebCraft - All Rights Reserved*
+        *Administartive Office Facility Reservation and Management System*
+        *IT 132 - Software Engineering *
+        *(WebCraft) Members:
+            Falcatan, Khriz Marr
+            Gabotero, Rogie
+            Taborada, John Mark
+            Tingkasan, Padwa 
+            Villares, Arp-J* -->

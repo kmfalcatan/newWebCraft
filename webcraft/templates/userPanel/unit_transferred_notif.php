@@ -23,7 +23,7 @@ if ($transferID) {
         $oldEndUserLastName = $row['old_end_user_last_name'];
         $timestamp = $row['timestamp'];
 
-        $sql = "SELECT middle_initial, designation, email, username FROM users WHERE user_ID = ?";
+        $sql = "SELECT middle_initial, rank, designation, email, username FROM users WHERE user_ID = ?";
         $stmt = $conn->prepare($sql);
         $stmt->bind_param("i", $oldEndUserID);
         $stmt->execute();
@@ -32,6 +32,7 @@ if ($transferID) {
         if ($result->num_rows > 0) {
             $row = $result->fetch_assoc();
             $middleInitial = $row['middle_initial'];
+            $rank = $row['rank'];
             $designation = $row['designation'];
             $email = $row['email'];
             $username = $row['username'];
@@ -53,62 +54,25 @@ if ($transferID) {
 
             $formattedTimestamp = date("F j, Y | l g:ia", strtotime($timestamp));
         } else {
-            echo "<div class='errorMessageContainer1' style='display: block;'>
-                    <div class='errorMessageContainer'>
-                        <div class='subErrorMessageContainer'>
-                            <div class='errorMessage'>
-                                <p>Error: No equipment found with the given ID</p>
-                            </div>
-                
-                            <div class='errorButtonContainer'>
-                                <button onclick='closeErrorMessage()' class='errorButton'>Close</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>";
+            $error_message = "Error: No equipment found with the given ID";
         }
 
         $stmt->close();
     } else {
-        echo "<div class='errorMessageContainer1' style='display: block;'>
-                <div class='errorMessageContainer'>
-                    <div class='subErrorMessageContainer'>
-                        <div class='errorMessage'>
-                            <p>Error: No transfer found with the given ID</p>
-                        </div>
-            
-                        <div class='errorButtonContainer'>
-                            <button onclick='closeErrorMessage()' class='errorButton'>Close</button>
-                        </div>
-                    </div>
-                </div>
-            </div>";
+        $error_message = "Error: No transfer found with the given ID";
     }
 } else {
-    echo "<div class='errorMessageContainer1' style='display: block;'>
-            <div class='errorMessageContainer'>
-                <div class='subErrorMessageContainer'>
-                    <div class='errorMessage'>
-                        <p>Error: No transfer ID provided</p>
-                    </div>
-        
-                    <div class='errorButtonContainer'>
-                        <button onclick='closeErrorMessage()' class='errorButton'>Close</button>
-                    </div>
-                </div>
-            </div>
-        </div>";
+    $error_message = "Error: No transfer ID provided";
 }
 ?>
-
-
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NOTIFICATION</title>
+    <link rel="icon" type="image/png" href="../../assets/img/medLogo.png">
+    <title>MedEquip Tracker</title>
 
     <link rel="stylesheet" href="../../assets/css/index.css">
     <link rel="stylesheet" href="../../assets/css/inventory.css">
@@ -132,7 +96,7 @@ if ($transferID) {
         <div class="sideBarContainer3">
             <div class="headerContainer1">
                 <div class="iconContainer10">
-                    <a href="#">
+                    <a  href="notification.php?id=<?php echo urlencode($userID); ?>">
                     <div class="subIconContainer10">
                         <img class="subIconContainer10" src="../../assets/img/notif.png" alt="">
                     </div>
@@ -157,11 +121,11 @@ if ($transferID) {
                         </div>
 
                         <div class="subFilterContainer1">
-                            <div class="trackContainer">
-                                <a href="notification.php?id=<?php echo $userID ?>">
-                                    <button class="trackButton1">Back</button>
+                            <!-- <div class="trackContainer">
+                                <a href="notification.php?id=<?php echo urlencode($userID); ?>">
+                                    <button class="trackButton1" style="width: auto; padding: 0 1.5rem;">Back</button>
                                 </a>
-                            </div>
+                            </div> -->
                         </div>
                     </div>
 
@@ -189,13 +153,18 @@ if ($transferID) {
                             <p>Last name: <span><?php echo $oldEndUserLastName; ?></span></p>
                             <p>E-mail: <span><?php echo $email; ?></span></p>
                             <p>Username: <span><?php echo $username; ?></span></p>
+                            <p>Rank: <span><?php echo $rank; ?></span></p>
                             <p>Designation: <span><?php echo $designation; ?></span></p>
                             <br>
                             <br>
-                            <p>Date trasnfer: <span class="approvedDate"><?php echo $formattedTimestamp; ?></span></p>
+                            <p>Date transferred: <span class="approvedDate"><?php echo $formattedTimestamp; ?></span></p>
                         </div>
 
                         <button class="button" onclick="toggleReportInfo()">See More</button>
+                        <br>
+                        <a href="notification.php?id=<?php echo urlencode($userID); ?>">
+                            <button class="button3" type="button" style="border-radius: 0.3rem;">Close</button>
+                        </a>
                     </div>
 
                 </div>
@@ -204,13 +173,12 @@ if ($transferID) {
     </div>
 </div>
 
-
  <script src="../../assets/js/sidebar.js"></script>
 
  <script>
   function toggleReportInfo() {
     var reportInfo = document.querySelector('.report-info');
-    var button = document.querySelector('.button');
+    var button = document.querySelector('.button4');
 
     if (reportInfo.style.display === 'none') {
       reportInfo.style.display = 'block';
@@ -220,18 +188,17 @@ if ($transferID) {
       button.textContent = 'See More';
     }
   }
-
-  function closeErrorMessage(){
-        var close1 = document.querySelector('.errorMessageContainer1');
-
-        if(close1.style.display === 'block'){
-            close1.style.display = 'none';
-        } else{
-            close1.style.display = 'block'
-        }
-    }
-
 </script>
 
 </body>
 </html>
+
+<!-- *Copyright  © 2024 WebCraft - All Rights Reserved*
+        *Administartive Office Facility Reservation and Management System*
+        *IT 132 - Software Engineering *
+        *(WebCraft) Members:
+            Falcatan, Khriz Marr
+            Gabotero, Rogie
+            Taborada, John Mark
+            Tingkasan, Padwa 
+            Villares, Arp-J* -->

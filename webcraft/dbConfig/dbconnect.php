@@ -2,8 +2,8 @@
 
     $servername = 'localhost';
     $username = 'root';
-    $password = 'km_falcatan12';
-    $dbname = 'webcraft';
+    $password = '';
+    $dbname = 'medequip_tracker';
 
     $conn = new mysqli($servername, $username, $password, $dbname);
 

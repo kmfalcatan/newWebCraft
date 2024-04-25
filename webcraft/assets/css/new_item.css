@@ -16,6 +16,7 @@
   width: 90%;
   margin: auto;
   padding-bottom: 1rem;
+  gap: 1rem;
 }
 
 .subViewApproveContainer{
@@ -40,7 +41,7 @@
 .equipImage{
     height: 11rem;
     width: 11rem;
-    border: solid rgb(2, 116, 200) 1px;
+    border: solid gray 1px;
     border-radius: 0.5rem;
     border-bottom: 1px solid gray;
 }
@@ -161,8 +162,9 @@
   border: solid gray 1px;
   display: flex;
   align-items: flex-start;
+  justify-content: flex-start;
   font-size: 1.2rem;
-  padding-left: 1rem;
+  padding: 1rem;
 }
 
 #select-year{
@@ -309,3 +311,13 @@
   }
 
 }
+
+/* *Copyright © 2024 WebCraft - All Rights Reserved*
+        *Administartive Office Facility Reservation and Management System*
+        *IT 132 - Software Engineering *
+        *(WebCraft) Members:
+            Falcatan, Khriz Marr
+            Gabotero, Rogie
+            Taborada, John Mark
+            Tingkasan, Padwa 
+            Villares, Arp-J* */

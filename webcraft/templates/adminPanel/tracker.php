@@ -91,6 +91,11 @@
                                 </div>
 
                                 <div class="unitInfo">
+                                    <label for="">Rank:</label>
+                                    <p id="rankDisplay"></p>
+                                </div>
+
+                                <div class="unitInfo">
                                     <label for="">Designation:</label>
                                     <p id="designationDisplay"></p>
                                 </div>
@@ -108,47 +113,10 @@
                         <div class="oldUserTextContainer">
                             <p>OLD END USER</p>
                         </div>
-
-                        <div class="infoContainer1">
-                            <div class="unitIDContainer1">
-                                <div class="unitInfo" id="year">
-                                <label for="">Year:</label>
-                                <p></p>
-                                </div>
-
-                                <div class="olduserInfo">
-                                    <div class="unitInfo">
-                                    <label for="">Name:</label>
-                                    <p></p>
-                                    <p class="profile-link"><a href="user_profile.php">Click here</a> to see profile</p>
-                                    </div>
-
-                                    <div class="unitInfo">
-                                    <label for="">Username:</label>
-                                    <p></p>
-                                    </div>
-
-                                    <div class="unitInfo">
-                                    <label for="">E-mail:</label>
-                                    <p></p>
-                                    </div>
-
-                                    <div class="unitInfo">
-                                    <label for="">Designation:</label>
-                                    <p></p>
-                                    </div>
-
-                                <div class="unitInfo">
-                                    <label for="">Department:</label>
-                                    <p></p>
-                                </div>
-                                </div>
-                                
-                        </div>
                     </div> -->
                         
                     <div class="oldUserContainer" id="oldUserContainer">
-                        <div class="oldUserTextContainer">
+                        <!-- <div class="oldUserTextContainer">
                             <p>UNIT HISTORY</p>
                         </div>
 
@@ -164,7 +132,7 @@
                                     <p>April 9, 202</p>
                                     </div>
                             </div>
-                        </div>
+                        </div> -->
                     </div>
 
                 </div>
@@ -172,7 +140,17 @@
         </div>
 
         <div class="buttonContainer3">
-            <button  onclick="closePopup()" class="button5">Close</button>
+            <button  onclick="closePopup()" class="button3">Close</button>
         </div>
     </div>
     </div>
+
+    <!-- *Copyright  © 2024 WebCraft - All Rights Reserved*
+    *Administartive Office Facility Reservation and Management System*
+    *IT 132 - Software Engineering *
+    *(WebCraft) Members:
+        Falcatan, Khriz Marr
+        Gabotero, Rogie
+        Taborada, John Mark
+        Tingkasan, Padwa 
+        Villares, Arp-J* -->

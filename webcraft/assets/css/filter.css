@@ -8,22 +8,23 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(0, 0, 0, 0.4);
     z-index: 9999;
   }
   
   .filterPopupContent {
     background-color: #fff;
-    width: 40%;
-    height: 50%;
+    width: 30%;
+    height: 40%;
     padding: 2rem;
     border-radius: 5px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
     display: flex;
     align-items: center;
     justify-items: flex-start;
     flex-direction: column;
     column-gap: 0.1rem;
+    /* outline: 1px solid red; */
   }
 
   .filterPopupContent h2{
@@ -31,47 +32,97 @@
     color: rgb(2, 116, 200);
   }
 
-  .desc{
+  #desc{
     width: 90%;
     margin-bottom: auto;
-    font-size: 1.4rem;
-    font-weight: 600;
+    font-size: 1rem;
     border-top: 1px solid #a6a4a4;
-    padding-top: 1rem;
+    display: flex;
+    align-items: start;
+    /* outline: 1px solid red; */
+  }
+
+  #desc p{
+    margin-top: 1rem;
   }
 
   .filters{
-    flex-direction: column;
-    column-gap: 2.5rem;
+    display: flex;
+    column-gap: 1rem;
     margin-bottom: auto;
     width: 90%;
     height: auto;
+    /* outline: 1px solid red; */
   }
 
-  .filters label{
-    font-size: 1.3rem;
-    font-weight: 600;
-  }
-
-  .filters select{
-    width: 40%;
-    height: 2.5rem;
-    margin-left: 3rem;
-    margin-bottom: 1rem;
+  #allFilter{
     cursor: pointer;
+  }
+
+  #allFilter:active{
+    color: rgb(2, 116, 200);
+  }
+
+ .labelContainer{
+    /* outline: 1px solid red; */
+    display: none;
+ }
+
+ .labelContainer p{
+    text-align: start;
     font-size: 1.2rem;
-    font-weight: 500;
-  }
+    font-weight: 600;
+ }
 
-  .filters .year{
-    margin-left: 6.5rem;
-  }
-
-  .filters .article{
-    margin-left: 5rem;
-  }
-
-  .buttonContainer2{
+ .filterOptions{
     /* outline: 1px solid red; */
     width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 0.5rem;
+ }
+
+select{
+   width: 100%;
+   cursor: pointer;
+ }
+
+  #buttonContainer2{
+    width: 90%;
+    display: flex;
   }
+
+  @media only screen and (min-width: 1025px){
+    .filters{
+      column-gap: 2.5rem;
+    }
+
+    .labelContainer{
+      display: block;
+      width: 50%;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: center;
+      gap: 1rem;
+    }
+
+    .filterOptions{
+      padding-top: 2rem;
+    }
+
+    #desc{
+      font-size: 1.4rem;
+    }
+  }
+
+  /* *Copyright © 2024 WebCraft - All Rights Reserved*
+        *Administartive Office Facility Reservation and Management System*
+        *IT 132 - Software Engineering *
+        *(WebCraft) Members:
+            Falcatan, Khriz Marr
+            Gabotero, Rogie
+            Taborada, John Mark
+            Tingkasan, Padwa 
+            Villares, Arp-J* */

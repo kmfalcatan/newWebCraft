@@ -3,7 +3,6 @@
     include_once "../../functions/header.php";
     include_once "../../authentication/auth.php";
     include_once "../../functions/equip_info.php";
-
 ?>
 
 <!DOCTYPE html>
@@ -11,7 +10,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EQUIPMENT DETAILS</title>
+    <link rel="icon" type="image/png" href="../../assets/img/medLogo.png">
+    <title>MedEquip Tracker</title>
 
     <link rel="stylesheet" href="../../assets/css/index.css">
     <link rel="stylesheet" href="../../assets/css/inventory.css">
@@ -39,7 +39,7 @@
         <div class="sideBarContainer3">
             <div class="headerContainer1">
                 <div class="iconContainer10">
-                    <a href="notification.php?id=<?php echo $userID; ?>">
+                    <a href="notification.php?id=<?php echo urlencode($userID); ?>">
                     <div class="subIconContainer10">
                         <img class="subIconContainer10" src="../../assets/img/notif.png" alt="">
                     </div>
@@ -66,7 +66,7 @@
                     <div class="subFilterContainer1">
                         <div class="trackContainer">
                             <button class="trackButton1" type="button"  onclick="showWarrantyContainer()">Check warranty</button>
-                            <a href="view_unit.php?id=<?php echo $userID; ?>&equipment_ID=<?php echo $equipmentID; ?>">
+                            <a href="view_unit.php?id=<?php echo urlencode($userID); ?>&equipment_ID=<?php echo urlencode($equipmentID); ?>">
                                 <button class="trackButton1" type="button">See unit</button>
                             </a>
                         </div>
@@ -97,9 +97,9 @@
                                         </div>
 
                                         <div class="container4">
-                                            <?php foreach ($userInfo as $key => $info): ?>
+                                            <?php foreach ($equipInfo as $key => $info): ?>
                                                 <div class="text1">
-                                                    <p><?php echo $info['user']; ?><?php echo ($key < count($userInfo) - 1) ? ', ' : ''; ?></p>
+                                                    <p><?php echo $info['user']; ?><?php echo ($key < count($equipInfo) - 1) ? ', ' : ''; ?></p>
                                                 </div>
                                             <?php endforeach; ?>
                                         </div>
@@ -115,7 +115,7 @@
                                             <p>UNIT HANDLE</p>
                                         </div>
 
-                                        <?php foreach ($userInfo as $info): ?>
+                                        <?php foreach ($equipInfo as $info): ?>
                                             <div class="subUserContainer1">
                                                 <p><?php echo $info['user']; ?></p>
                                                 <p class="unit"><?php echo $info['units_handled']; ?></p>
@@ -156,15 +156,12 @@
                         </div>
 
                         <div class="viewInfoContainer" id="viewInfoContainer1" >
-
                             <div class="approveInfoContainer">
-                                
                                 <div class="subApproveInfoContainer1" id="subApproveInfoContainer1">
                                     <div class="approveContainer" id="approveContainer">
                                         <div class="labelContainer1">
                                             <p>Total unit </p>
                                         </div>
-
                                         <input class="container4" type="text" value="<?php echo $units; ?>" readonly>
                                     </div>
 
@@ -172,7 +169,6 @@
                                         <div class="labelContainer1">
                                             <p>Total value</p>
                                         </div>
-
                                         <input class="container4" type="text" value="<?php echo $totalValue; ?>" readonly>
                                     </div>
 
@@ -180,7 +176,6 @@
                                         <div class="labelContainer1">
                                             <p>Year received</p>
                                         </div>
-
                                         <input class="container4" type="text" value="<?php echo $yearReceived; ?>" readonly>
                                     </div>
 
@@ -188,31 +183,26 @@
                                         <div class="labelContainer1">
                                             <p>Remarks</p>
                                         </div>
-
                                         <input class="container4" type="text" value="<?php echo $remarks; ?>" readonly>
                                     </div>
 
                                 </div>
 
                                 <div class="subApproveInfoContainer1" id="subApproveInfoContainer">
-
                                     <div class="approveContainer">
                                         <div class="labelContainer1">
                                             <p>Description</p>
                                         </div>
-
-                                        <input class="container4" type="text" value="<?php echo $description; ?>" readonly>
+                                        <textarea class="container4" type="text" readonly><?php echo $description; ?></textarea>
                                     </div>
 
                                     <div class="approveContainer">
                                         <div class="labelContainer1">
                                             <p>Instruction</p>
                                         </div>
-
-                                        <input class="container4" type="text" value="<?php echo $instruction; ?>" readonly>
+                                        <textarea class="container4" type="text" readonly><?php echo $instruction; ?></textarea>
                                     </div>
                                 </div>
-
                             </div>
                         </div>
 
@@ -248,3 +238,13 @@
     
 </body>
 </html>
+
+<!-- *Copyright  © 2024 WebCraft - All Rights Reserved*
+    *Administartive Office Facility Reservation and Management System*
+    *IT 132 - Software Engineering *
+    *(WebCraft) Members:
+        Falcatan, Khriz Marr
+        Gabotero, Rogie
+        Taborada, John Mark
+        Tingkasan, Padwa 
+        Villares, Arp-J* -->

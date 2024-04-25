@@ -222,7 +222,6 @@ a{
 }
 
 #containerToReplace{
-    outline: 1px solid red;
     height: auto;
     padding-bottom: 1rem;
     width: 80%;
@@ -758,7 +757,7 @@ a{
     height: 14rem;
     width: 14rem;
     border-radius: 0.5rem;
-    border: 1px solid rgb(2, 116, 200);
+    border: 1px solid gray;
 }
 
 .unitInfoContainer{
@@ -836,8 +835,8 @@ a{
 .subViewApproveContainer{
     width: 100%;
     background-color: snow;
-    border-radius: 0.5rem;
-    border: 1px solid #ccc;
+    border-radius: 0.3rem;
+    border: 1px solid #b8b8b8;
     padding-bottom: 2rem;
     display: flex;
     align-items: center;
@@ -1025,7 +1024,6 @@ a{
 /*laptop*/
 @media only screen and (min-width: 1025px){
     #containerToReplace{
-        outline: 1px solid red;
         height: auto;
         padding-bottom: 1rem;
         width: 63%;
@@ -1061,6 +1059,7 @@ a{
     .searchContainer1{
         margin: 0;
         width: 30rem;
+        justify-content: flex-end;
     }
 
     .inventoryNameContainer{
@@ -1202,3 +1201,13 @@ a{
     
     }
 }
+
+/* *Copyright © 2024 WebCraft - All Rights Reserved*
+        *Administartive Office Facility Reservation and Management System*
+        *IT 132 - Software Engineering *
+        *(WebCraft) Members:
+            Falcatan, Khriz Marr
+            Gabotero, Rogie
+            Taborada, John Mark
+            Tingkasan, Padwa 
+            Villares, Arp-J* */

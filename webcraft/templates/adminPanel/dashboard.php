@@ -101,7 +101,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <link rel="icon" type="image/png" href="../../assets/img/medLogo.png">
+    <title>MedEquip Tracker</title>
 
     <link rel="stylesheet" href="../../assets/css/index.css">
     <link rel="stylesheet" href="../../assets/css/inventory.css">
@@ -141,11 +142,12 @@
                 </div>
             </div>
 
-            <div class="subContainer1" id="" style="outline: 1px solid red;"> 
+            <div class="subContainer1" id=""> 
                 <div class="subContainer3">
                     <div class="dashboardContainer">
                         <div class="textContainer">
-                            <p>S.Y.  2023-2024 SECOND SEMESTER</p>
+                            <p id="headerText">S.Y.  2023-2024 SECOND SEMESTER</p>
+                            <button class="edit-icon" onclick="enableEditMode()">Edit</button>
                         </div>
 
                         <div class="equipSummaryContainer">
@@ -153,20 +155,38 @@
                                 <p>EQUIPMENT SUMMARY</p>
                             </div>
 
-                            <div class="subEquipSummaryContainer">
-                                <div class="summaryContainer">
-                                    <div class="subSummaryContainer">
-                                        <div class="imageContainer5">
-                                            <img class="image17" src="../../assets/img/medLogo.png" alt="">
-                                        </div>
+                            <div class="equipmentContainer">
+                                <div class="equipmentContainer2">
+                                    <div class="equipmentContainer3">
+                                    <?php
+                                        $sql = "SELECT article, total_unit, image FROM equipment";
+                                        $stmt = $conn->prepare($sql);
 
-                                        <div class="totalOfEquipContainer">
-                                            <p class="equipname">Alcohol Dispenser</p>
-                                        </div>
+                                        if ($stmt) {
+                                            $stmt->execute();
+                                            $stmt->bind_result($article, $totalUnit, $image);
 
-                                        <div class="totalOfEquipContainer">
-                                            <p style="font-weight: bold;">30</p>
-                                        </div>
+
+                                            while ($stmt->fetch()) {
+                                                echo '<div class="equipmentSummary">';
+                                                echo "<div class='imageContainer5'>";
+                                                $image = '../../uploads/' . ($image ? $image : 'img_placeholder.jpg');
+                                                if (!file_exists($image)) {
+                                                    $image = '../../assets/img/img_placeholder.jpg';
+                                                }
+                                                echo "<img src='" . $image . "' alt=''>";
+                                                echo "</div>";
+                                                echo '<div class="equipment-name">' . $article . '</div>';
+                                                echo '<div class="total-equipment"><h1>' . $totalUnit . '</h1></div>';
+                                                echo '</div>';
+                                            }
+
+                                            $stmt->close();
+                                        } else {
+                                            echo "Error: Unable to retrieve data from the equipment table.";
+                                        }
+                                        ?>
+
                                     </div>
                                 </div>
                             </div>
@@ -220,6 +240,7 @@
                                             <tr>
                                                 <th></th>
                                                 <th>END USER</th>
+                                                <th>RANK</th>
                                                 <th>DESIGNATION</th>
                                                 <th>TOTAL EQUIPMENT</th>
                                                 <th>TOTAL UNITS</th>
@@ -228,7 +249,7 @@
                     
                                         <tbody id="tblBody">
                                         <?php
-                                        $sql = "SELECT u.user_ID, u.profile_img, u.first_name, u.middle_initial, u.last_name, u.designation, COUNT(t.unit_ID) AS total_units, COUNT(DISTINCT t.equipment_ID) AS total_equipment
+                                        $sql = "SELECT u.user_ID, u.profile_img, u.first_name, u.middle_initial, u.last_name, u.rank, u.designation, COUNT(t.unit_ID) AS total_units, COUNT(DISTINCT t.equipment_ID) AS total_equipment
                                                 FROM users u
                                                 LEFT JOIN units t ON u.user_ID = t.user_ID
                                                 WHERE u.role = 'user'
@@ -238,7 +259,7 @@
 
                                         if ($stmt) {
                                             $stmt->execute();
-                                            $stmt->bind_result($user_ID, $profile_img, $firstName, $middleInitial, $lastName, $designation, $total_equipment, $total_units);
+                                            $stmt->bind_result($user_ID, $profile_img, $firstName, $middleInitial, $lastName, $rank, $designation, $total_equipment, $total_units);
 
                                             echo "<tbody id='tblBody'>";
 
@@ -247,12 +268,16 @@
                                             echo "<td class='endUser'>";
                                             echo "<div class='profileImg'>";
                                             $profile_image_path = '../../uploads/' . ($profile_img ? $profile_img : 'pp_placeholder.png');
+                                            if (!file_exists($profile_image_path)) {
+                                                $profile_image_path = '../../assets/img/pp_placeholder.png';
+                                            }
                                             echo "<img src='" . $profile_image_path . "' alt=''>";
                                             echo "</div>";
                                             echo "</td>";
                                             echo "<td>";
                                             echo "<p>" . $firstName . " " . $middleInitial . ". " . $lastName . "</p>";
                                             echo "</td>";
+                                            echo "<td>" . $rank . "</td>";
                                             echo "<td>" . $designation . "</td>";
                                             echo "<td>" . $total_units . "</td>";
                                             echo "<td>" . $total_equipment . "</td>";
@@ -263,19 +288,7 @@
 
                                                 $stmt->close();
                                             } else {
-                                                echo "<div class='errorMessageContainer1' style='display: block;'>
-                                                <div class='errorMessageContainer'>
-                                                    <div class='subErrorMessageContainer'>
-                                                        <div class='errorMessage'>
-                                                            <p>Error: Unable to prepare statement.</p>
-                                                        </div>
-                                            
-                                                        <div class='errorButtonContainer'>
-                                                            <button onclick='closeErrorMessage()' class='errorButton'>Close</button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>";
+                                                echo "Error: Unable to prepare statement.";
                                             }
                                         ?>  
                                         </tbody>
@@ -304,7 +317,7 @@
                             </div>
                         </div>
                     
-                        <div class="textContainer1">
+                        <div class="textContainer1" id="yearlyEquipment">
                             <p>EQUIPMENT BY YEAR</p>
                         </div>
 
@@ -347,19 +360,7 @@
                                         $stmt_equipment->fetch();
                                         $stmt_equipment->close();
                                     } else {
-                                        echo "<div class='errorMessageContainer1' style='display: block;'>
-                                            <div class='errorMessageContainer'>
-                                                <div class='subErrorMessageContainer'>
-                                                    <div class='errorMessage'>
-                                                        <p>Error: Unable to prepare statement.</p>
-                                                    </div>
-                                        
-                                                    <div class='errorButtonContainer'>
-                                                        <button onclick='closeErrorMessage()' class='errorButton'>Close</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>";
+                                        echo "Error: Unable to prepare statement.";
                                         exit(); 
                                     }
 
@@ -374,19 +375,7 @@
                                     $stmt_units->fetch();
                                     $stmt_units->close();
                                 } else {
-                                    echo "<div class='errorMessageContainer1' style='display: block;'>
-                                        <div class='errorMessageContainer'>
-                                            <div class='subErrorMessageContainer'>
-                                                <div class='errorMessage'>
-                                                    <p>Error: Unable to prepare statement.</p>
-                                                </div>
-                                    
-                                                <div class='errorButtonContainer'>
-                                                    <button onclick='closeErrorMessage()' class='errorButton'>Close</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>";
+                                    echo "Error: Unable to prepare statement.";
                                     exit(); 
                                 }
 
@@ -400,19 +389,7 @@
                                     echo "</tbody>
                                         </table>";
                                 } else {
-                                    echo "<div class='errorMessageContainer1' style='display: block;'>
-                                        <div class='errorMessageContainer'>
-                                            <div class='subErrorMessageContainer'>
-                                                <div class='errorMessage'>
-                                                    <p>Error: Unable to prepare statement.</p>
-                                                </div>
-                                    
-                                                <div class='errorButtonContainer'>
-                                                    <button onclick='closeErrorMessage()' class='errorButton'>Close</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>";
+                                    echo "Error: Unable to prepare statement.";
                                 }
 
                                 $conn->close();
@@ -424,13 +401,12 @@
 
             </div>
 
-            
+
         </div>
     </div>
 
-    
-
     <script src="../../assets/js/sidebar.js"></script>
+    <script src="../../assets/js/toggle.js"></script>
 
     <script>
         let originalContent;
@@ -463,32 +439,15 @@
         document.getElementById('btn2').addEventListener('click', loadEditContent);
     </script>
 
-    <script>
-    window.addEventListener('load', function() {
-        var equipmentCount = document.getElementById('equipmentCount');
-        var countTo = parseInt(equipmentCount.innerText);
-        var duration = 1000;
-        var interval = duration / countTo;
-        var currentCount = 0;
-        
-        var countInterval = setInterval(function() {
-        equipmentCount.innerText = ++currentCount;
-        if (currentCount === countTo) {
-            clearInterval(countInterval);
-        }
-        }, interval);
-    });
-
-
-    function closeErrorMessage(){
-        var close1 = document.querySelector('.errorMessageContainer1');
-
-        if(close1.style.display === 'block'){
-            close1.style.display = 'none';
-        } else{
-            close1.style.display = 'block'
-        }
-    }
-    </script>
 </body>
 </html>
+
+<!-- *Copyright  © 2024 WebCraft - All Rights Reserved*
+    *Administartive Office Facility Reservation and Management System*
+    *IT 132 - Software Engineering *
+    *(WebCraft) Members:
+        Falcatan, Khriz Marr
+        Gabotero, Rogie
+        Taborada, John Mark
+        Tingkasan, Padwa 
+        Villares, Arp-J* -->

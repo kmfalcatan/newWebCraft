@@ -3,6 +3,9 @@
  include_once "../../dbConfig/dbconnect.php";
  include_once "../../authentication/auth.php";
 
+$success_message = isset($_GET['success_message']) ? $_GET['success_message'] : '';
+$error_message = isset($_GET['error_message']) ? $_GET['error_message'] : '';
+
  $userID = isset($_GET['id']) ? $_GET['id'] : null;
     
  $sql = "SELECT ar.approved_ID, ar.user_ID, ar.unit_ID, ar.equipment_ID, ar.report_issue, ar.timestamp, e.article, u.first_name, u.last_name 
@@ -21,12 +24,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <link rel="icon" type="image/png" href="../../assets/img/medLogo.png">
+    <title>MedEquip Tracker</title>
 
     <link rel="stylesheet" href="../../assets/css/index.css">
     <link rel="stylesheet" href="../../assets/css/inventory.css">
     <link rel="stylesheet" href="../../assets/css/sidebar.css">
     <link rel="stylesheet" href="../../assets/css/bin.css">
+    <style>
+    @media print {
+        th:nth-child(6),
+        td:nth-child(6),
+        td:nth-child(7),
+        .actionContainer button{
+            display: none;
+        }
+    }
+    </style> 
 </head>
 <body>
     <div class="sidebar">
@@ -44,7 +58,7 @@
         <div class="sideBarContainer3">
             <div class="headerContainer1">
                 <div class="iconContainer10">
-                    <a href="notification.php?id=<?php echo $userID; ?>">
+                    <a href="notification.php?id=<?php echo urlencode($userID); ?>">
                     <div class="subIconContainer10">
                         <img class="subIconContainer10" src="../../assets/img/notif.png" alt="">
                     </div>
@@ -65,6 +79,33 @@
                 <div class="filterContainer1">
                     <div class="inventoryNameContainer">
                         <p>REMOVED UNIT LIST</p>
+                    </div>
+
+                    <div id="messageModal" class="messageModal">
+                        <div class="alertModal">
+                            <div class="alertContent">
+                                <div class="alertIcon">
+                                    <div class="iconBorder" style="<?php echo !empty($success_message) ? 'border: 1px solid rgba(0, 128, 0, 0.69);' : 'border: 1px solid red;'; ?>">
+                                        <?php if (!empty($success_message)): ?>
+                                            <p>&#10004;</p>
+                                        <?php else: ?>
+                                            <p class="errorIcon" style="color: red; margin-top: -0.8rem;">&times;</p> 
+                                        <?php endif; ?>
+                                    </div>
+                                </div>
+                                <div class="alertMsg">
+                                    <?php if (!empty($success_message)): ?>
+                                        <div class="success-message"><?php echo $success_message; ?></div>
+                                    <?php endif; ?>
+                                    <?php if (!empty($error_message)): ?>
+                                        <div class="error-message"><?php echo $error_message; ?></div>
+                                    <?php endif; ?>
+                                </div>
+                                <div class="alertBtn1">
+                                    <button class="closebtn">Close</button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
                     <div class="subFilterContainer1" >
@@ -94,9 +135,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <button class="trackButton1">Sort <img src="../../assets/img/sort.png" alt="" style="margin-left: 0.5rem; width: 1.4rem; height: 1.2rem;"></button>
-                            <a href="new_item.php?id=<?php echo $userID; ?>">
-                            </a>
+                            <button class="trackButton1" onclick="openPrintSettings()">Print <img src="../../assets/img/print.png" alt="" style="margin-left: 0.5rem; width: 1.2rem; height: 1.5rem;"></button>
                         </div>
                     </div>
                 </div>
@@ -128,12 +167,12 @@
                                         echo "<td>$article</td>";
                                         echo "<td>$reportIssue</td>";
                                         echo "<td>$formattedTimestamp</td>";
-                                        echo "<td style='display: flex;'>";
+                                        echo "<td class='actionContainer' style='display: flex;'>";
 
                                         if (strtolower($reportIssue) == "lost") {
-                                            echo "<a href='approved_lost.php?id=$userID&approved_ID=$approvedID'><button class='button4' type='button'>View</button></a>";
+                                            echo "<a href='approved_lost.php?id=" . urlencode($userID) . "&approved_ID=" . urlencode($approvedID) . "'><button class='button4' type='button'>View</button></a>";
                                         } else {
-                                            echo "<a href='approved_for_return.php?id=$userID&approved_ID=$approvedID'><button class='button4' type='button'>View</button></a>";
+                                            echo "<a href='approved_for_return.php?id=" . urlencode($userID) . "&approved_ID=" . urlencode($approvedID) . "'><button class='button4' type='button'>View</button></a>";
                                         }
 
                                         echo "</td>";
@@ -144,7 +183,6 @@
                                     if ($count == 1) {
                                         echo "<tr><td colspan='6' style='text-align: center;'>No records found</td></tr>";
                                     }
-                            
                                 ?>
 
                                 <div id="sweetalert" class="sweetalert" style="display: none;">
@@ -167,6 +205,9 @@
                                 </div>
                             </tbody>
                         </table>
+                        <div class="noResultsFound" style="display: none;">
+                            <p>No results found</p>
+                        </div>
                    </div>
                 </div>
             </div>  
@@ -177,5 +218,68 @@
     <script src="../../assets/js/inventory.js"></script>
     <script src="../../assets/js/sidebar.js"></script>
 
+    <script>
+        function filterTable() {
+            var searchTerm = document.querySelector(".searchBar1").value.trim().toLowerCase();
+
+            var rows = document.querySelectorAll("#tblBody tr");
+            var noResultsMessage = document.querySelector(".noResultsFound");
+
+            var found = false;
+
+            rows.forEach(function(row) {
+                var unitID = row.querySelector("td:nth-child(2)").textContent.toLowerCase();
+                var article = row.querySelector("td:nth-child(3)").textContent.toLowerCase();
+                var reportIssue = row.querySelector("td:nth-child(4)").textContent.toLowerCase(); // Add reportIssue search
+
+                if (unitID.includes(searchTerm) || article.includes(searchTerm) || reportIssue.includes(searchTerm)) { // Include reportIssue search
+                    row.style.display = ""; 
+                    found = true;
+                } else {
+                    row.style.display = "none"; 
+                }
+            });
+
+            if (found) {
+                noResultsMessage.style.display = "none";
+            } else {
+                noResultsMessage.style.display = "block";
+            }
+        }
+
+        document.querySelector(".searchBar1").addEventListener("input", filterTable);
+    </script>
+
+    <script>
+        window.onload = function() {
+            var modal = document.getElementById("messageModal");
+            var button = document.getElementsByClassName("closebtn")[0];
+
+            button.onclick = function() {
+                modal.style.display = "none";
+            }
+
+            window.onclick = function(event) {
+                if (event.target == modal) {
+                    modal.style.display = "none";
+                }
+            }
+
+            <?php if (!empty($success_message) || !empty($error_message)): ?>
+                modal.style.display = "block";
+            <?php endif; ?>
+        }
+    </script>
+
 </body>
 </html>
+
+<!-- *Copyright  © 2024 WebCraft - All Rights Reserved*
+    *Administartive Office Facility Reservation and Management System*
+    *IT 132 - Software Engineering *
+    *(WebCraft) Members:
+        Falcatan, Khriz Marr
+        Gabotero, Rogie
+        Taborada, John Mark
+        Tingkasan, Padwa 
+        Villares, Arp-J* -->

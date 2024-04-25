@@ -16,9 +16,24 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    overflow: auto;
-    border: 1px solid #ccc;
+    overflow-y: auto;
+    border: 1px solid #b8b8b8;
 }
+
+.subContainer::-webkit-scrollbar{
+    width: 7px;
+    height: 7px;
+
+}
+
+.subContainer::-webkit-scrollbar-thumb{
+    background-color: rgb(2, 116, 200);
+    cursor: pointer;
+}
+
+.subContainer::-webkit-scrollbar-track {
+    background-color: #fff; 
+  }
 
 .trackButton1{
     width: auto;
@@ -67,7 +82,7 @@
     margin-top: 0.5rem;
     margin-left: 0.5rem;
     border-radius: 0.5rem;
-    border: 1px solid rgb(2, 116, 200);
+    border: 1px solid gray;
 }
 
 .image1{
@@ -368,3 +383,13 @@ label,
 select{
     margin: 0.7rem auto;
 }
+
+/* *Copyright © 2024 WebCraft - All Rights Reserved*
+        *Administartive Office Facility Reservation and Management System*
+        *IT 132 - Software Engineering *
+        *(WebCraft) Members:
+            Falcatan, Khriz Marr
+            Gabotero, Rogie
+            Taborada, John Mark
+            Tingkasan, Padwa 
+            Villares, Arp-J* */

@@ -4,7 +4,7 @@
     <div class="userContainer">
         <div class="subUserContainer">
             <div class="userPictureContainer" >
-            <a href="../userPanel/my_profile.php?id=<?php echo $userID; ?>">
+            <a href="../userPanel/my_profile.php?id=<?php echo urlencode($userID); ?>">
                 <div class="subUserPictureContainer">
                     <?php
                         if (!empty($userInfo['profile_img'])) {
@@ -16,7 +16,7 @@
                 </div>
             </a>
             </div>
-            <a href="../userPanel/my_profile.php?id=<?php echo $userID; ?>">
+            <a href="../userPanel/my_profile.php?id=<?php echo urlencode($userID); ?>">
             <div class="userPictureContainer1">
                 <p><?php echo $userInfo['username'] ?? ''; ?></p>
             </div>
@@ -25,19 +25,8 @@
 
         <div class="navContainer">
             <div class="subNavContainer">
-                <a href="../userPanel/dashboard.php?id=<?php echo $userID; ?>">
-                    <div class="buttonContainer1">
-                        <div class="iconContainer9">
-                            <img class="icon" id="icon" src="../../assets/img/pieGraph.png" alt="">
-                        </div>
 
-                        <div class="nameOfIconContainer">
-                            <p>Dashboard</p>
-                        </div>
-                    </div>
-                </a>
-
-                <a href="../userPanel/inventory.php?id=<?php echo $userID; ?>">
+                <a href="../userPanel/inventory.php?id=<?php echo urlencode($userID); ?>">
                     <div class="buttonContainer1">
                         <div class="iconContainer9">
                             <img class="icon" src="../../assets/img/file-text-circle.png" alt="">
@@ -49,7 +38,7 @@
                     </div>
                 </a>
 
-                <a href="../userPanel/user_list.php?id=<?php echo $userID; ?>">
+                <a href="../userPanel/user_list.php?id=<?php echo urlencode($userID); ?>">
                     <div class="buttonContainer1">
                         <div class="iconContainer9">
                             <img class="icon" id="icon" src="../../assets/img/person-circle.png" alt="" style="width: 2.5rem; height: 2.5rem;">
@@ -61,7 +50,7 @@
                     </div>
                 </a>
 
-                <a href="../userPanel/help.php?id=<?php echo $userID; ?>">
+                <a href="../userPanel/help.php?id=<?php echo urlencode($userID); ?>">
                     <div class="buttonContainer1">
                         <div class="iconContainer9">
                             <img class="icon" id="icon" src="../../assets/img/questionMark.png" alt="">
@@ -73,7 +62,7 @@
                     </div>
                 </a>
 
-                <a href="../userPanel/about.php?id=<?php echo $userID; ?>">
+                <a href="../userPanel/about.php?id=<?php echo urlencode($userID); ?>">
                     <div class="buttonContainer1">
                         <div class="iconContainer9">
                             <img class="icon" id="icon" src="../../assets/img/about-us-icon-3.jpg" style="width: 2rem;">
@@ -91,12 +80,12 @@
                         </div>
 
                         <div class="nameOfIconContainer">
-                            <p>setting</p>
+                            <p>Setting</p>
                         </div>
                     </div>
 
                 <div class="settingContainer" style="display: none;">
-                    <a href="../userPanel/my_profile.php?id=<?php echo $userID; ?>">
+                    <a href="../userPanel/my_profile.php?id=<?php echo urlencode($userID); ?>">
                         <div class="buttonContainer1">
                             <div class="nameOfIconContainer">
                                 <p>My profile</p>
@@ -104,7 +93,7 @@
                         </div>
                     </a>
 
-                    <a href="../userPanel/bin.php?id=<?php echo $userID; ?>">
+                    <a href="../userPanel/bin.php?id=<?php echo urlencode($userID); ?>">
                         <div class="buttonContainer1">
                             <div class="nameOfIconContainer">
                                 <p>Bin</p>
@@ -148,3 +137,13 @@
             </div>
         </div>
     </div>
+
+    <!-- *Copyright  © 2024 WebCraft - All Rights Reserved*
+        *Administartive Office Facility Reservation and Management System*
+        *IT 132 - Software Engineering *
+        *(WebCraft) Members:
+            Falcatan, Khriz Marr
+            Gabotero, Rogie
+            Taborada, John Mark
+            Tingkasan, Padwa 
+            Villares, Arp-J* -->

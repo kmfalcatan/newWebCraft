@@ -1,31 +1,49 @@
-
+.subContainer1{
+    height: auto;
+}
 .userListContainer{
-    /* outline: red dashed 1px; */
-    height: 83.5vh;
+    height: 43rem;
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-top: 1rem;
 }
 
 .subUserListContainer{
-    height: 90%;
+    height: 98%;
     width: 100%;
     /* outline: red dashed 1px; */
     border-radius: 0.3rem;
-    overflow: auto;
+    overflow-y: auto;
     display: flex;
     flex-direction: column;
     gap: 1rem;
     background-color: snow;
-    border: 1px solid gray;
+    border: 1px solid #b8b8b8;
     align-items: center;
     padding-top: 1rem;
 }
 
+.subUserListContainer::-webkit-scrollbar{
+    width: 7px;
+    cursor: pointer;
+}
+
+.subUserListContainer::-webkit-scrollbar-thumb {
+    background-color: rgb(2, 116, 200); 
+  }
+  
+.subUserListContainer::-webkit-scrollbar-track {
+    background-color: #fff; 
+  }
+
 .userContainer4{
-    /* outline: red dashed 1px; */
     height: 5rem;
     width: 95%;
+}
+
+.userContainer5{
+    height: 5rem;
     border: solid gray 1px;
     background-color: #fff;
     border-radius: 0.5rem;
@@ -117,7 +135,7 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.144); 
+    background-color: rgba(0, 0, 0, 0.4); 
     z-index: 999; 
 }
 
@@ -244,4 +262,18 @@ button{
     .filterContainer1{
         /* padding: 0 3.5rem; */
     }
+
+    .userListContainer{
+        height: 43.6rem;
+    }
 }
+
+/* *Copyright © 2024 WebCraft - All Rights Reserved*
+        *Administartive Office Facility Reservation and Management System*
+        *IT 132 - Software Engineering *
+        *(WebCraft) Members:
+            Falcatan, Khriz Marr
+            Gabotero, Rogie
+            Taborada, John Mark
+            Tingkasan, Padwa 
+            Villares, Arp-J* */

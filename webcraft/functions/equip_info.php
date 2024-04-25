@@ -1,4 +1,7 @@
 <?php
+include_once "../../functions/header.php";
+include_once "../../dbConfig/dbconnect.php";
+include_once "../../authentication/auth.php";
 
 $equipmentID = isset($_GET['equipment_ID']) ? $_GET['equipment_ID'] : null;
 
@@ -24,12 +27,12 @@ if ($result->num_rows > 0) {
     $instruction = $row['instruction'];
     $yearReceived = $row['year_received'];
 
-    $userInfo = getUserUnitInfo($conn, $article);
+    $equipInfo = getEquipInfo($conn, $article);
 } else {
 }
 
-function getUserUnitInfo($conn, $article) {
-    $userInfo = array();
+function getEquipInfo($conn, $article) {
+    $equipInfo = array();
     $sql = "SELECT user, units_handled FROM user_unit WHERE article = ?";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("s", $article);
@@ -38,13 +41,13 @@ function getUserUnitInfo($conn, $article) {
     
     if ($result->num_rows > 0) {
         while ($row = $result->fetch_assoc()) {
-            $userInfo[] = array(
+            $equipInfo[] = array(
                 'user' => $row['user'],
                 'units_handled' => $row['units_handled']
             );
         }
     }
-    return $userInfo;
+    return $equipInfo;
 }
 
 $sql = "SELECT warranty_end FROM equipment WHERE equipment_ID = ?";
@@ -76,6 +79,14 @@ if ($result->num_rows > 0) {
     $warranty_status = "No warranty available";
     $text_color = "inherit"; 
 }
-
-
 ?>
+
+<!-- *Copyright  © 2024 WebCraft - All Rights Reserved*
+        *Administartive Office Facility Reservation and Management System*
+        *IT 132 - Software Engineering *
+        *(WebCraft) Members:
+            Falcatan, Khriz Marr
+            Gabotero, Rogie
+            Taborada, John Mark
+            Tingkasan, Padwa 
+            Villares, Arp-J* -->

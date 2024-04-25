@@ -104,7 +104,7 @@ $message = "";
                         </div>
     
                         <div class="forgotContainer">
-                            <a class="forgot" href="">
+                            <a class="forgot" href="../forgot_password.php">
                                 <p>Forgot password?</p>
                             </a>
                         </div>

@@ -12,9 +12,9 @@
     height: 90%;
     width: 90%;
     padding: 1rem;
-    border-radius: 0.5rem;
+    border-radius: 0.3rem;
     background-color: snow;
-    border: 1px solid gray;
+    border: 1px solid #b8b8b8;
 }
 
 .imageContainer3{
@@ -38,7 +38,7 @@
     width: 10rem;
     border-radius: 0.5rem;
     background-color:#fff;
-    border: 1px solid rgb(2, 116, 200);
+    border: 1px solid gray;
 }
 
 .nameContainer1{
@@ -141,3 +141,13 @@
         margin-top: 2rem;
     }
 }
+
+/* *Copyright © 2024 WebCraft - All Rights Reserved*
+        *Administartive Office Facility Reservation and Management System*
+        *IT 132 - Software Engineering *
+        *(WebCraft) Members:
+            Falcatan, Khriz Marr
+            Gabotero, Rogie
+            Taborada, John Mark
+            Tingkasan, Padwa 
+            Villares, Arp-J* */

@@ -26,17 +26,16 @@ body{
 }
 
 .logoContainer{
-    /* outline: red dashed 1px; */
-    height: 5rem;
+    height: 4rem;
     display: flex;
     justify-content: right;
     align-items: center;
+    margin: 0.3rem 0.5rem 0 0;
 }
 
 .subLogoContainer{
     height: 100%;
-    width: 5rem;
-    /* outline: red dashed 1px; */
+    width: 4rem;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -76,7 +75,7 @@ body{
     border-radius: 0.5rem;
     background-color: #fff;
     padding: 12px 12px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.7);
+    border: 1px solid #888;
 }
 
 .logIntextContainer{
@@ -232,7 +231,7 @@ body{
 }
 
 .forgot:hover{
-    color: rgb(21, 3, 189);
+    color: rgb(2, 116, 200);
 }
 
 .forgot:active{
@@ -493,3 +492,13 @@ body{
 .change .line-3 {
     transform: rotate(45deg) translate(-5px, -6px);
 }
+
+/* *Copyright © 2024 WebCraft - All Rights Reserved*
+        *Administartive Office Facility Reservation and Management System*
+        *IT 132 - Software Engineering *
+        *(WebCraft) Members:
+            Falcatan, Khriz Marr
+            Gabotero, Rogie
+            Taborada, John Mark
+            Tingkasan, Padwa 
+            Villares, Arp-J* */

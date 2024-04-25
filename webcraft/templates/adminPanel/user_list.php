@@ -1,18 +1,25 @@
 <?php
  include_once "../../functions/header.php";
 
-    $sql = "SELECT * FROM users WHERE role = 'user'";
-    $result = $conn->query($sql);
+$success_message = isset($_GET['success_message']) ? $_GET['success_message'] : '';
+$error_message = isset($_GET['error_message']) ? $_GET['error_message'] : '';
 
-    if ($result->num_rows > 0) {
-        $users = array();
-
-        while ($row = $result->fetch_assoc()) {
-            $users[] = $row;
-        }
-    } else {
-        $users = array();
-    }
+ $sql = "SELECT * FROM users WHERE role = ?";
+ $stmt = $conn->prepare($sql);
+ $role = "user"; 
+ $stmt->bind_param("s", $role);
+ 
+ $stmt->execute();
+ $result = $stmt->get_result();
+ if ($result->num_rows > 0) {
+     $users = array();
+ 
+     while ($row = $result->fetch_assoc()) {
+         $users[] = $row;
+     }
+ } else {
+     $users = array(); 
+ }
 ?>
 
 <!DOCTYPE html>
@@ -20,7 +27,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <link rel="icon" type="image/png" href="../../assets/img/medLogo.png">
+    <title>MedEquip Tracker</title>
 
     <link rel="stylesheet" href="../../assets/css/inventory.css">
     <link rel="stylesheet" href="../../assets/css/index.css">
@@ -43,7 +51,7 @@
         <div class="sideBarContainer3">
             <div class="headerContainer1">
                 <div class="iconContainer10">
-                    <a href="notification.php?id=<?php echo $userID; ?>">
+                    <a href="notification.php?id=<?php echo urlencode($userID); ?>">
                     <div class="subIconContainer10">
                         <img class="subIconContainer10" src="../../assets/img/notif.png" alt="">
                     </div>
@@ -66,14 +74,40 @@
                         <p>USER LIST</p>
                     </div>
 
+                    <div id="messageModal" class="messageModal">
+                        <div class="alertModal">
+                            <div class="alertContent">
+                                <div class="alertIcon">
+                                    <div class="iconBorder" style="<?php echo !empty($success_message) ? 'border: 1px solid rgba(0, 128, 0, 0.69);' : 'border: 1px solid red;'; ?>">
+                                        <?php if (!empty($success_message)): ?>
+                                            <p>&#10004;</p>
+                                        <?php else: ?>
+                                            <p class="errorIcon" style="color: red; margin-top: -0.8rem;">&times;</p> 
+                                        <?php endif; ?>
+                                    </div>
+                                </div>
+                                <div class="alertMsg">
+                                    <?php if (!empty($success_message)): ?>
+                                        <div class="success-message"><?php echo $success_message; ?></div>
+                                    <?php endif; ?>
+                                    <?php if (!empty($error_message)): ?>
+                                        <div class="error-message"><?php echo $error_message; ?></div>
+                                    <?php endif; ?>
+                                </div>
+                                <div class="alertBtn1">
+                                    <button class="closebtn">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="subFilterContainer1">
                         <div class="searchContainer1">
                             <input class="searchBar1" type="text" name="" id="" placeholder="Search...">
                         </div>
 
                         <div class="trackContainer">
-                        <button class="trackButton1">Sort <img src="../../assets/img/sort.png" alt="" style="margin-left: 0.5rem; width: 1.4rem; height: 1.2rem;"></button>
-                            <button  class="trackButton1" id="btn2" >Add user <span class="plusIcon">+</span></button>
+                            <button  class="trackButton1" id="btn2" style="width: 7rem; font-size: 0.9rem;">Add user <span class="plusIcon">+</span></button>
                         </div>
                     </div>
                 </div>
@@ -82,31 +116,37 @@
                     <div class="subUserListContainer">
                         <?php foreach ($users as $user): ?>
                         <div class="userContainer4">
-                            <div class="subUserContainer1" >
-                                <div class="imageContainer4">
-                                    <div class="subImageContainer4">
-                                    <?php if (!empty($user['profile_img'])): ?>
-                                        <img class="image4" src="../../uploads/<?php echo $user['profile_img']; ?>" alt="">
-                                    <?php else: ?>
-                                        <img class="image4" src="../../assets/img/pp_placeholder.png" >
-                                    <?php endif; ?>
+                            <div class="userContainer5">
+                                <div class="subUserContainer1" >
+                                    <div class="imageContainer4">
+                                        <div class="subImageContainer4">
+                                        <?php if (!empty($user['profile_img'])): ?>
+                                            <img class="image4" src="../../uploads/<?php echo $user['profile_img']; ?>" alt="">
+                                        <?php else: ?>
+                                            <img class="image4" src="../../assets/img/pp_placeholder.png" >
+                                        <?php endif; ?>
+                                        </div>
+                                    </div>
+        
+                                    <div class="userNameContainer">
+                                        <p><?php echo $user['first_name']; ?> <?php echo $user['middle_initial']; ?> <?php echo $user['last_name']; ?></p>
                                     </div>
                                 </div>
-    
-                                <div class="userNameContainer">
-                                    <p><?php echo $user['first_name']; ?> <?php echo $user['middle_initial']; ?> <?php echo $user['last_name']; ?></p>
-                                </div>
-                            </div>
 
-                            <div class="viewButtonContainer">
-                                <a href="../adminPanel/user_profile.php?id=<?php echo $userID; ?>&user_ID=<?php echo $user['user_ID']; ?>">
-                                <button class="viewButton">View details</button>
-                                </a>
+                                <div class="viewButtonContainer">
+                                    <a href="../adminPanel/user_profile.php?id=<?php echo urlencode($userID); ?>&user_ID=<?php echo urlencode($user['user_ID']); ?>">
+                                        <button class="viewButton">View details</button>
+                                    </a>
+                                </div>
                             </div>
                         </div>
                         <?php endforeach; ?>
-                    </div>
 
+                        <div class="noResultsFound" style="display: none;">
+                            <p>No results found</p>
+                        </div>
+                    </div>
+                    
                 </div>
             </div>  
         </div>
@@ -129,30 +169,41 @@
         }
 
         document.getElementById('btn2').addEventListener('click', loadEditContent);
+    </script>        
+
+    <script>
+        window.onload = function() {
+            var modal = document.getElementById("messageModal");
+            var button = document.getElementsByClassName("closebtn")[0];
+
+            button.onclick = function() {
+                modal.style.display = "none";
+            }
+
+            window.onclick = function(event) {
+                if (event.target == modal) {
+                    modal.style.display = "none";
+                }
+            }
+
+            <?php if (!empty($success_message) || !empty($error_message)): ?>
+                modal.style.display = "block";
+            <?php endif; ?>
+        }
     </script>
 
-    <script> 
-        function openModal() {
-            var sweetalert = document.getElementById("sweetalert");
-            sweetalert.style.display = "block";
-            setTimeout(function() {
-                sweetalert.style.opacity = 1;
-            }, 10);
-        }
-
-        function closeModal() {
-            var sweetalert = document.getElementById("sweetalert");
-            sweetalert.style.opacity = 0;
-            setTimeout(function() {
-                sweetalert.style.display = "none";
-            }, 300);
-        }
-    </script>
-
-    
-    <script src="../../assets/js/password_checker.js"></script>
     <script src="../../assets/js/userList.js"></script>
     <script src="../../assets/js/sidebar.js"></script>
 
 </body>
 </html>
+
+<!-- *Copyright  © 2024 WebCraft - All Rights Reserved*
+    *Administartive Office Facility Reservation and Management System*
+    *IT 132 - Software Engineering *
+    *(WebCraft) Members:
+        Falcatan, Khriz Marr
+        Gabotero, Rogie
+        Taborada, John Mark
+        Tingkasan, Padwa 
+        Villares, Arp-J* -->

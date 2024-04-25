@@ -50,7 +50,7 @@ $offset = ($currentPage - 1) * $recordsPerPage;
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/png" href="../../assets/img/webcraftLogo.png">
+    <link rel="icon" type="image/png" href="../../assets/img/medLogo.png">
     <title>MedEquip Tracker</title>
 
     <link rel="stylesheet" href="../../assets/css/index.css">
@@ -110,17 +110,18 @@ $offset = ($currentPage - 1) * $recordsPerPage;
                         </div>
 
                         <div class="trackContainer">
-                        <button class="trackButton1">Next</button>
-                          
+                            <a href="../adminPanel/equip_other_info.php?id=<?php echo urlencode($userID); ?>&equipment_ID=<?php echo urlencode($equipment_ID); ?>">
+                                <button class="trackButton1">Back</button>
+                            </a>
                         </div>
                     </div>
                 </div>
 
                 <div class="subContainer">
                 <?php
-                    $sql = "SELECT * FROM units WHERE equipment_ID = ? LIMIT ?, ?";
+                    $sql = "SELECT * FROM units WHERE equipment_ID = ?";
                     $stmt_units = $conn->prepare($sql);
-                    $stmt_units->bind_param("sii", $equipment_ID, $offset, $recordsPerPage);
+                    $stmt_units->bind_param("s", $equipment_ID);
                     $stmt_units->execute();
                     $result_units = $stmt_units->get_result();
                     
@@ -166,6 +167,10 @@ $offset = ($currentPage - 1) * $recordsPerPage;
                         echo "</div>";
                     }
                 ?>
+                <div class="noResultsFound" style="display: none;">
+                    <p>No results found</p>
+                </div>
+
                 </div>
             </div>
 
@@ -248,7 +253,45 @@ $offset = ($currentPage - 1) * $recordsPerPage;
     }
     </script>
 
-<script src="../../assets/js/nextPrev.js"></script>
+<script>
+    function filterUnits() {
+        var searchTerm = document.querySelector(".searchBar1").value.trim().toLowerCase();
+        var units = document.querySelectorAll(".equipContainer");
+        var noResultsMessage = document.querySelector(".noResultsFound");
+        var found = false;
+
+        units.forEach(function(unit) {
+            var equipmentName = unit.querySelector(".subUnitContainer1:nth-child(2) .text").textContent.toLowerCase();
+            var unitID = unit.querySelector(".subUnitContainer1:nth-child(3) .text").textContent.toLowerCase();
+            var user = unit.querySelector(".subUnitContainer1:nth-child(4) .text").textContent.toLowerCase();
+
+            if (equipmentName.includes(searchTerm) || unitID.includes(searchTerm) || user.includes(searchTerm)) {
+                unit.style.display = ""; 
+                found = true;
+            } else {
+                unit.style.display = "none"; 
+            }
+        });
+
+        if (found) {
+            noResultsMessage.style.display = "none";
+        } else {
+            noResultsMessage.style.display = "block";
+        }
+    }
+
+    document.querySelector(".searchBar1").addEventListener("input", filterUnits);
+</script>
 <script src="../../assets/js/sidebar.js"></script>
 </body>
 </html>
+
+<!-- *Copyright  © 2024 WebCraft - All Rights Reserved*
+    *Administartive Office Facility Reservation and Management System*
+    *IT 132 - Software Engineering *
+    *(WebCraft) Members:
+        Falcatan, Khriz Marr
+        Gabotero, Rogie
+        Taborada, John Mark
+        Tingkasan, Padwa 
+        Villares, Arp-J* -->

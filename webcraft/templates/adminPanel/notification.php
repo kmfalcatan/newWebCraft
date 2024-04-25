@@ -9,7 +9,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <link rel="icon" type="image/png" href="../../assets/img/medLogo.png">
+    <title>MedEquip Tracker</title>
 
     <link rel="stylesheet" href="../../assets/css/inventory.css">
     <link rel="stylesheet" href="../../assets/css/index.css">
@@ -42,7 +43,7 @@
         <div class="sideBarContainer3">
             <div class="headerContainer1">
                 <div class="iconContainer10">
-                    <a href="#">
+                    <a href="notification.php?id=<?php echo urlencode($userID); ?>">
                     <div class="subIconContainer10">
                         <img class="subIconContainer10" src="../../assets/img/notif.png" alt="">
                     </div>
@@ -66,13 +67,13 @@
                     </div>
 
                     <div class="subFilterContainer1">
-                        <div class="searchContainer1">
+                        <!-- <div class="searchContainer1">
                             <input class="searchBar1" type="text" name="" id="" placeholder="Search...">
-                        </div>
+                        </div> -->
                     </div>
                 </div>
 
-                <div class="userListContainer" >
+                <div class="tableContainer2" >
                     <div class="notifContainer">
                         <div class="notif-sidebar">
                             <h2>Menu</h2>
@@ -182,12 +183,10 @@
                                                 echo "</div>";
                                                 echo "<div class='notification-actions'>";
                                                 if ($report_issue == 'Lost') {
-                                                    echo "<a href='lost_report.php?id=$userID&report_ID=$reportID'><button class='button4'>View</button></a> ";
+                                                    echo "<a href='lost_report.php?id=" . urlencode($userID) . "&report_ID=" . urlencode($reportID) . "'><button class='button4'>View</button></a> ";
                                                 } elseif ($report_issue == 'For return') {
-                                                    echo "<a href='for_return_report.php?id=$userID&report_ID=$reportID'><button class='button4'>View</button></a> ";
+                                                    echo "<a href='for_return_report.php?id=" . urlencode($userID) . "&report_ID=" . urlencode($reportID) . "'><button class='button4'>View</button></a> ";
                                                 }
-                                            
-                                                echo "<button class='button4' id='red-btn'>Delete</button>";
                                                 echo "</div>";
                                                 echo "</div>";
                                                 echo "</li>";
@@ -204,8 +203,7 @@
                                                 echo "<h3>$firstName $lastName<span class='notif-desc'>$status</span> <span class='notif-time'>$timeAgo</span></h3>";
                                                 echo "</div>";
                                                 echo "<div class='notification-actions'>";
-                                                echo "<a href='unit_replacement.php?id=$userID&replacement_ID=$replacementID'><button class='button4' onclick='toggleFontWeight()'>View</button></a> ";
-                                                echo "<button class='button4' id='red-btn'>Delete</button>";
+                                                echo "<a href='unit_replacement.php?id=" . urlencode($userID) . "&replacement_ID=" . urlencode($replacementID) . "'><button class='button4' onclick='toggleFontWeight()'>View</button></a> ";
                                                 echo "</div>";
                                                 echo "</div>";
                                                 echo "</li>";
@@ -215,6 +213,26 @@
                                 ?>
                             </ul>
                         </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="sweetalert" class="sweetalert" style="display: none;">
+        <div class="alertModal">
+            <div class="alertContent">
+                <div class="alertIcon">
+                    <div class="iconBorder">
+                        <img src="../../assets/img/alert.png" alt="">  
+                    </div>
+                    </div>
+                    <div class="alertMsg">
+                        <h2 class="confirmationMsg">Are you sure you want to delete this notification?</h2>
+                    </div>
+                    <div class="alertBtn" id="alertBtn">
+                        <button class="button4" type="submit" >Yes, I'm sure</button>
+                        <button class="button3" id="btn" type="button" onclick="closeModal()">Cancel</button>
                     </div>
                 </div>
             </div>
@@ -262,5 +280,33 @@
         });
     </script>
 
+    <script> 
+        function openModal() {
+            var sweetalert = document.getElementById("sweetalert");
+            sweetalert.style.display = "block";
+            setTimeout(function() {
+                sweetalert.style.opacity = 1;
+            }, 10);
+        }
+
+        function closeModal() {
+            var sweetalert = document.getElementById("sweetalert");
+            sweetalert.style.opacity = 0;
+            setTimeout(function() {
+                sweetalert.style.display = "none";
+            }, 300);
+        }
+    </script>
+
 </body>
 </html>
+
+<!-- *Copyright  © 2024 WebCraft - All Rights Reserved*
+    *Administartive Office Facility Reservation and Management System*
+    *IT 132 - Software Engineering *
+    *(WebCraft) Members:
+        Falcatan, Khriz Marr
+        Gabotero, Rogie
+        Taborada, John Mark
+        Tingkasan, Padwa 
+        Villares, Arp-J* -->
